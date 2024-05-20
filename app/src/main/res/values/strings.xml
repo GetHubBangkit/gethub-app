@@ -8,4 +8,6 @@
     <string name="login_with_google_desc">Login with Google</string>
     <string name="login_with_linkedin_desc">Login with Linkedin</string>
     <string name="dont_have_an_account">Belum punya akun?</string>
+    <string name="have_an_account">Sudah punya akun?</string>
+    <string name="register">Daftar</string>
 </resources>
