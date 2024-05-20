@@ -1,4 +1,4 @@
-package com.notsatria.gethub
+package com.bangkit.gethub
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge

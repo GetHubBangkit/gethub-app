@@ -1,14 +1,16 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    id("kotlin-parcelize")
+    id("com.google.devtools.ksp")
 }
 
 android {
-    namespace = "com.notsatria.gethub"
+    namespace = "com.bangkit.gethub"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.notsatria.gethub"
+        applicationId = "com.bangkit.gethub"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -33,6 +35,23 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    buildFeatures {
+        viewBinding = true
+        buildConfig = true
+    }
+    buildTypes {
+        release {
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+            buildConfigField("String", "BASE_URL", "\"https://gethub-api-kot54pmj3q-et.a.run.app/api/\"")
+        }
+        debug {
+            buildConfigField("String", "BASE_URL", "\"https://gethub-api-kot54pmj3q-et.a.run.app/api/\"")
+        }
+    }
 }
 
 dependencies {
@@ -45,4 +64,41 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    // Navigation
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
+
+    // Live Data
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+
+    // view pager
+    implementation(libs.androidx.viewpager2)
+
+    // glide
+    implementation(libs.glide)
+    ksp(libs.glide.ksp)
+
+
+    // chart
+    implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
+    implementation ("com.google.zxing:core:3.4.1")
+
+    // groupie
+    implementation(libs.groupie)
+    implementation(libs.groupie.viewmodel)
+    implementation(libs.groupie.kotlin.android.extensions)
+
+    // retrofit
+    implementation(libs.retrofit)
+    implementation(libs.retrofit2.converter.gson)
+    implementation(libs.logging.interceptor)
+    debugImplementation(libs.library)
+    releaseImplementation(libs.library.no.op)
+
+    //datastore
+    implementation(libs.androidx.datastore.preferences)
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
 }

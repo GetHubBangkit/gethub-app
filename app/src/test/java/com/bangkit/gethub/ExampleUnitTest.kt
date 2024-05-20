@@ -1,4 +1,4 @@
-package com.notsatria.gethub
+package com.bangkit.gethub
 
 import org.junit.Test
 
