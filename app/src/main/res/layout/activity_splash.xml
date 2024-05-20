@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.splash.SplashActivity">
+
+    <LinearLayout
+        android:id="@+id/llGethubLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/gethub_logo" />
+
+        <TextView
+            style="@style/Poppins.Black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="Get"
+            android:textColor="@color/black"
+            android:textSize="56sp" />
+
+        <TextView
+            style="@style/Poppins.Black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hub"
+            android:textColor="@color/md_theme_primary"
+            android:textSize="56sp" />
+
+    </LinearLayout>
+
+    <TextView
+        style="@style/Nunito.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_tagline"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@id/llGethubLogo"
+        app:layout_constraintStart_toStartOf="@id/llGethubLogo"
+        app:layout_constraintTop_toBottomOf="@id/llGethubLogo" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
