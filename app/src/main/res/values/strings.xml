@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">GetHub</string>
     <string name="app_tagline">Your Gateway to Freelance Success</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="forgot_password">Lupa password?</string>
+    <string name="login">Masuk</string>
+    <string name="login_with_google_desc">Login with Google</string>
+    <string name="login_with_linkedin_desc">Login with Linkedin</string>
+    <string name="dont_have_an_account">Belum punya akun?</string>
 </resources>
