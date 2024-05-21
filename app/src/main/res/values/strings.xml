@@ -26,4 +26,6 @@
     <string name="address_field_couldn_be_empty">Alamat tidak boleh kosong</string>
     <string name="login_success">Login berhasil</string>
     <string name="image_succesfully_uploaded">Gambar berhasil diunggah</string>
+    <string name="heading_one">Simpan Kartu Bisnis\nDan Share Usaha Anda</string>
+    <string name="heading_two">Beri Pekerjaan Dan Bidding\nProject yang Cocok</string>
 </resources>
