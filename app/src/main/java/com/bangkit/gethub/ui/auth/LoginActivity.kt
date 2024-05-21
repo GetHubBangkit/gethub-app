@@ -3,6 +3,7 @@ package com.bangkit.gethub.ui.auth
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -13,12 +14,16 @@ import androidx.core.widget.doOnTextChanged
 import com.bangkit.gethub.R
 import com.bangkit.gethub.data.Result
 import com.bangkit.gethub.databinding.ActivityLoginBinding
+import com.bangkit.gethub.ui.completeprofile.CompleteProfileValidationActivity
 import com.bangkit.gethub.utils.ViewModelFactory
 
 class LoginActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityLoginBinding.inflate(layoutInflater) }
     private val loginViewModel: LoginViewModel by viewModels { ViewModelFactory.getInstance(this) }
+
+    private lateinit var edEmail: EditText
+    private lateinit var edPassword: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,33 +34,49 @@ class LoginActivity : AppCompatActivity() {
 
     private fun setupView() {
         with(binding) {
+            edEmail = emailTextField.editText!!
+            edPassword = passwordTextField.editText!!
+
+            loginViewModel.getUserEmail().observe(this@LoginActivity) { email ->
+                if (email != null) {
+                    edEmail.setText(email)
+                }
+            }
+
             btnToRegister.setOnClickListener {
                 startActivity(Intent(this@LoginActivity, RegisterActivity::class.java))
             }
 
-            emailTextField.editText?.doOnTextChanged { text, _, _, _ ->
+            edEmail.doOnTextChanged { text, _, _, _ ->
                 if (text!!.isEmpty()) {
-                    emailTextField.editText?.error = getString(R.string.field_couldnt_be_empty)
+                    edEmail.error = getString(R.string.field_couldnt_be_empty)
                 } else if (!text.contains("@")) {
-                    emailTextField.editText?.error = getString(R.string.please_input_a_valid_email)
+                    edEmail.error = getString(R.string.please_input_a_valid_email)
                 } else {
-                    emailTextField.editText?.error = null
+                    edEmail.error = null
                 }
             }
 
-            passwordTextField.editText?.doOnTextChanged { text, _, _, _ ->
+            edPassword.doOnTextChanged { text, _, _, _ ->
                 if (text!!.isEmpty()) {
-                    passwordTextField.editText?.error = getString(R.string.field_couldnt_be_empty)
+                    edPassword.error = getString(R.string.field_couldnt_be_empty)
                 } else if (text.length < 8) {
-                    passwordTextField.editText?.error =
+                    edPassword.error =
                         getString(R.string.password_should_not_less_than_8)
                 } else {
-                    passwordTextField.editText?.error = null
+                    edPassword.error = null
                 }
             }
 
             btnLogin.setOnClickListener {
+                val email = edEmail.text.toString()
+                val password = edPassword.text.toString()
 
+                if (email.isEmpty() || password.isEmpty()) {
+                    showToast(getString(R.string.field_couldnt_be_empty))
+                    return@setOnClickListener
+                }
+                login(email, password)
             }
 
         }
@@ -70,11 +91,17 @@ class LoginActivity : AppCompatActivity() {
                         val user = result.data.user
                         showLoading(false)
                         if (user?.isCompleteProfile == null || user.isCompleteProfile == false) {
-                            // Go to complete profile activity
+                            val intent = Intent(
+                                this@LoginActivity,
+                                CompleteProfileValidationActivity::class.java
+                            )
+                                .putExtra(CompleteProfileValidationActivity.EXTRA_USER, result.data)
+                            startActivity(intent)
+                            finish()
                         } else {
                             // go to main activity
                         }
-                        showToast("Login berhasil")
+                        showToast(getString(R.string.login_success))
                     }
 
                     is Result.Error -> {

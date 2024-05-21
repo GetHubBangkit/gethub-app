@@ -15,4 +15,15 @@
     <string name="password_should_not_less_than_8">Password tidak kurang dari 8 karakter</string>
     <string name="feature_still_on_development">Fitur dalam tahap pengembangan</string>
     <string name="something_went_wrong">Terjadi kesalahan</string>
+    <string name="image_unavailable">Gambar tidak tersedia</string>
+    <string name="take_picture">Ambil Foto</string>
+    <string name="choose_form_gallery">Pilih dari Galeri</string>
+    <string name="cancel">Batal</string>
+    <string name="name_field_couldn_be_empty">Nama tidak boleh kosong</string>
+    <string name="profession_field_couldn_be_empty">Profesi tidak boleh kosong</string>
+    <string name="website_field_couldn_be_empty">Website tidak boleh kosong</string>
+    <string name="phone_field_couldn_be_empty">Phone tidak boleh kosong</string>
+    <string name="address_field_couldn_be_empty">Alamat tidak boleh kosong</string>
+    <string name="login_success">Login berhasil</string>
+    <string name="image_succesfully_uploaded">Gambar berhasil diunggah</string>
 </resources>
