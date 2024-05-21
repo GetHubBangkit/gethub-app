@@ -9,6 +9,7 @@ import okhttp3.MultipartBody
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
+import retrofit2.http.Headers
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.PUT
@@ -51,6 +52,7 @@ interface ApiService {
 
     // Upload File
     @Multipart
+    @Headers("Accept: application/json")
     @POST("upload-file")
     suspend fun uploadFile(
         @Part file: MultipartBody.Part

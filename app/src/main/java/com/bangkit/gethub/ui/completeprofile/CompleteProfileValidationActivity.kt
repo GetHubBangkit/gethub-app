@@ -31,6 +31,10 @@ class CompleteProfileValidationActivity : AppCompatActivity() {
     private fun setupView() {
         showSnackBar("Selamat Datang, ${loginResponse?.user?.username}")
 
+        if (loginResponse?.user?.isCompleteProfile == true) {
+            // navigate to Main Activity
+        }
+
         with(binding) {
             ivScan.setOnClickListener {
                 showToast(getString(R.string.feature_still_on_development))

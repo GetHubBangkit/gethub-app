@@ -18,6 +18,8 @@ import com.bangkit.gethub.data.Result
 import com.bangkit.gethub.data.remote.params.UpdateUserProfileParams
 import com.bangkit.gethub.databinding.ActivityCompleteProfileBinding
 import com.bangkit.gethub.utils.ViewModelFactory
+import com.bangkit.gethub.utils.uriToFile
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class CompleteProfileActivity : AppCompatActivity() {
 
@@ -32,6 +34,7 @@ class CompleteProfileActivity : AppCompatActivity() {
         )
     }
     private var currentImageUri: Uri? = null
+    private var imageUrl: String? = null
 
     private lateinit var edFullname: EditText
     private lateinit var edProfession: EditText
@@ -124,32 +127,42 @@ class CompleteProfileActivity : AppCompatActivity() {
 
             edFullname.doOnTextChanged { text, _, _, _ ->
                 if (text.toString().isEmpty()) {
-                    nameTextField.error = getString(R.string.name_field_couldn_be_empty)
+                    edFullname.error = getString(R.string.name_field_couldn_be_empty)
+                } else {
+                    edFullname.error = null
                 }
             }
 
             edProfession.doOnTextChanged { text, _, _, _ ->
                 if (text.toString().isEmpty()) {
-                    profesiTextField.error =
+                    edProfession.error =
                         getString(R.string.profession_field_couldn_be_empty)
+                } else {
+                    edProfession.error = null
                 }
             }
 
             edWebsite.doOnTextChanged { text, _, _, _ ->
                 if (text.toString().isEmpty()) {
-                    websiteTextField.error = getString(R.string.website_field_couldn_be_empty)
+                    edWebsite.error = getString(R.string.website_field_couldn_be_empty)
+                } else {
+                    edWebsite.error = null
                 }
             }
 
             edPhone.doOnTextChanged { text, _, _, _ ->
                 if (text.toString().isEmpty()) {
-                    phoneTextField.error = getString(R.string.phone_field_couldn_be_empty)
+                    edPhone.error = getString(R.string.phone_field_couldn_be_empty)
+                } else {
+                    edPhone.error = null
                 }
             }
 
             edAddress.doOnTextChanged { text, _, _, _ ->
                 if (text.toString().isEmpty()) {
-                    alamatTextField.error = getString(R.string.address_field_couldn_be_empty)
+                    edAddress.error = getString(R.string.address_field_couldn_be_empty)
+                } else {
+                    edAddress.error = null
                 }
             }
         }
@@ -204,37 +217,72 @@ class CompleteProfileActivity : AppCompatActivity() {
                 if (result.data?.data != null) {
                     currentImageUri = result.data?.data
                     showImage()
-//                    uploadProfilePicture()
+                    uploadProfilePicture()
                 } else {
                     showToast(getString(R.string.image_unavailable))
                 }
             }
         }
 
+    private fun uploadProfilePicture() {
+        if (currentImageUri != null) {
+            currentImageUri?.let { uri ->
+                val imagefile = uriToFile(uri, this)
+                completeProfileViewModel.uploadProfilePhoto(imagefile)
+                    .observe(this@CompleteProfileActivity) { result ->
+                        if (result != null) {
+                            when (result) {
+                                is Result.Loading -> showLoading(true)
+                                is Result.Success -> {
+                                    showLoading(false)
+                                    showToast(getString(R.string.image_succesfully_uploaded))
+                                    imageUrl = result.data.data
+                                }
+                                is Result.Error -> {
+                                    showLoading(false)
+                                    showToast(result.error)
+                                }
+                                else -> {
+                                    showLoading(false)
+                                    showToast(getString(R.string.something_went_wrong))
+                                }
+                            }
+                        }
+                    }
+            }
+        }
+    }
+
+
     private fun selectImage() {
         val options = arrayOf<CharSequence>(
             getString(R.string.take_picture),
-            getString(R.string.choose_form_gallery), getString(R.string.cancel)
+            getString(R.string.choose_form_gallery)
         )
-        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
-        builder.setTitle("Pilih Foto")
-        builder.setItems(options) { dialog, item ->
-            when {
-                options[item] == getString(R.string.take_picture) -> {
-                    val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                    takePicture.launch(takePictureIntent)
-                }
 
-                options[item] == getString(R.string.choose_form_gallery) -> {
-                    val pickPhotoIntent =
-                        Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-                    pickImage.launch(pickPhotoIntent)
-                }
+        val materialDialog = MaterialAlertDialogBuilder(this)
+            .setTitle("Pilih Foto")
+            .setItems(options) { dialog, item ->
+                when {
+                    options[item] == getString(R.string.take_picture) -> {
+                        val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                        takePicture.launch(takePictureIntent)
+                    }
 
-                options[item] == getString(R.string.cancel) -> dialog.dismiss()
+                    options[item] == getString(R.string.choose_form_gallery) -> {
+                        val pickPhotoIntent =
+                            Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+                        pickImage.launch(pickPhotoIntent)
+                    }
+
+                }
             }
-        }
-        builder.show()
+            .setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .create()
+
+        materialDialog.show()
     }
 
     private fun showImage() {

@@ -76,7 +76,7 @@ class CompleteProfileViewModel(private val profileRepository: ProfileRepository)
         viewModelScope.launch {
             val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
             val multipartBody = MultipartBody.Part.createFormData(
-                "photo",
+                "file",
                 imageFile.name,
                 requestImageFile
             )

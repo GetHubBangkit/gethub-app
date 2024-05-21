@@ -17,6 +17,7 @@ class UserPreferences private constructor(private val dataStore: DataStore<Prefe
     private val TOKEN_KEY = stringPreferencesKey("token")
     private val QR_CODE_KEY = stringPreferencesKey("qr_code")
     private val IS_LOGGED_IN_KEY = booleanPreferencesKey("is_logged_in")
+    private val USER_EMAIL_KEY = stringPreferencesKey("user_email")
 
     fun getToken(): Flow<String> {
         return dataStore.data.map { pref ->
@@ -51,6 +52,18 @@ class UserPreferences private constructor(private val dataStore: DataStore<Prefe
     suspend fun saveUserQRCode(qrContent: String) {
         dataStore.edit { pref ->
             pref[QR_CODE_KEY] = qrContent
+        }
+    }
+
+    fun getUserEmail(): Flow<String> {
+        return dataStore.data.map { pref ->
+            pref[USER_EMAIL_KEY] ?: ""
+        }
+    }
+
+    suspend fun saveUserEmail(email: String) {
+        dataStore.edit { pref ->
+            pref[USER_EMAIL_KEY] = email
         }
     }
 

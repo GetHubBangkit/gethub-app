@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.bangkit.gethub.data.Result
 import com.bangkit.gethub.data.preferences.UserPreferences
@@ -14,7 +15,10 @@ import com.google.gson.Gson
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
-class LoginViewModel(private val authRepository: AuthRepository, private val userPreferences: UserPreferences) : ViewModel() {
+class LoginViewModel(
+    private val authRepository: AuthRepository,
+    private val userPreferences: UserPreferences
+) : ViewModel() {
     private val result = MediatorLiveData<Result<LoginResponse>>()
 
     fun login(email: String, password: String): LiveData<Result<LoginResponse>> {
@@ -31,6 +35,7 @@ class LoginViewModel(private val authRepository: AuthRepository, private val use
                         saveUserLoginStatus(true)
                         saveToken(user?.token!!)
                         saveUserQRCode(user.qrCode.toString())
+                        saveUserEmail(user?.email.toString())
                     }
                 }
             } catch (e: HttpException) {
@@ -44,6 +49,10 @@ class LoginViewModel(private val authRepository: AuthRepository, private val use
             }
         }
         return result
+    }
+
+    fun getUserEmail(): LiveData<String> {
+        return userPreferences.getUserEmail().asLiveData()
     }
 
     companion object {
