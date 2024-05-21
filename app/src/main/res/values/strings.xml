@@ -26,6 +26,8 @@
     <string name="address_field_couldn_be_empty">Alamat tidak boleh kosong</string>
     <string name="login_success">Login berhasil</string>
     <string name="image_succesfully_uploaded">Gambar berhasil diunggah</string>
-    <string name="heading_one">Simpan Kartu Bisnis\nDan Share Usaha Anda</string>
-    <string name="heading_two">Beri Pekerjaan Dan Bidding\nProject yang Cocok</string>
+    <string name="onboarding_heading_one">Simpan Kartu Bisnis\nDan Share Usaha Anda</string>
+    <string name="onboarding_heading_two">Beri Pekerjaan Dan Bidding\nProject yang Cocok</string>
+    <string name="onboarding_desc_one">Scan Dan Simpan Kartu Bisnis Rekan Anda Lalu Buat Kartu Bisnis Dan Profil Website Anda Gratis! Sebarkan Kartu dan Profil Bisnis Anda Sekarang!</string>
+    <string name="onboarding_desc_two">Tawarkan Pekerjaan dan Temukan Penawaran yang Pas! Pilih Penawar yang Cocok dengan Kebutuhan Anda! Temukan Kemudahan Dalam Setiap Langkah</string>
 </resources>
