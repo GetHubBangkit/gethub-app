@@ -54,7 +54,7 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="24dp"
         android:text="@string/email"
-        android:textColor="@color/md_theme_primary"
+        android:textColor="@color/md_theme_primary_highContrast"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvSocialCommunityApplication" />
 
@@ -68,8 +68,8 @@
         android:minHeight="54dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvEmail"
         app:startIconDrawable="@drawable/ic_email"
+        app:layout_constraintTop_toBottomOf="@id/tvEmail"
         app:startIconTint="@color/md_theme_primary">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -86,7 +86,7 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="11dp"
         android:text="@string/password"
-        android:textColor="@color/md_theme_primary"
+        android:textColor="@color/md_theme_primary_highContrast"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emailTextField" />
 
