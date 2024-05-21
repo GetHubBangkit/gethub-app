@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.completeprofile.CompleteProfileValidationActivity">
+
+
+    <ImageView
+        android:id="@+id/frame"
+        android:layout_width="match_parent"
+        android:layout_height="97dp"
+        android:src="@drawable/rectangle_profile_validation"
+        app:layout_constraintDimensionRatio="H,3:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/LengkapiDataDiri"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Lengkapi Data Diri"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:fontFamily="@font/poppins_semibold"
+        app:layout_constraintBottom_toBottomOf="@+id/frame"
+        app:layout_constraintEnd_toEndOf="@+id/frame"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="@+id/frame"
+        app:layout_constraintTop_toTopOf="@+id/frame"
+        app:layout_constraintVertical_bias="0.238" />
+
+    <ImageView
+        android:id="@+id/frame2"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="68dp"
+        android:src="@drawable/frame_profile_validation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/frame3"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="76dp"
+        android:src="@drawable/rectangle_profile_validation_white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvDescriptionProfileValidation"
+        style="@style/Nunito"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="20dp"
+        android:text="Mulai dengan memindai kartu bisnis Kamu, jika sudah dimiliki, atau isi data diri manual untuk membuat kartu bisnis, web usaha, dan memulai proses bidding pekerjaan. "
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.488"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.202" />
+
+    <ImageView
+        android:id="@+id/ivScan"
+        android:layout_width="156dp"
+        android:layout_height="167dp"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/img_scan_profile_validation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.133"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvDescriptionProfileValidation" />
+
+    <ImageView
+        android:id="@+id/ivManual"
+        android:layout_width="156dp"
+        android:layout_height="167dp"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/img_manual_profile_validation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.874"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvDescriptionProfileValidation" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

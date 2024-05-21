@@ -16,6 +16,12 @@
         android:theme="@style/Theme.GetHub"
         tools:targetApi="31">
         <activity
+            android:name=".ui.completeprofile.CompleteProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.completeprofile.CompleteProfileValidationActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.auth.RegisterActivity"
             android:exported="false" />
         <activity
