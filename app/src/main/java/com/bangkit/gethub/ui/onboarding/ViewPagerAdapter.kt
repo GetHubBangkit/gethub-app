@@ -17,8 +17,8 @@ class ViewPagerAdapter(var context: Context) : PagerAdapter() {
         R.drawable.onboarding2
     )
     var headings = intArrayOf(
-        R.string.heading_one,
-        R.string.heading_two
+        R.string.onboarding_heading_one,
+        R.string.onboarding_heading_two
 
     )
 
