@@ -204,14 +204,6 @@
         <item name="hintEnabled">false</item>
     </style>
 
-    <style name="SimpanButton" parent="Widget.Material3.Button">
-        <item name="android:fontFamily">@font/poppins_bold</item>
-        <item name="android:textSize">16sp</item>
-        <item name="android:height">56dp</item>
-        <item name="android:backgroundTint">@color/md_theme_primary</item>
-        <item name="cornerRadius">10dp</item>
-    </style>
-
     <style name="CustomButton" parent="Widget.Material3.Button">
         <item name="android:fontFamily">@font/poppins_bold</item>
         <item name="android:textSize">16sp</item>
