@@ -3,10 +3,7 @@ package com.bangkit.gethub.ui.completeprofile
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.bangkit.gethub.R
 import com.bangkit.gethub.data.remote.response.auth.LoginResponse
 import com.bangkit.gethub.databinding.ActivityCompleteProfileValidationBinding
