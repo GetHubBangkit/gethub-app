@@ -10,4 +10,8 @@
     <string name="dont_have_an_account">Belum punya akun?</string>
     <string name="have_an_account">Sudah punya akun?</string>
     <string name="register">Daftar</string>
+    <string name="field_couldnt_be_empty">Field tidak boleh kosong</string>
+    <string name="please_input_a_valid_email">Masukkan email yang valid</string>
+    <string name="password_should_not_less_than_8">Password tidak kurang dari 8 karakter</string>
+    <string name="feature_still_on_development">Fitur dalam tahap pengembangan</string>
 </resources>
