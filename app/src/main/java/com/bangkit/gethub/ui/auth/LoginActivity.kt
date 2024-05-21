@@ -13,6 +13,7 @@ import androidx.core.widget.doOnTextChanged
 import com.bangkit.gethub.R
 import com.bangkit.gethub.data.Result
 import com.bangkit.gethub.databinding.ActivityLoginBinding
+import com.bangkit.gethub.ui.completeprofile.CompleteProfileValidationActivity
 import com.bangkit.gethub.utils.ViewModelFactory
 
 class LoginActivity : AppCompatActivity() {
@@ -70,7 +71,13 @@ class LoginActivity : AppCompatActivity() {
                         val user = result.data.user
                         showLoading(false)
                         if (user?.isCompleteProfile == null || user.isCompleteProfile == false) {
-                            // Go to complete profile activity
+                            val intent = Intent(
+                                this@LoginActivity,
+                                CompleteProfileValidationActivity::class.java
+                            )
+                                .putExtra(CompleteProfileValidationActivity.EXTRA_USER, result.data)
+                            startActivity(intent)
+                            finish()
                         } else {
                             // go to main activity
                         }
