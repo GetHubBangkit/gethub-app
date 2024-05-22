@@ -144,4 +144,8 @@
     <color name="md_theme_surfaceContainer_highContrast">#E9EFF1</color>
     <color name="md_theme_surfaceContainerHigh_highContrast">#E4E9EB</color>
     <color name="md_theme_surfaceContainerHighest_highContrast">#DEE3E6</color>
+
+    <!--    //indicator color-->
+    <color name="inactive">#C4C4C4</color>
+    <color name="active">#50C2C9</color>
 </resources>

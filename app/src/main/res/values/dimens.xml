@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="icon_size">24</dimen>
+
+    <dimen name="dot_width">20dp</dimen>
+    <dimen name="dot_margin">1dp</dimen>
 </resources>
