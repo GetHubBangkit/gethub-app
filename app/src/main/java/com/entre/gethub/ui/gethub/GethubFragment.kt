@@ -188,12 +188,7 @@ class GethubFragment : Fragment() {
         binding.ivShare.setOnClickListener {
             shareCard()
         }
-        binding.lihatsemua.setOnClickListener {
-            startActivity(Intent(requireContext(), GethubPartnerListActivity::class.java))
-        }
-        binding.plus.setOnClickListener {
-            startActivity(Intent(requireContext(), GethubPartnerAddActivity::class.java))
-        }
+
     }
 
     private fun generateQRCode(content: String) {

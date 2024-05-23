@@ -4,18 +4,25 @@ import android.content.ContentValues
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
+import android.widget.ImageView
 import androidx.core.content.FileProvider
 import com.entre.gethub.BuildConfig
+import com.google.zxing.BarcodeFormat
+import com.google.zxing.EncodeHintType
+import com.google.zxing.MultiFormatWriter
+import com.google.zxing.WriterException
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
 import java.text.SimpleDateFormat
 import java.util.Date
+import java.util.EnumMap
 import java.util.Locale
 
 private const val MAXIMAL_SIZE = 1000000
@@ -84,4 +91,33 @@ fun File.reduceFileImage(): File {
     bitmap?.compress(Bitmap.CompressFormat.JPEG, compressQuality, FileOutputStream(file))
 
     return file
+}
+
+fun generateQR(qrCodeImageView: ImageView, qrCodeContent: String) {
+    val hintMap: MutableMap<EncodeHintType, Any> = EnumMap(EncodeHintType::class.java)
+    hintMap[EncodeHintType.MARGIN] = 2
+    try {
+        val bitMatrix = MultiFormatWriter().encode(
+            qrCodeContent,
+            BarcodeFormat.QR_CODE,
+            500,
+            500,
+            hintMap
+        )
+
+        val width = bitMatrix.width
+        val height = bitMatrix.height
+        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565)
+
+        for (x in 0 until width) {
+            for (y in 0 until height) {
+                bitmap.setPixel(x, y, if (bitMatrix[x, y]) Color.BLACK else Color.WHITE)
+            }
+        }
+
+        qrCodeImageView.setImageBitmap(bitmap)
+
+    } catch (e: WriterException) {
+        e.printStackTrace()
+    }
 }

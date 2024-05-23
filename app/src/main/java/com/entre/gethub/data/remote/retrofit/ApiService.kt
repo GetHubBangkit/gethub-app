@@ -2,6 +2,7 @@ package com.entre.gethub.data.remote.retrofit
 
 import com.entre.gethub.data.remote.response.ApiResponse
 import com.entre.gethub.data.remote.response.InformationHubResponse
+import com.entre.gethub.data.remote.response.SponsorResponse
 import com.entre.gethub.data.remote.response.UploadFileResponse
 import com.entre.gethub.data.remote.response.auth.LoginResponse
 import com.entre.gethub.data.remote.response.partners.AddPartnerResponse
@@ -84,5 +85,8 @@ interface ApiService {
     // Get Partner List
     @GET("partners")
     suspend fun getPartnerList(): GetHubPartnerListResponse
-    // Get Partner List
+
+    // Sponsors
+    @GET("sponsors")
+    suspend fun getSponsors(): SponsorResponse
 }
