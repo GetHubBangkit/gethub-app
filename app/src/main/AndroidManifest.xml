@@ -49,6 +49,10 @@
             android:name=".MainActivity"
             android:exported="false"
             android:theme="@style/MainActivityTheme"/>
+        <activity
+            android:name=".ui.home.HomeDetailInformationHubActivity"
+            android:exported="false"
+            android:theme="@style/MainActivityTheme" />
 
         <activity
             android:name=".ui.splash.SplashActivity"
