@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.entre.gethub.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/navigation_project"
+        android:name="com.entre.gethub.ui.project.ProjectFragment"
+        android:label="@string/title_project"
+        tools:layout="@layout/fragment_project" />
+    <fragment
+        android:id="@+id/navigation_gethub"
+        android:name="com.entre.gethub.ui.gethub.GethubFragment"
+        android:label="@string/title_gethub"
+        tools:layout="@layout/fragment_gethub" />
+    <fragment
+        android:id="@+id/navigation_analitic"
+        android:name="com.entre.gethub.ui.analitic.AnaliticFragment"
+        android:label="@string/title_analitic"
+        tools:layout="@layout/fragment_analitic" />
+
+    <fragment
+        android:id="@+id/navigation_akun"
+        android:name="com.entre.gethub.ui.akun.AkunFragment"
+        android:label="@string/title_akun"
+        tools:layout="@layout/fragment_akun" />
+</navigation>
