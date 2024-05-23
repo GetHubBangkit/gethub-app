@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.entre.gethub.data.Result
+import com.entre.gethub.data.remote.response.InformationHubResponse
 import com.entre.gethub.data.repositories.InformationHubRepository
 import kotlinx.coroutines.launch
 
