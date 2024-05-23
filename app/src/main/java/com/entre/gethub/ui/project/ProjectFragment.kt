@@ -45,14 +45,7 @@ class ProjectFragment : Fragment() {
 
         setupRecyclerViewProjectBid()
 
-        with(binding) {
-            fabPostProject.setOnClickListener {
-                navigateToActivity(PostProjectActivity())
-            }
-            ivPostProject.setOnClickListener {
-                navigateToActivity(ProjectStatusActivity())
-            }
-        }
+
 
         return root
     }
