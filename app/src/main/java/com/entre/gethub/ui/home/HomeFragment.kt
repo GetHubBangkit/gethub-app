@@ -130,7 +130,7 @@ class HomeFragment : Fragment() {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             adapter = HomeInformationHubAdapter(emptyList()) { informationhub, position ->
                 val intent = Intent(requireContext(), HomeDetailInformationHubActivity::class.java)
-                val informationHubList = listOf(informationhub)HomeDetailInformationHubActivity
+                val informationHubList = listOf(informationhub)
                 intent.putParcelableArrayListExtra("information_hub", ArrayList(informationHubList))
                 startActivity(intent)
             }
