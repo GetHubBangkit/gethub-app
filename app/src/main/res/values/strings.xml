@@ -1,6 +1,13 @@
 <resources>
     <string name="app_name">GetHub</string>
     <string name="app_tagline">Your Gateway to Freelance Success</string>
+
+    <string name="title_home">Home</string>
+    <string name="title_project">Project</string>
+    <string name="title_gethub">Gethub</string>
+    <string name="title_analitic">Analitic</string>
+    <string name="title_akun">Akun</string>
+
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="forgot_password">Lupa password?</string>
