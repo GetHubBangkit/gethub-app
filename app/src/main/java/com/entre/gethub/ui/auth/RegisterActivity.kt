@@ -16,7 +16,11 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class RegisterActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityRegisterBinding
+    private val binding: ActivityRegisterBinding by lazy {
+        ActivityRegisterBinding.inflate(
+            layoutInflater
+        )
+    }
     private val registerViewModel: RegisterViewModel by viewModels {
         ViewModelFactory.getInstance(
             this
@@ -25,7 +29,6 @@ class RegisterActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setupView()
@@ -84,6 +87,10 @@ class RegisterActivity : AppCompatActivity() {
                 }
                 register(fullname, email, password)
             }
+
+            tvTermsCondition.setOnClickListener {
+
+            }
         }
     }
 
@@ -105,10 +112,12 @@ class RegisterActivity : AppCompatActivity() {
                             passwordTextField.editText?.text?.clear()
                         }
                     }
+
                     is Result.Error -> {
                         showLoading(false)
                         showToast(result.error)
                     }
+
                     else -> {
                         showLoading(false)
                         showToast(getString(R.string.something_went_wrong))
