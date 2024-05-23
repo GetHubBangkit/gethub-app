@@ -220,6 +220,25 @@
         <item name="cornerRadius">10dp</item>
     </style>
 
+    <style name="MasukButton" parent="Widget.Material3.Button">
+        <item name="android:fontFamily">@font/poppins_bold</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:height">60dp</item>
+        <item name="android:width">162dp</item>
+        <item name="android:backgroundTint">@color/colorMasuk</item>
+
+        <item name="cornerRadius">10dp</item>
+    </style>
+
+    <style name="DaftarButton" parent="Widget.Material3.Button">
+        <item name="android:fontFamily">@font/poppins_bold</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:height">60dp</item>
+        <item name="android:width">162dp</item>
+        <item name="android:backgroundTint">@color/white</item>
+        <item name="cornerRadius">10dp</item>
+    </style>
+
     <style name="AuthIconCardButton" parent="Widget.Material3.CardView.Outlined">
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
@@ -288,4 +307,6 @@
         <item name="android:fontFamily">@font/nunito_black</item>
 
     </style>
+
+    <color name="colorMasuk">#1CFFFFFF</color>
 </resources>
