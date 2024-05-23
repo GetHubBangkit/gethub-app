@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".ui.akun.AkunFragment">
+
+
+    <ImageView
+        android:id="@+id/frameakun"
+        android:layout_width="430dp"
+        android:layout_height="218dp"
+        android:src="@drawable/frameakun"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/ivUserProfilePicture"
+        android:layout_width="103dp"
+        android:layout_height="103dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/profilepic1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.168"
+        app:shapeAppearance="@style/circle" />
+
+    <TextView
+        android:id="@+id/tvUserFullname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_bold"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        app:fontFamily="@font/poppins_bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3"
+        tools:text="Danish Rabbani" />
+
+    <TextView
+        android:id="@+id/tvUserProfession"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/nunito_semibold"
+        android:textColor="@android:color/black"
+        android:textSize="14sp"
+        app:fontFamily="@font/nunito"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.332"
+        tools:text="Software Enginer" />
+
+    <ImageView
+        android:id="@+id/frame"
+        android:layout_width="319dp"
+        android:layout_height="62dp"
+        android:src="@drawable/frame1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.436" />
+
+    <ImageView
+        android:id="@+id/topup"
+        android:layout_width="72dp"
+        android:layout_height="31dp"
+        android:src="@drawable/topup"
+        app:layout_constraintBottom_toBottomOf="@+id/frame"
+        app:layout_constraintEnd_toEndOf="@+id/frame"
+        app:layout_constraintHorizontal_bias="0.906"
+        app:layout_constraintStart_toStartOf="@+id/frame"
+        app:layout_constraintTop_toTopOf="@+id/frame"
+        app:layout_constraintVertical_bias="0.387" />
+
+    <TextView
+        android:id="@+id/saldogethub"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/nunito"
+        android:text="Saldo Gethub"
+        android:textColor="@android:color/black"
+        android:textSize="15sp"
+        app:fontFamily="@font/nunito"
+        app:layout_constraintBottom_toBottomOf="@+id/frame"
+        app:layout_constraintEnd_toEndOf="@+id/frame"
+        app:layout_constraintHorizontal_bias="0.074"
+        app:layout_constraintStart_toStartOf="@+id/frame"
+        app:layout_constraintTop_toTopOf="@+id/frame"
+        app:layout_constraintVertical_bias="0.125" />
+
+    <TextView
+        android:id="@+id/saldojumlah"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_bold"
+        android:text="100.000"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        app:fontFamily="@font/poppins_bold"
+        app:layout_constraintBottom_toBottomOf="@+id/frame"
+        app:layout_constraintEnd_toEndOf="@+id/frame"
+        app:layout_constraintHorizontal_bias="0.07"
+        app:layout_constraintStart_toStartOf="@+id/frame"
+        app:layout_constraintTop_toTopOf="@+id/frame"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/expired"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/nunito_semibold"
+        android:text="Expired 20-05-2024"
+        android:textColor="@android:color/black"
+        android:textSize="10sp"
+        app:fontFamily="@font/nunito"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.613"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.372" />
+
+    <ImageView
+        android:id="@+id/premium"
+        android:layout_width="72dp"
+        android:layout_height="19dp"
+        android:src="@drawable/premium"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.306"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.371" />
+
+    <ImageView
+        android:id="@+id/frame2"
+        android:layout_width="319dp"
+        android:layout_height="280dp"
+        android:layout_marginTop="9dp"
+        android:src="@drawable/frame1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frame"
+        app:layout_constraintVertical_bias="0.011" />
+
+    <ImageView
+        android:id="@+id/framesetting4"
+        android:layout_width="301dp"
+        android:layout_height="43dp"
+        android:src="@drawable/framesetting"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/framesetting3"
+        app:layout_constraintVertical_bias="0.052" />
+
+    <TextView
+        android:id="@+id/pusatpengaduan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/nunito_semibold"
+        android:text="Pusat Pengaduan"
+        android:textColor="@android:color/black"
+        android:textSize="14sp"
+        app:fontFamily="@font/nunito_semibold"
+        app:layout_constraintBottom_toBottomOf="@+id/framesetting4"
+        app:layout_constraintEnd_toEndOf="@+id/framesetting4"
+        app:layout_constraintHorizontal_bias="0.095"
+        app:layout_constraintStart_toStartOf="@+id/framesetting4"
+        app:layout_constraintTop_toTopOf="@+id/framesetting4"
+        app:layout_constraintVertical_bias="0.454" />
+
+    <ImageView
+        android:id="@+id/framesetting3"
+        android:layout_width="301dp"
+        android:layout_height="43dp"
+        android:src="@drawable/framesetting"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.509"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/framesetting2"
+        app:layout_constraintVertical_bias="0.031" />
+
+    <ImageView
+        android:id="@+id/framesettingkeluar"
+        android:layout_width="301dp"
+        android:layout_height="43dp"
+        android:src="@drawable/framesetting"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/framesetting4"
+        app:layout_constraintVertical_bias="0.084" />
+
+    <TextView
+        android:id="@+id/tvLogout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/nunito_semibold"
+        android:text="Keluar"
+        android:textColor="@android:color/black"
+        android:textSize="14sp"
+        app:fontFamily="@font/nunito_semibold"
+        app:layout_constraintBottom_toBottomOf="@+id/framesettingkeluar"
+        app:layout_constraintEnd_toEndOf="@+id/framesettingkeluar"
+        app:layout_constraintHorizontal_bias="0.069"
+        app:layout_constraintStart_toStartOf="@+id/framesettingkeluar"
+        app:layout_constraintTop_toTopOf="@+id/framesettingkeluar"
+        app:layout_constraintVertical_bias="0.59" />
+
+    <TextView
+        android:id="@+id/riwayatpembayaran"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/nunito_semibold"
+        android:text="Riwayat Pembayaran"
+        android:textColor="@android:color/black"
+        android:textSize="14sp"
+        app:fontFamily="@font/nunito_semibold"
+        app:layout_constraintBottom_toBottomOf="@+id/framesetting3"
+        app:layout_constraintEnd_toEndOf="@+id/framesetting3"
+        app:layout_constraintHorizontal_bias="0.103"
+        app:layout_constraintStart_toStartOf="@+id/framesetting3"
+        app:layout_constraintTop_toTopOf="@+id/framesetting3"
+        app:layout_constraintVertical_bias="0.59" />
+
+    <TextView
+        android:id="@+id/daftarpremiumakun"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/nunito_semibold"
+        android:text="Daftar Premium Akun"
+        android:textColor="@android:color/black"
+        android:textSize="14sp"
+        app:fontFamily="@font/nunito_semibold"
+        app:layout_constraintBottom_toBottomOf="@+id/framesetting2"
+        app:layout_constraintEnd_toEndOf="@+id/framesetting2"
+        app:layout_constraintHorizontal_bias="0.105"
+        app:layout_constraintStart_toStartOf="@+id/framesetting2"
+        app:layout_constraintTop_toTopOf="@+id/framesetting2" />
+
+    <ImageView
+        android:id="@+id/framesetting2"
+        android:layout_width="301dp"
+        android:layout_height="43dp"
+        android:src="@drawable/framesetting"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.509"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/framesetting1"
+        app:layout_constraintVertical_bias="0.022" />
+
+    <TextView
+        android:id="@+id/izinkandilihat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/nunito_semibold"
+        android:text="Izinkan Dilihat Talent GetHub"
+        android:textColor="@android:color/black"
+        android:textSize="14sp"
+        app:fontFamily="@font/nunito_semibold"
+        app:layout_constraintBottom_toBottomOf="@+id/framesetting1"
+        app:layout_constraintEnd_toEndOf="@+id/framesetting1"
+        app:layout_constraintHorizontal_bias="0.149"
+        app:layout_constraintStart_toStartOf="@+id/framesetting1"
+        app:layout_constraintTop_toTopOf="@+id/framesetting1" />
+
+    <ImageView
+        android:id="@+id/framesetting1"
+        android:layout_width="301dp"
+        android:layout_height="43dp"
+        android:src="@drawable/framesetting"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.509"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/frame2"
+        app:layout_constraintVertical_bias="0.024" />
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/switch_theme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/framesetting1"
+        app:layout_constraintEnd_toEndOf="@+id/framesetting1"
+
+        app:layout_constraintHorizontal_bias="0.986"
+        app:layout_constraintStart_toStartOf="@+id/framesetting1"
+        app:layout_constraintTop_toTopOf="@+id/framesetting1"
+        app:layout_constraintVertical_bias="0.5" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
