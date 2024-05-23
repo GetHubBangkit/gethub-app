@@ -3,6 +3,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="background">#F9FAFB</color>
+
     <color name="md_theme_primary">#0D6375</color>
     <color name="md_theme_onPrimary">#FFFFFF</color>
     <color name="md_theme_primaryContainer">#AFECFF</color>
@@ -148,4 +150,37 @@
     <!--    //indicator color-->
     <color name="inactive">#C4C4C4</color>
     <color name="active">#50C2C9</color>
+
+    <color name="darkblue">#21335B</color>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="darkgrey">#F9FAFB</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal">#FF0D6375</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="blackgethub">#020A2E</color>
+    <color name="textproject">#3F3F3F</color>
+    <color name="blue">#0D6375</color>
+    <color name="colorOnSurface">#2D264B</color>
+    <color name="bottom_navigation_icon_active">#FFFFFFFF</color>
+    <color name="bottom_navigation_icon_inactive">#2D264B</color>
+    <color name="bottom_navigation_title_active">#FFFFFFFF</color>
+    <color name="bottom_navigation_title_inactive">#2D264B</color>
+    <color name="yellow_gethub">#FFF1C2</color>
+    <color name="green_terang_gethub">#00B994</color>
+    <color name="red_terang_gethub">#FFE7EF</color>
+
+    <color name="selected_icon_color">#FFFFFFFF</color>
+    <color name="default_icon_color">#2D264B</color>
+    <color name="darkBlue">#21335B</color>
+
+
+    <!--    //onboarding colors-->
+
+    <color name="buttontext">#50C2C9</color>
+
+
+    <color name="post_project_warning">#FFF1C2</color>
+    <color name="edit_text_unfocused">#F9FAFB</color>
 </resources>

@@ -91,12 +91,11 @@
             android:id="@+id/KelolaMyGethub"
             android:layout_width="80dp"
             android:layout_height="32dp"
-            android:fontFamily="@font/nunito"
             android:gravity="center"
             android:text="Kelola\nMy Gethub"
             android:textColor="@android:color/black"
             android:textSize="10sp"
-            app:fontFamily="@font/nunito"
+            style="@style/Nunito"
 
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.037"
@@ -120,12 +119,12 @@
             android:id="@+id/CariProjectBids"
             android:layout_width="80dp"
             android:layout_height="32dp"
-            android:fontFamily="@font/nunito"
+
             android:gravity="center"
             android:text="Cari\nProject Bids"
             android:textColor="@android:color/black"
             android:textSize="10sp"
-            app:fontFamily="@font/nunito"
+            style="@style/Nunito"
 
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.076"
@@ -149,12 +148,12 @@
             android:id="@+id/CariTalent"
             android:layout_width="80dp"
             android:layout_height="32dp"
-            android:fontFamily="@font/nunito"
+
             android:gravity="center"
             android:text="Cari\nTalent"
             android:textColor="@android:color/black"
             android:textSize="10sp"
-            app:fontFamily="@font/nunito"
+            style="@style/Nunito"
 
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.13"

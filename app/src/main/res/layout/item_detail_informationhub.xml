@@ -105,7 +105,7 @@
         android:layout_height="95dp"
         android:layout_marginTop="50dp"
         android:layout_marginStart="18dp"
-        android:fontFamily="@font/nunito"
+
         android:text="Jelajahi potensi Anda dalam dunia Machine Learning
 dengan mengikuti lomba kami! Tunjukkan kepiawaian
 Anda dalam analisis data dan raih kesempatan
@@ -113,7 +113,7 @@ untuk memenangkan hadiah menarik serta
 mendapatkan pengakuan sebagai ahli AI."
         android:textColor="@color/black"
         android:textSize="13sp"
-        app:fontFamily="@font/nunito"
+        style="@style/Nunito"
 
 
         app:layout_constraintEnd_toEndOf="parent"

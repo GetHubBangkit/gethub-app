@@ -4,4 +4,10 @@
 
     <dimen name="dot_width">20dp</dimen>
     <dimen name="dot_margin">1dp</dimen>
+
+    <dimen name="fab_margin">16dp</dimen>
+
+
+    <dimen name="bottom_navigation_icon_size">20dp</dimen>
+
 </resources>

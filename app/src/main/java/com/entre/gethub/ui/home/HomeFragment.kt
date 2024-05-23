@@ -61,7 +61,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun observeViewModel() {
-        homeViewModel.informationHubs.observe(viewLifecycleOwner) { result ->
+        homeViewModel.informationHubs.observe(viewLifecycleOwner) { result->
             when (result) {
                 is Result.Success -> {
                     val data = result.data

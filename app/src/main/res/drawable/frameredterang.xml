@@ -1,0 +1,6 @@
+<!-- rounded_corner.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/red_terang_gethub"/>
+    <corners android:radius="10dp"/>
+</shape>
