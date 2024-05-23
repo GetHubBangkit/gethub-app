@@ -34,7 +34,7 @@ class OnboardingActivity : AppCompatActivity() {
         setContentView(R.layout.activity_onboarding)
 
         // Mendapatkan referensi ke tombol Masuk
-        val masukButton: ImageButton = findViewById(R.id.button_masuk)
+        val masukButton: Button = findViewById(R.id.button_masuk)
 
         // Menambahkan listener klik pada tombol Masuk
         masukButton.setOnClickListener {
@@ -46,7 +46,7 @@ class OnboardingActivity : AppCompatActivity() {
         }
 
         // Mendapatkan referensi ke tombol Masuk
-        val daftarButton: ImageButton = findViewById(R.id.button_daftar)
+        val daftarButton: Button = findViewById(R.id.button_daftar)
 
         // Menambahkan listener klik pada tombol Masuk
         daftarButton.setOnClickListener {
