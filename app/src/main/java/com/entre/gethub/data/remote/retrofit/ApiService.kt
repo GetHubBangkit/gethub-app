@@ -1,6 +1,7 @@
 package com.entre.gethub.data.remote.retrofit
 
 import com.entre.gethub.data.remote.response.ApiResponse
+import com.entre.gethub.data.remote.response.InformationHubResponse
 import com.entre.gethub.data.remote.response.UploadFileResponse
 import com.entre.gethub.data.remote.response.auth.LoginResponse
 import com.entre.gethub.data.remote.response.profiles.UpdateUserProfileResponse
@@ -58,4 +59,8 @@ interface ApiService {
         @Part file: MultipartBody.Part
     ): UploadFileResponse
     // Upload File
+
+    // InformationHub
+    @GET("informations")
+    suspend fun getInformationHub(): InformationHubResponse
 }

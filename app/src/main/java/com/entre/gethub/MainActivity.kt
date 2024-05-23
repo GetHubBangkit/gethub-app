@@ -1,4 +1,4 @@
-package com.entre.gethub.ui
+package com.entre.gethub
 
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView

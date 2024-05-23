@@ -12,6 +12,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
+import com.entre.gethub.MainActivity
 import com.entre.gethub.R
 import com.entre.gethub.data.Result
 import com.entre.gethub.data.remote.params.UpdateUserProfileParams
@@ -176,12 +177,12 @@ class CompleteProfileActivity : AppCompatActivity() {
                         is Result.Success -> {
                             showLoading(false)
                             // Intent untuk berpindah ke MainActivity
-//                            startActivity(
-//                                Intent(
-//                                    this@CompleteProfileActivity,
-//                                    MainActivity::class.java
-//                                )
-//                            )
+                            startActivity(
+                                Intent(
+                                    this@CompleteProfileActivity,
+                                    MainActivity::class.java
+                                )
+                            )
                             // Menutup Activity CompleteProfileActivity
                             finish()
                             showToast(result.data.message!!)
