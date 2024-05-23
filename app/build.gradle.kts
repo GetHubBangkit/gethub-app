@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "com.bangkit.gethub"
+    namespace = "com.entre.gethub"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.bangkit.gethub"
+        applicationId = "com.entre.gethub"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
