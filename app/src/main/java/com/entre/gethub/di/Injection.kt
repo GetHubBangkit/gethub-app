@@ -30,4 +30,5 @@ object Injection {
         val pref = provideUserPreferences(context)
         val token = runBlocking { pref.getToken().first() }
         return InformationHubRepository.getInstance(ApiConfig.getApiService(context, token))
+    }
 }
