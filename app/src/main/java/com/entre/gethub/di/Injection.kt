@@ -4,8 +4,10 @@ import android.content.Context
 import com.entre.gethub.data.preferences.UserPreferences
 import com.entre.gethub.data.remote.retrofit.ApiConfig
 import com.entre.gethub.data.repositories.AuthRepository
+import com.entre.gethub.data.repositories.GethubRepository
 import com.entre.gethub.data.repositories.InformationHubRepository
 import com.entre.gethub.data.repositories.ProfileRepository
+import com.entre.gethub.data.repositories.SponsorRepository
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 
@@ -30,5 +32,17 @@ object Injection {
         val pref = provideUserPreferences(context)
         val token = runBlocking { pref.getToken().first() }
         return InformationHubRepository.getInstance(ApiConfig.getApiService(context, token))
+    }
+
+    fun provideGethubRepository(context: Context): GethubRepository {
+        val pref = provideUserPreferences(context)
+        val token = runBlocking { pref.getToken().first() }
+        return GethubRepository.getInstance(ApiConfig.getApiService(context, token))
+    }
+
+    fun provideSponsorRepository(context: Context): SponsorRepository {
+        val pref = provideUserPreferences(context)
+        val token = runBlocking { pref.getToken().first() }
+        return SponsorRepository.getInstance(ApiConfig.getApiService(context, token))
     }
 }

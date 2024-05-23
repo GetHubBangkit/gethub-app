@@ -37,4 +37,6 @@
     <string name="onboarding_heading_two">Beri Pekerjaan Dan Bidding\nProject yang Cocok</string>
     <string name="onboarding_desc_one">Scan Dan Simpan Kartu Bisnis Rekan Anda Lalu Buat Kartu Bisnis Dan Profil Website Anda Gratis! Sebarkan Kartu dan Profil Bisnis Anda Sekarang!</string>
     <string name="onboarding_desc_two">Tawarkan Pekerjaan dan Temukan Penawaran yang Pas! Pilih Penawar yang Cocok dengan Kebutuhan Anda! Temukan Kemudahan Dalam Setiap Langkah</string>
+
+    <string name="sponsor_image_description">Sponsor</string>
 </resources>

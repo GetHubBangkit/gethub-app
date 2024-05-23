@@ -2,8 +2,11 @@ package com.entre.gethub.data.remote.retrofit
 
 import com.entre.gethub.data.remote.response.ApiResponse
 import com.entre.gethub.data.remote.response.InformationHubResponse
+import com.entre.gethub.data.remote.response.SponsorResponse
 import com.entre.gethub.data.remote.response.UploadFileResponse
 import com.entre.gethub.data.remote.response.auth.LoginResponse
+import com.entre.gethub.data.remote.response.partners.AddPartnerResponse
+import com.entre.gethub.data.remote.response.partners.GetHubPartnerListResponse
 import com.entre.gethub.data.remote.response.profiles.UpdateUserProfileResponse
 import com.entre.gethub.data.remote.response.profiles.UserProfileResponse
 import okhttp3.MultipartBody
@@ -63,4 +66,27 @@ interface ApiService {
     // InformationHub
     @GET("informations")
     suspend fun getInformationHub(): InformationHubResponse
+
+    // Add Partner
+    @FormUrlEncoded
+    @POST("partner")
+    suspend fun addPartner(
+        @Field("full_name") fullname: String,
+        @Field("profession") profession: String,
+        @Field("email") email: String,
+        @Field("phone") phone: String,
+        @Field("website") website: String,
+        @Field("address") address: String,
+        @Field("photo") photo: String?,
+        @Field("image") image: String?,
+    ): AddPartnerResponse
+    // Add Partner
+
+    // Get Partner List
+    @GET("partners")
+    suspend fun getPartnerList(): GetHubPartnerListResponse
+
+    // Sponsors
+    @GET("sponsors")
+    suspend fun getSponsors(): SponsorResponse
 }
