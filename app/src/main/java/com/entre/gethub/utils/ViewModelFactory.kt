@@ -8,6 +8,7 @@ import com.entre.gethub.data.repositories.AuthRepository
 import com.entre.gethub.data.repositories.InformationHubRepository
 import com.entre.gethub.data.repositories.ProfileRepository
 import com.entre.gethub.di.Injection
+import com.entre.gethub.ui.akun.AkunViewModel
 import com.entre.gethub.ui.auth.LoginViewModel
 import com.entre.gethub.ui.auth.RegisterViewModel
 import com.entre.gethub.ui.completeprofile.CompleteProfileViewModel
@@ -27,6 +28,8 @@ class ViewModelFactory private constructor(
             RegisterViewModel::class.java -> RegisterViewModel(authRepository) as T
             HomeViewModel::class.java -> HomeViewModel(informationHubRepository) as T
             CompleteProfileViewModel::class.java -> CompleteProfileViewModel(profileRepository) as T
+            AkunViewModel::class.java -> AkunViewModel(profileRepository, userPreferences) as T
+
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }
     }
