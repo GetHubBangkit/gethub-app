@@ -17,6 +17,7 @@ import com.entre.gethub.ui.auth.LoginViewModel
 import com.entre.gethub.ui.auth.RegisterViewModel
 import com.entre.gethub.ui.completeprofile.CompleteProfileValidationViewModel
 import com.entre.gethub.ui.completeprofile.CompleteProfileViewModel
+import com.entre.gethub.ui.gethub.GethubPartnerListViewModel
 import com.entre.gethub.ui.gethub.GethubViewModel
 import com.entre.gethub.ui.home.HomeViewModel
 import com.entre.gethub.ui.home.mygethub.HomeKelolaMyGethubViewModel
@@ -63,6 +64,10 @@ class ViewModelFactory private constructor(
 
             HomeKelolaMyGethubEditProdukViewModel::class.java -> HomeKelolaMyGethubEditProdukViewModel(
                 productRepository
+            ) as T
+
+            GethubPartnerListViewModel::class.java -> GethubPartnerListViewModel(
+                gethubRepository
             ) as T
 
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")

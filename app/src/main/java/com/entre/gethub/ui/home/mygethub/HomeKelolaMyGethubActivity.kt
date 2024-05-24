@@ -80,7 +80,10 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
 
                     is Result.Empty -> {
                         showLoadingOnProduct(false)
-                        showEmptyErrorOnProduct(true, result.emptyError)
+                        binding.emptyOnProduct.apply {
+                            llEmpty.visibility = View.VISIBLE
+                            tvEmpty.text = result.emptyError
+                        }
                     }
 
                     else -> {
@@ -204,11 +207,6 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
 
     private fun showLoadingOnProduct(isLoading: Boolean) {
         binding.progressBarOnProductList.visibility = if (isLoading) View.VISIBLE else View.GONE
-    }
-
-    private fun showEmptyErrorOnProduct(isError: Boolean, message: String) {
-        binding.tvEmptyProduct.text = message
-        binding.tvEmptyProduct.visibility = if (isError) View.VISIBLE else View.GONE
     }
 
     private fun showEmptyErrorOnLink(isError: Boolean, message: String) {

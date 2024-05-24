@@ -9,11 +9,11 @@ import com.entre.gethub.data.remote.response.partners.GetHubPartner
 import com.entre.gethub.databinding.ItemGethubPartnerBinding
 
 
-class GetHubPartnerAdapter(
+class GethubPartnerAdapter(
     private val gethubPartnerList: List<GetHubPartner>,
     private val listener: (GetHubPartner, Int) -> Unit
 ) :
-    RecyclerView.Adapter<GetHubPartnerAdapter.ViewHolder>() {
+    RecyclerView.Adapter<GethubPartnerAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = ItemGethubPartnerBinding.inflate(LayoutInflater.from(parent.context), parent, false)

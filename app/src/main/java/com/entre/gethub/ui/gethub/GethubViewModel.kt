@@ -55,10 +55,21 @@ class GethubViewModel(
             try {
                 val response = sponsorRepository.getSponsors()
                 if (response.success == true) {
+                    if (response.data!!.isEmpty()) {
+                        _sponsors.value = Result.Empty("Belum Ada Sponsor")
+                    }
                     _sponsors.value = Result.Success(response)
                 } else {
                     _sponsors.value = Result.Error(response.message ?: "Unknown Error")
                 }
+            } catch (e: HttpException) {
+                val jsonString = e.response()?.errorBody()?.string()
+                val errorBody = Gson().fromJson(jsonString, ApiResponse::class.java)
+                val errorMessage = errorBody.message
+                if (e.code().equals(404)) {
+                    _sponsors.value = Result.Empty("Belum Ada Sponsor")
+                }
+                _sponsors.value = Result.Error(errorMessage!!)
             } catch (e: Exception) {
                 _sponsors.value = Result.Error(e.message ?: "Error Occurred")
             }
@@ -79,6 +90,9 @@ class GethubViewModel(
                 val jsonString = e.response()?.errorBody()?.string()
                 val errorBody = Gson().fromJson(jsonString, ApiResponse::class.java)
                 val errorMessage = errorBody.message
+                if (e.code().equals(404)) {
+                    getHubPartnerListResult.value = Result.Empty("Belum Ada Partner")
+                }
                 getHubPartnerListResult.value = Result.Error(errorMessage!!)
             } catch (e: Exception) {
                 e.printStackTrace()

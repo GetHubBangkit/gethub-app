@@ -72,6 +72,7 @@ class CompleteProfileValidationActivity : AppCompatActivity() {
                     when (result) {
                         is Result.Loading -> showLoading(true)
                         is Result.Success -> {
+                            showLoading(false)
                             val user = result.data.data
                             showSnackBar("Selamat Datang, ${user?.username}")
 
@@ -87,6 +88,7 @@ class CompleteProfileValidationActivity : AppCompatActivity() {
                         }
 
                         is Result.Error -> {
+                            showLoading(false)
                             showDialog(
                                 this@CompleteProfileValidationActivity,
                                 getString(R.string.something_went_wrong),

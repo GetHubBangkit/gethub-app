@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.entre.gethub.data.Result
 import com.entre.gethub.data.remote.response.partners.GetHubPartner
 import com.entre.gethub.databinding.FragmentGethubBinding
-import com.entre.gethub.ui.adapter.GetHubPartnerAdapter
+import com.entre.gethub.ui.adapter.GethubPartnerAdapter
 import com.entre.gethub.ui.adapter.SponsorAdapter
 import com.entre.gethub.utils.ViewModelFactory
 import com.entre.gethub.utils.generateQR
@@ -115,6 +115,13 @@ class GethubFragment : Fragment() {
                         showLoadingOnPartnerList(false)
                     }
 
+                    is Result.Empty -> {
+                        binding.tvEmptyPartner.apply {
+                            visibility = View.VISIBLE
+                            text = result.emptyError
+                        }
+                    }
+
                     else -> {
                         showLoadingOnPartnerList(false)
                     }
@@ -126,7 +133,7 @@ class GethubFragment : Fragment() {
     private fun setupRecyclerViewGethubPartner(gethubPartnerList: List<GetHubPartner>) {
         binding.rvGethubPartner.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            adapter = GetHubPartnerAdapter(gethubPartnerList) { gethubpartner, position ->
+            adapter = GethubPartnerAdapter(gethubPartnerList) { gethubpartner, position ->
                 Toast.makeText(
                     requireContext(),
                     "Clicked on actor: ${gethubpartner.fullName}",
@@ -145,7 +152,7 @@ class GethubFragment : Fragment() {
         sponsorAdapter = SponsorAdapter(emptyList()) { sponsor, _ ->
             sponsor.link?.let { openLink(it) }
         }
-        binding.recyclerView.apply {
+        binding.rvGethubSponsor.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = sponsorAdapter
         }
@@ -153,14 +160,26 @@ class GethubFragment : Fragment() {
         // Observe sponsor data from ViewModel
         gethubViewModel.sponsors.observe(viewLifecycleOwner) { result ->
             when (result) {
+                is Result.Loading -> showLoadingOnSponsor(true)
+
                 is Result.Success -> {
+                    showLoadingOnSponsor(false)
                     val sponsorData = result.data.data ?: emptyList()
                     sponsorAdapter.updateData(sponsorData)
                 }
 
                 is Result.Error -> {
-                    Toast.makeText(requireContext(), "Error: ${result.error}", Toast.LENGTH_SHORT)
+                    showLoadingOnSponsor(false)
+                    Toast.makeText(requireContext(), result.error, Toast.LENGTH_SHORT)
                         .show()
+                }
+
+                is Result.Empty -> {
+                    showLoadingOnSponsor(false)
+                    binding.empty.apply {
+                        llEmpty.visibility = View.VISIBLE
+                        tvEmpty.text = result.emptyError
+                    }
                 }
 
                 else -> {
@@ -187,6 +206,10 @@ class GethubFragment : Fragment() {
 
         binding.ivShare.setOnClickListener {
             shareCard()
+        }
+
+        binding.tvSeeAllPartner.setOnClickListener {
+            startActivity(Intent(requireActivity(), GethubPartnerListActivity::class.java))
         }
 
     }
@@ -230,6 +253,10 @@ class GethubFragment : Fragment() {
 
     private fun showLoadingOnCard(isLoading: Boolean) {
         binding.progressBarOnCard.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    private fun showLoadingOnSponsor(isLoading: Boolean) {
+        binding.progressBarOnGethubSponsor.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     private fun showToast(message: String) {

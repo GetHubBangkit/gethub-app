@@ -216,10 +216,10 @@ efektif dan efisien untuk tantangan teknis modern."
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:layout_constraintTop_toTopOf="@id/recyclerViewHomeGethubLink"
         app:layout_constraintBottom_toBottomOf="@id/recyclerViewHomeGethubLink"
-        app:layout_constraintStart_toStartOf="@id/recyclerViewHomeGethubLink"
         app:layout_constraintEnd_toEndOf="@id/recyclerViewHomeGethubLink"
+        app:layout_constraintStart_toStartOf="@id/recyclerViewHomeGethubLink"
+        app:layout_constraintTop_toTopOf="@id/recyclerViewHomeGethubLink"
         tools:visibility="visible" />
 
     <TextView
@@ -230,10 +230,10 @@ efektif dan efisien untuk tantangan teknis modern."
         android:text="Link kosong"
         android:textSize="14sp"
         android:visibility="gone"
-        app:layout_constraintTop_toTopOf="@id/recyclerViewHomeGethubLink"
         app:layout_constraintBottom_toBottomOf="@id/recyclerViewHomeGethubLink"
-        app:layout_constraintStart_toStartOf="@id/recyclerViewHomeGethubLink"
         app:layout_constraintEnd_toEndOf="@id/recyclerViewHomeGethubLink"
+        app:layout_constraintStart_toStartOf="@id/recyclerViewHomeGethubLink"
+        app:layout_constraintTop_toTopOf="@id/recyclerViewHomeGethubLink"
         tools:visibility="visible" />
 
     <ImageView
@@ -299,19 +299,15 @@ efektif dan efisien untuk tantangan teknis modern."
         app:layout_constraintTop_toTopOf="@id/rvProducts"
         tools:visibility="visible" />
 
-    <TextView
-        android:id="@+id/tvEmptyProduct"
-        style="@style/Poppins.Bold"
+    <include
+        android:id="@+id/emptyOnProduct"
+        layout="@layout/item_empty_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Produk kosong"
-        android:textSize="14sp"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/rvProducts"
         app:layout_constraintEnd_toEndOf="@id/rvProducts"
         app:layout_constraintStart_toStartOf="@id/rvProducts"
-        app:layout_constraintTop_toTopOf="@id/rvProducts"
-        tools:visibility="visible" />
+        app:layout_constraintTop_toTopOf="@id/rvProducts" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -85,7 +85,10 @@ class HomeFragment : Fragment() {
                     // Handle loading state
                 }
                 is Result.Empty -> {
-                    // Handle empty state
+                    binding.empty.apply {
+                        llEmpty.visibility = View.VISIBLE
+                        tvEmpty.text = result.emptyError
+                    }
                 }
             }
         }
