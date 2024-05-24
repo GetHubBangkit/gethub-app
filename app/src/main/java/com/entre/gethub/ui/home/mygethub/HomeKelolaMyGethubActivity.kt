@@ -17,6 +17,7 @@ import com.entre.gethub.databinding.ActivityHomeKelolaMyGetHubBinding
 import com.entre.gethub.ui.adapter.HomeGethubLinkAdapter
 import com.entre.gethub.ui.adapter.HomeProdukJasaAdapter
 import com.entre.gethub.ui.home.mygethub.link.HomeKelolaMyGethubTambahLinkActivity
+import com.entre.gethub.ui.home.mygethub.product.HomeKelolaMyGethubTambahProdukActivity
 import com.entre.gethub.ui.models.GethubLink
 import com.entre.gethub.utils.ViewModelFactory
 
