@@ -15,6 +15,7 @@ import com.entre.gethub.di.Injection
 import com.entre.gethub.ui.akun.AkunViewModel
 import com.entre.gethub.ui.auth.LoginViewModel
 import com.entre.gethub.ui.auth.RegisterViewModel
+import com.entre.gethub.ui.completeprofile.CompleteProfileValidationViewModel
 import com.entre.gethub.ui.completeprofile.CompleteProfileViewModel
 import com.entre.gethub.ui.gethub.GethubViewModel
 import com.entre.gethub.ui.home.HomeViewModel
@@ -40,11 +41,30 @@ class ViewModelFactory private constructor(
             RegisterViewModel::class.java -> RegisterViewModel(authRepository) as T
             HomeViewModel::class.java -> HomeViewModel(informationHubRepository) as T
             CompleteProfileViewModel::class.java -> CompleteProfileViewModel(profileRepository) as T
+            CompleteProfileValidationViewModel::class.java -> CompleteProfileValidationViewModel(
+                profileRepository
+            ) as T
+
             AkunViewModel::class.java -> AkunViewModel(profileRepository, userPreferences) as T
-            GethubViewModel::class.java -> GethubViewModel(gethubRepository, sponsorRepository, userPreferences) as T
-            HomeKelolaMyGethubViewModel::class.java -> HomeKelolaMyGethubViewModel(productRepository, linkRepository) as T
-            HomeKelolaMyGethubTambahProdukViewModel::class.java -> HomeKelolaMyGethubTambahProdukViewModel(productRepository) as T
-            HomeKelolaMyGethubEditProdukViewModel::class.java -> HomeKelolaMyGethubEditProdukViewModel(productRepository) as T
+            GethubViewModel::class.java -> GethubViewModel(
+                gethubRepository,
+                sponsorRepository,
+                userPreferences
+            ) as T
+
+            HomeKelolaMyGethubViewModel::class.java -> HomeKelolaMyGethubViewModel(
+                productRepository,
+                linkRepository
+            ) as T
+
+            HomeKelolaMyGethubTambahProdukViewModel::class.java -> HomeKelolaMyGethubTambahProdukViewModel(
+                productRepository
+            ) as T
+
+            HomeKelolaMyGethubEditProdukViewModel::class.java -> HomeKelolaMyGethubEditProdukViewModel(
+                productRepository
+            ) as T
+
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }
     }

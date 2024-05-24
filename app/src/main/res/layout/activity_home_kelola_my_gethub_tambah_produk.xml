@@ -75,13 +75,13 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/titleTextField"
                 style="@style/AuthTextInputLayoutComplete"
-                android:layout_width="326dp"
+                android:layout_width="match_parent"
                 android:layout_height="37dp"
                 android:layout_marginTop="5dp"
                 android:minHeight="47dp">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="326dp"
+                    android:layout_width="match_parent"
                     android:layout_height="37dp"
                     android:paddingTop="1dp"
                     android:paddingBottom="1dp"
@@ -100,12 +100,12 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/descriptionTextField"
                 style="@style/AuthTextInputLayoutComplete"
-                android:layout_width="326dp"
+                android:layout_width="match_parent"
                 android:layout_height="114dp"
                 android:minHeight="47dp">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="326dp"
+                    android:layout_width="match_parent"
                     android:layout_height="114dp"
                     android:layout_marginStart="0dp"
                     android:layout_marginTop="5dp"

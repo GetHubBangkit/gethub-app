@@ -191,6 +191,10 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
                         .show()
                 }
 
+                is Result.Empty -> {
+                    showEmptyErrorOnLink(true, result.emptyError)
+                }
+
                 else -> {
                     // Handle other possible states
                 }
@@ -205,6 +209,11 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
     private fun showEmptyErrorOnProduct(isError: Boolean, message: String) {
         binding.tvEmptyProduct.text = message
         binding.tvEmptyProduct.visibility = if (isError) View.VISIBLE else View.GONE
+    }
+
+    private fun showEmptyErrorOnLink(isError: Boolean, message: String) {
+        binding.tvEmptyLink.text = message
+        binding.tvEmptyLink.visibility = if (isError) View.VISIBLE else View.GONE
     }
 
     private fun showToast(message: String) {

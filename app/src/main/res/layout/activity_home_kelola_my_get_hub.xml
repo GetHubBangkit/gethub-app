@@ -19,32 +19,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textgethub"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins_bold"
-        android:text="Kelola My GetHub"
-        android:textColor="@android:color/white"
-        android:textSize="18sp"
-        app:fontFamily="@font/nunito_extrabold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.048"
-        app:layout_constraintStart_toEndOf="@+id/icon_back"
-        app:layout_constraintTop_toTopOf="@+id/frame"
-        app:layout_constraintVertical_bias="0.034" />
-
-    <ImageView
-        android:id="@+id/icon_back"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginTop="24dp"
-        android:src="@drawable/icon_back"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.041"
+        android:layout_marginStart="18dp"
+        app:layout_constraintBottom_toBottomOf="@id/frame"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/frame">
+
+        <ImageView
+            android:id="@+id/icon_back"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/icon_back" />
+
+        <TextView
+            android:id="@+id/textgethub"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/poppins_bold"
+            android:text="Kelola My GetHub"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            app:fontFamily="@font/nunito_extrabold" />
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/icon_tentangsaya"
@@ -217,12 +216,24 @@ efektif dan efisien untuk tantangan teknis modern."
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.479"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/GethubLink"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintTop_toTopOf="@id/recyclerViewHomeGethubLink"
+        app:layout_constraintBottom_toBottomOf="@id/recyclerViewHomeGethubLink"
+        app:layout_constraintStart_toStartOf="@id/recyclerViewHomeGethubLink"
+        app:layout_constraintEnd_toEndOf="@id/recyclerViewHomeGethubLink"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/tvEmptyLink"
+        style="@style/Poppins.Bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Link kosong"
+        android:textSize="14sp"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="@id/recyclerViewHomeGethubLink"
+        app:layout_constraintBottom_toBottomOf="@id/recyclerViewHomeGethubLink"
+        app:layout_constraintStart_toStartOf="@id/recyclerViewHomeGethubLink"
+        app:layout_constraintEnd_toEndOf="@id/recyclerViewHomeGethubLink"
         tools:visibility="visible" />
 
     <ImageView

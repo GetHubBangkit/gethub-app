@@ -1,5 +1,6 @@
 package com.entre.gethub.ui.home.mygethub
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
@@ -15,9 +16,15 @@ import com.google.gson.Gson
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
-class HomeKelolaMyGethubViewModel(private val productRepository: ProductRepository, private val linkRepository: LinkRepository) : ViewModel() {
+class HomeKelolaMyGethubViewModel(
+    private val productRepository: ProductRepository,
+    private val linkRepository: LinkRepository
+) : ViewModel() {
     private val getProductListResult = MediatorLiveData<Result<ProductListResponse>>()
     private val deleteProductResult = MediatorLiveData<Result<ApiResponse>>()
+
+    private val _links = MutableLiveData<Result<List<LinkResponse.Data>>>(Result.Loading)
+    val links: LiveData<Result<List<LinkResponse.Data>>> get() = _links
 
     init {
         getLinks()
@@ -37,7 +44,11 @@ class HomeKelolaMyGethubViewModel(private val productRepository: ProductReposito
                 val jsonString = e.response()?.errorBody()?.string()
                 val errorBody = Gson().fromJson(jsonString, ApiResponse::class.java)
                 val errorMessage = errorBody.message
-                getProductListResult.value = Result.Error(errorMessage!!)
+                if (e.code().equals(404)) {
+                    getProductListResult.value = Result.Empty("Produk masih kosong")
+                } else {
+                    getProductListResult.value = Result.Error(errorMessage!!)
+                }
             } catch (e: Exception) {
                 e.printStackTrace()
                 getProductListResult.value = Result.Error(e.toString())
@@ -69,21 +80,28 @@ class HomeKelolaMyGethubViewModel(private val productRepository: ProductReposito
     }
 
     // Links
-
-    private val _links = MutableLiveData<Result<List<LinkResponse.Data>>>(Result.Loading)
-    val links: LiveData<Result<List<LinkResponse.Data>>> get() = _links
     fun getLinks() {
         viewModelScope.launch {
-            _links.value = Result.Loading
             try {
+                _links.value = Result.Loading
                 val response = linkRepository.getLinks()
                 if (response.success == true) {
                     _links.value = Result.Success(response.data ?: emptyList())
                 } else {
                     _links.value = Result.Error(response.message ?: "Unknown Error")
                 }
+            } catch (e: HttpException) {
+                val jsonString = e.response()?.errorBody()?.string()
+                val errorBody = Gson().fromJson(jsonString, ApiResponse::class.java)
+                val errorMessage = errorBody.message
+                if (e.code().equals(404)) {
+                    _links.value = Result.Empty("Link masih kosong")
+                } else {
+                    _links.value = Result.Error(errorMessage!!)
+                }
             } catch (e: Exception) {
                 _links.value = Result.Error(e.message ?: "Error Occurred")
+                Log.e(TAG, "getLinks: $e")
             }
         }
     }
@@ -108,5 +126,9 @@ class HomeKelolaMyGethubViewModel(private val productRepository: ProductReposito
                 _links.value = Result.Error(e.message ?: "Error Occurred")
             }
         }
+    }
+
+    companion object {
+        private const val TAG = "HomeKelolaMyGethubViewModel"
     }
 }

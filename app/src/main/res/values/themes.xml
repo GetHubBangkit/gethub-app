@@ -98,6 +98,8 @@
         <item name="colorSurfaceContainer">@color/md_theme_surfaceContainer</item>
         <item name="colorSurfaceContainerHigh">@color/md_theme_surfaceContainerHigh</item>
         <item name="colorSurfaceContainerHighest">@color/md_theme_surfaceContainerHighest</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/md_theme_primary</item>
         <!-- Customize your theme here. -->
         <item name="windowActionModeOverlay">true</item>
         <item name="actionModeCloseDrawable">@drawable/ic_back</item>

@@ -8,10 +8,10 @@ import androidx.lifecycle.viewModelScope
 import com.entre.gethub.data.Result
 import com.entre.gethub.data.preferences.UserPreferences
 import com.entre.gethub.data.remote.response.ApiResponse
-import com.entre.gethub.data.remote.response.profiles.UserProfileResponse
 import com.entre.gethub.data.repositories.GethubRepository
 import com.entre.gethub.data.remote.response.SponsorResponse
 import com.entre.gethub.data.remote.response.partners.GetHubPartnerListResponse
+import com.entre.gethub.data.remote.response.profiles.UserProfileResponse
 import com.entre.gethub.data.repositories.SponsorRepository
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
