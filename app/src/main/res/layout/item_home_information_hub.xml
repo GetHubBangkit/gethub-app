@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="252dp"
         android:background="?android:attr/selectableItemBackground"
-        tools:context=".MainActivity">
+        tools:context=".ui.MainActivity">
 
 
         <androidx.cardview.widget.CardView

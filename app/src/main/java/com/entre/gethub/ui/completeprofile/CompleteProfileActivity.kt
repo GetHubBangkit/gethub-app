@@ -12,7 +12,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
-import com.entre.gethub.MainActivity
+import com.entre.gethub.ui.MainActivity
 import com.entre.gethub.R
 import com.entre.gethub.data.Result
 import com.entre.gethub.data.remote.params.UpdateUserProfileParams

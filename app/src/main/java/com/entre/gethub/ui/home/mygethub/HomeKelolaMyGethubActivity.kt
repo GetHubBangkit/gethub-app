@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.entre.gethub.MainActivity
+import com.entre.gethub.ui.MainActivity
 import com.entre.gethub.R
 import com.entre.gethub.data.Result
 import com.entre.gethub.data.remote.response.products.Product

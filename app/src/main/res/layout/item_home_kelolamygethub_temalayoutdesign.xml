@@ -9,7 +9,7 @@
         android:layout_marginLeft="20dp"
         android:layout_height="wrap_content"
         android:background="?android:attr/selectableItemBackground"
-        tools:context=".MainActivity">
+        tools:context=".ui.MainActivity">
 
         <ImageView
             android:id="@+id/image"

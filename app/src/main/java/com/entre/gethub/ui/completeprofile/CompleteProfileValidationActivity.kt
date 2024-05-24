@@ -7,7 +7,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.entre.gethub.MainActivity
+import com.entre.gethub.ui.MainActivity
 import com.entre.gethub.R
 import com.entre.gethub.data.Result
 import com.entre.gethub.data.remote.response.auth.LoginResponse
