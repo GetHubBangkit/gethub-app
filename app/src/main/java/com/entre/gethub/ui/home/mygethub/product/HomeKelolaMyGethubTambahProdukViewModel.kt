@@ -17,7 +17,7 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import retrofit2.HttpException
 import java.io.File
 
-class HomeKelolaMyGetHubTambahProdukViewModel(private val productRepository: ProductRepository) :
+class HomeKelolaMyGethubTambahProdukViewModel(private val productRepository: ProductRepository) :
     ViewModel() {
 
     private val createProductResult = MediatorLiveData<Result<ProductResponse>>()

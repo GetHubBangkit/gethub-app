@@ -7,23 +7,26 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
-import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
+import com.entre.gethub.R
 import com.entre.gethub.data.Result
-import com.entre.gethub.databinding.ActivityHomeKelolaMyGethubTambahProdukBinding
+import com.entre.gethub.databinding.ActivityHomeKelolaMyGethubEditProdukBinding
 import com.entre.gethub.ui.home.mygethub.HomeKelolaMyGethubActivity
 import com.entre.gethub.utils.ViewModelFactory
 import com.entre.gethub.utils.uriToFile
 
-class HomeKelolaMyGethubTambahProdukActivity : AppCompatActivity() {
+class HomeKelolaMyGethubEditProdukActivity : AppCompatActivity() {
 
-    private val binding by lazy {
-        ActivityHomeKelolaMyGethubTambahProdukBinding.inflate(
-            layoutInflater
+    private val binding by lazy { ActivityHomeKelolaMyGethubEditProdukBinding.inflate(layoutInflater) }
+    private val homeKelolaMyGetHubEditProdukViewModel by viewModels<HomeKelolaMyGethubEditProdukViewModel> {
+        ViewModelFactory.getInstance(
+            this
         )
     }
-    private lateinit var homeKelolaMyGetHubTambahProdukViewModel: HomeKelolaMyGethubTambahProdukViewModel
+    private var productId: String? = null
     private var currentImageUri: Uri? = null
     private var imageUrl: String? = null
 
@@ -31,11 +34,14 @@ class HomeKelolaMyGethubTambahProdukActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        initViewModel()
+        productId = intent.getStringExtra(EXTRA_PRODUCT_ID)
+
         setupView()
     }
 
     private fun setupView() {
+        getProductDetail()
+
         with(binding) {
             iconBack.setOnClickListener {
                 finish()
@@ -66,10 +72,79 @@ class HomeKelolaMyGethubTambahProdukActivity : AppCompatActivity() {
                 val description = descriptionTextField.editText?.text.toString()
 
                 if (name.isNotEmpty() || description.isNotEmpty() || imageUrl != null) {
-                    addProduct(name, description, imageUrl.toString())
+                    editProduct(name, description, imageUrl.toString())
                 }
             }
         }
+    }
+
+    private fun editProduct(name: String, description: String, imageUrl: String) {
+        homeKelolaMyGetHubEditProdukViewModel.editProduct(
+            productId.toString(),
+            name,
+            description,
+            imageUrl
+        ).observe(this) { result ->
+            if (result != null) {
+                when (result) {
+                    is Result.Loading -> showLoading(true)
+                    is Result.Success -> {
+                        showLoading(false)
+                        startActivity(
+                            Intent(
+                                this@HomeKelolaMyGethubEditProdukActivity,
+                                HomeKelolaMyGethubActivity::class.java
+                            )
+                        )
+                        showToast(result.data.message.toString())
+                    }
+
+                    is Result.Error -> {
+                        showLoading(false)
+                        showToast(result.error)
+                    }
+
+                    else -> {
+                        showLoading(false)
+                        showToast("Terjadi kesalahan")
+                    }
+                }
+            }
+        }
+    }
+
+    private fun getProductDetail() {
+        homeKelolaMyGetHubEditProdukViewModel.getProductDetail(productId.toString())
+            .observe(this) { result ->
+                if (result != null) {
+                    when (result) {
+                        is Result.Loading -> showLoading(true)
+                        is Result.Success -> {
+                            showLoading(false)
+                            val product = result.data.data
+                            with(binding) {
+                                titleTextField.editText?.setText(product?.name)
+                                descriptionTextField.editText?.setText(product?.description)
+                                Glide.with(this@HomeKelolaMyGethubEditProdukActivity)
+                                    .load(product?.imageUrl)
+                                    .placeholder(R.drawable.ic_image)
+                                    .into(ivProductImage)
+                            }
+                        }
+
+                        is Result.Error -> {
+                            showLoading(false)
+                            showToast(result.error)
+                        }
+
+                        else -> {
+                            showLoading(false)
+                            showToast("Terjadi kesalahan")
+                        }
+                    }
+                }
+
+            }
     }
 
     private fun startGallery() {
@@ -94,19 +169,12 @@ class HomeKelolaMyGethubTambahProdukActivity : AppCompatActivity() {
         }
     }
 
-
-    private fun initViewModel() {
-        val factory = ViewModelFactory.getInstance(this)
-        homeKelolaMyGetHubTambahProdukViewModel =
-            ViewModelProvider(this, factory)[HomeKelolaMyGethubTambahProdukViewModel::class.java]
-    }
-
     private fun uploadProductImage() {
         if (currentImageUri != null) {
             currentImageUri?.let { uri ->
                 val imagefile = uriToFile(uri, this)
-                homeKelolaMyGetHubTambahProdukViewModel.uploadProfilePhoto(imagefile)
-                    .observe(this@HomeKelolaMyGethubTambahProdukActivity) { result ->
+                homeKelolaMyGetHubEditProdukViewModel.uploadProfilePhoto(imagefile)
+                    .observe(this@HomeKelolaMyGethubEditProdukActivity) { result ->
                         if (result != null) {
                             when (result) {
                                 is Result.Loading -> showLoading(true)
@@ -132,37 +200,6 @@ class HomeKelolaMyGethubTambahProdukActivity : AppCompatActivity() {
         }
     }
 
-    private fun addProduct(name: String, description: String, imageUrl: String) {
-        homeKelolaMyGetHubTambahProdukViewModel.addProduct(name, description, imageUrl)
-            .observe(this) { result ->
-                if (result != null) {
-                    when (result) {
-                        is Result.Loading -> showLoading(true)
-                        is Result.Success -> {
-                            showLoading(false)
-                            showToast(result.data.message.toString())
-                            startActivity(
-                                Intent(
-                                    this@HomeKelolaMyGethubTambahProdukActivity,
-                                    HomeKelolaMyGethubActivity::class.java
-                                )
-                            )
-                            finish()
-                        }
-
-                        is Result.Error -> {
-                            showLoading(false)
-                            showToast(result.error)
-                        }
-
-                        else -> {
-                            showLoading(false)
-                            showToast("Terjadi kesalahan")
-                        }
-                    }
-                }
-            }
-    }
 
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
@@ -170,5 +207,9 @@ class HomeKelolaMyGethubTambahProdukActivity : AppCompatActivity() {
 
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    companion object {
+        const val EXTRA_PRODUCT_ID = "extra_product_id"
     }
 }

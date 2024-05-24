@@ -19,7 +19,8 @@ import com.entre.gethub.ui.completeprofile.CompleteProfileViewModel
 import com.entre.gethub.ui.gethub.GethubViewModel
 import com.entre.gethub.ui.home.HomeViewModel
 import com.entre.gethub.ui.home.mygethub.HomeKelolaMyGethubViewModel
-import com.entre.gethub.ui.home.mygethub.product.HomeKelolaMyGetHubTambahProdukViewModel
+import com.entre.gethub.ui.home.mygethub.product.HomeKelolaMyGethubEditProdukViewModel
+import com.entre.gethub.ui.home.mygethub.product.HomeKelolaMyGethubTambahProdukViewModel
 import com.entre.gethub.ui.splash.SplashViewModel
 
 class ViewModelFactory private constructor(
@@ -42,7 +43,8 @@ class ViewModelFactory private constructor(
             AkunViewModel::class.java -> AkunViewModel(profileRepository, userPreferences) as T
             GethubViewModel::class.java -> GethubViewModel(gethubRepository, sponsorRepository, userPreferences) as T
             HomeKelolaMyGethubViewModel::class.java -> HomeKelolaMyGethubViewModel(productRepository, linkRepository) as T
-            HomeKelolaMyGetHubTambahProdukViewModel::class.java -> HomeKelolaMyGetHubTambahProdukViewModel(productRepository) as T
+            HomeKelolaMyGethubTambahProdukViewModel::class.java -> HomeKelolaMyGethubTambahProdukViewModel(productRepository) as T
+            HomeKelolaMyGethubEditProdukViewModel::class.java -> HomeKelolaMyGethubEditProdukViewModel(productRepository) as T
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }
     }

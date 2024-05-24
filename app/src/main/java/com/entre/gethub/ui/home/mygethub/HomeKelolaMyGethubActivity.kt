@@ -17,6 +17,7 @@ import com.entre.gethub.databinding.ActivityHomeKelolaMyGetHubBinding
 import com.entre.gethub.ui.adapter.HomeGethubLinkAdapter
 import com.entre.gethub.ui.adapter.HomeProdukJasaAdapter
 import com.entre.gethub.ui.home.mygethub.link.HomeKelolaMyGethubTambahLinkActivity
+import com.entre.gethub.ui.home.mygethub.product.HomeKelolaMyGethubEditProdukActivity
 import com.entre.gethub.ui.home.mygethub.product.HomeKelolaMyGethubTambahProdukActivity
 import com.entre.gethub.ui.models.GethubLink
 import com.entre.gethub.utils.ViewModelFactory
@@ -114,9 +115,9 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
         val adapter = HomeProdukJasaAdapter(listProdukJasa) { produkjasa, position ->
             val intent = Intent(
                 this@HomeKelolaMyGethubActivity,
-                HomeKelolaMyGetHubEditProdukActivity::class.java
+                HomeKelolaMyGethubEditProdukActivity::class.java
             )
-            intent.putExtra(HomeKelolaMyGetHubEditProdukActivity.EXTRA_PRODUCT_ID, produkjasa.id)
+            intent.putExtra(HomeKelolaMyGethubEditProdukActivity.EXTRA_PRODUCT_ID, produkjasa.id)
             startActivity(intent)
         }
         binding.rvProducts.apply {
@@ -140,10 +141,12 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
                         showLoadingOnProduct(false)
                         showToast(result.data.message.toString())
                     }
+
                     is Result.Error -> {
                         showLoadingOnProduct(false)
                         showToast(result.error)
                     }
+
                     else -> {
                         showLoadingOnProduct(false)
                         showToast("Terjadi kesalahan")
