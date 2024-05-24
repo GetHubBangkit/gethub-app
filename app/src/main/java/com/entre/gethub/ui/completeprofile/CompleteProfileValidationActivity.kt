@@ -37,7 +37,7 @@ class CompleteProfileValidationActivity : AppCompatActivity() {
 
         with(binding) {
             ivScan.setOnClickListener {
-                showToast(getString(R.string.feature_still_on_development))
+                showToast(getString(R.string.coming_soon))
             }
 
             ivManual.setOnClickListener {

@@ -76,6 +76,14 @@ class LoginActivity : AppCompatActivity() {
                 login(email, password)
             }
 
+            btnGoogle.setOnClickListener {
+                showToast(getString(R.string.coming_soon))
+            }
+
+            btnLinkedin.setOnClickListener {
+                showToast(getString(R.string.coming_soon))
+            }
+
         }
     }
 
