@@ -108,6 +108,7 @@ class GethubFragment : Fragment() {
                     is Result.Success -> {
                         val gethubPartnerList = result.data.data
                         showLoadingOnPartnerList(false)
+                        binding.tvEmptyPartner.visibility = View.GONE
                         setupRecyclerViewGethubPartner(gethubPartnerList)
                     }
 
@@ -210,6 +211,10 @@ class GethubFragment : Fragment() {
 
         binding.tvSeeAllPartner.setOnClickListener {
             startActivity(Intent(requireActivity(), GethubPartnerListActivity::class.java))
+        }
+
+        binding.ivAddPartner.setOnClickListener {
+            startActivity(Intent(requireActivity(), GethubAddPartnerActivity::class.java))
         }
 
     }

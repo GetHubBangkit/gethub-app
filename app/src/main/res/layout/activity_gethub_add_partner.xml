@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/frame"
+        android:layout_width="match_parent"
+        android:layout_height="97dp"
+        android:src="@drawable/rectanglepvalid"
+        app:layout_constraintDimensionRatio="H,3:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/icon_back"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="26dp"
+        android:src="@drawable/icon_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.041"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/TambahPartner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Tambah Partner"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:fontFamily="@font/poppins_semibold"
+        app:layout_constraintBottom_toBottomOf="@+id/frame"
+        app:layout_constraintEnd_toEndOf="@+id/frame"
+        app:layout_constraintStart_toStartOf="@+id/frame"
+        app:layout_constraintTop_toTopOf="@+id/frame"
+        app:layout_constraintVertical_bias="0.298" />
+
+    <ImageView
+        android:id="@+id/frame2"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="68dp"
+        android:src="@drawable/pvalidationframe"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/frame3"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="76dp"
+        android:src="@drawable/pvalidrectanglewhite"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/teks"
+        style="@style/Nunito"
+        android:layout_width="348dp"
+        android:layout_height="132dp"
+        android:layout_gravity="center"
+        android:text="kamu dapat dengan mudah mengelola dan mengakses informasi penting seperti nomor HP, Profesi, email, dan website. Semua informasi ini tersimpan secara otomatis melalui pemindaian kartu bisnis, Isi Manual, Atau Scan Qr Code Sesama Pengguna GetHub"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.488"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.202" />
+
+    <ImageView
+        android:id="@+id/scan"
+        android:layout_width="156dp"
+        android:layout_height="167dp"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/pvalidscan"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.133"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/teks" />
+
+    <ImageView
+        android:id="@+id/ivManual"
+        android:layout_width="156dp"
+        android:layout_height="167dp"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/pvalidmanual"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.874"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/teks" />
+
+    <ImageView
+        android:id="@+id/scanqr"
+        android:layout_width="335dp"
+        android:layout_height="174dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/pvalidscanqr"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scan" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
