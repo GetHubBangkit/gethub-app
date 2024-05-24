@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    android:background="@color/background">
+    android:background="@color/background"
+    android:fillViewport="true">
 
     <ImageView
         android:id="@+id/frame"
@@ -20,15 +20,15 @@
 
     <TextView
         android:id="@+id/rekrutproject"
+        style="@style/Poppins.Bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins_bold"
-        android:layout_marginTop="7dp"
         android:layout_marginStart="5dp"
+        android:layout_marginTop="7dp"
         android:text="Butuh Konten Kreator"
         android:textColor="@android:color/white"
         android:textSize="18sp"
-        app:fontFamily="@font/nunito_extrabold"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.085"
@@ -60,17 +60,15 @@
 
     <TextView
         android:id="@+id/rekrutprojectdesc"
+        style="@style/Nunito"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/nunito"
-
         android:text="Sedang Mencari Konten Kreator untuk
 pembuatan konten makanan dan untuk
 promosi warung rumah makanan yg baru
 buka di butuhkan segera"
         android:textColor="@color/black"
         android:textSize="16sp"
-        app:fontFamily="@font/nunito"
         app:layout_constraintBottom_toBottomOf="@+id/framedetail"
         app:layout_constraintEnd_toEndOf="@+id/framedetail"
 
@@ -94,14 +92,14 @@ buka di butuhkan segera"
 
     <TextView
         android:id="@+id/rekrutprice"
+        style="@style/Nunito.ExtraBold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:fontFamily="@font/nunito_extrabold"
         android:text="Rp 3,000,000 - 4,500,000"
         android:textColor="@color/black"
         android:textSize="14sp"
-        app:fontFamily="@font/nunito_extrabold"
+
         app:layout_constraintBottom_toBottomOf="@+id/framedetail"
         app:layout_constraintEnd_toEndOf="@+id/framedetail"
         app:layout_constraintHorizontal_bias="0.024"
@@ -124,14 +122,14 @@ buka di butuhkan segera"
 
     <TextView
         android:id="@+id/tanggalawalakhir"
+        style="@style/Nunito.ExtraBold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:fontFamily="@font/nunito_extrabold"
         android:text="2 Mei 2024 - 12 Mei 2024"
         android:textColor="@color/black"
         android:textSize="14sp"
-        app:fontFamily="@font/nunito_extrabold"
+
         app:layout_constraintBottom_toBottomOf="@+id/framedetail"
         app:layout_constraintEnd_toEndOf="@+id/framedetail"
         app:layout_constraintHorizontal_bias="0.024"
@@ -142,14 +140,12 @@ buka di butuhkan segera"
 
     <TextView
         android:id="@+id/dipostingoleh"
+        style="@style/Nunito"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/nunito"
-
         android:text="Diposting Oleh"
         android:textColor="@color/black"
         android:textSize="14sp"
-        app:fontFamily="@font/nunito"
         app:layout_constraintBottom_toBottomOf="@+id/framedetail"
         app:layout_constraintEnd_toEndOf="@+id/framedetail"
         app:layout_constraintHorizontal_bias="0.133"
@@ -160,14 +156,12 @@ buka di butuhkan segera"
 
     <TextView
         android:id="@+id/padatanggal"
+        style="@style/Nunito"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/nunito"
-
         android:text="Pada Tanggal"
         android:textColor="@color/black"
         android:textSize="14sp"
-        app:fontFamily="@font/nunito"
         app:layout_constraintBottom_toBottomOf="@+id/framedetail"
         app:layout_constraintEnd_toEndOf="@+id/framedetail"
         app:layout_constraintHorizontal_bias="0.87"
@@ -180,8 +174,8 @@ buka di butuhkan segera"
         android:id="@+id/profilepic2"
         android:layout_width="28dp"
         android:layout_height="28dp"
+        android:layout_marginTop="10dp"
         android:src="@drawable/profilepic2"
-       android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="@+id/framedetail"
         app:layout_constraintHorizontal_bias="0.101"
         app:layout_constraintStart_toStartOf="@+id/framedetail"
@@ -199,21 +193,18 @@ buka di butuhkan segera"
         android:textColor="@android:color/black"
         android:textSize="12sp"
         app:fontFamily="@font/nunito_bold"
-
-
         app:layout_constraintStart_toEndOf="@+id/profilepic2"
         app:layout_constraintTop_toBottomOf="@+id/dipostingoleh" />
 
     <TextView
         android:id="@+id/rekomendasiprofiledesc"
+        style="@style/Nunito.SemiBold"
         android:layout_width="wrap_content"
         android:layout_height="14dp"
         android:layout_marginStart="8dp"
-        android:fontFamily="@font/nunito_semibold"
         android:text="Software Enginer"
         android:textColor="@android:color/black"
         android:textSize="10sp"
-        app:fontFamily="@font/nunito"
         app:layout_constraintBottom_toBottomOf="@+id/framedetail"
 
         app:layout_constraintStart_toEndOf="@+id/profilepic2"
@@ -229,7 +220,7 @@ buka di butuhkan segera"
         android:text="1 Mei 2024"
         android:textColor="@color/black"
         android:textSize="12sp"
-        app:fontFamily="@font/nunito_extrabold"
+
         app:layout_constraintBottom_toBottomOf="@+id/framedetail"
         app:layout_constraintEnd_toEndOf="@+id/framedetail"
         app:layout_constraintHorizontal_bias="0.877"
@@ -240,14 +231,12 @@ buka di butuhkan segera"
 
     <TextView
         android:id="@+id/TotalUserBidding"
+        style="@style/Nunito"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/nunito"
-
         android:text="Total User Bidding"
         android:textColor="@color/black"
         android:textSize="14sp"
-        app:fontFamily="@font/nunito"
         app:layout_constraintBottom_toBottomOf="@+id/framedetail"
         app:layout_constraintEnd_toEndOf="@+id/framedetail"
         app:layout_constraintHorizontal_bias="0.137"
@@ -258,17 +247,15 @@ buka di butuhkan segera"
 
     <TextView
         android:id="@+id/rekrutprojecttotal"
+        style="@style/Nunito.ExtraBold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/nunito_extrabold"
         android:text="2 Orang"
         android:textColor="@color/black"
         android:textSize="12sp"
-        app:fontFamily="@font/nunito_extrabold"
         app:layout_constraintBottom_toBottomOf="@+id/framedetail"
         app:layout_constraintEnd_toEndOf="@+id/framedetail"
         app:layout_constraintHorizontal_bias="0.883"
-
         app:layout_constraintStart_toStartOf="@+id/framedetail"
         app:layout_constraintTop_toBottomOf="@+id/profilepic2"
         app:layout_constraintVertical_bias="0.118" />
@@ -286,18 +273,16 @@ buka di butuhkan segera"
 
     <TextView
         android:id="@+id/teksanalisis"
+        style="@style/Nunito"
         android:layout_width="280dp"
         android:layout_height="64dp"
         android:layout_marginTop="1dp"
-        android:fontFamily="@font/nunito"
-
         android:text="Berdasarkan history review {name} sebagai
 pemberi project job memiliki penilaian sentimen
 analisis {Positive}, ayo ikuti project dan selesaikan
 pekerjaan kamu dan berikan hasil yg maksimal"
         android:textColor="@color/black"
         android:textSize="12sp"
-        app:fontFamily="@font/nunito"
         app:layout_constraintBottom_toBottomOf="@+id/frameyellow"
         app:layout_constraintEnd_toEndOf="@+id/frameyellow"
         app:layout_constraintHorizontal_bias="0.437"
@@ -311,7 +296,6 @@ pekerjaan kamu dan berikan hasil yg maksimal"
         android:layout_width="23dp"
         android:layout_height="23dp"
         android:layout_marginTop="20dp"
-
         android:src="@drawable/detail_usersymbol"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.048"
@@ -320,34 +304,28 @@ pekerjaan kamu dan berikan hasil yg maksimal"
 
     <TextView
         android:id="@+id/DaftarUserBidding"
+        style="@style/Nunito.ExtraBold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:fontFamily="@font/nunito_extrabold"
         android:text="Daftar User Bidding"
         android:textColor="@color/black"
         android:textSize="16sp"
-
-        app:fontFamily="@font/nunito_extrabold"
         app:layout_constraintEnd_toEndOf="@+id/framedetail"
-
         app:layout_constraintHorizontal_bias="0.075"
         app:layout_constraintStart_toEndOf="@+id/userbiddingsymbol"
         app:layout_constraintTop_toBottomOf="@+id/framedetail" />
 
     <TextView
         android:id="@+id/rekrutprojecttotal2"
+        style="@style/Nunito.ExtraBold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:fontFamily="@font/nunito_extrabold"
         android:text="5 Orang"
         android:textColor="@color/black"
         android:textSize="16sp"
-
-        app:fontFamily="@font/nunito_extrabold"
         app:layout_constraintEnd_toEndOf="@+id/framedetail"
-
         app:layout_constraintHorizontal_bias="0.885"
         app:layout_constraintStart_toEndOf="@+id/DaftarUserBidding"
         app:layout_constraintTop_toBottomOf="@+id/framedetail" />
@@ -366,16 +344,13 @@ pekerjaan kamu dan berikan hasil yg maksimal"
 
     <TextView
         android:id="@+id/StatusProjectJob"
+        style="@style/Nunito.ExtraBold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:fontFamily="@font/nunito_extrabold"
         android:text="Status Project Job"
         android:textColor="@color/black"
-
         android:textSize="16sp"
-        app:fontFamily="@font/nunito_extrabold"
-
         app:layout_constraintEnd_toEndOf="@+id/framedetail"
         app:layout_constraintHorizontal_bias="0.074"
         app:layout_constraintStart_toStartOf="parent"
@@ -386,7 +361,6 @@ pekerjaan kamu dan berikan hasil yg maksimal"
         android:layout_width="85dp"
         android:layout_height="26dp"
         android:layout_marginTop="14dp"
-
         android:src="@drawable/framegreenterang"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.073"
@@ -395,30 +369,26 @@ pekerjaan kamu dan berikan hasil yg maksimal"
 
     <TextView
         android:id="@+id/terbuka"
+        style="@style/Nunito.ExtraBold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/nunito_extrabold"
         android:text="terbuka"
         android:textColor="@color/white"
-
         android:textSize="13sp"
-        app:fontFamily="@font/nunito_extrabold"
-
         app:layout_constraintBottom_toBottomOf="@+id/framegreenterang"
         app:layout_constraintEnd_toEndOf="@+id/framegreenterang"
 
         app:layout_constraintStart_toStartOf="@+id/framegreenterang"
-        app:layout_constraintTop_toTopOf="@+id/framegreenterang"
-         />
+        app:layout_constraintTop_toTopOf="@+id/framegreenterang" />
 
 
     <Button
         android:id="@+id/btnIkutBidding"
-        style="@style/SimpanButton"
-        android:layout_marginTop="10dp"
+        style="@style/CustomButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="40dp"
+        android:layout_marginTop="10dp"
         android:text="Ikut Bidding"
         app:layout_constraintTop_toBottomOf="@+id/StatusProjectJob" />
 
