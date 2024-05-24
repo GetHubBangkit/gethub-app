@@ -176,9 +176,9 @@ class GethubFragment : Fragment() {
 
                 is Result.Empty -> {
                     showLoadingOnSponsor(false)
-                    binding.tvEmptySponsor.apply {
-                        visibility = View.VISIBLE
-                        text = result.emptyError
+                    binding.empty.apply {
+                        llEmpty.visibility = View.VISIBLE
+                        tvEmpty.text = result.emptyError
                     }
                 }
 
