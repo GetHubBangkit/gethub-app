@@ -20,6 +20,7 @@ import com.entre.gethub.ui.adapter.HomeInformationHubAdapter
 import com.entre.gethub.utils.ViewModelFactory
 import com.entre.gethub.data.Result
 import com.entre.gethub.ui.home.caritalent.HomeCariTalentActivity
+import com.entre.gethub.ui.home.mygethub.HomeKelolaMyGetHubActivity
 
 class HomeFragment : Fragment() {
 
@@ -57,7 +58,7 @@ class HomeFragment : Fragment() {
             startActivity(Intent(requireContext(), HomeCariTalentActivity::class.java))
         }
         binding.ivKelolaMyGethub.setOnClickListener {
-            startActivity(Intent(requireContext(), HomeKelolaMyGethubActivity::class.java))
+            startActivity(Intent(requireContext(), HomeKelolaMyGetHubActivity::class.java))
         }
         binding.ivCariProjectBid.setOnClickListener {
             startActivity(Intent(requireContext(), HomeCariProjectBidsActivity::class.java))

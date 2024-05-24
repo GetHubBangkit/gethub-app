@@ -28,6 +28,9 @@
         android:theme="@style/Theme.GetHub"
         tools:targetApi="31">
         <activity
+            android:name=".ui.home.mygethub.HomeKelolaMyGetHubActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.home.caritalent.HomeCariTalentActivity"
             android:exported="false" />
         <activity
