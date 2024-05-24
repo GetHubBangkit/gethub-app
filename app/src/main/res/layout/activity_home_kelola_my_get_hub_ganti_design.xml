@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:fillViewport="true">
+
+    <ImageView
+        android:id="@+id/frame"
+        android:layout_width="match_parent"
+        android:layout_height="174dp"
+        android:src="@drawable/rectangle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textgethub"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Ganti Design Card Web"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:fontFamily="@font/nunito_extrabold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.048"
+        app:layout_constraintStart_toEndOf="@+id/icon_back"
+        app:layout_constraintTop_toTopOf="@+id/frame"
+        app:layout_constraintVertical_bias="0.034" />
+
+    <ImageView
+        android:id="@+id/icon_back"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="24dp"
+        android:src="@drawable/icon_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.041"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/framepetunjuk"
+        android:layout_width="357dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="18dp"
+        android:src="@drawable/rectanglewhite2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textgethub" />
+
+    <ImageView
+        android:id="@+id/picpetunjuk"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/kelola_tema_petunjuk"
+
+        app:layout_constraintBottom_toBottomOf="@+id/framepetunjuk"
+        app:layout_constraintEnd_toEndOf="@+id/framepetunjuk"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="@+id/framepetunjuk"
+        app:layout_constraintTop_toTopOf="@+id/framepetunjuk"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/texttitlepetunjuk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Pilih Layout Design"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:fontFamily="@font/nunito_extrabold"
+        app:layout_constraintBottom_toBottomOf="@+id/framepetunjuk"
+        app:layout_constraintEnd_toEndOf="@+id/framepetunjuk"
+        app:layout_constraintStart_toStartOf="@+id/framepetunjuk"
+        app:layout_constraintTop_toBottomOf="@+id/picpetunjuk"
+        app:layout_constraintVertical_bias="0.123" />
+
+    <TextView
+        android:id="@+id/texdescpetunjuk"
+        style="@style/Nunito"
+        android:layout_width="325dp"
+        android:layout_height="44dp"
+        android:gravity="center"
+        android:text="Silahkan pilih layout design card dan website
+kamu sesuai criteria yg kamu inginkan"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/framepetunjuk"
+        app:layout_constraintEnd_toEndOf="@+id/framepetunjuk"
+        app:layout_constraintStart_toStartOf="@+id/framepetunjuk"
+        app:layout_constraintTop_toBottomOf="@+id/texttitlepetunjuk"
+        app:layout_constraintVertical_bias="0.123" />
+
+    <ImageView
+        android:id="@+id/icon_layoutddesigngratis"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/icon_kelola"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.076"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/framepetunjuk" />
+
+    <TextView
+        android:id="@+id/LayoutDesignGratis"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/nunito_bold"
+        android:text="Layout Design Gratis"
+        android:textColor="@color/black"
+
+
+        android:textSize="18sp"
+        app:fontFamily="@font/nunito_bold"
+        app:layout_constraintStart_toEndOf="@+id/icon_layoutddesigngratis"
+        app:layout_constraintTop_toBottomOf="@+id/framepetunjuk" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewHomeDesignGratis"
+        android:layout_width="match_parent"
+        android:layout_height="78dp"
+
+        android:layout_marginTop="18dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/LayoutDesignGratis"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <ImageView
+        android:id="@+id/icon_layoutddesignbayar"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/icon_kelola"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.076"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerViewHomeDesignGratis" />
+
+    <TextView
+        android:id="@+id/LayoutDesignBayar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/nunito_bold"
+        android:text="Layout Design Berbayar"
+
+
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:fontFamily="@font/nunito_bold"
+        app:layout_constraintStart_toEndOf="@+id/icon_layoutddesignbayar"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerViewHomeDesignGratis" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewHomeDesignBayar"
+        android:layout_width="match_parent"
+        android:layout_height="78dp"
+
+        android:layout_marginTop="18dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/LayoutDesignBayar"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <Button
+        android:id="@+id/btnSimpan"
+        style="@style/CustomButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginTop="12dp"
+        android:text="Simpan"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerViewHomeDesignBayar"
+        tools:layout_editor_absoluteX="40dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

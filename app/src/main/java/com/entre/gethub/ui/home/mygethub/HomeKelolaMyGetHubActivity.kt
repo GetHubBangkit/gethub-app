@@ -15,6 +15,7 @@ import com.entre.gethub.data.Result
 import com.entre.gethub.data.remote.response.products.Product
 import com.entre.gethub.databinding.ActivityHomeKelolaMyGetHubBinding
 import com.entre.gethub.ui.adapter.HomeGethubLinkAdapter
+import com.entre.gethub.ui.adapter.HomeProdukJasaAdapter
 import com.entre.gethub.ui.models.GetHubLink
 import com.entre.gethub.utils.ViewModelFactory
 
@@ -40,7 +41,7 @@ class HomeKelolaMyGetHubActivity : AppCompatActivity() {
         }
 
         binding.gantithema.setOnClickListener {
-            startActivity(Intent(this, HomeKelolaMyGethubGantiDesignActivity::class.java))
+            startActivity(Intent(this, HomeKelolaMyGetHubGantiDesignActivity::class.java))
         }
 
         binding.editgethublink.setOnClickListener {
@@ -110,7 +111,7 @@ class HomeKelolaMyGetHubActivity : AppCompatActivity() {
     private fun setupRecyclerViewHomeProdukJasa(listProdukJasa: List<Product>) {
         val adapter = HomeProdukJasaAdapter(listProdukJasa) { produkjasa, position ->
             val intent = Intent(
-                this@HomeKelolaMyGethubActivity,
+                this@HomeKelolaMyGetHubActivity,
                 HomeKelolaMyGetHubEditProdukActivity::class.java
             )
             intent.putExtra(HomeKelolaMyGetHubEditProdukActivity.EXTRA_PRODUCT_ID, produkjasa.id)
