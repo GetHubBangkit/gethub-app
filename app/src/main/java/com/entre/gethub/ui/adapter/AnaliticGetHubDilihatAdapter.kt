@@ -3,7 +3,7 @@ package com.entre.gethub.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.entre.gethub.AnaliticGetHubDilihat
+import com.entre.gethub.ui.models.AnaliticGetHubDilihat
 import com.entre.gethub.databinding.ItemAnaliticGethubkamudilihatolehBinding
 
 

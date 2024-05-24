@@ -10,7 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.entre.gethub.AnaliticGetHubDilihat
+import com.entre.gethub.ui.models.AnaliticGetHubDilihat
 import com.entre.gethub.R
 
 import com.entre.gethub.databinding.FragmentAnaliticBinding

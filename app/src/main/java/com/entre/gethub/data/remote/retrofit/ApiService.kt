@@ -2,14 +2,18 @@ package com.entre.gethub.data.remote.retrofit
 
 import com.entre.gethub.data.remote.response.ApiResponse
 import com.entre.gethub.data.remote.response.InformationHubResponse
+import com.entre.gethub.data.remote.response.LinkResponse
 import com.entre.gethub.data.remote.response.SponsorResponse
 import com.entre.gethub.data.remote.response.UploadFileResponse
 import com.entre.gethub.data.remote.response.auth.LoginResponse
 import com.entre.gethub.data.remote.response.partners.AddPartnerResponse
 import com.entre.gethub.data.remote.response.partners.GetHubPartnerListResponse
+import com.entre.gethub.data.remote.response.products.ProductListResponse
+import com.entre.gethub.data.remote.response.products.ProductResponse
 import com.entre.gethub.data.remote.response.profiles.UpdateUserProfileResponse
 import com.entre.gethub.data.remote.response.profiles.UserProfileResponse
 import okhttp3.MultipartBody
+import retrofit2.http.DELETE
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
@@ -18,6 +22,7 @@ import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Part
+import retrofit2.http.Path
 
 interface ApiService {
     // Auth
@@ -89,4 +94,53 @@ interface ApiService {
     // Sponsors
     @GET("sponsors")
     suspend fun getSponsors(): SponsorResponse
+
+    // Products
+    @GET("products")
+    suspend fun getProductList(): ProductListResponse
+
+    @FormUrlEncoded
+    @POST("product")
+    suspend fun addProduct(
+        @Field("name") name: String,
+        @Field("description") description: String,
+        @Field("image_url") imageUrl: String
+    ): ProductResponse
+
+    @GET("product/{id}")
+    suspend fun getProductDetail(
+        @Path("id") id: String
+    ): ProductResponse
+
+    @FormUrlEncoded
+    @PUT("product/{id}")
+    suspend fun editProduct(
+        @Path("id") id: String,
+        @Field("name") name: String,
+        @Field("description") description: String,
+        @Field("image_url") imageUrl: String
+    ): ProductResponse
+
+    @DELETE("product/{id}")
+    suspend fun deleteProduct(
+        @Path("id") id: String,
+    ): ApiResponse
+    // Products
+
+    // Links
+    @FormUrlEncoded
+    @POST("link")
+    suspend fun addLink(
+        @Field("category") category: String,
+        @Field("link") link: String
+    ): LinkResponse
+
+    @GET("links")
+    suspend fun getLinks(): LinkResponse
+
+    @DELETE("link/{linkId}")
+    suspend fun deleteLink(
+        @Path("linkId") linkId: String
+    ): LinkResponse
+    // Links
 }
