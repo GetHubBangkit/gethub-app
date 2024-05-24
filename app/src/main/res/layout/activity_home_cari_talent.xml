@@ -7,4 +7,138 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.caritalent.HomeCariTalentActivity">
 
+    <ImageView
+        android:id="@+id/frame"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/rectangle"
+        app:layout_constraintDimensionRatio="H,3:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textgethub"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Cari Talent"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:fontFamily="@font/nunito_extrabold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.048"
+        app:layout_constraintStart_toEndOf="@id/ivBack"
+        app:layout_constraintTop_toTopOf="@id/frame"
+        app:layout_constraintVertical_bias="0.034" />
+
+    <ImageView
+        android:id="@+id/ivBack"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="24dp"
+        android:src="@drawable/icon_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.041"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/framecaritalent"
+        android:layout_width="373dp"
+        android:layout_height="93dp"
+        android:layout_marginTop="80dp"
+        android:src="@drawable/frame1"
+        app:layout_constraintDimensionRatio="H,3:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.421"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvProfession"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/nunito_bold"
+        android:text="Profesi"
+        android:textColor="@color/darkBlue"
+        android:textSize="14sp"
+        app:fontFamily="@font/nunito_bold"
+        app:layout_constraintBottom_toBottomOf="@+id/framecaritalent"
+        app:layout_constraintEnd_toEndOf="@+id/framecaritalent"
+        app:layout_constraintHorizontal_bias="0.057"
+        app:layout_constraintStart_toStartOf="@+id/framecaritalent"
+        app:layout_constraintTop_toTopOf="@+id/framecaritalent"
+        app:layout_constraintVertical_bias="0.152" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="332dp"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toBottomOf="@+id/framecaritalent"
+        app:layout_constraintEnd_toEndOf="@+id/framecaritalent"
+        app:layout_constraintStart_toStartOf="@+id/framecaritalent"
+        app:layout_constraintTop_toBottomOf="@id/tvProfession">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/professionTextField"
+            style="@style/TextInputLayoutCariTalent"
+            android:layout_width="match_parent"
+            android:layout_height="37dp"
+            android:layout_marginEnd="50dp"
+            android:minHeight="37dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:startIconTint="@color/teal">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="37dp"
+                android:hint="Marketing"
+                android:paddingTop="1dp"
+                android:paddingBottom="1dp"
+                android:textSize="14sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <ImageView
+            android:id="@+id/frameiconsearch"
+            android:layout_width="50dp"
+            android:layout_height="37dp"
+
+            android:src="@drawable/rectanglecari"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iconsearch"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+
+            android:layout_marginTop="8dp"
+            android:src="@drawable/icon_search"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.953"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvHomeCariTalent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:orientation="horizontal"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/framecaritalent" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

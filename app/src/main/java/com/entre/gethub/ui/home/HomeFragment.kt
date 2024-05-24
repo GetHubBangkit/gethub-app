@@ -19,6 +19,7 @@ import com.entre.gethub.ui.adapter.HomeGethubPartnerAdapter
 import com.entre.gethub.ui.adapter.HomeInformationHubAdapter
 import com.entre.gethub.utils.ViewModelFactory
 import com.entre.gethub.data.Result
+import com.entre.gethub.ui.home.caritalent.HomeCariTalentActivity
 
 class HomeFragment : Fragment() {
 
