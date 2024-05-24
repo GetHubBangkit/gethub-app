@@ -16,14 +16,15 @@ import com.entre.gethub.data.remote.response.products.Product
 import com.entre.gethub.databinding.ActivityHomeKelolaMyGetHubBinding
 import com.entre.gethub.ui.adapter.HomeGethubLinkAdapter
 import com.entre.gethub.ui.adapter.HomeProdukJasaAdapter
-import com.entre.gethub.ui.models.GetHubLink
+import com.entre.gethub.ui.home.mygethub.link.HomeKelolaMyGethubTambahLinkActivity
+import com.entre.gethub.ui.models.GethubLink
 import com.entre.gethub.utils.ViewModelFactory
 
-class HomeKelolaMyGetHubActivity : AppCompatActivity() {
+class HomeKelolaMyGethubActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityHomeKelolaMyGetHubBinding.inflate(layoutInflater) }
 
-    private lateinit var homeKelolaMyGetHubViewModel: HomeKelolaMyGetHubViewModel
+    private lateinit var homeKelolaMyGetHubViewModel: HomeKelolaMyGethubViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +42,7 @@ class HomeKelolaMyGetHubActivity : AppCompatActivity() {
         }
 
         binding.gantithema.setOnClickListener {
-            startActivity(Intent(this, HomeKelolaMyGetHubGantiDesignActivity::class.java))
+            startActivity(Intent(this, HomeKelolaMyGethubGantiDesignActivity::class.java))
         }
 
         binding.editgethublink.setOnClickListener {
@@ -57,7 +58,7 @@ class HomeKelolaMyGetHubActivity : AppCompatActivity() {
     private fun initViewModel() {
         val factory = ViewModelFactory.getInstance(this)
         homeKelolaMyGetHubViewModel =
-            ViewModelProvider(this, factory)[HomeKelolaMyGetHubViewModel::class.java]
+            ViewModelProvider(this, factory)[HomeKelolaMyGethubViewModel::class.java]
     }
 
     private fun getProductList() {
@@ -111,7 +112,7 @@ class HomeKelolaMyGetHubActivity : AppCompatActivity() {
     private fun setupRecyclerViewHomeProdukJasa(listProdukJasa: List<Product>) {
         val adapter = HomeProdukJasaAdapter(listProdukJasa) { produkjasa, position ->
             val intent = Intent(
-                this@HomeKelolaMyGetHubActivity,
+                this@HomeKelolaMyGethubActivity,
                 HomeKelolaMyGetHubEditProdukActivity::class.java
             )
             intent.putExtra(HomeKelolaMyGetHubEditProdukActivity.EXTRA_PRODUCT_ID, produkjasa.id)
@@ -169,7 +170,7 @@ class HomeKelolaMyGetHubActivity : AppCompatActivity() {
                                 "Tiktok" -> R.drawable.kelola_tiktok
                                 else -> R.drawable.kelola_tiktok // Default image if no match
                             }
-                            GetHubLink(
+                            GethubLink(
                                 it.id ?: "",
                                 it.link ?: "",
                                 drawableRes

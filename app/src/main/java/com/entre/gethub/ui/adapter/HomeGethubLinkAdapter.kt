@@ -4,11 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.entre.gethub.databinding.ItemHomeKelolamygethubLinkBinding
-import com.entre.gethub.ui.models.GetHubLink
+import com.entre.gethub.ui.models.GethubLink
 
 class HomeGethubLinkAdapter(
-    private var gethubLinks: List<GetHubLink>,
-    private val itemClickListener: (GetHubLink, Int) -> Unit,
+    private var gethubLinks: List<GethubLink>,
+    private val itemClickListener: (GethubLink, Int) -> Unit,
     private val deleteClickListener: (String) -> Unit
 ) : RecyclerView.Adapter<HomeGethubLinkAdapter.ViewHolder>() {
 
@@ -24,18 +24,18 @@ class HomeGethubLinkAdapter(
 
     override fun getItemCount(): Int = gethubLinks.size
 
-    fun updateGethubLinks(newLinks: List<GetHubLink>) {
+    fun updateGethubLinks(newLinks: List<GethubLink>) {
         gethubLinks = newLinks
         notifyDataSetChanged()
     }
 
     class ViewHolder(
         private val binding: ItemHomeKelolamygethubLinkBinding,
-        private val itemClickListener: (GetHubLink, Int) -> Unit,
+        private val itemClickListener: (GethubLink, Int) -> Unit,
         private val deleteClickListener: (String) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bindItem(gethublink: GetHubLink) {
+        fun bindItem(gethublink: GethubLink) {
             binding.image.setImageResource(gethublink.image)
 
             // Set up click listener for the link

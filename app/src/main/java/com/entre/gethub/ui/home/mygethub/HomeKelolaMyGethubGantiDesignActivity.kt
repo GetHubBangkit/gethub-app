@@ -9,7 +9,7 @@ import com.entre.gethub.databinding.ActivityHomeKelolaMyGetHubGantiDesignBinding
 import com.entre.gethub.ui.adapter.LayoutDesignAdapter
 import com.entre.gethub.ui.models.LayoutDesign
 
-class HomeKelolaMyGetHubGantiDesignActivity : AppCompatActivity() {
+class HomeKelolaMyGethubGantiDesignActivity : AppCompatActivity() {
     private val binding by lazy { ActivityHomeKelolaMyGetHubGantiDesignBinding.inflate(layoutInflater) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,7 +35,7 @@ class HomeKelolaMyGetHubGantiDesignActivity : AppCompatActivity() {
             adapter =
                 LayoutDesignAdapter(createLayoutDesignGratisList()) { layoutdesign, position ->
                     Toast.makeText(
-                        this@HomeKelolaMyGetHubGantiDesignActivity,
+                        this@HomeKelolaMyGethubGantiDesignActivity,
                         "Clicked on actor: ${layoutdesign.image}",
                         Toast.LENGTH_SHORT
                     ).show()
@@ -56,7 +56,7 @@ class HomeKelolaMyGetHubGantiDesignActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = LayoutDesignAdapter(createLayoutDesignBayarList()) { layoutdesign, position ->
                 Toast.makeText(
-                    this@HomeKelolaMyGetHubGantiDesignActivity,
+                    this@HomeKelolaMyGethubGantiDesignActivity,
                     "Clicked on actor: ${layoutdesign.image}",
                     Toast.LENGTH_SHORT
                 ).show()

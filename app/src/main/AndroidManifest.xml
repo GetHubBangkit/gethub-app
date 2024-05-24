@@ -28,10 +28,13 @@
         android:theme="@style/Theme.GetHub"
         tools:targetApi="31">
         <activity
-            android:name=".ui.home.mygethub.HomeKelolaMyGetHubGantiDesignActivity"
+            android:name=".ui.home.mygethub.link.HomeKelolaMyGethubTambahLinkActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.home.mygethub.HomeKelolaMyGetHubActivity"
+            android:name=".ui.home.mygethub.HomeKelolaMyGethubGantiDesignActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.home.mygethub.HomeKelolaMyGethubActivity"
             android:exported="false" />
         <activity
             android:name=".ui.home.caritalent.HomeCariTalentActivity"

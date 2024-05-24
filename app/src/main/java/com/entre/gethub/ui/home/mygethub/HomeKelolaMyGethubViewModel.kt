@@ -15,7 +15,7 @@ import com.google.gson.Gson
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
-class HomeKelolaMyGetHubViewModel(private val productRepository: ProductRepository, private val linkRepository: LinkRepository) : ViewModel() {
+class HomeKelolaMyGethubViewModel(private val productRepository: ProductRepository, private val linkRepository: LinkRepository) : ViewModel() {
     private val getProductListResult = MediatorLiveData<Result<ProductListResponse>>()
     private val deleteProductResult = MediatorLiveData<Result<ApiResponse>>()
 
