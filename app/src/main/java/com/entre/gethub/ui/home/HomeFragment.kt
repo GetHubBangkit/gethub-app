@@ -20,6 +20,7 @@ import com.entre.gethub.utils.ViewModelFactory
 import com.entre.gethub.data.Result
 import com.entre.gethub.ui.home.caritalent.HomeCariTalentActivity
 import com.entre.gethub.ui.home.mygethub.HomeKelolaMyGethubActivity
+import com.entre.gethub.ui.home.projectbids.HomeCariProjectBidsActivity
 
 class HomeFragment : Fragment() {
 
