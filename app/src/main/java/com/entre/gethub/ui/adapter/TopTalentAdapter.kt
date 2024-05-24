@@ -3,7 +3,7 @@ package com.entre.gethub.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.entre.gethub.TopTalent
+import com.entre.gethub.ui.models.TopTalent
 import com.entre.gethub.databinding.ItemProjectToptalentBinding
 
 

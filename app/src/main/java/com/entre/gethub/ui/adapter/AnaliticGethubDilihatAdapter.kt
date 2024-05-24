@@ -3,15 +3,15 @@ package com.entre.gethub.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.entre.gethub.AnaliticGetHubDilihat
+import com.entre.gethub.ui.models.AnaliticGetHubDilihat
 import com.entre.gethub.databinding.ItemAnaliticGethubkamudilihatolehBinding
 
 
-class AnaliticGetHubDilihatAdapter(
+class AnaliticGethubDilihatAdapter(
     private val gethubpartnerList: ArrayList<AnaliticGetHubDilihat>,
     private val listener: (AnaliticGetHubDilihat, Int) -> Unit
 ) :
-    RecyclerView.Adapter<AnaliticGetHubDilihatAdapter.ViewHolder>() {
+    RecyclerView.Adapter<AnaliticGethubDilihatAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = ItemAnaliticGethubkamudilihatolehBinding.inflate(LayoutInflater.from(parent.context), parent, false)

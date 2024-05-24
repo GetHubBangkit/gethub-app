@@ -7,15 +7,21 @@ import com.entre.gethub.data.preferences.UserPreferences
 import com.entre.gethub.data.repositories.AuthRepository
 import com.entre.gethub.data.repositories.GethubRepository
 import com.entre.gethub.data.repositories.InformationHubRepository
+import com.entre.gethub.data.repositories.LinkRepository
+import com.entre.gethub.data.repositories.ProductRepository
 import com.entre.gethub.data.repositories.ProfileRepository
 import com.entre.gethub.data.repositories.SponsorRepository
 import com.entre.gethub.di.Injection
 import com.entre.gethub.ui.akun.AkunViewModel
 import com.entre.gethub.ui.auth.LoginViewModel
 import com.entre.gethub.ui.auth.RegisterViewModel
+import com.entre.gethub.ui.completeprofile.CompleteProfileValidationViewModel
 import com.entre.gethub.ui.completeprofile.CompleteProfileViewModel
 import com.entre.gethub.ui.gethub.GethubViewModel
 import com.entre.gethub.ui.home.HomeViewModel
+import com.entre.gethub.ui.home.mygethub.HomeKelolaMyGethubViewModel
+import com.entre.gethub.ui.home.mygethub.product.HomeKelolaMyGethubEditProdukViewModel
+import com.entre.gethub.ui.home.mygethub.product.HomeKelolaMyGethubTambahProdukViewModel
 import com.entre.gethub.ui.splash.SplashViewModel
 
 class ViewModelFactory private constructor(
@@ -24,7 +30,9 @@ class ViewModelFactory private constructor(
     private val userPreferences: UserPreferences,
     private val informationHubRepository: InformationHubRepository,
     private val gethubRepository: GethubRepository,
-    private val sponsorRepository: SponsorRepository
+    private val sponsorRepository: SponsorRepository,
+    private val productRepository: ProductRepository,
+    private val linkRepository: LinkRepository,
 ) : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when (modelClass) {
@@ -33,8 +41,30 @@ class ViewModelFactory private constructor(
             RegisterViewModel::class.java -> RegisterViewModel(authRepository) as T
             HomeViewModel::class.java -> HomeViewModel(informationHubRepository) as T
             CompleteProfileViewModel::class.java -> CompleteProfileViewModel(profileRepository) as T
+            CompleteProfileValidationViewModel::class.java -> CompleteProfileValidationViewModel(
+                profileRepository
+            ) as T
+
             AkunViewModel::class.java -> AkunViewModel(profileRepository, userPreferences) as T
-            GethubViewModel::class.java -> GethubViewModel(gethubRepository, sponsorRepository, userPreferences) as T
+            GethubViewModel::class.java -> GethubViewModel(
+                gethubRepository,
+                sponsorRepository,
+                userPreferences
+            ) as T
+
+            HomeKelolaMyGethubViewModel::class.java -> HomeKelolaMyGethubViewModel(
+                productRepository,
+                linkRepository
+            ) as T
+
+            HomeKelolaMyGethubTambahProdukViewModel::class.java -> HomeKelolaMyGethubTambahProdukViewModel(
+                productRepository
+            ) as T
+
+            HomeKelolaMyGethubEditProdukViewModel::class.java -> HomeKelolaMyGethubEditProdukViewModel(
+                productRepository
+            ) as T
+
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }
     }
@@ -47,7 +77,9 @@ class ViewModelFactory private constructor(
                 Injection.provideUserPreferences(context),
                 Injection.provideInformationHubRepository(context),
                 Injection.provideGethubRepository(context),
-                Injection.provideSponsorRepository(context)
+                Injection.provideSponsorRepository(context),
+                Injection.provideProductRepository(context),
+                Injection.provideLinkRepository(context)
             )
     }
 }

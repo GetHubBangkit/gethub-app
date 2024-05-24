@@ -1,4 +1,4 @@
-package com.entre.gethub
+package com.entre.gethub.ui.models
 
 import android.os.Parcel
 import android.os.Parcelable

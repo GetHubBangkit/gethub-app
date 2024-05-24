@@ -5,45 +5,44 @@
     android:id="@+id/nestedScrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    android:background="@color/background">
+    android:background="@color/background"
+    android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/background"
         tools:context=".ui.home.HomeFragment">
-    <ImageView
-        android:id="@+id/frameGethub"
-        android:layout_width="match_parent"
-        android:layout_height="65dp"
-        android:src="@drawable/frame1"
+
+        <ImageView
+            android:id="@+id/frameGethub"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:src="@drawable/frame1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <!--    <ImageView-->
+        <!--        android:id="@+id/homegethub"-->
+        <!--        android:layout_width="145dp"-->
+        <!--        android:layout_height="41dp"-->
 
 
-<!--    <ImageView-->
-<!--        android:id="@+id/homegethub"-->
-<!--        android:layout_width="145dp"-->
-<!--        android:layout_height="41dp"-->
-
-
-<!--        android:src="@drawable/homegethub"-->
-<!--        app:layout_constraintBottom_toBottomOf="@+id/frameGethub"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.06"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="@+id/frameGethub" />-->
+        <!--        android:src="@drawable/homegethub"-->
+        <!--        app:layout_constraintBottom_toBottomOf="@+id/frameGethub"-->
+        <!--        app:layout_constraintEnd_toEndOf="parent"-->
+        <!--        app:layout_constraintHorizontal_bias="0.06"-->
+        <!--        app:layout_constraintStart_toStartOf="parent"-->
+        <!--        app:layout_constraintTop_toTopOf="@+id/frameGethub" />-->
 
         <LinearLayout
             android:id="@+id/GethubPartnerTeks"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
             android:layout_marginStart="18dp"
+            android:layout_marginTop="5dp"
             app:layout_constraintBottom_toBottomOf="@+id/frameGethub"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/frameGethub">
@@ -76,12 +75,11 @@
 
 
         <ImageView
-            android:id="@+id/homekelolamygethub"
+            android:id="@+id/ivKelolaMyGethub"
             android:layout_width="80dp"
             android:layout_height="72dp"
             android:layout_marginTop="5dp"
             android:src="@drawable/homekelolamygethub"
-
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.045"
             app:layout_constraintStart_toStartOf="parent"
@@ -89,84 +87,82 @@
 
         <TextView
             android:id="@+id/KelolaMyGethub"
+            style="@style/Nunito"
             android:layout_width="80dp"
             android:layout_height="32dp"
             android:gravity="center"
             android:text="Kelola\nMy Gethub"
             android:textColor="@android:color/black"
             android:textSize="10sp"
-            style="@style/Nunito"
 
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.037"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/homekelolamygethub" />
+            app:layout_constraintTop_toBottomOf="@+id/ivKelolaMyGethub" />
 
         <ImageView
-        android:id="@+id/homecariprojectbid"
-        android:layout_width="80dp"
-        android:layout_height="72dp"
+            android:id="@+id/ivCariProjectBid"
+            android:layout_width="80dp"
+            android:layout_height="72dp"
             android:layout_marginTop="5dp"
-        android:src="@drawable/homecariprojectbid"
-        
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.077"
-        app:layout_constraintStart_toEndOf="@+id/homekelolamygethub"
-        app:layout_constraintTop_toBottomOf="@+id/frameGethub"
-        app:layout_constraintVertical_bias="0.015" />
+            android:src="@drawable/homecariprojectbid"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.077"
+            app:layout_constraintStart_toEndOf="@id/ivKelolaMyGethub"
+            app:layout_constraintTop_toBottomOf="@+id/frameGethub"
+            app:layout_constraintVertical_bias="0.015" />
 
         <TextView
             android:id="@+id/CariProjectBids"
+            style="@style/Nunito"
             android:layout_width="80dp"
-            android:layout_height="32dp"
 
+            android:layout_height="32dp"
             android:gravity="center"
             android:text="Cari\nProject Bids"
             android:textColor="@android:color/black"
             android:textSize="10sp"
-            style="@style/Nunito"
 
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.076"
             app:layout_constraintStart_toEndOf="@+id/KelolaMyGethub"
-            app:layout_constraintTop_toBottomOf="@+id/homecariprojectbid" />
+            app:layout_constraintTop_toBottomOf="@+id/ivCariProjectBid" />
 
         <ImageView
-        android:id="@+id/homecaritalent"
-        android:layout_width="80dp"
-        android:layout_height="72dp"
+            android:id="@+id/ivCariTalent"
+            android:layout_width="80dp"
+            android:layout_height="72dp"
             android:layout_marginTop="5dp"
-        android:src="@drawable/homecaritalent"
-        
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.127"
-        app:layout_constraintStart_toEndOf="@+id/homecariprojectbid"
-        app:layout_constraintTop_toBottomOf="@+id/frameGethub"
-        app:layout_constraintVertical_bias="0.015" />
+            android:src="@drawable/homecaritalent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.127"
+            app:layout_constraintStart_toEndOf="@+id/ivCariProjectBid"
+            app:layout_constraintTop_toBottomOf="@+id/frameGethub"
+            app:layout_constraintVertical_bias="0.015" />
 
         <TextView
             android:id="@+id/CariTalent"
+            style="@style/Nunito"
             android:layout_width="80dp"
-            android:layout_height="32dp"
 
+            android:layout_height="32dp"
             android:gravity="center"
             android:text="Cari\nTalent"
             android:textColor="@android:color/black"
             android:textSize="10sp"
-            style="@style/Nunito"
 
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.13"
             app:layout_constraintStart_toEndOf="@+id/CariProjectBids"
-            app:layout_constraintTop_toBottomOf="@+id/homecaritalent" />
+            app:layout_constraintTop_toBottomOf="@+id/ivCariTalent" />
 
 
         <LinearLayout
             android:id="@+id/HomeGethubPartner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
             android:layout_marginTop="16dp"
-       android:layout_marginStart="18dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/KelolaMyGethub">
 
@@ -222,8 +218,8 @@
             android:id="@+id/homebiddingdikerjakan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:layout_marginStart="18dp"
+            android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recyclerViewHomeGethubPartner">
 
@@ -264,8 +260,8 @@
             android:id="@+id/homeinformationhub"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:layout_marginStart="18dp"
+            android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recyclerViewBiddingDikerjakan">
 

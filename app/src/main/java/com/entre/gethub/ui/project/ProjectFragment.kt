@@ -10,9 +10,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.entre.gethub.ProjectBid
+import com.entre.gethub.ui.models.ProjectBid
 import com.entre.gethub.R
-import com.entre.gethub.TopTalent
+import com.entre.gethub.ui.models.TopTalent
 import com.entre.gethub.databinding.FragmentProjectBinding
 import com.entre.gethub.ui.adapter.HomeProjectBidsAdapter
 import com.entre.gethub.ui.adapter.TopTalentAdapter

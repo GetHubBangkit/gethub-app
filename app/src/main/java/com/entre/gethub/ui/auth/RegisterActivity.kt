@@ -70,11 +70,11 @@ class RegisterActivity : AppCompatActivity() {
             }
 
             btnGoogle.setOnClickListener {
-                showToast(getString(R.string.feature_still_on_development))
+                showToast(getString(R.string.coming_soon))
             }
 
             btnLinkedin.setOnClickListener {
-                showToast(getString(R.string.feature_still_on_development))
+                showToast(getString(R.string.coming_soon))
             }
 
             btnRegister.setOnClickListener {
@@ -89,7 +89,7 @@ class RegisterActivity : AppCompatActivity() {
             }
 
             tvTermsCondition.setOnClickListener {
-
+                startActivity(Intent(this@RegisterActivity, TermsConditionActivity::class.java))
             }
         }
     }

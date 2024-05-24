@@ -21,8 +21,6 @@ class HomeViewModel(
         getInformationHubs()
     }
 
-
-
     fun getInformationHubs() {
         viewModelScope.launch {
             _informationHubs.value = Result.Loading
@@ -38,6 +36,4 @@ class HomeViewModel(
             }
         }
     }
-
-
 }

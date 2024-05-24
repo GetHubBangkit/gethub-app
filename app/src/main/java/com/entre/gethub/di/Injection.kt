@@ -6,6 +6,8 @@ import com.entre.gethub.data.remote.retrofit.ApiConfig
 import com.entre.gethub.data.repositories.AuthRepository
 import com.entre.gethub.data.repositories.GethubRepository
 import com.entre.gethub.data.repositories.InformationHubRepository
+import com.entre.gethub.data.repositories.LinkRepository
+import com.entre.gethub.data.repositories.ProductRepository
 import com.entre.gethub.data.repositories.ProfileRepository
 import com.entre.gethub.data.repositories.SponsorRepository
 import kotlinx.coroutines.flow.first
@@ -44,5 +46,17 @@ object Injection {
         val pref = provideUserPreferences(context)
         val token = runBlocking { pref.getToken().first() }
         return SponsorRepository.getInstance(ApiConfig.getApiService(context, token))
+    }
+
+    fun provideProductRepository(context: Context): ProductRepository {
+        val pref = provideUserPreferences(context)
+        val token = runBlocking { pref.getToken().first() }
+        return ProductRepository.getInstance(ApiConfig.getApiService(context, token))
+    }
+
+    fun provideLinkRepository(context: Context): LinkRepository {
+        val pref = provideUserPreferences(context)
+        val token = runBlocking { pref.getToken().first() }
+        return LinkRepository.getInstance(ApiConfig.getApiService(context, token))
     }
 }

@@ -20,7 +20,7 @@
     <string name="field_couldnt_be_empty">Field tidak boleh kosong</string>
     <string name="please_input_a_valid_email">Masukkan email yang valid</string>
     <string name="password_should_not_less_than_8">Password tidak kurang dari 8 karakter</string>
-    <string name="feature_still_on_development">Fitur dalam tahap pengembangan</string>
+    <string name="coming_soon">Coming Soon</string>
     <string name="something_went_wrong">Terjadi kesalahan</string>
     <string name="image_unavailable">Gambar tidak tersedia</string>
     <string name="take_picture">Ambil Foto</string>
@@ -39,4 +39,5 @@
     <string name="onboarding_desc_two">Tawarkan Pekerjaan dan Temukan Penawaran yang Pas! Pilih Penawar yang Cocok dengan Kebutuhan Anda! Temukan Kemudahan Dalam Setiap Langkah</string>
 
     <string name="sponsor_image_description">Sponsor</string>
+    <string name="please_login_again">Silahkan login kembali</string>
 </resources>

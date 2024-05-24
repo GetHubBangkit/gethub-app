@@ -235,7 +235,6 @@ class CompleteProfileActivity : AppCompatActivity() {
                                 is Result.Loading -> showLoading(true)
                                 is Result.Success -> {
                                     showLoading(false)
-                                    showToast(getString(R.string.image_succesfully_uploaded))
                                     imageUrl = result.data.data
                                 }
                                 is Result.Error -> {

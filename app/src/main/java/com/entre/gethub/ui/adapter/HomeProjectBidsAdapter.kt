@@ -3,7 +3,7 @@ package com.entre.gethub.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.entre.gethub.ProjectBid
+import com.entre.gethub.ui.models.ProjectBid
 import com.entre.gethub.databinding.ItemProjectRekomendasijobbidBinding
 
 

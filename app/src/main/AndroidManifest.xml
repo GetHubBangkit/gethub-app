@@ -28,6 +28,33 @@
         android:theme="@style/Theme.GetHub"
         tools:targetApi="31">
         <activity
+            android:name=".ui.home.projectbids.HomeDetailProjectBidsFormActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.home.projectbids.HomeDetailProjectBidsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.home.projectbids.HomeCariProjectBidsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.home.mygethub.product.HomeKelolaMyGethubEditProdukActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.home.mygethub.product.HomeKelolaMyGethubTambahProdukActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.home.mygethub.link.HomeKelolaMyGethubTambahLinkActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.home.mygethub.HomeKelolaMyGethubGantiDesignActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.home.mygethub.HomeKelolaMyGethubActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.home.caritalent.HomeCariTalentActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.auth.TermsConditionActivity"
             android:exported="false" />
         <activity
@@ -48,12 +75,11 @@
         <activity
             android:name=".MainActivity"
             android:exported="false"
-            android:theme="@style/MainActivityTheme"/>
+            android:theme="@style/MainActivityTheme" />
         <activity
             android:name=".ui.home.HomeDetailInformationHubActivity"
             android:exported="false"
             android:theme="@style/MainActivityTheme" />
-
         <activity
             android:name=".ui.splash.SplashActivity"
             android:exported="true">
