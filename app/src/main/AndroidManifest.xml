@@ -28,6 +28,9 @@
         android:theme="@style/Theme.GetHub"
         tools:targetApi="31">
         <activity
+            android:name=".ui.home.caritalent.HomeCariTalentActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.auth.TermsConditionActivity"
             android:exported="false" />
         <activity
@@ -48,12 +51,11 @@
         <activity
             android:name=".MainActivity"
             android:exported="false"
-            android:theme="@style/MainActivityTheme"/>
+            android:theme="@style/MainActivityTheme" />
         <activity
             android:name=".ui.home.HomeDetailInformationHubActivity"
             android:exported="false"
             android:theme="@style/MainActivityTheme" />
-
         <activity
             android:name=".ui.splash.SplashActivity"
             android:exported="true">

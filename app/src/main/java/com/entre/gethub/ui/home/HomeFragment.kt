@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.entre.gethub.BiddingDikerjakan
@@ -24,7 +25,11 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var homeViewModel: HomeViewModel
+    private val homeViewModel by viewModels<HomeViewModel> {
+        ViewModelFactory.getInstance(
+            requireContext()
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,10 +38,6 @@ class HomeFragment : Fragment() {
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
-        // Use the ViewModelFactory to get the ViewModel
-        val factory = ViewModelFactory.getInstance(requireContext())
-        homeViewModel = ViewModelProvider(this, factory).get(HomeViewModel::class.java)
 
         setupClickListeners()
         setupRecyclerViews()
@@ -51,7 +52,15 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupClickListeners() {
-
+        binding.ivCariTalent.setOnClickListener {
+            startActivity(Intent(requireContext(), HomeCariTalentActivity::class.java))
+        }
+        binding.ivKelolaMyGethub.setOnClickListener {
+            startActivity(Intent(requireContext(), HomeKelolaMyGethubActivity::class.java))
+        }
+        binding.ivCariProjectBid.setOnClickListener {
+            startActivity(Intent(requireContext(), HomeCariProjectBidsActivity::class.java))
+        }
     }
 
     private fun setupRecyclerViews() {
