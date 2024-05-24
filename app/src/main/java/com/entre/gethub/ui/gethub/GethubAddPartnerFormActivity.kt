@@ -10,11 +10,13 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.entre.gethub.R
 import com.entre.gethub.data.Result
 import com.entre.gethub.data.remote.params.AddPartnerParams
 import com.entre.gethub.databinding.ActivityGethubAddPartnerFormBinding
 import com.entre.gethub.utils.ViewModelFactory
 import com.entre.gethub.utils.uriToFile
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class GethubAddPartnerFormActivity : AppCompatActivity() {
     private val binding by lazy { ActivityGethubAddPartnerFormBinding.inflate(layoutInflater) }
@@ -87,26 +89,34 @@ class GethubAddPartnerFormActivity : AppCompatActivity() {
     }
 
     private fun selectImage() {
-        val options = arrayOf<CharSequence>("Ambil Foto", "Pilih dari Galeri", "Batal")
-        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
-        builder.setTitle("Pilih Foto")
-        builder.setItems(options) { dialog, item ->
-            when {
-                options[item] == "Ambil Foto" -> {
-                    val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                    takePicture.launch(takePictureIntent)
-                }
+        val options = arrayOf<CharSequence>(
+            getString(R.string.take_picture),
+            getString(R.string.choose_form_gallery)
+        )
 
-                options[item] == "Pilih dari Galeri" -> {
-                    val pickPhotoIntent =
-                        Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-                    pickImage.launch(pickPhotoIntent)
-                }
+        val materialDialog = MaterialAlertDialogBuilder(this)
+            .setTitle("Pilih Foto")
+            .setItems(options) { dialog, item ->
+                when {
+                    options[item] == getString(R.string.take_picture) -> {
+                        val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                        takePicture.launch(takePictureIntent)
+                    }
 
-                options[item] == "Batal" -> dialog.dismiss()
+                    options[item] == getString(R.string.choose_form_gallery) -> {
+                        val pickPhotoIntent =
+                            Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+                        pickImage.launch(pickPhotoIntent)
+                    }
+
+                }
             }
-        }
-        builder.show()
+            .setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .create()
+
+        materialDialog.show()
     }
 
     private fun showImage() {
@@ -127,7 +137,6 @@ class GethubAddPartnerFormActivity : AppCompatActivity() {
                                 is Result.Success -> {
                                     showLoading(false)
                                     imageUrl = result.data.data
-                                    showToast("Gambar berhasil diunggah")
                                 }
 
                                 is Result.Error -> {
