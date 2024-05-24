@@ -7,11 +7,11 @@ import com.entre.gethub.ui.models.AnaliticGetHubDilihat
 import com.entre.gethub.databinding.ItemAnaliticGethubkamudilihatolehBinding
 
 
-class AnaliticGetHubDilihatAdapter(
+class AnaliticGethubDilihatAdapter(
     private val gethubpartnerList: ArrayList<AnaliticGetHubDilihat>,
     private val listener: (AnaliticGetHubDilihat, Int) -> Unit
 ) :
-    RecyclerView.Adapter<AnaliticGetHubDilihatAdapter.ViewHolder>() {
+    RecyclerView.Adapter<AnaliticGethubDilihatAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = ItemAnaliticGethubkamudilihatolehBinding.inflate(LayoutInflater.from(parent.context), parent, false)

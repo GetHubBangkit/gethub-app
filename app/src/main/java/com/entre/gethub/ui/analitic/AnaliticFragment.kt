@@ -14,7 +14,7 @@ import com.entre.gethub.ui.models.AnaliticGetHubDilihat
 import com.entre.gethub.R
 
 import com.entre.gethub.databinding.FragmentAnaliticBinding
-import com.entre.gethub.ui.adapter.AnaliticGetHubDilihatAdapter
+import com.entre.gethub.ui.adapter.AnaliticGethubDilihatAdapter
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
@@ -52,7 +52,7 @@ class AnaliticFragment : Fragment() {
     private fun setupRecyclerViewAnaliticGethubDilihat() {
         binding.recyclerViewGethubDilihat.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            adapter = AnaliticGetHubDilihatAdapter(createAnaliticGetHubDilihatList()) { analiticgethubdilihat, position ->
+            adapter = AnaliticGethubDilihatAdapter(createAnaliticGetHubDilihatList()) { analiticgethubdilihat, position ->
                 Toast.makeText(
                     this@AnaliticFragment.requireContext(), // Gunakan requireContext() untuk mendapatkan Context yang benar
                     "Clicked on actor: ${analiticgethubdilihat.profilename}",

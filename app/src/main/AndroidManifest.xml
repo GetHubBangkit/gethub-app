@@ -28,6 +28,9 @@
         android:theme="@style/Theme.GetHub"
         tools:targetApi="31">
         <activity
+            android:name=".ui.home.projectbids.HomeDetailProjectBidsActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.home.projectbids.HomeCariProjectBidsActivity"
             android:exported="false" />
         <activity

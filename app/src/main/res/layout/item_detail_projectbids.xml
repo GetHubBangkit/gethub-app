@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@color/background">
+
+    <ImageView
+        android:id="@+id/frame"
+        android:layout_width="match_parent"
+        android:layout_height="221dp"
+        android:src="@drawable/rectangle"
+        app:layout_constraintDimensionRatio="H,4:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/rekrutproject"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_bold"
+        android:layout_marginTop="7dp"
+        android:layout_marginStart="5dp"
+        android:text="Butuh Konten Kreator"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:fontFamily="@font/nunito_extrabold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.085"
+        app:layout_constraintStart_toEndOf="@+id/icon_back"
+        app:layout_constraintTop_toTopOf="@+id/frame"
+        app:layout_constraintVertical_bias="0.024" />
+
+    <ImageView
+        android:id="@+id/icon_back"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="26dp"
+        android:src="@drawable/icon_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.041"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/framedetail"
+        android:layout_width="373dp"
+        android:layout_height="395dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/rectanglewhite2"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rekrutproject" />
+
+    <TextView
+        android:id="@+id/rekrutprojectdesc"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/nunito"
+
+        android:text="Sedang Mencari Konten Kreator untuk
+pembuatan konten makanan dan untuk
+promosi warung rumah makanan yg baru
+buka di butuhkan segera"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:fontFamily="@font/nunito"
+        app:layout_constraintBottom_toBottomOf="@+id/framedetail"
+        app:layout_constraintEnd_toEndOf="@+id/framedetail"
+
+
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintStart_toStartOf="@+id/framedetail"
+        app:layout_constraintTop_toTopOf="@+id/framedetail"
+        app:layout_constraintVertical_bias="0.058" />
+
+    <ImageView
+        android:id="@+id/icon_money"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="20dp"
+
+        android:src="@drawable/detail_money"
+        app:layout_constraintEnd_toEndOf="@+id/framedetail"
+        app:layout_constraintHorizontal_bias="0.106"
+        app:layout_constraintStart_toStartOf="@+id/framedetail"
+        app:layout_constraintTop_toBottomOf="@+id/rekrutprojectdesc" />
+
+    <TextView
+        android:id="@+id/rekrutprice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:fontFamily="@font/nunito_extrabold"
+        android:text="Rp 3,000,000 - 4,500,000"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:fontFamily="@font/nunito_extrabold"
+        app:layout_constraintBottom_toBottomOf="@+id/framedetail"
+        app:layout_constraintEnd_toEndOf="@+id/framedetail"
+        app:layout_constraintHorizontal_bias="0.024"
+
+        app:layout_constraintStart_toEndOf="@+id/icon_money"
+        app:layout_constraintTop_toBottomOf="@+id/rekrutprojectdesc"
+        app:layout_constraintVertical_bias="0.089" />
+
+    <ImageView
+        android:id="@+id/icon_date"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+
+        android:layout_marginTop="12dp"
+        android:src="@drawable/detail_date"
+        app:layout_constraintEnd_toEndOf="@+id/framedetail"
+        app:layout_constraintHorizontal_bias="0.106"
+        app:layout_constraintStart_toStartOf="@+id/framedetail"
+        app:layout_constraintTop_toBottomOf="@+id/icon_money" />
+
+    <TextView
+        android:id="@+id/tanggalawalakhir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:fontFamily="@font/nunito_extrabold"
+        android:text="2 Mei 2024 - 12 Mei 2024"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:fontFamily="@font/nunito_extrabold"
+        app:layout_constraintBottom_toBottomOf="@+id/framedetail"
+        app:layout_constraintEnd_toEndOf="@+id/framedetail"
+        app:layout_constraintHorizontal_bias="0.024"
+
+        app:layout_constraintStart_toEndOf="@+id/icon_money"
+        app:layout_constraintTop_toBottomOf="@+id/rekrutprice"
+        app:layout_constraintVertical_bias="0.067" />
+
+    <TextView
+        android:id="@+id/dipostingoleh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/nunito"
+
+        android:text="Diposting Oleh"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:fontFamily="@font/nunito"
+        app:layout_constraintBottom_toBottomOf="@+id/framedetail"
+        app:layout_constraintEnd_toEndOf="@+id/framedetail"
+        app:layout_constraintHorizontal_bias="0.133"
+
+        app:layout_constraintStart_toStartOf="@+id/framedetail"
+        app:layout_constraintTop_toBottomOf="@+id/tanggalawalakhir"
+        app:layout_constraintVertical_bias="0.081" />
+
+    <TextView
+        android:id="@+id/padatanggal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/nunito"
+
+        android:text="Pada Tanggal"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:fontFamily="@font/nunito"
+        app:layout_constraintBottom_toBottomOf="@+id/framedetail"
+        app:layout_constraintEnd_toEndOf="@+id/framedetail"
+        app:layout_constraintHorizontal_bias="0.87"
+
+        app:layout_constraintStart_toStartOf="@+id/framedetail"
+        app:layout_constraintTop_toBottomOf="@+id/tanggalawalakhir"
+        app:layout_constraintVertical_bias="0.084" />
+
+    <ImageView
+        android:id="@+id/profilepic2"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:src="@drawable/profilepic2"
+       android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/framedetail"
+        app:layout_constraintHorizontal_bias="0.101"
+        app:layout_constraintStart_toStartOf="@+id/framedetail"
+        app:layout_constraintTop_toBottomOf="@+id/dipostingoleh"
+        app:layout_constraintVertical_bias="0.056" />
+
+    <TextView
+        android:id="@+id/rekomendasiprofilename"
+        android:layout_width="wrap_content"
+        android:layout_height="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/nunito_bold"
+        android:text="Ajay Devgan"
+        android:textColor="@android:color/black"
+        android:textSize="12sp"
+        app:fontFamily="@font/nunito_bold"
+
+
+        app:layout_constraintStart_toEndOf="@+id/profilepic2"
+        app:layout_constraintTop_toBottomOf="@+id/dipostingoleh" />
+
+    <TextView
+        android:id="@+id/rekomendasiprofiledesc"
+        android:layout_width="wrap_content"
+        android:layout_height="14dp"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/nunito_semibold"
+        android:text="Software Enginer"
+        android:textColor="@android:color/black"
+        android:textSize="10sp"
+        app:fontFamily="@font/nunito"
+        app:layout_constraintBottom_toBottomOf="@+id/framedetail"
+
+        app:layout_constraintStart_toEndOf="@+id/profilepic2"
+        app:layout_constraintTop_toBottomOf="@+id/rekomendasiprofilename"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/rekrutprojectdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/nunito_extrabold"
+        android:text="1 Mei 2024"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:fontFamily="@font/nunito_extrabold"
+        app:layout_constraintBottom_toBottomOf="@+id/framedetail"
+        app:layout_constraintEnd_toEndOf="@+id/framedetail"
+        app:layout_constraintHorizontal_bias="0.877"
+
+        app:layout_constraintStart_toStartOf="@+id/framedetail"
+        app:layout_constraintTop_toBottomOf="@+id/padatanggal"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/TotalUserBidding"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/nunito"
+
+        android:text="Total User Bidding"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:fontFamily="@font/nunito"
+        app:layout_constraintBottom_toBottomOf="@+id/framedetail"
+        app:layout_constraintEnd_toEndOf="@+id/framedetail"
+        app:layout_constraintHorizontal_bias="0.137"
+
+        app:layout_constraintStart_toStartOf="@+id/framedetail"
+        app:layout_constraintTop_toBottomOf="@+id/profilepic2"
+        app:layout_constraintVertical_bias="0.122" />
+
+    <TextView
+        android:id="@+id/rekrutprojecttotal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/nunito_extrabold"
+        android:text="2 Orang"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:fontFamily="@font/nunito_extrabold"
+        app:layout_constraintBottom_toBottomOf="@+id/framedetail"
+        app:layout_constraintEnd_toEndOf="@+id/framedetail"
+        app:layout_constraintHorizontal_bias="0.883"
+
+        app:layout_constraintStart_toStartOf="@+id/framedetail"
+        app:layout_constraintTop_toBottomOf="@+id/profilepic2"
+        app:layout_constraintVertical_bias="0.118" />
+
+    <ImageView
+        android:id="@+id/frameyellow"
+        android:layout_width="316dp"
+        android:layout_height="78dp"
+        android:layout_marginTop="12dp"
+        android:src="@drawable/frame3"
+        app:layout_constraintEnd_toEndOf="@+id/framedetail"
+
+        app:layout_constraintStart_toStartOf="@+id/framedetail"
+        app:layout_constraintTop_toBottomOf="@+id/TotalUserBidding" />
+
+    <TextView
+        android:id="@+id/teksanalisis"
+        android:layout_width="280dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="1dp"
+        android:fontFamily="@font/nunito"
+
+        android:text="Berdasarkan history review {name} sebagai
+pemberi project job memiliki penilaian sentimen
+analisis {Positive}, ayo ikuti project dan selesaikan
+pekerjaan kamu dan berikan hasil yg maksimal"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:fontFamily="@font/nunito"
+        app:layout_constraintBottom_toBottomOf="@+id/frameyellow"
+        app:layout_constraintEnd_toEndOf="@+id/frameyellow"
+        app:layout_constraintHorizontal_bias="0.437"
+
+        app:layout_constraintStart_toStartOf="@+id/frameyellow"
+        app:layout_constraintTop_toTopOf="@+id/frameyellow"
+        app:layout_constraintVertical_bias="0.3" />
+
+    <ImageView
+        android:id="@+id/userbiddingsymbol"
+        android:layout_width="23dp"
+        android:layout_height="23dp"
+        android:layout_marginTop="20dp"
+
+        android:src="@drawable/detail_usersymbol"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.048"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/framedetail" />
+
+    <TextView
+        android:id="@+id/DaftarUserBidding"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/nunito_extrabold"
+        android:text="Daftar User Bidding"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+
+        app:fontFamily="@font/nunito_extrabold"
+        app:layout_constraintEnd_toEndOf="@+id/framedetail"
+
+        app:layout_constraintHorizontal_bias="0.075"
+        app:layout_constraintStart_toEndOf="@+id/userbiddingsymbol"
+        app:layout_constraintTop_toBottomOf="@+id/framedetail" />
+
+    <TextView
+        android:id="@+id/rekrutprojecttotal2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/nunito_extrabold"
+        android:text="5 Orang"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+
+        app:fontFamily="@font/nunito_extrabold"
+        app:layout_constraintEnd_toEndOf="@+id/framedetail"
+
+        app:layout_constraintHorizontal_bias="0.885"
+        app:layout_constraintStart_toEndOf="@+id/DaftarUserBidding"
+        app:layout_constraintTop_toBottomOf="@+id/framedetail" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewProjectBid"
+        android:layout_width="match_parent"
+        android:layout_height="99dp"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/DaftarUserBidding" />
+
+
+    <TextView
+        android:id="@+id/StatusProjectJob"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/nunito_extrabold"
+        android:text="Status Project Job"
+        android:textColor="@color/black"
+
+        android:textSize="16sp"
+        app:fontFamily="@font/nunito_extrabold"
+
+        app:layout_constraintEnd_toEndOf="@+id/framedetail"
+        app:layout_constraintHorizontal_bias="0.074"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerViewProjectBid" />
+
+    <ImageView
+        android:id="@+id/framegreenterang"
+        android:layout_width="85dp"
+        android:layout_height="26dp"
+        android:layout_marginTop="14dp"
+
+        android:src="@drawable/framegreenterang"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.073"
+        app:layout_constraintStart_toEndOf="@+id/StatusProjectJob"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerViewProjectBid" />
+
+    <TextView
+        android:id="@+id/terbuka"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/nunito_extrabold"
+        android:text="terbuka"
+        android:textColor="@color/white"
+
+        android:textSize="13sp"
+        app:fontFamily="@font/nunito_extrabold"
+
+        app:layout_constraintBottom_toBottomOf="@+id/framegreenterang"
+        app:layout_constraintEnd_toEndOf="@+id/framegreenterang"
+
+        app:layout_constraintStart_toStartOf="@+id/framegreenterang"
+        app:layout_constraintTop_toTopOf="@+id/framegreenterang"
+         />
+
+
+    <Button
+        android:id="@+id/btnIkutBidding"
+        style="@style/SimpanButton"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="40dp"
+        android:text="Ikut Bidding"
+        app:layout_constraintTop_toBottomOf="@+id/StatusProjectJob" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
