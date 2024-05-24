@@ -212,6 +212,10 @@ class GethubFragment : Fragment() {
             startActivity(Intent(requireActivity(), GethubPartnerListActivity::class.java))
         }
 
+        binding.ivAddPartner.setOnClickListener {
+//            startActivity()
+        }
+
     }
 
     private fun generateQRCode(content: String) {
