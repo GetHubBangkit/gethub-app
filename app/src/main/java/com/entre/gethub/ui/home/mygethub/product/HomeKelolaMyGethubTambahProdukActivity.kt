@@ -1,9 +1,11 @@
 package com.entre.gethub.ui.home.mygethub.product
 
+import android.R
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -61,14 +63,25 @@ class HomeKelolaMyGethubTambahProdukActivity : AppCompatActivity() {
                 startGallery()
             }
 
+            val categories = listOf("Website", "Mobile Apps", "UI/UX Design")
+            val adapter = ArrayAdapter(
+                this@HomeKelolaMyGethubTambahProdukActivity,
+                R.layout.simple_spinner_item,
+                categories
+            )
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            binding.spinnerKategori.adapter = adapter
+
             btnSimpan.setOnClickListener {
                 val name = titleTextField.editText?.text.toString()
                 val description = descriptionTextField.editText?.text.toString()
+                val category = binding.spinnerKategori.selectedItem.toString()
 
                 if (name.isNotEmpty() || description.isNotEmpty() || imageUrl != null) {
-                    addProduct(name, description, imageUrl.toString())
+                    addProduct(name, description, imageUrl.toString(), category)
                 }
             }
+
         }
     }
 
@@ -132,8 +145,8 @@ class HomeKelolaMyGethubTambahProdukActivity : AppCompatActivity() {
         }
     }
 
-    private fun addProduct(name: String, description: String, imageUrl: String) {
-        homeKelolaMyGetHubTambahProdukViewModel.addProduct(name, description, imageUrl)
+    private fun addProduct(name: String, description: String, imageUrl: String, category: String) {
+        homeKelolaMyGetHubTambahProdukViewModel.addProduct(name, description, imageUrl, category)
             .observe(this) { result ->
                 if (result != null) {
                     when (result) {

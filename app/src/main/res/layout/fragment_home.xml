@@ -189,10 +189,7 @@
             android:id="@+id/homenew"
             android:layout_width="52dp"
             android:layout_height="18dp"
-
-
             android:layout_marginTop="20dp"
-
             android:src="@drawable/homenew"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.079"
@@ -203,10 +200,7 @@
             android:id="@+id/recyclerViewHomeGethubPartner"
             android:layout_width="match_parent"
             android:layout_height="99dp"
-
-
             android:layout_marginTop="8dp"
-
             android:orientation="horizontal"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"

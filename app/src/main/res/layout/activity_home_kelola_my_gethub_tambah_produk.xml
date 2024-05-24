@@ -89,6 +89,37 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
+                android:id="@+id/tvKategori"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/nunito_bold"
+                android:text="Kategori"
+                android:textColor="@color/darkBlue"
+                app:layout_constraintStart_toStartOf="@+id/framecaritalent"
+                app:layout_constraintTop_toTopOf="@+id/framecaritalent" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/kategoriTextField"
+                style="@style/AuthTextInputLayoutComplete"
+                android:layout_width="match_parent"
+                android:layout_height="37dp"
+                android:layout_marginTop="5dp"
+                android:minHeight="47dp"
+                app:startIconTint="@color/teal">
+                <Spinner
+                    android:id="@+id/spinnerKategori"
+                    style="@style/AuthTextInputLayoutComplete"
+                    android:layout_width="match_parent"
+                    android:layout_height="37dp"
+                    android:layout_marginTop="5dp"
+                    android:hint="Pilih Kategori"
+                    android:paddingTop="1dp"
+                    android:paddingBottom="1dp"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
                 android:id="@+id/tvDeskripsi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

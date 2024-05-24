@@ -1,5 +1,6 @@
 package com.entre.gethub.ui.akun
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,6 +17,7 @@ import com.entre.gethub.data.Result
 import com.entre.gethub.ui.auth.LoginActivity
 import com.entre.gethub.databinding.FragmentAkunBinding
 import com.entre.gethub.utils.ViewModelFactory
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 
 class AkunFragment : Fragment() {
@@ -39,6 +41,7 @@ class AkunFragment : Fragment() {
         val root: View = binding.root
 
         setupView()
+        getUserData()
 
         return root
     }
@@ -51,12 +54,9 @@ class AkunFragment : Fragment() {
     private fun setupView() {
         with(binding) {
             framesettingkeluar.setOnClickListener {
-                showLogoutDialog()
+                showDialog(requireContext(), "Keluar", "Apakah Anda yakin ingin keluar?")
             }
         }
-
-        getUserData()
-
     }
 
     private fun getUserData() {
@@ -67,7 +67,7 @@ class AkunFragment : Fragment() {
                     is Result.Success -> {
                         val user = result.data.data
                         showLoading(false)
-                        println("Photo URL: ${user?.photo}") // Menampilkan URL gambar
+                        println("Photo URL: ${user?.photo}")
                         with(binding) {
                             Glide.with(requireContext())
                                 .load(user?.photo)
@@ -85,7 +85,7 @@ class AkunFragment : Fragment() {
 
                     else -> {
                         showLoading(false)
-                        showToast("Terjadi Kesalahan")
+                        showToast(getString(R.string.something_went_wrong))
                     }
                 }
             }
@@ -98,12 +98,21 @@ class AkunFragment : Fragment() {
         akunViewModel = ViewModelProvider(requireActivity(), factory)[AkunViewModel::class.java]
     }
 
-    private fun showLogoutDialog() {
-        LogoutDialogFragment(onLogout = {
-            logout()
-        }).show(parentFragmentManager, "LogoutDialog")
+    private fun showDialog(context: Context, title: String, message: String) {
+        MaterialAlertDialogBuilder(context)
+            .setTitle(title)
+            .setMessage(message)
+            .setPositiveButton("Logout") { _, _ ->
+                logout()
+            }
+            .setNegativeButton("Batal") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .setOnDismissListener {
+                it.dismiss()
+            }
+            .show()
     }
-
 
     private fun logout() {
         akunViewModel.logout().apply {

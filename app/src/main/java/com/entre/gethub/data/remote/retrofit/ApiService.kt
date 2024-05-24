@@ -104,7 +104,8 @@ interface ApiService {
     suspend fun addProduct(
         @Field("name") name: String,
         @Field("description") description: String,
-        @Field("image_url") imageUrl: String
+        @Field("image_url") imageUrl: String,
+        @Field("category") category: String,
     ): ProductResponse
 
     @GET("product/{id}")

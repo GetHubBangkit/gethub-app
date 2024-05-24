@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -76,6 +77,11 @@ class HomeKelolaMyGethubEditProdukActivity : AppCompatActivity() {
                 }
             }
         }
+
+        val categories = listOf("Website", "Mobile Apps", "UI/UX Design")
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categories)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.spinnerKategori.adapter = adapter
     }
 
     private fun editProduct(name: String, description: String, imageUrl: String) {

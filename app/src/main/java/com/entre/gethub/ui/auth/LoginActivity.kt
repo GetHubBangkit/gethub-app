@@ -11,6 +11,7 @@ import androidx.core.widget.doOnTextChanged
 import com.entre.gethub.R
 import com.entre.gethub.data.Result
 import com.entre.gethub.databinding.ActivityLoginBinding
+import com.entre.gethub.ui.MainActivity
 import com.entre.gethub.ui.completeprofile.CompleteProfileValidationActivity
 import com.entre.gethub.utils.ViewModelFactory
 
@@ -95,7 +96,7 @@ class LoginActivity : AppCompatActivity() {
                     is Result.Success -> {
                         val user = result.data.user
                         showLoading(false)
-                        if (user?.isCompleteProfile == null || user.isCompleteProfile == false) {
+                        if (user?.isCompleteProfile == false) {
                             val intent = Intent(
                                 this@LoginActivity,
                                 CompleteProfileValidationActivity::class.java
@@ -104,7 +105,8 @@ class LoginActivity : AppCompatActivity() {
                             startActivity(intent)
                             finish()
                         } else {
-                            // go to main activity
+                            startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                            finish()
                         }
                         showToast(getString(R.string.login_success))
                     }

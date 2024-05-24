@@ -26,12 +26,13 @@ class HomeKelolaMyGethubTambahProdukViewModel(private val productRepository: Pro
     fun addProduct(
         name: String,
         description: String,
-        imageUrl: String
+        imageUrl: String,
+        category: String,
     ): LiveData<Result<ProductResponse>> {
         viewModelScope.launch {
             try {
                 createProductResult.value = Result.Loading
-                val response = productRepository.addProduct(name, description, imageUrl)
+                val response = productRepository.addProduct(name, description, imageUrl, category)
                 if (response.success == true) {
                     createProductResult.value = Result.Success(response)
                 }
