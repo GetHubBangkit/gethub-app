@@ -23,6 +23,7 @@ import com.entre.gethub.ui.gethub.GethubPartnerListViewModel
 import com.entre.gethub.ui.gethub.GethubViewModel
 import com.entre.gethub.ui.home.HomeViewModel
 import com.entre.gethub.ui.home.mygethub.HomeKelolaMyGethubViewModel
+import com.entre.gethub.ui.home.mygethub.link.HomeKelolaMyGethubTambahLinkViewModel
 import com.entre.gethub.ui.home.mygethub.product.HomeKelolaMyGethubEditProdukViewModel
 import com.entre.gethub.ui.home.mygethub.product.HomeKelolaMyGethubTambahProdukViewModel
 import com.entre.gethub.ui.splash.SplashViewModel
@@ -67,6 +68,10 @@ class ViewModelFactory private constructor(
 
             HomeKelolaMyGethubEditProdukViewModel::class.java -> HomeKelolaMyGethubEditProdukViewModel(
                 productRepository
+            ) as T
+
+            HomeKelolaMyGethubTambahLinkViewModel::class.java -> HomeKelolaMyGethubTambahLinkViewModel(
+                linkRepository
             ) as T
 
             GethubPartnerListViewModel::class.java -> GethubPartnerListViewModel(

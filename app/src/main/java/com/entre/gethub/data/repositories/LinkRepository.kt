@@ -1,5 +1,6 @@
 package com.entre.gethub.data.repositories
 
+import com.entre.gethub.data.remote.response.ApiResponse
 import com.entre.gethub.data.remote.response.LinkResponse
 import com.entre.gethub.data.remote.retrofit.ApiService
 
@@ -13,7 +14,7 @@ class LinkRepository(private val apiService: ApiService) {
         return apiService.getLinks()
     }
 
-    suspend fun deleteLink(linkId: String): LinkResponse {
+    suspend fun deleteLink(linkId: String): ApiResponse {
         return apiService.deleteLink(linkId)
     }
 

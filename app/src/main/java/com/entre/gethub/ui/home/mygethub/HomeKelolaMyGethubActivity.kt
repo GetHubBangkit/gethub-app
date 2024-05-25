@@ -34,7 +34,6 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
 
         initViewModel()
         getLinkList()
-
         getProductList()
 
         setupRecyclerViewHomeGethubLink()
@@ -112,6 +111,27 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
             },
             { linkId ->
                 homeKelolaMyGetHubViewModel.deleteLink(linkId)
+                    .observe(this@HomeKelolaMyGethubActivity) { result ->
+                        if (result != null) {
+                            when (result) {
+                                is Result.Loading -> showLoadingOnLink(true)
+                                is Result.Success -> {
+                                    showLoadingOnLink(false)
+                                    showToast(result.data.message.toString())
+                                    getLinkList()
+                                }
+
+                                is Result.Error -> {
+                                    showLoadingOnLink(false)
+                                    showToast(result.error)
+                                }
+
+                                else -> {
+                                    //
+                                }
+                            }
+                        }
+                    }
             }
         )
         binding.recyclerViewHomeGethubLink.apply {
@@ -169,7 +189,7 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
 
 
     private fun getLinkList() {
-        homeKelolaMyGetHubViewModel.links.observe(this, Observer { result ->
+        homeKelolaMyGetHubViewModel.getLinks().observe(this, Observer { result ->
             when (result) {
                 is Result.Loading -> {
                     // Show loading indicator if needed
@@ -178,7 +198,7 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
                 is Result.Success -> {
                     // Update the RecyclerView with new data
                     (binding.recyclerViewHomeGethubLink.adapter as? HomeGethubLinkAdapter)?.updateGethubLinks(
-                        result.data.map {
+                        result.data.data!!.map {
                             val drawableRes = when (it.category) {
                                 "Shopee" -> R.drawable.kelola_shopee
                                 "Tiktok" -> R.drawable.kelola_tiktok
@@ -214,6 +234,10 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
 
     private fun showLoadingOnProduct(isLoading: Boolean) {
         binding.progressBarOnProductList.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    private fun showLoadingOnLink(isLoading: Boolean) {
+        binding.progressBarLink.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     private fun showEmptyErrorOnLink(isError: Boolean, message: String) {

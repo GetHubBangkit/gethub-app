@@ -142,7 +142,7 @@ interface ApiService {
     @DELETE("link/{linkId}")
     suspend fun deleteLink(
         @Path("linkId") linkId: String
-    ): LinkResponse
+    ): ApiResponse
     // Links
 
     // Categories
