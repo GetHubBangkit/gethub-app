@@ -149,6 +149,7 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
                     is Result.Success -> {
                         showLoadingOnProduct(false)
                         showToast(result.data.message.toString())
+                        getProductList()
                     }
 
                     is Result.Error -> {

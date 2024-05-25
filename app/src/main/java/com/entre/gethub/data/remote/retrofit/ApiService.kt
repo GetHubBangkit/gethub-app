@@ -73,7 +73,7 @@ interface ApiService {
     @GET("informations")
     suspend fun getInformationHub(): InformationHubResponse
 
-    // Add Partner
+    // Partner
     @FormUrlEncoded
     @POST("partner")
     suspend fun addPartner(
@@ -86,18 +86,17 @@ interface ApiService {
         @Field("photo") photo: String?,
         @Field("image") image: String?,
     ): AddPartnerResponse
-    // Add Partner
 
-    // Get Partner List
-    @GET("partners")
+    @GET("user/partners")
     suspend fun getPartnerList(): GetHubPartnerListResponse
+    // Partner
 
     // Sponsors
     @GET("sponsors")
     suspend fun getSponsors(): SponsorResponse
 
     // Products
-    @GET("products")
+    @GET("user/products")
     suspend fun getProductList(): ProductListResponse
 
     @FormUrlEncoded
@@ -137,7 +136,7 @@ interface ApiService {
         @Field("link") link: String
     ): LinkResponse
 
-    @GET("links")
+    @GET("user/links")
     suspend fun getLinks(): LinkResponse
 
     @DELETE("link/{linkId}")

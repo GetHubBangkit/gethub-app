@@ -40,13 +40,23 @@ class CompleteProfileValidationActivity : AppCompatActivity() {
         loginResponse = intent.getParcelableExtra(EXTRA_USER)
 
         setupView()
-        getUserProfile()
     }
 
     private fun setupView() {
 
         if (loginResponse != null) {
             showSnackBar("Selamat Datang, ${loginResponse?.user?.username}")
+            if (loginResponse?.user?.isCompleteProfile == true) {
+                startActivity(
+                    Intent(
+                        this@CompleteProfileValidationActivity,
+                        MainActivity::class.java
+                    )
+                )
+                finish()
+            }
+        } else {
+            getUserProfile()
         }
 
         with(binding) {
