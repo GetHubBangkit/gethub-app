@@ -4,7 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
-import android.widget.ArrayAdapter
+import android.widget.AdapterView
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide
 import com.entre.gethub.R
 import com.entre.gethub.data.Result
 import com.entre.gethub.databinding.ActivityHomeKelolaMyGethubEditProdukBinding
+import com.entre.gethub.ui.adapter.CategoryAdapter
 import com.entre.gethub.ui.home.mygethub.HomeKelolaMyGethubActivity
 import com.entre.gethub.utils.ViewModelFactory
 import com.entre.gethub.utils.uriToFile
@@ -30,6 +31,8 @@ class HomeKelolaMyGethubEditProdukActivity : AppCompatActivity() {
     private var productId: String? = null
     private var currentImageUri: Uri? = null
     private var imageUrl: String? = null
+    private var initialCategoryId: String? = null
+    private var selectedCategoryId: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,23 +76,79 @@ class HomeKelolaMyGethubEditProdukActivity : AppCompatActivity() {
                 val description = descriptionTextField.editText?.text.toString()
 
                 if (name.isNotEmpty() || description.isNotEmpty() || imageUrl != null) {
-                    editProduct(name, description, imageUrl.toString())
+                    editProduct(name, description, imageUrl.toString(), selectedCategoryId.toString())
                 }
             }
         }
 
-        val categories = listOf("Website", "Mobile Apps", "UI/UX Design")
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categories)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.spinnerKategori.adapter = adapter
     }
 
-    private fun editProduct(name: String, description: String, imageUrl: String) {
+    private fun getCategories() {
+        homeKelolaMyGetHubEditProdukViewModel.getCategories()
+            .observe(this@HomeKelolaMyGethubEditProdukActivity) { result ->
+                if (result != null) {
+                    when (result) {
+                        is Result.Loading -> showLoading(true)
+                        is Result.Success -> {
+                            showLoading(false)
+                            val categories = result.data.data
+                            val adapter = CategoryAdapter(
+                                this@HomeKelolaMyGethubEditProdukActivity,
+                                categories
+                            )
+                            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                            binding.spinnerKategori.adapter = adapter
+
+                            val initialPosition =
+                                categories.indexOfFirst { it.id == initialCategoryId }
+
+                            if (initialPosition >= 0) {
+                                binding.spinnerKategori.setSelection(initialPosition)
+                            }
+
+                            binding.spinnerKategori.onItemSelectedListener =
+                                object : AdapterView.OnItemSelectedListener {
+                                    override fun onItemSelected(
+                                        parent: AdapterView<*>?,
+                                        view: View?,
+                                        position: Int,
+                                        id: Long
+                                    ) {
+                                        selectedCategoryId = adapter.getCategoryId(position)
+                                    }
+
+                                    override fun onNothingSelected(p0: AdapterView<*>?) {
+                                        // Nothing
+                                    }
+
+                                }
+                        }
+
+                        is Result.Error -> {
+                            showLoading(false)
+                            showToast(getString(com.entre.gethub.R.string.failed_to_fetch_categories))
+                        }
+
+                        else -> {
+                            //
+                        }
+                    }
+                }
+            }
+    }
+
+    private fun editProduct(
+        name: String,
+        description: String,
+        imageUrl: String,
+        categoryId: String
+    ) {
         homeKelolaMyGetHubEditProdukViewModel.editProduct(
             productId.toString(),
             name,
             description,
-            imageUrl
+            imageUrl,
+            categoryId,
         ).observe(this) { result ->
             if (result != null) {
                 when (result) {
@@ -128,6 +187,11 @@ class HomeKelolaMyGethubEditProdukActivity : AppCompatActivity() {
                         is Result.Success -> {
                             showLoading(false)
                             val product = result.data.data
+
+                            initialCategoryId = product?.categoryId
+                            imageUrl = product?.imageUrl
+                            getCategories()
+
                             with(binding) {
                                 titleTextField.editText?.setText(product?.name)
                                 descriptionTextField.editText?.setText(product?.description)

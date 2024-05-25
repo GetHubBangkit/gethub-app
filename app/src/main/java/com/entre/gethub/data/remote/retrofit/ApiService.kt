@@ -119,7 +119,8 @@ interface ApiService {
         @Path("id") id: String,
         @Field("name") name: String,
         @Field("description") description: String,
-        @Field("image_url") imageUrl: String
+        @Field("image_url") imageUrl: String,
+        @Field("category_id") categoryId: String
     ): ProductResponse
 
     @DELETE("product/{id}")

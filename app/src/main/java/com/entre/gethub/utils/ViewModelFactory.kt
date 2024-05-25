@@ -67,7 +67,7 @@ class ViewModelFactory private constructor(
             ) as T
 
             HomeKelolaMyGethubEditProdukViewModel::class.java -> HomeKelolaMyGethubEditProdukViewModel(
-                productRepository
+                productRepository, categoryRepository
             ) as T
 
             HomeKelolaMyGethubTambahLinkViewModel::class.java -> HomeKelolaMyGethubTambahLinkViewModel(

@@ -30,9 +30,10 @@ class ProductRepository private constructor(private val apiService: ApiService) 
         id: String,
         name: String,
         description: String,
-        imageUrl: String
+        imageUrl: String,
+        categoryId: String
     ): ProductResponse {
-        return apiService.editProduct(id, name, description, imageUrl)
+        return apiService.editProduct(id, name, description, imageUrl, categoryId)
     }
 
     suspend fun deleteProduct(
