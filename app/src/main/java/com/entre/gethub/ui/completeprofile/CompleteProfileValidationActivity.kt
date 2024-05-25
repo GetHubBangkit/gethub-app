@@ -2,9 +2,11 @@ package com.entre.gethub.ui.completeprofile
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.entre.gethub.ui.MainActivity
@@ -14,6 +16,9 @@ import com.entre.gethub.data.remote.response.auth.LoginResponse
 import com.entre.gethub.databinding.ActivityCompleteProfileValidationBinding
 import com.entre.gethub.ui.auth.LoginActivity
 import com.entre.gethub.utils.ViewModelFactory
+import com.entre.gethub.utils.getImageUri
+import com.entre.gethub.utils.reduceFileImage
+import com.entre.gethub.utils.uriToFile
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 
@@ -32,6 +37,7 @@ class CompleteProfileValidationActivity : AppCompatActivity() {
     }
 
     private var loginResponse: LoginResponse? = null
+    private var currentImageUri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,7 +67,7 @@ class CompleteProfileValidationActivity : AppCompatActivity() {
 
         with(binding) {
             ivScan.setOnClickListener {
-                showToast(getString(R.string.coming_soon))
+                startCamera()
             }
 
             ivManual.setOnClickListener {
@@ -71,6 +77,47 @@ class CompleteProfileValidationActivity : AppCompatActivity() {
                         CompleteProfileActivity::class.java
                     )
                 )
+            }
+        }
+    }
+
+    private fun startCamera() {
+        currentImageUri = getImageUri(this@CompleteProfileValidationActivity)
+        launcherIntentCamera.launch(currentImageUri!!)
+    }
+
+    private val launcherIntentCamera = registerForActivityResult(
+        ActivityResultContracts.TakePicture()
+    ) { isSuccess ->
+        if (isSuccess) {
+            completeProfileValidationViewModel.scanCard(
+                uriToFile(
+                    currentImageUri!!,
+                    this@CompleteProfileValidationActivity
+                ).reduceFileImage()
+            ).observe(this@CompleteProfileValidationActivity) { result ->
+                if (result != null) {
+                    when (result) {
+                        is Result.Loading -> showLoading(true)
+                        is Result.Success -> {
+                            showLoading(false)
+                            showToast(result.data.message.toString())
+                            val intent = Intent(this@CompleteProfileValidationActivity, CompleteProfileActivity::class.java).apply {
+                                putExtra(CompleteProfileActivity.SCAN_CARD_RESULT_EXTRA, result.data)
+                            }
+                            startActivity(intent)
+                        }
+
+                        is Result.Error -> {
+                            showLoading(false)
+                            showToast(result.error)
+                        }
+
+                        else -> {
+                            //
+                        }
+                    }
+                }
             }
         }
     }
