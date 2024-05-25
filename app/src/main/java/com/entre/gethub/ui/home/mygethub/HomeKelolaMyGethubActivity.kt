@@ -33,7 +33,7 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         initViewModel()
-        observeViewModel()
+        getLinkList()
 
         getProductList()
 
@@ -55,6 +55,12 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
             startActivity(Intent(this, HomeKelolaMyGethubTambahProdukActivity::class.java))
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getProductList()
+        getLinkList()
     }
 
     private fun initViewModel() {
@@ -161,7 +167,7 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
     }
 
 
-    private fun observeViewModel() {
+    private fun getLinkList() {
         homeKelolaMyGetHubViewModel.links.observe(this, Observer { result ->
             when (result) {
                 is Result.Loading -> {

@@ -4,6 +4,7 @@ import android.content.Context
 import com.entre.gethub.data.preferences.UserPreferences
 import com.entre.gethub.data.remote.retrofit.ApiConfig
 import com.entre.gethub.data.repositories.AuthRepository
+import com.entre.gethub.data.repositories.CategoryRepository
 import com.entre.gethub.data.repositories.GethubRepository
 import com.entre.gethub.data.repositories.InformationHubRepository
 import com.entre.gethub.data.repositories.LinkRepository
@@ -58,5 +59,11 @@ object Injection {
         val pref = provideUserPreferences(context)
         val token = runBlocking { pref.getToken().first() }
         return LinkRepository.getInstance(ApiConfig.getApiService(context, token))
+    }
+
+    fun provideCategoryRepository(context: Context): CategoryRepository {
+        val pref = provideUserPreferences(context)
+        val token = runBlocking { pref.getToken().first() }
+        return CategoryRepository.getInstance(ApiConfig.getApiService(context, token))
     }
 }

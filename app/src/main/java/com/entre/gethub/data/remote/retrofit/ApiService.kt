@@ -1,6 +1,7 @@
 package com.entre.gethub.data.remote.retrofit
 
 import com.entre.gethub.data.remote.response.ApiResponse
+import com.entre.gethub.data.remote.response.CategoriesResponse
 import com.entre.gethub.data.remote.response.InformationHubResponse
 import com.entre.gethub.data.remote.response.LinkResponse
 import com.entre.gethub.data.remote.response.SponsorResponse
@@ -105,7 +106,7 @@ interface ApiService {
         @Field("name") name: String,
         @Field("description") description: String,
         @Field("image_url") imageUrl: String,
-        @Field("category") category: String,
+        @Field("category_id") category: String,
     ): ProductResponse
 
     @GET("product/{id}")
@@ -144,4 +145,9 @@ interface ApiService {
         @Path("linkId") linkId: String
     ): LinkResponse
     // Links
+
+    // Categories
+    @GET("categories")
+    suspend fun getCategories(): CategoriesResponse
+    // Categories
 }

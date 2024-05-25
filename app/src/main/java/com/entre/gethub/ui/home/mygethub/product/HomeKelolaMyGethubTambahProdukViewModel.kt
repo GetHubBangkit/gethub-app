@@ -6,8 +6,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.entre.gethub.data.Result
 import com.entre.gethub.data.remote.response.ApiResponse
+import com.entre.gethub.data.remote.response.CategoriesResponse
 import com.entre.gethub.data.remote.response.UploadFileResponse
 import com.entre.gethub.data.remote.response.products.ProductResponse
+import com.entre.gethub.data.repositories.CategoryRepository
 import com.entre.gethub.data.repositories.ProductRepository
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
@@ -17,22 +19,26 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import retrofit2.HttpException
 import java.io.File
 
-class HomeKelolaMyGethubTambahProdukViewModel(private val productRepository: ProductRepository) :
+class HomeKelolaMyGethubTambahProdukViewModel(
+    private val productRepository: ProductRepository,
+    private val categoryRepository: CategoryRepository,
+) :
     ViewModel() {
 
     private val createProductResult = MediatorLiveData<Result<ProductResponse>>()
     private val uploadProductImageResult = MediatorLiveData<Result<UploadFileResponse>>()
+    private val getCategoriesResult = MediatorLiveData<Result<CategoriesResponse>>()
 
     fun addProduct(
         name: String,
         description: String,
         imageUrl: String,
-        category: String,
+        categoryId: String,
     ): LiveData<Result<ProductResponse>> {
         viewModelScope.launch {
             try {
                 createProductResult.value = Result.Loading
-                val response = productRepository.addProduct(name, description, imageUrl, category)
+                val response = productRepository.addProduct(name, description, imageUrl, categoryId)
                 if (response.success == true) {
                     createProductResult.value = Result.Success(response)
                 }
@@ -69,5 +75,26 @@ class HomeKelolaMyGethubTambahProdukViewModel(private val productRepository: Pro
             }
         }
         return uploadProductImageResult
+    }
+
+    fun getCategories(): LiveData<Result<CategoriesResponse>> {
+        viewModelScope.launch {
+            try {
+                getCategoriesResult.value = Result.Loading
+                val response = categoryRepository.getCategories()
+
+                if (response.success == true) {
+                    getCategoriesResult.value = Result.Success(response)
+                }
+            } catch (e: HttpException) {
+                val jsonString = e.response()?.errorBody()?.string()
+                val errorBody = Gson().fromJson(jsonString, ApiResponse::class.java)
+                val errorMessage = errorBody.message
+                getCategoriesResult.value = Result.Error(errorMessage!!)
+            } catch (e: Exception) {
+                getCategoriesResult.value = Result.Error(e.toString())
+            }
+        }
+        return getCategoriesResult
     }
 }

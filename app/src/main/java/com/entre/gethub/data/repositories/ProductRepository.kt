@@ -17,9 +17,9 @@ class ProductRepository private constructor(private val apiService: ApiService) 
         name: String,
         description: String,
         imageUrl: String,
-        category: String
+        categoryId: String
     ): ProductResponse {
-        return apiService.addProduct(name, description, imageUrl, category)
+        return apiService.addProduct(name, description, imageUrl, categoryId)
     }
 
     suspend fun getProductDetail(id: String): ProductResponse {

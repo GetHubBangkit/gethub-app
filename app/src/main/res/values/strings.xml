@@ -40,4 +40,5 @@
 
     <string name="sponsor_image_description">Sponsor</string>
     <string name="please_login_again">Silahkan login kembali</string>
+    <string name="failed_to_fetch_categories">Gagal mendapatkan kategori</string>
 </resources>

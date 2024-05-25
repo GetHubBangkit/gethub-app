@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.entre.gethub.data.preferences.UserPreferences
 import com.entre.gethub.data.repositories.AuthRepository
+import com.entre.gethub.data.repositories.CategoryRepository
 import com.entre.gethub.data.repositories.GethubRepository
 import com.entre.gethub.data.repositories.InformationHubRepository
 import com.entre.gethub.data.repositories.LinkRepository
@@ -35,6 +36,7 @@ class ViewModelFactory private constructor(
     private val sponsorRepository: SponsorRepository,
     private val productRepository: ProductRepository,
     private val linkRepository: LinkRepository,
+    private val categoryRepository: CategoryRepository,
 ) : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when (modelClass) {
@@ -60,7 +62,7 @@ class ViewModelFactory private constructor(
             ) as T
 
             HomeKelolaMyGethubTambahProdukViewModel::class.java -> HomeKelolaMyGethubTambahProdukViewModel(
-                productRepository
+                productRepository, categoryRepository
             ) as T
 
             HomeKelolaMyGethubEditProdukViewModel::class.java -> HomeKelolaMyGethubEditProdukViewModel(
@@ -89,7 +91,8 @@ class ViewModelFactory private constructor(
                 Injection.provideGethubRepository(context),
                 Injection.provideSponsorRepository(context),
                 Injection.provideProductRepository(context),
-                Injection.provideLinkRepository(context)
+                Injection.provideLinkRepository(context),
+                Injection.provideCategoryRepository(context)
             )
     }
 }

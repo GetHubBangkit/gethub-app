@@ -43,7 +43,7 @@ class HomeFragment : Fragment() {
 
         setupClickListeners()
         setupRecyclerViews()
-        observeViewModel()
+        getInformationList()
 
         return root
     }
@@ -51,6 +51,11 @@ class HomeFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getInformationList()
     }
 
     private fun setupClickListeners() {
@@ -71,7 +76,7 @@ class HomeFragment : Fragment() {
         setupRecyclerViewInformationHub()
     }
 
-    private fun observeViewModel() {
+    private fun getInformationList() {
         homeViewModel.informationHubs.observe(viewLifecycleOwner) { result ->
             when (result) {
                 is Result.Success -> {
