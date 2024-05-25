@@ -16,6 +16,7 @@ import com.entre.gethub.ui.MainActivity
 import com.entre.gethub.R
 import com.entre.gethub.data.Result
 import com.entre.gethub.data.remote.params.UpdateUserProfileParams
+import com.entre.gethub.data.remote.response.ml.ScanCardResponse
 import com.entre.gethub.databinding.ActivityCompleteProfileBinding
 import com.entre.gethub.utils.ViewModelFactory
 import com.entre.gethub.utils.uriToFile
@@ -43,9 +44,15 @@ class CompleteProfileActivity : AppCompatActivity() {
     private lateinit var edWebsite: EditText
     private lateinit var edAddress: EditText
 
+    private var scanCardResponse: ScanCardResponse? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        if (intent != null) {
+            scanCardResponse = intent.getParcelableExtra(SCAN_CARD_RESULT_EXTRA)
+        }
 
         setupView()
     }
@@ -93,37 +100,6 @@ class CompleteProfileActivity : AppCompatActivity() {
     private fun setUpEditText() {
         binding.apply {
 
-            completeProfileViewModel.getUserProfile()
-                .observe(this@CompleteProfileActivity) { result ->
-                    if (result != null) {
-                        when (result) {
-                            is Result.Loading -> showLoading(true)
-                            is Result.Success -> {
-                                showLoading(false)
-                                val userProfile = result.data.data
-                                edFullname.setText(userProfile?.fullName ?: "")
-                                edProfession.setText(
-                                    userProfile?.profession ?: ""
-                                )
-                                edPhone.setText(userProfile?.phone ?: "")
-                                edEmail.setText(userProfile?.email ?: "")
-                                edWebsite.setText(userProfile?.web ?: "")
-                                edAddress.setText(userProfile?.address ?: "")
-                            }
-
-                            is Result.Error -> {
-                                showLoading(false)
-                                showToast(result.error)
-                            }
-
-                            else -> {
-                                showLoading(false)
-                                showToast(getString(R.string.something_went_wrong))
-                            }
-                        }
-                    }
-
-                }
 
             edFullname.doOnTextChanged { text, _, _, _ ->
                 if (text.toString().isEmpty()) {
@@ -165,6 +141,51 @@ class CompleteProfileActivity : AppCompatActivity() {
                     edAddress.error = null
                 }
             }
+
+            if (scanCardResponse != null) {
+                val userProfile = scanCardResponse?.data
+                edFullname.setText(userProfile?.name ?: "")
+                edProfession.setText(userProfile?.profession ?: "")
+                edPhone.setText(userProfile?.phone ?: "")
+                edEmail.setText(userProfile?.email ?: "")
+                edWebsite.setText(userProfile?.web ?: "")
+                edAddress.setText(userProfile?.address ?: "")
+
+                return@apply
+            }
+
+            completeProfileViewModel.getUserProfile()
+                .observe(this@CompleteProfileActivity) { result ->
+                    if (result != null) {
+                        when (result) {
+                            is Result.Loading -> showLoading(true)
+                            is Result.Success -> {
+                                showLoading(false)
+                                val userProfile = result.data.data
+                                edFullname.setText(userProfile?.fullName ?: "")
+                                edProfession.setText(
+                                    userProfile?.profession ?: ""
+                                )
+                                edPhone.setText(userProfile?.phone ?: "")
+                                edEmail.setText(userProfile?.email ?: "")
+                                edWebsite.setText(userProfile?.web ?: "")
+                                edAddress.setText(userProfile?.address ?: "")
+                            }
+
+                            is Result.Error -> {
+                                showLoading(false)
+                                showToast(result.error)
+                            }
+
+                            else -> {
+                                showLoading(false)
+                                showToast(getString(R.string.something_went_wrong))
+                            }
+                        }
+                    }
+
+                }
+
         }
     }
 
@@ -237,10 +258,12 @@ class CompleteProfileActivity : AppCompatActivity() {
                                     showLoading(false)
                                     imageUrl = result.data.data
                                 }
+
                                 is Result.Error -> {
                                     showLoading(false)
                                     showToast(result.error)
                                 }
+
                                 else -> {
                                     showLoading(false)
                                     showToast(getString(R.string.something_went_wrong))
@@ -296,5 +319,9 @@ class CompleteProfileActivity : AppCompatActivity() {
 
     private fun showToast(message: String) {
         Toast.makeText(this@CompleteProfileActivity, message, Toast.LENGTH_SHORT).show()
+    }
+
+    companion object {
+        const val SCAN_CARD_RESULT_EXTRA = "scan_card_result_extra"
     }
 }

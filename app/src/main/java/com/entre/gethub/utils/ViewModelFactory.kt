@@ -11,6 +11,7 @@ import com.entre.gethub.data.repositories.InformationHubRepository
 import com.entre.gethub.data.repositories.LinkRepository
 import com.entre.gethub.data.repositories.ProductRepository
 import com.entre.gethub.data.repositories.ProfileRepository
+import com.entre.gethub.data.repositories.ScanCardRepository
 import com.entre.gethub.data.repositories.SponsorRepository
 import com.entre.gethub.di.Injection
 import com.entre.gethub.ui.akun.AkunViewModel
@@ -38,6 +39,7 @@ class ViewModelFactory private constructor(
     private val productRepository: ProductRepository,
     private val linkRepository: LinkRepository,
     private val categoryRepository: CategoryRepository,
+    private val scanCardRepository: ScanCardRepository
 ) : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when (modelClass) {
@@ -47,7 +49,7 @@ class ViewModelFactory private constructor(
             HomeViewModel::class.java -> HomeViewModel(informationHubRepository) as T
             CompleteProfileViewModel::class.java -> CompleteProfileViewModel(profileRepository) as T
             CompleteProfileValidationViewModel::class.java -> CompleteProfileValidationViewModel(
-                profileRepository
+                profileRepository, scanCardRepository
             ) as T
 
             AkunViewModel::class.java -> AkunViewModel(profileRepository, userPreferences) as T
@@ -97,7 +99,8 @@ class ViewModelFactory private constructor(
                 Injection.provideSponsorRepository(context),
                 Injection.provideProductRepository(context),
                 Injection.provideLinkRepository(context),
-                Injection.provideCategoryRepository(context)
+                Injection.provideCategoryRepository(context),
+                Injection.provideScanCardRepository(context)
             )
     }
 }
