@@ -45,5 +45,39 @@ class ApiConfig {
                 .build()
             return retrofit.create(ApiService::class.java)
         }
+
+        fun getApiMLService(context: Context, token: String): ApiMLService {
+            val collector = ChuckerCollector(
+                context = context,
+                showNotification = true,
+                retentionPeriod = RetentionManager.Period.ONE_HOUR
+            )
+
+            val chuckerInterceptor = ChuckerInterceptor.Builder(context)
+                .collector(collector)
+                .maxContentLength(250000L)
+                .redactHeaders(emptySet())
+                .alwaysReadResponseBody(false)
+                .build()
+
+            val authInterceptor = Interceptor { chain ->
+                val req = chain.request()
+                val requestHeaders = req.newBuilder()
+                    .addHeader("Authorization", "Bearer $token")
+                    .build()
+                chain.proceed(requestHeaders)
+            }
+
+            val client = OkHttpClient.Builder()
+                .addInterceptor(chuckerInterceptor)
+                .addInterceptor(authInterceptor)
+                .build()
+            val retrofit = Retrofit.Builder()
+                .baseUrl(BuildConfig.BASE_URL_ML)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(client)
+                .build()
+            return retrofit.create(ApiMLService::class.java)
+        }
     }
 }

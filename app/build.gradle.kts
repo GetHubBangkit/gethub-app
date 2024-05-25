@@ -47,9 +47,11 @@ android {
                 "proguard-rules.pro"
             )
             buildConfigField("String", "BASE_URL", "\"https://backend-gethub-kot54pmj3q-et.a.run.app/api/\"")
+            buildConfigField("String", "BASE_URL_ML", "\"https://machinelearning-api-kot54pmj3q-et.a.run.app/api/\"")
         }
         debug {
             buildConfigField("String", "BASE_URL", "\"https://backend-gethub-kot54pmj3q-et.a.run.app/api/\"")
+            buildConfigField("String", "BASE_URL_ML", "\"https://machinelearning-api-kot54pmj3q-et.a.run.app/api/\"")
         }
     }
 }
