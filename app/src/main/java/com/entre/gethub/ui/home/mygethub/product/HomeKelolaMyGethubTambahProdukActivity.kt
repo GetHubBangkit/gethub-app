@@ -1,9 +1,12 @@
 package com.entre.gethub.ui.home.mygethub.product
 
+import android.R
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -12,6 +15,7 @@ import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.ViewModelProvider
 import com.entre.gethub.data.Result
 import com.entre.gethub.databinding.ActivityHomeKelolaMyGethubTambahProdukBinding
+import com.entre.gethub.ui.adapter.CategoryAdapter
 import com.entre.gethub.ui.home.mygethub.HomeKelolaMyGethubActivity
 import com.entre.gethub.utils.ViewModelFactory
 import com.entre.gethub.utils.uriToFile
@@ -26,6 +30,7 @@ class HomeKelolaMyGethubTambahProdukActivity : AppCompatActivity() {
     private lateinit var homeKelolaMyGetHubTambahProdukViewModel: HomeKelolaMyGethubTambahProdukViewModel
     private var currentImageUri: Uri? = null
     private var imageUrl: String? = null
+    private var selectedCategoryId: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +41,7 @@ class HomeKelolaMyGethubTambahProdukActivity : AppCompatActivity() {
     }
 
     private fun setupView() {
+        getCategories()
         with(binding) {
             iconBack.setOnClickListener {
                 finish()
@@ -65,10 +71,11 @@ class HomeKelolaMyGethubTambahProdukActivity : AppCompatActivity() {
                 val name = titleTextField.editText?.text.toString()
                 val description = descriptionTextField.editText?.text.toString()
 
-                if (name.isNotEmpty() || description.isNotEmpty() || imageUrl != null) {
-                    addProduct(name, description, imageUrl.toString())
+                if (name.isNotEmpty() || description.isNotEmpty() || imageUrl != null || selectedCategoryId != null) {
+                    addProduct(name, description, imageUrl.toString(), selectedCategoryId.toString())
                 }
             }
+
         }
     }
 
@@ -99,6 +106,53 @@ class HomeKelolaMyGethubTambahProdukActivity : AppCompatActivity() {
         val factory = ViewModelFactory.getInstance(this)
         homeKelolaMyGetHubTambahProdukViewModel =
             ViewModelProvider(this, factory)[HomeKelolaMyGethubTambahProdukViewModel::class.java]
+    }
+
+    private fun getCategories() {
+        homeKelolaMyGetHubTambahProdukViewModel.getCategories()
+            .observe(this@HomeKelolaMyGethubTambahProdukActivity) { result ->
+                if (result != null) {
+                    when (result) {
+                        is Result.Loading -> showLoading(true)
+                        is Result.Success -> {
+                            showLoading(false)
+                            val categories = result.data.data
+                            val adapter = CategoryAdapter(
+                                this@HomeKelolaMyGethubTambahProdukActivity,
+                                categories
+                            )
+                            adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
+                            binding.spinnerKategori.adapter = adapter
+
+                            binding.spinnerKategori.onItemSelectedListener =
+                                object : AdapterView.OnItemSelectedListener {
+                                    override fun onItemSelected(
+                                        parent: AdapterView<*>?,
+                                        view: View?,
+                                        position: Int,
+                                        id: Long
+                                    ) {
+                                        selectedCategoryId = adapter.getCategoryId(position)
+                                    }
+
+                                    override fun onNothingSelected(p0: AdapterView<*>?) {
+                                        // Nothing
+                                    }
+
+                                }
+                        }
+
+                        is Result.Error -> {
+                            showLoading(false)
+                            showToast(getString(com.entre.gethub.R.string.failed_to_fetch_categories))
+                        }
+
+                        else -> {
+                            //
+                        }
+                    }
+                }
+            }
     }
 
     private fun uploadProductImage() {
@@ -132,8 +186,8 @@ class HomeKelolaMyGethubTambahProdukActivity : AppCompatActivity() {
         }
     }
 
-    private fun addProduct(name: String, description: String, imageUrl: String) {
-        homeKelolaMyGetHubTambahProdukViewModel.addProduct(name, description, imageUrl)
+    private fun addProduct(name: String, description: String, imageUrl: String, category: String) {
+        homeKelolaMyGetHubTambahProdukViewModel.addProduct(name, description, imageUrl, category)
             .observe(this) { result ->
                 if (result != null) {
                     when (result) {

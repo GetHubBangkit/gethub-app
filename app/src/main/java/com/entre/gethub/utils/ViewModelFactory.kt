@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.entre.gethub.data.preferences.UserPreferences
 import com.entre.gethub.data.repositories.AuthRepository
+import com.entre.gethub.data.repositories.CategoryRepository
 import com.entre.gethub.data.repositories.GethubRepository
 import com.entre.gethub.data.repositories.InformationHubRepository
 import com.entre.gethub.data.repositories.LinkRepository
@@ -22,6 +23,7 @@ import com.entre.gethub.ui.gethub.GethubPartnerListViewModel
 import com.entre.gethub.ui.gethub.GethubViewModel
 import com.entre.gethub.ui.home.HomeViewModel
 import com.entre.gethub.ui.home.mygethub.HomeKelolaMyGethubViewModel
+import com.entre.gethub.ui.home.mygethub.link.HomeKelolaMyGethubTambahLinkViewModel
 import com.entre.gethub.ui.home.mygethub.product.HomeKelolaMyGethubEditProdukViewModel
 import com.entre.gethub.ui.home.mygethub.product.HomeKelolaMyGethubTambahProdukViewModel
 import com.entre.gethub.ui.splash.SplashViewModel
@@ -35,6 +37,7 @@ class ViewModelFactory private constructor(
     private val sponsorRepository: SponsorRepository,
     private val productRepository: ProductRepository,
     private val linkRepository: LinkRepository,
+    private val categoryRepository: CategoryRepository,
 ) : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when (modelClass) {
@@ -60,11 +63,15 @@ class ViewModelFactory private constructor(
             ) as T
 
             HomeKelolaMyGethubTambahProdukViewModel::class.java -> HomeKelolaMyGethubTambahProdukViewModel(
-                productRepository
+                productRepository, categoryRepository
             ) as T
 
             HomeKelolaMyGethubEditProdukViewModel::class.java -> HomeKelolaMyGethubEditProdukViewModel(
                 productRepository
+            ) as T
+
+            HomeKelolaMyGethubTambahLinkViewModel::class.java -> HomeKelolaMyGethubTambahLinkViewModel(
+                linkRepository
             ) as T
 
             GethubPartnerListViewModel::class.java -> GethubPartnerListViewModel(
@@ -89,7 +96,8 @@ class ViewModelFactory private constructor(
                 Injection.provideGethubRepository(context),
                 Injection.provideSponsorRepository(context),
                 Injection.provideProductRepository(context),
-                Injection.provideLinkRepository(context)
+                Injection.provideLinkRepository(context),
+                Injection.provideCategoryRepository(context)
             )
     }
 }

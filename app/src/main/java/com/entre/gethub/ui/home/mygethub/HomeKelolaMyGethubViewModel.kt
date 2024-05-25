@@ -22,13 +22,8 @@ class HomeKelolaMyGethubViewModel(
 ) : ViewModel() {
     private val getProductListResult = MediatorLiveData<Result<ProductListResponse>>()
     private val deleteProductResult = MediatorLiveData<Result<ApiResponse>>()
-
-    private val _links = MutableLiveData<Result<List<LinkResponse.Data>>>(Result.Loading)
-    val links: LiveData<Result<List<LinkResponse.Data>>> get() = _links
-
-    init {
-        getLinks()
-    }
+    private val getLinkResult = MediatorLiveData<Result<LinkResponse>>()
+    private val deleteLinkResult = MediatorLiveData<Result<ApiResponse>>()
 
     fun getProductList(): LiveData<Result<ProductListResponse>> {
         viewModelScope.launch {
@@ -80,52 +75,52 @@ class HomeKelolaMyGethubViewModel(
     }
 
     // Links
-    fun getLinks() {
+    fun getLinks(): LiveData<Result<LinkResponse>> {
         viewModelScope.launch {
             try {
-                _links.value = Result.Loading
+                getLinkResult.value = Result.Loading
                 val response = linkRepository.getLinks()
                 if (response.success == true) {
-                    _links.value = Result.Success(response.data ?: emptyList())
+                    getLinkResult.value = Result.Success(response)
                 } else {
-                    _links.value = Result.Error(response.message ?: "Unknown Error")
+                    getLinkResult.value = Result.Error(response.message ?: "Unknown Error")
                 }
             } catch (e: HttpException) {
                 val jsonString = e.response()?.errorBody()?.string()
                 val errorBody = Gson().fromJson(jsonString, ApiResponse::class.java)
                 val errorMessage = errorBody.message
                 if (e.code().equals(404)) {
-                    _links.value = Result.Empty("Link masih kosong")
+                    getLinkResult.value = Result.Empty("Link masih kosong")
                 } else {
-                    _links.value = Result.Error(errorMessage!!)
+                    getLinkResult.value = Result.Error(errorMessage!!)
                 }
             } catch (e: Exception) {
-                _links.value = Result.Error(e.message ?: "Error Occurred")
+                getLinkResult.value = Result.Error(e.message ?: "Error Occurred")
                 Log.e(TAG, "getLinks: $e")
             }
         }
+        return getLinkResult
     }
 
-    fun addLink(category: String, link: String) {
+    fun deleteLink(linkId: String): LiveData<Result<ApiResponse>> {
         viewModelScope.launch {
             try {
-                linkRepository.addLink(category, link)
-                getLinks() // Refresh links after adding a new one
+                deleteLinkResult.value = Result.Loading
+                val response = linkRepository.deleteLink(linkId)
+                if (response.success == true) {
+                    deleteLinkResult.value = Result.Success(response)
+                }
+            } catch (e: HttpException) {
+                val jsonString = e.response()?.errorBody()?.string()
+                val errorBody = Gson().fromJson(jsonString, ApiResponse::class.java)
+                val errorMessage = errorBody.message
+                deleteLinkResult.value = Result.Error(errorMessage!!)
             } catch (e: Exception) {
-                _links.value = Result.Error(e.message ?: "Error Occurred")
+                deleteLinkResult.value = Result.Error(e.toString())
             }
         }
-    }
 
-    fun deleteLink(linkId: String) {
-        viewModelScope.launch {
-            try {
-                linkRepository.deleteLink(linkId)
-                getLinks() // Refresh links after deleting
-            } catch (e: Exception) {
-                _links.value = Result.Error(e.message ?: "Error Occurred")
-            }
-        }
+        return deleteLinkResult
     }
 
     companion object {

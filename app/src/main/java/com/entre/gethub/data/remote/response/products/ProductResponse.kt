@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class ProductResponse(
 
     @field:SerializedName("data")
-	val data: Data? = null,
+	val data: Product? = null,
 
     @field:SerializedName("success")
 	val success: Boolean? = null,
@@ -15,28 +15,4 @@ data class ProductResponse(
 
     @field:SerializedName("message")
 	val message: String? = null
-)
-
-data class Data(
-
-	@field:SerializedName("createdAt")
-	val createdAt: String? = null,
-
-	@field:SerializedName("user_id")
-	val userId: String? = null,
-
-	@field:SerializedName("image_url")
-	val imageUrl: String? = null,
-
-	@field:SerializedName("name")
-	val name: String? = null,
-
-	@field:SerializedName("description")
-	val description: String? = null,
-
-	@field:SerializedName("id")
-	val id: String? = null,
-
-	@field:SerializedName("updatedAt")
-	val updatedAt: String? = null
 )

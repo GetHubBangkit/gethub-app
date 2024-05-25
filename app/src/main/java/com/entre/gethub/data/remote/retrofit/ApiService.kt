@@ -1,6 +1,7 @@
 package com.entre.gethub.data.remote.retrofit
 
 import com.entre.gethub.data.remote.response.ApiResponse
+import com.entre.gethub.data.remote.response.CategoriesResponse
 import com.entre.gethub.data.remote.response.InformationHubResponse
 import com.entre.gethub.data.remote.response.LinkResponse
 import com.entre.gethub.data.remote.response.SponsorResponse
@@ -72,7 +73,7 @@ interface ApiService {
     @GET("informations")
     suspend fun getInformationHub(): InformationHubResponse
 
-    // Add Partner
+    // Partner
     @FormUrlEncoded
     @POST("partner")
     suspend fun addPartner(
@@ -85,18 +86,17 @@ interface ApiService {
         @Field("photo") photo: String?,
         @Field("image") image: String?,
     ): AddPartnerResponse
-    // Add Partner
 
-    // Get Partner List
-    @GET("partners")
+    @GET("user/partners")
     suspend fun getPartnerList(): GetHubPartnerListResponse
+    // Partner
 
     // Sponsors
     @GET("sponsors")
     suspend fun getSponsors(): SponsorResponse
 
     // Products
-    @GET("products")
+    @GET("user/products")
     suspend fun getProductList(): ProductListResponse
 
     @FormUrlEncoded
@@ -104,7 +104,8 @@ interface ApiService {
     suspend fun addProduct(
         @Field("name") name: String,
         @Field("description") description: String,
-        @Field("image_url") imageUrl: String
+        @Field("image_url") imageUrl: String,
+        @Field("category_id") category: String,
     ): ProductResponse
 
     @GET("product/{id}")
@@ -135,12 +136,17 @@ interface ApiService {
         @Field("link") link: String
     ): LinkResponse
 
-    @GET("links")
+    @GET("user/links")
     suspend fun getLinks(): LinkResponse
 
     @DELETE("link/{linkId}")
     suspend fun deleteLink(
         @Path("linkId") linkId: String
-    ): LinkResponse
+    ): ApiResponse
     // Links
+
+    // Categories
+    @GET("categories")
+    suspend fun getCategories(): CategoriesResponse
+    // Categories
 }
