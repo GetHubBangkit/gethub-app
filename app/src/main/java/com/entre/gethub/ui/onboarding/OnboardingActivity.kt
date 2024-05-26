@@ -4,9 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Html
 import android.widget.Button
-import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.viewpager.widget.ViewPager
@@ -14,15 +14,12 @@ import com.entre.gethub.R
 import com.entre.gethub.ui.auth.LoginActivity
 import com.entre.gethub.ui.auth.RegisterActivity
 
-
 class OnboardingActivity : AppCompatActivity() {
     private var mSLideViewPager: ViewPager? = null
     private var mDotLayout: LinearLayout? = null
-    private var backbtn: Button? = null
-    private var nextbtn: Button? = null
-    private var skipbtn: Button? = null
     private lateinit var dots: Array<TextView>
     private var viewPagerAdapter: ViewPagerAdapter? = null
+    private var backPressedTime: Long = 0
 
     private val descriptions = arrayOf(
         R.string.onboarding_desc_one,
@@ -38,21 +35,19 @@ class OnboardingActivity : AppCompatActivity() {
 
         // Menambahkan listener klik pada tombol Masuk
         masukButton.setOnClickListener {
-            // Membuat Intent untuk AuthActivity
+            // Membuat Intent untuk LoginActivity
             val intent = Intent(this, LoginActivity::class.java)
-
             // Menjalankan intent
             startActivity(intent)
         }
 
-        // Mendapatkan referensi ke tombol Masuk
+        // Mendapatkan referensi ke tombol Daftar
         val daftarButton: Button = findViewById(R.id.button_daftar)
 
-        // Menambahkan listener klik pada tombol Masuk
+        // Menambahkan listener klik pada tombol Daftar
         daftarButton.setOnClickListener {
-            // Membuat Intent untuk AuthActivity
+            // Membuat Intent untuk RegisterActivity
             val intent = Intent(this, RegisterActivity::class.java)
-
             // Menjalankan intent
             startActivity(intent)
         }
@@ -66,7 +61,6 @@ class OnboardingActivity : AppCompatActivity() {
         mSLideViewPager?.addOnPageChangeListener(viewListener)
     }
 
-    
     private fun setUpIndicator(position: Int) {
         val dotCount = descriptions.size
         val dotMargin = resources.getDimensionPixelSize(R.dimen.dot_margin)
@@ -96,19 +90,23 @@ class OnboardingActivity : AppCompatActivity() {
         textDescription.text = getString(descriptions[position])
     }
 
-
     private val viewListener = object : ViewPager.OnPageChangeListener {
         override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
 
         override fun onPageSelected(position: Int) {
             setUpIndicator(position)
-
         }
 
         override fun onPageScrollStateChanged(state: Int) {}
     }
 
-    private fun getitem(i: Int): Int {
-        return mSLideViewPager?.currentItem ?: 0 + i
+    override fun onBackPressed() {
+        if (backPressedTime + 2000 > System.currentTimeMillis()) {
+            super.onBackPressed()
+            return
+        } else {
+            Toast.makeText(this, "Tekan sekali lagi untuk keluar", Toast.LENGTH_SHORT).show()
+        }
+        backPressedTime = System.currentTimeMillis()
     }
 }
