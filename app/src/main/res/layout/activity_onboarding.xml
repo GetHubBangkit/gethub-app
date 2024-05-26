@@ -59,30 +59,33 @@
     <Button
         android:id="@+id/button_daftar"
         style="@style/DaftarButton"
-        android:layout_width="162dp"
+        android:layout_width="0dp"
+        android:layout_marginStart="10dp"
         android:layout_height="60dp"
+        android:layout_marginEnd="36dp"
         android:layout_marginBottom="20dp"
         android:text="@string/register"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.847"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvDesc" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/button_masuk"
+        app:layout_constraintTop_toBottomOf="@id/tvDesc"
+        app:layout_constraintWidth_percent="0.4" />
 
     <Button
         android:id="@+id/button_masuk"
         style="@style/MasukButton"
-        android:layout_width="162dp"
+        android:layout_width="0dp"
         android:layout_height="60dp"
+        android:layout_marginStart="36dp"
         android:layout_marginBottom="20dp"
         android:text="@string/login"
-
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.148"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvDesc" />
+        app:layout_constraintTop_toBottomOf="@id/tvDesc"
+        app:layout_constraintWidth_percent="0.4" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
