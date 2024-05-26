@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    android:background="@color/background">
+    android:background="@color/background"
+    android:fillViewport="true">
 
     <ImageView
         android:id="@+id/frame"
@@ -21,8 +22,8 @@
         android:id="@+id/textgethub"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins_bold"
         android:layout_marginTop="7dp"
+        android:fontFamily="@font/poppins_bold"
         android:text="Cari Project Bids"
         android:textColor="@android:color/white"
         android:textSize="18sp"
@@ -45,26 +46,37 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/iconsearch"
-        android:layout_width="22dp"
-        android:layout_height="22dp"
-
-        android:layout_marginTop="28dp"
-        android:src="@drawable/icon_search"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.958"
+    <com.google.android.material.search.SearchBar
+        android:id="@+id/searchBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/search_project_hint"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/frame">
+
+    </com.google.android.material.search.SearchBar>
+
+    <com.google.android.material.search.SearchView
+        android:id="@+id/searchView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:hint="@string/search_project_hint"
+        app:layout_anchor="@id/searchBar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
 
     <LinearLayout
         android:id="@+id/ListingProjectBid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:layout_marginLeft="25dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/frame">
+        app:layout_constraintTop_toBottomOf="@id/searchBar">
 
         <TextView
             style="@style/Poppins.Bold"
@@ -85,15 +97,16 @@
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewRekomendasiProjectBid"
+        android:id="@+id/rvRekomendasiProjectBid"
         android:layout_width="match_parent"
-        android:layout_height="550dp"
+        android:layout_height="0dp"
         android:layout_marginTop="10dp"
         android:orientation="vertical"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ListingProjectBid" />
-
+        app:layout_constraintTop_toBottomOf="@+id/ListingProjectBid"
+        tools:itemCount="4"
+        tools:listitem="@layout/item_project_rekomendasijobbid" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

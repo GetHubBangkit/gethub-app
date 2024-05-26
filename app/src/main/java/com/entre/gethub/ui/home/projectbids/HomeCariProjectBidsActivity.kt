@@ -27,7 +27,7 @@ class HomeCariProjectBidsActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerViewProjectBid() {
-        binding.recyclerViewRekomendasiProjectBid.apply {
+        binding.rvRekomendasiProjectBid.apply {
             layoutManager = LinearLayoutManager(
                 this@HomeCariProjectBidsActivity,
                 LinearLayoutManager.VERTICAL,

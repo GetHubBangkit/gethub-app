@@ -9,40 +9,45 @@ import com.entre.gethub.databinding.ItemProjectRekomendasijobbidBinding
 
 class HomeProjectBidsAdapter(
 
-    private val ProjectBidsList: ArrayList<ProjectBid>,
+    private val projectBidList: ArrayList<ProjectBid>,
     private val listener: (ProjectBid, Int) -> Unit
 ) :
     RecyclerView.Adapter<HomeProjectBidsAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val v = ItemProjectRekomendasijobbidBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val v = ItemProjectRekomendasijobbidBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
         return ViewHolder(v)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindItem(ProjectBidsList[position])
-        holder.itemView.setOnClickListener { listener(ProjectBidsList[position], position) }
+        holder.bindItem(projectBidList[position])
+        holder.itemView.setOnClickListener { listener(projectBidList[position], position) }
     }
 
     override fun getItemCount(): Int {
-        return ProjectBidsList.size
+        return projectBidList.size
     }
 
-    class ViewHolder(private val itemBinding: ItemProjectRekomendasijobbidBinding) :
-        RecyclerView.ViewHolder(itemBinding.root) {
+    class ViewHolder(private val binding: ItemProjectRekomendasijobbidBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-        fun bindItem(ProjectBids: ProjectBid) {
-            itemBinding.profilepic2.setImageResource(ProjectBids.profilepic2)
-            itemBinding.rekomendasiprofilename.text = ProjectBids.rekomendasiprofilename
-            itemBinding.rekomendasiprofiledesc.text = ProjectBids.rekomendasiprofiledesc
-            itemBinding.rekrutproject.text = ProjectBids.rekrutproject
-            itemBinding.rekrutprice.text = ProjectBids.rekrutprice
-            itemBinding.rekrutprojectdesc.text = ProjectBids.rekrutprojectdesc
-            itemBinding.rekrutprojecttotal.text = ProjectBids.rekrutprojecttotal
-            itemBinding.rekrutprojectdate.text = ProjectBids.rekrutprojectdate
-            itemBinding.rekrutprojectdeadline.text = ProjectBids.rekrutprojectdeadline
+        fun bindItem(projectBid: ProjectBid) {
+            with(binding) {
+                ivProjectOwnerPic.setImageResource(projectBid.profilepic2)
+                tvProjectOwnerName.text = projectBid.rekomendasiprofilename
+                tvProjectOwnerProfession.text = projectBid.rekomendasiprofiledesc
+                tvProjectTitle.text = projectBid.rekrutproject
+                tvProjectPriceRange.text = projectBid.rekrutprice
+                tvProjectDesc.text = projectBid.rekrutprojectdesc
+                tvProjectTotalUserBids.text = projectBid.rekrutprojecttotal
+                tvProjectPostDate.text = projectBid.rekrutprojectdate
+                tvProjectDeadline.text = projectBid.rekrutprojectdeadline
 
-
+            }
         }
     }
 
