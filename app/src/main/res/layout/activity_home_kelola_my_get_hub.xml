@@ -305,7 +305,7 @@
             app:layout_constraintTop_toTopOf="@id/rvProducts" />
 
         <ImageView
-            android:id="@+id/icon_sertifikasi"
+            android:id="@+id/icon_certiciation"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginTop="16dp"
@@ -316,12 +316,12 @@
             app:layout_constraintTop_toBottomOf="@+id/rvProducts" />
 
         <TextView
-            android:id="@+id/tvSertifikasi"
+            android:id="@+id/Certification"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/poppins_bold"
-            android:text="Produk / Jasa"
+            android:text="Sertifikasi"
             android:textColor="@color/blue"
             android:textSize="20sp"
             app:fontFamily="@font/poppins_bold"
@@ -336,14 +336,50 @@
             android:id="@+id/rvCertification"
             android:layout_width="match_parent"
             android:layout_marginTop="20dp"
-            android:layout_height="253dp"
+            android:layout_height="220dp"
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvSertifikasi"
+            app:layout_constraintTop_toBottomOf="@+id/Certification"
             tools:listitem="@layout/item_home_kelolamygethub_sertifikasi" />
+
+        <ProgressBar
+            android:id="@+id/progressBarCertification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/rvCertification"
+            app:layout_constraintEnd_toEndOf="@id/rvCertification"
+            app:layout_constraintStart_toStartOf="@id/rvCertification"
+            app:layout_constraintTop_toTopOf="@id/rvCertification"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/tvEmptyCertification"
+            style="@style/Poppins.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Link kosong"
+            android:textSize="14sp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/rvCertification"
+            app:layout_constraintEnd_toEndOf="@id/rvCertification"
+            app:layout_constraintStart_toStartOf="@id/rvCertification"
+            app:layout_constraintTop_toTopOf="@id/rvCertification"
+            tools:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/editCertification"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/kelola_edit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.89"
+            app:layout_constraintStart_toEndOf="@+id/Certification"
+            app:layout_constraintTop_toBottomOf="@+id/rvProducts" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
