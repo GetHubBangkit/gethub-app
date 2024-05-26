@@ -1,15 +1,13 @@
 package com.entre.gethub.ui.home.mygethub
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.entre.gethub.data.Result
 import com.entre.gethub.data.remote.response.ApiResponse
 import com.entre.gethub.data.remote.response.LinkResponse
+import com.entre.gethub.data.remote.response.certifications.CertificationListResponse
 import com.entre.gethub.data.remote.response.products.ProductListResponse
+import com.entre.gethub.data.repositories.CertificationRepository
 import com.entre.gethub.data.repositories.LinkRepository
 import com.entre.gethub.data.repositories.ProductRepository
 import com.google.gson.Gson
@@ -18,12 +16,15 @@ import retrofit2.HttpException
 
 class HomeKelolaMyGethubViewModel(
     private val productRepository: ProductRepository,
+    private val certificationRepository: CertificationRepository,
     private val linkRepository: LinkRepository
 ) : ViewModel() {
     private val getProductListResult = MediatorLiveData<Result<ProductListResponse>>()
     private val deleteProductResult = MediatorLiveData<Result<ApiResponse>>()
     private val getLinkResult = MediatorLiveData<Result<LinkResponse>>()
     private val deleteLinkResult = MediatorLiveData<Result<ApiResponse>>()
+    private val getCertificationListResult = MediatorLiveData<Result<CertificationListResponse>>()
+    private val deleteCertificationResult = MediatorLiveData<Result<ApiResponse>>()
 
     fun getProductList(): LiveData<Result<ProductListResponse>> {
         viewModelScope.launch {
@@ -119,8 +120,56 @@ class HomeKelolaMyGethubViewModel(
                 deleteLinkResult.value = Result.Error(e.toString())
             }
         }
-
         return deleteLinkResult
+    }
+
+    fun getCertificationList(): LiveData<Result<CertificationListResponse>> {
+        viewModelScope.launch {
+            try {
+                getCertificationListResult.value = Result.Loading
+                val response = certificationRepository.getCertificationList()
+                if (response.success == true) {
+                    getCertificationListResult.value = Result.Success(response)
+                } else {
+                    getCertificationListResult.value = Result.Empty("Certification masih kosong")
+                }
+            } catch (e: HttpException) {
+                val jsonString = e.response()?.errorBody()?.string()
+                val errorBody = Gson().fromJson(jsonString, ApiResponse::class.java)
+                val errorMessage = errorBody.message
+                if (e.code().equals(404)) {
+                    getCertificationListResult.value = Result.Empty("Certification masih kosong")
+                } else {
+                    getCertificationListResult.value = Result.Error(errorMessage!!)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                getCertificationListResult.value = Result.Error(e.toString())
+            }
+        }
+        return getCertificationListResult
+    }
+
+    fun deleteCertification(id: String): LiveData<Result<ApiResponse>> {
+        viewModelScope.launch {
+            try {
+                deleteCertificationResult.value = Result.Loading
+                val response = certificationRepository.deleteCertification(id)
+                if (response.success == true) {
+                    deleteCertificationResult.value = Result.Success(response)
+                    getCertificationList()
+                }
+            } catch (e: HttpException) {
+                val jsonString = e.response()?.errorBody()?.string()
+                val errorBody = Gson().fromJson(jsonString, ApiResponse::class.java)
+                val errorMessage = errorBody.message
+                deleteCertificationResult.value = Result.Error(errorMessage!!)
+            } catch (e: Exception) {
+                e.printStackTrace()
+                deleteCertificationResult.value = Result.Error(e.toString())
+            }
+        }
+        return deleteCertificationResult
     }
 
     companion object {

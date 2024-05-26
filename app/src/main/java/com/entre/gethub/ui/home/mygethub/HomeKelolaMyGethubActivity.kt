@@ -12,10 +12,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.entre.gethub.ui.MainActivity
 import com.entre.gethub.R
 import com.entre.gethub.data.Result
+import com.entre.gethub.data.remote.response.certifications.Certification
 import com.entre.gethub.data.remote.response.products.Product
 import com.entre.gethub.databinding.ActivityHomeKelolaMyGetHubBinding
 import com.entre.gethub.ui.adapter.HomeGethubLinkAdapter
 import com.entre.gethub.ui.adapter.HomeProdukJasaAdapter
+import com.entre.gethub.ui.adapter.HomeSertifikasiAdapter
+import com.entre.gethub.ui.home.mygethub.certification.HomeKelolaMyGethubEditSertifikasiActivity
+import com.entre.gethub.ui.home.mygethub.certification.HomeKelolaMyGethubTambahSertifikasiActivity
 import com.entre.gethub.ui.home.mygethub.link.HomeKelolaMyGethubTambahLinkActivity
 import com.entre.gethub.ui.home.mygethub.product.HomeKelolaMyGethubEditProdukActivity
 import com.entre.gethub.ui.home.mygethub.product.HomeKelolaMyGethubTambahProdukActivity
@@ -35,6 +39,7 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
         initViewModel()
         getLinkList()
         getProductList()
+        getCertificationList()
 
         setupRecyclerViewHomeGethubLink()
 
@@ -53,6 +58,9 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
         binding.editprodukjasa.setOnClickListener {
             startActivity(Intent(this, HomeKelolaMyGethubTambahProdukActivity::class.java))
         }
+        binding.editSertifikasi.setOnClickListener {
+            startActivity(Intent(this, HomeKelolaMyGethubTambahSertifikasiActivity::class.java))
+        }
 
     }
 
@@ -60,6 +68,7 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
         super.onResume()
         getProductList()
         getLinkList()
+        getCertificationList()
     }
 
     private fun initViewModel() {
@@ -76,6 +85,38 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
                     is Result.Success -> {
                         showLoadingOnProduct(false)
                         setupRecyclerViewHomeProdukJasa(result.data.data)
+                    }
+
+                    is Result.Error -> {
+                        showLoadingOnProduct(false)
+                        showToast(result.error)
+                    }
+
+                    is Result.Empty -> {
+                        showLoadingOnProduct(false)
+                        binding.emptyOnProduct.apply {
+                            llEmpty.visibility = View.VISIBLE
+                            tvEmpty.text = result.emptyError
+                        }
+                    }
+
+                    else -> {
+                        showLoadingOnProduct(false)
+                        showToast("Terjadi kesalahan")
+                    }
+                }
+            }
+        }
+    }
+
+    private fun getCertificationList() {
+        homeKelolaMyGetHubViewModel.getCertificationList().observe(this) { result ->
+            if (result != null) {
+                when (result) {
+                    is Result.Loading -> showLoadingOnProduct(true)
+                    is Result.Success -> {
+                        showLoadingOnProduct(false)
+                        setupRecyclerViewHomeSertfikasi(result.data.data)
                     }
 
                     is Result.Error -> {
@@ -161,6 +202,27 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
         }
     }
 
+    private fun setupRecyclerViewHomeSertfikasi(listSertifikasi: List<Certification>) {
+        val adapter = HomeSertifikasiAdapter(listSertifikasi) { sertifikasi, position ->
+            val intent = Intent(
+                this@HomeKelolaMyGethubActivity,
+                HomeKelolaMyGethubEditSertifikasiActivity::class.java
+            )
+            intent.putExtra(HomeKelolaMyGethubEditSertifikasiActivity.EXTRA_CERTIFICATION_ID, sertifikasi.id)
+            startActivity(intent)
+        }
+        binding.rvCertification.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            this.adapter = adapter
+            adapter.setOnItemClickCallback(object : HomeSertifikasiAdapter.OnItemClickCallback {
+                override fun onDeleteCertificationItem(certification: Certification, position: Int) {
+                    deleteCertification(certification.id.toString())
+                }
+
+            })
+        }
+    }
+
     private fun deleteProduct(id: String) {
         homeKelolaMyGetHubViewModel.deleteProduct(id).observe(this) { result ->
             if (result != null) {
@@ -187,6 +249,31 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
         }
     }
 
+    private fun deleteCertification(id: String) {
+        homeKelolaMyGetHubViewModel.deleteCertification(id).observe(this) { result ->
+            if (result != null) {
+                when (result) {
+                    is Result.Loading -> showLoadingOnProduct(true)
+                    is Result.Success -> {
+                        showLoadingOnProduct(false)
+                        showToast(result.data.message.toString())
+                        getCertificationList()
+                    }
+
+                    is Result.Error -> {
+                        showLoadingOnProduct(false)
+                        showToast(result.error)
+                    }
+
+                    else -> {
+                        showLoadingOnProduct(false)
+                        showToast("Terjadi kesalahan")
+                    }
+                }
+            }
+
+        }
+    }
 
     private fun getLinkList() {
         homeKelolaMyGetHubViewModel.getLinks().observe(this, Observer { result ->

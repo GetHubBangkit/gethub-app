@@ -10,14 +10,11 @@ data class Certification(
     @field:SerializedName("user_id")
     val userId: String? = null,
 
-    @field:SerializedName("image_url")
-    val imageUrl: String? = null,
+    @field:SerializedName("image")
+    val image: String? = null,
 
     @field:SerializedName("title")
     val title: String? = null,
-
-    @field:SerializedName("description")
-    val description: String? = null,
 
     @field:SerializedName("id")
     val id: String? = null,

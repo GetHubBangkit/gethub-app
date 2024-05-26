@@ -42,11 +42,11 @@ class HomeSertifikasiAdapter(
         fun bindItem(sertifikasi: Certification) {
             with(itemHomeKelolamygethubSertifikasiBinding) {
                 Glide.with(itemView)
-                    .load(sertifikasi.imageUrl)
+                    .load(sertifikasi.image)
                     .placeholder(R.drawable.ic_image)
                     .into(ivCertificationImage)
                 tvCertificationTitle.text = sertifikasi.title
-                tvKategori.text = sertifikasi.description
+                tvKategori.text = sertifikasi.categoryId
                 ivDeleteCertification.setOnClickListener {
                     onItemClickCallback.onDeleteCertificationItem(sertifikasi, adapterPosition)
                 }

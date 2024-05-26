@@ -33,7 +33,7 @@
             android:ellipsize="end"
             android:fontFamily="@font/poppins_bold"
             android:maxLines="1"
-            android:text="Judul Sertifikat"
+            android:text="Judul Sertifikasi"
             android:textColor="@color/black"
             android:textSize="12sp"
             app:fontFamily="@font/poppins_bold"
