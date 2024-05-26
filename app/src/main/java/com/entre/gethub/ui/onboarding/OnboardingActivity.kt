@@ -105,7 +105,7 @@ class OnboardingActivity : AppCompatActivity() {
             super.onBackPressed()
             return
         } else {
-            Toast.makeText(this, "Tekan sekali lagi untuk keluar", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Back sekali lagi untuk keluar", Toast.LENGTH_SHORT).show()
         }
         backPressedTime = System.currentTimeMillis()
     }

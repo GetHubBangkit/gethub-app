@@ -44,7 +44,7 @@
         android:layout_width="336dp"
         android:layout_height="92dp"
         android:layout_marginHorizontal="30dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         style="@style/Nunito"
         android:text="@string/onboarding_desc_one"
         android:textAlignment="center"
