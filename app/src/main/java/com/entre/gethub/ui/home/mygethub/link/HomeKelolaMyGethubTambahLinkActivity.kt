@@ -43,6 +43,7 @@ class HomeKelolaMyGethubTambahLinkActivity : AppCompatActivity() {
         binding.btnSimpan.setOnClickListener {
             val category = binding.spinnerKategori.selectedItem.toString()
             val link = binding.etLink.text.toString()
+
             homeKelolaMyGethubTambahLinkViewModel.addLink(category, link)
                 .observe(this@HomeKelolaMyGethubTambahLinkActivity) { result ->
                     if (result != null) {
@@ -50,8 +51,15 @@ class HomeKelolaMyGethubTambahLinkActivity : AppCompatActivity() {
                             is Result.Loading -> showLoading(true)
                             is Result.Success -> {
                                 showLoading(false)
-                                showToast(result.data.message.toString())
-                                finish()
+//                                showToast(result.data.message.toString())
+                                // Navigasi ke HomeKelolaMyGethubActivity setelah berhasil
+                                val intent = Intent(
+                                    this@HomeKelolaMyGethubTambahLinkActivity,
+                                    HomeKelolaMyGethubActivity::class.java
+                                )
+                                intent.putExtra("message", "Link berhasil ditambah")
+                                startActivity(intent)
+                                finish() // Optional: Hapus jika Anda ingin aktivitas ini tetap ada di tumpukan dan kembali ke sana
                             }
 
                             is Result.Error -> {
@@ -68,7 +76,8 @@ class HomeKelolaMyGethubTambahLinkActivity : AppCompatActivity() {
         }
     }
 
-    private fun showLoading(isLoading: Boolean) {
+
+        private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 

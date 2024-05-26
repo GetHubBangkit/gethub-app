@@ -28,14 +28,11 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val homeViewModel by viewModels<HomeViewModel> {
-        ViewModelFactory.getInstance(
-            requireContext()
-        )
+        ViewModelFactory.getInstance(requireContext())
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
@@ -82,19 +79,14 @@ class HomeFragment : Fragment() {
                 is Result.Success -> {
                     val data = result.data
                     binding.empty.llEmpty.visibility = View.GONE
-                    (binding.recyclerViewInformationHub.adapter as HomeInformationHubAdapter).updateData(
-                        data
-                    )
+                    (binding.recyclerViewInformationHub.adapter as HomeInformationHubAdapter).updateData(data)
                 }
-
                 is Result.Error -> {
                     Toast.makeText(requireContext(), result.error, Toast.LENGTH_SHORT).show()
                 }
-
                 is Result.Loading -> {
                     // Handle loading state
                 }
-
                 is Result.Empty -> {
                     binding.empty.apply {
                         llEmpty.visibility = View.VISIBLE
@@ -105,18 +97,12 @@ class HomeFragment : Fragment() {
         }
     }
 
-
     private fun setupRecyclerViewHomeGethubPartner() {
         binding.recyclerViewHomeGethubPartner.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adapter =
-                HomeGethubPartnerAdapter(createHomeGethubPartnerList()) { gethubpartner, position ->
-                    Toast.makeText(
-                        this@HomeFragment.requireContext(),
-                        "Clicked on actor: ${gethubpartner.profilename}",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
+            adapter = HomeGethubPartnerAdapter(createHomeGethubPartnerList()) { gethubpartner, position ->
+                Toast.makeText(this@HomeFragment.requireContext(), "Clicked on actor: ${gethubpartner.profilename}", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -133,43 +119,17 @@ class HomeFragment : Fragment() {
     private fun setupRecyclerViewBiddingDikerjakan() {
         binding.recyclerViewBiddingDikerjakan.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adapter =
-                HomeBiddingDikerjakanAdapter(createBiddingDikerjakanList()) { biddingdikerjakan, position ->
-                    Toast.makeText(
-                        this@HomeFragment.requireContext(),
-                        "Clicked on actor: ${biddingdikerjakan.profilename}",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
+            adapter = HomeBiddingDikerjakanAdapter(createBiddingDikerjakanList()) { biddingdikerjakan, position ->
+                Toast.makeText(this@HomeFragment.requireContext(), "Clicked on actor: ${biddingdikerjakan.profilename}", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
     private fun createBiddingDikerjakanList(): ArrayList<BiddingDikerjakan> {
         return arrayListOf(
-            BiddingDikerjakan(
-                "Ajay Devgan",
-                R.drawable.profilepic1,
-                "Software Engineer",
-                "UI UX Designer",
-                "Rp 3,000,000 - 4,500,000",
-                "Deadline: 10 Days"
-            ),
-            BiddingDikerjakan(
-                "Ajay Devgan",
-                R.drawable.profilepic1,
-                "Software Engineer",
-                "UI UX Designer",
-                "Rp 3,000,000 - 4,500,000",
-                "Deadline: 10 Days"
-            ),
-            BiddingDikerjakan(
-                "Ajay Devgan",
-                R.drawable.profilepic1,
-                "Software Engineer",
-                "UI UX Designer",
-                "Rp 3,000,000 - 4,500,000",
-                "Deadline: 10 Days"
-            )
+            BiddingDikerjakan("Ajay Devgan", R.drawable.profilepic1, "Software Engineer", "UI UX Designer", "Rp 3,000,000 - 4,500,000", "Deadline: 10 Days"),
+            BiddingDikerjakan("Ajay Devgan", R.drawable.profilepic1, "Software Engineer", "UI UX Designer", "Rp 3,000,000 - 4,500,000", "Deadline: 10 Days"),
+            BiddingDikerjakan("Ajay Devgan", R.drawable.profilepic1, "Software Engineer", "UI UX Designer", "Rp 3,000,000 - 4,500,000", "Deadline: 10 Days")
         )
     }
 
@@ -185,4 +145,3 @@ class HomeFragment : Fragment() {
         }
     }
 }
-
