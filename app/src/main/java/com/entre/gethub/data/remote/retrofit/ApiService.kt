@@ -13,6 +13,7 @@ import com.entre.gethub.data.remote.response.products.ProductListResponse
 import com.entre.gethub.data.remote.response.products.ProductResponse
 import com.entre.gethub.data.remote.response.profiles.UpdateUserProfileResponse
 import com.entre.gethub.data.remote.response.profiles.UserProfileResponse
+import com.entre.gethub.data.remote.response.projects.MyProjectBidResponse
 import com.entre.gethub.data.remote.response.projects.ProjectDetailResponse
 import com.entre.gethub.data.remote.response.projects.ProjectsResponse
 import okhttp3.MultipartBody
@@ -169,6 +170,9 @@ interface ApiService {
         @Field("budget_bid") budgetBid: Int,
         @Field("message") message: String
     ): ApiResponse
+
+    @GET("projects/my/bids")
+    suspend fun getMyProjectBids(): MyProjectBidResponse
     // Projects
 
     // Verify Email

@@ -22,10 +22,12 @@ class HomeCariProjectBidsViewModel(private val projectRepository: ProjectReposit
             try {
                 val response = projectRepository.getProjects()
 
-                if (response.success == true && response.data?.totalData!! > 0) {
+                if (response.success == true) {
+                    if (response.data?.totalData == 0) {
+                        getAllProjectsResult.value = Result.Empty(response.message.toString())
+                        return@launch
+                    }
                     getAllProjectsResult.value = Result.Success(response)
-                } else {
-                    getAllProjectsResult.value = Result.Empty(response.message.toString())
                 }
             } catch (e: HttpException) {
                 Log.e(TAG, "getProjects: $e")

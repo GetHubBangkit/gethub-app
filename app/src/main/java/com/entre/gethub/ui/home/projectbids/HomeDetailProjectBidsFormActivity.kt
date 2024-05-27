@@ -3,7 +3,6 @@ package com.entre.gethub.ui.home.projectbids
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -79,7 +78,15 @@ class HomeDetailProjectBidsFormActivity : AppCompatActivity() {
                         is Result.Success -> {
                             showLoading(false)
                             showToast(result.data.message!!)
-                            startActivity(Intent(this@HomeDetailProjectBidsFormActivity, ProjectBidStatusActivity::class.java))
+                            startActivity(
+                                Intent(
+                                    this@HomeDetailProjectBidsFormActivity,
+                                    ProjectBidStatusActivity::class.java
+                                ).apply {
+                                    putExtra(ProjectBidStatusActivity.EXTRA_ID_FROM_PROJECT_BID_FORM_ACTIVITY, 99)
+                                }
+                            )
+                            finish()
                         }
 
                         is Result.Error -> {

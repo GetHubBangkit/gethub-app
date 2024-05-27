@@ -7,126 +7,144 @@ import com.google.gson.annotations.SerializedName
 @Parcelize
 data class ProjectDetailResponse(
 
-    @field:SerializedName("data")
-    val data: Data? = null,
+	@field:SerializedName("data")
+	val data: Data? = null,
 
-    @field:SerializedName("success")
-    val success: Boolean? = null,
+	@field:SerializedName("success")
+	val success: Boolean? = null,
 
-    @field:SerializedName("error_code")
-    val errorCode: Int? = null,
+	@field:SerializedName("error_code")
+	val errorCode: Int? = null,
 
-    @field:SerializedName("message")
-    val message: String? = null
-) : Parcelable {
-    @Parcelize
-    data class OwnerProject(
+	@field:SerializedName("message")
+	val message: String? = null
+) : Parcelable
+{
+	@Parcelize
+	data class Category(
 
-        @field:SerializedName("profession")
-        val profession: String? = null,
+		@field:SerializedName("name")
+		val name: String? = null,
 
-        @field:SerializedName("full_name")
-        val fullName: String? = null,
+		@field:SerializedName("id")
+		val id: String? = null
+	) : Parcelable
 
-        @field:SerializedName("photo")
-        val photo: String? = null,
+	@Parcelize
+	data class Data(
 
-        @field:SerializedName("username")
-        val username: String? = null
-    ) : Parcelable
+		@field:SerializedName("fee_freelance_transaction_value")
+		val feeFreelanceTransactionValue: Double? = null,
 
-    @Parcelize
-    data class Data(
+		@field:SerializedName("owner_id")
+		val ownerId: String? = null,
 
-        @field:SerializedName("fee_freelance_transaction_value")
-        val feeFreelanceTransactionValue: Double? = null,
+		@field:SerializedName("description")
+		val description: String? = null,
 
-        @field:SerializedName("owner_id")
-        val ownerId: String? = null,
+		@field:SerializedName("fee_owner_transaction_persen")
+		val feeOwnerTransactionPersen: Double? = null,
 
-        @field:SerializedName("description")
-        val description: String? = null,
+		@field:SerializedName("max_budget")
+		val maxBudget: Int? = null,
 
-        @field:SerializedName("fee_owner_transaction_persen")
-        val feeOwnerTransactionPersen: Double? = null,
+		@field:SerializedName("users_bid")
+		val usersBid: List<UsersBidItem?>? = null,
 
-        @field:SerializedName("max_budget")
-        val maxBudget: Int? = null,
+		@field:SerializedName("title")
+		val title: String? = null,
 
-        @field:SerializedName("users_bid")
-        val usersBid: List<String?>? = null,
+		@field:SerializedName("min_deadline")
+		val minDeadline: String? = null,
 
-        @field:SerializedName("title")
-        val title: String? = null,
+		@field:SerializedName("total_bidders")
+		val totalBidders: Int? = null,
 
-        @field:SerializedName("min_deadline")
-        val minDeadline: String? = null,
+		@field:SerializedName("createdAt")
+		val createdAt: String? = null,
 
-        @field:SerializedName("total_bidders")
-        val totalBidders: Int? = null,
+		@field:SerializedName("status_payment")
+		val statusPayment: String? = null,
 
-        @field:SerializedName("createdAt")
-        val createdAt: String? = null,
+		@field:SerializedName("fee_owner_transaction_value")
+		val feeOwnerTransactionValue: Double? = null,
 
-        @field:SerializedName("status_payment")
-        val statusPayment: String? = null,
+		@field:SerializedName("status_project")
+		val statusProject: String? = null,
 
-        @field:SerializedName("fee_owner_transaction_value")
-        val feeOwnerTransactionValue: Double? = null,
+		@field:SerializedName("category_id")
+		val categoryId: String? = null,
 
-        @field:SerializedName("status_project")
-        val statusProject: String? = null,
+		@field:SerializedName("fee_freelance_transaction_persen")
+		val feeFreelanceTransactionPersen: Double? = null,
 
-        @field:SerializedName("category_id")
-        val categoryId: String? = null,
+		@field:SerializedName("id")
+		val id: String? = null,
 
-        @field:SerializedName("fee_freelance_transaction_persen")
-        val feeFreelanceTransactionPersen: Double? = null,
+		@field:SerializedName("chatroom_id")
+		val chatroomId: String? = null,
 
-        @field:SerializedName("id")
-        val id: String? = null,
+		@field:SerializedName("updatedAt")
+		val updatedAt: String? = null,
 
-        @field:SerializedName("chatroom_id")
-        val chatroomId: String? = null,
+		@field:SerializedName("deadline_duration")
+		val deadlineDuration: String? = null,
 
-        @field:SerializedName("updatedAt")
-        val updatedAt: String? = null,
+		@field:SerializedName("is_active")
+		val isActive: Boolean? = null,
 
-        @field:SerializedName("deadline_duration")
-        val deadlineDuration: String? = null,
+		@field:SerializedName("min_budget")
+		val minBudget: Int? = null,
 
-        @field:SerializedName("is_active")
-        val isActive: Boolean? = null,
+		@field:SerializedName("banned_message")
+		val bannedMessage: String? = null,
 
-        @field:SerializedName("min_budget")
-        val minBudget: Int? = null,
+		@field:SerializedName("max_deadline")
+		val maxDeadline: String? = null,
 
-        @field:SerializedName("banned_message")
-        val bannedMessage: Double? = null,
+		@field:SerializedName("status_freelance_task")
+		val statusFreelanceTask: String? = null,
 
-        @field:SerializedName("max_deadline")
-        val maxDeadline: String? = null,
+		@field:SerializedName("owner_project")
+		val ownerProject: OwnerProject? = null,
 
-        @field:SerializedName("status_freelance_task")
-        val statusFreelanceTask: String? = null,
+		@field:SerializedName("created_date")
+		val createdDate: String? = null,
 
-        @field:SerializedName("owner_project")
-        val ownerProject: OwnerProject? = null,
+		@field:SerializedName("category")
+		val category: Category? = null
+	) : Parcelable
 
-        @field:SerializedName("created_date")
-        val createdDate: String? = null,
+	@Parcelize
+	data class UsersBidItem(
 
-        @field:SerializedName("category")
-        val category: Category? = null
-    ) : Parcelable
+		@field:SerializedName("profession")
+		val profession: String? = null,
 
-    @Parcelize
-    data class Category(
+		@field:SerializedName("full_name")
+		val fullName: String? = null,
 
-        @field:SerializedName("name")
-        val name: String? = null,
+		@field:SerializedName("photo")
+		val photo: String? = null,
 
-        @field:SerializedName("id")
-        val id: String? = null
-    ) : Parcelable
+		@field:SerializedName("username")
+		val username: String? = null
+	) : Parcelable
+
+	@Parcelize
+	data class OwnerProject(
+
+		@field:SerializedName("profession")
+		val profession: String? = null,
+
+		@field:SerializedName("full_name")
+		val fullName: String? = null,
+
+		@field:SerializedName("photo")
+		val photo: String? = null,
+
+		@field:SerializedName("username")
+		val username: String? = null
+	) : Parcelable
+
 }

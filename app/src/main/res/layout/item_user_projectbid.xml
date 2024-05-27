@@ -13,18 +13,19 @@
         android:background="?android:attr/selectableItemBackground"
         tools:context=".ui.MainActivity">
 
-
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/profilepic1"
             android:layout_width="39dp"
             android:layout_height="39dp"
+            android:scaleType="centerCrop"
             android:src="@drawable/profilepic1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.509"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.204" />
+            app:layout_constraintVertical_bias="0.204"
+            app:shapeAppearance="@style/circle" />
 
         <TextView
             android:id="@+id/profiledesc"

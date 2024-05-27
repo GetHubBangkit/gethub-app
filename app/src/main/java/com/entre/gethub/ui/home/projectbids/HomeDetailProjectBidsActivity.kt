@@ -61,7 +61,14 @@ class HomeDetailProjectBidsActivity : AppCompatActivity() {
                         if (projectBid?.totalBidders!! == 0) {
                             showEmptyOnUserBidding(true, "Belum Ada User Yang Ikut Bidding")
                         } else {
-                            setupRecyclerViewUserBidding()
+                            val userProjectBiddingList = projectBid.usersBid?.map { usersBidItem ->
+                                UserProjectBidding(
+                                    usersBidItem?.fullName!!,
+                                    usersBidItem?.photo!!,
+                                    usersBidItem?.profession!!
+                                )
+                            }
+                            setupRecyclerViewUserBidding(userProjectBiddingList!!)
                         }
 
                         with(binding) {
@@ -119,7 +126,7 @@ class HomeDetailProjectBidsActivity : AppCompatActivity() {
     }
 
 
-    private fun setupRecyclerViewUserBidding() {
+    private fun setupRecyclerViewUserBidding(userProjectBiddingList: List<UserProjectBidding>) {
         binding.rvDetailProjectBidUser.apply {
             layoutManager = LinearLayoutManager(
                 this@HomeDetailProjectBidsActivity,
@@ -127,45 +134,14 @@ class HomeDetailProjectBidsActivity : AppCompatActivity() {
                 false
             )
             adapter =
-                UserProjectBiddingAdapter(createUserProjectBiddingList()) { userprojectbidding, position ->
+                UserProjectBiddingAdapter(userProjectBiddingList) { user, _ ->
                     Toast.makeText(
                         this@HomeDetailProjectBidsActivity, // Gunakan requireContext() untuk mendapatkan Context yang benar
-                        "Clicked on actor: ${userprojectbidding.profilename}",
+                        "Clicked on actor: ${user.fullName}",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
         }
-    }
-
-    private fun createUserProjectBiddingList(): ArrayList<UserProjectBidding> {
-        return arrayListOf<UserProjectBidding>(
-            UserProjectBidding(
-                "Tono Jaya",
-                R.drawable.profilepic1,
-                "Software Enginer"
-            ),
-            UserProjectBidding(
-                "Tono Jaya",
-                R.drawable.profilepic1,
-                "Software Enginer"
-            ),
-            UserProjectBidding(
-                "Tono Jaya",
-                R.drawable.profilepic1,
-                "Software Enginer"
-            ),
-            UserProjectBidding(
-                "Tono Jaya",
-                R.drawable.profilepic1,
-                "Software Enginer"
-            ),
-            UserProjectBidding(
-                "Tono Jaya",
-                R.drawable.profilepic1,
-                "Software Enginer"
-            ),
-
-            )
     }
 
     private fun showOwnerSentiment(projectOwnerName: String) {
