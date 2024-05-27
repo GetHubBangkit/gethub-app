@@ -11,6 +11,7 @@ import com.entre.gethub.data.repositories.InformationHubRepository
 import com.entre.gethub.data.repositories.LinkRepository
 import com.entre.gethub.data.repositories.ProductRepository
 import com.entre.gethub.data.repositories.ProfileRepository
+import com.entre.gethub.data.repositories.ProjectRepository
 import com.entre.gethub.data.repositories.ScanCardRepository
 import com.entre.gethub.data.repositories.SponsorRepository
 import com.entre.gethub.di.Injection
@@ -27,6 +28,7 @@ import com.entre.gethub.ui.home.mygethub.HomeKelolaMyGethubViewModel
 import com.entre.gethub.ui.home.mygethub.link.HomeKelolaMyGethubTambahLinkViewModel
 import com.entre.gethub.ui.home.mygethub.product.HomeKelolaMyGethubEditProdukViewModel
 import com.entre.gethub.ui.home.mygethub.product.HomeKelolaMyGethubTambahProdukViewModel
+import com.entre.gethub.ui.home.projectbids.HomeCariProjectBidsViewModel
 import com.entre.gethub.ui.splash.SplashViewModel
 
 class ViewModelFactory private constructor(
@@ -39,7 +41,8 @@ class ViewModelFactory private constructor(
     private val productRepository: ProductRepository,
     private val linkRepository: LinkRepository,
     private val categoryRepository: CategoryRepository,
-    private val scanCardRepository: ScanCardRepository
+    private val scanCardRepository: ScanCardRepository,
+    private val projectRepository: ProjectRepository
 ) : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when (modelClass) {
@@ -84,6 +87,10 @@ class ViewModelFactory private constructor(
                 gethubRepository
             ) as T
 
+            HomeCariProjectBidsViewModel::class.java -> HomeCariProjectBidsViewModel(
+                projectRepository
+            ) as T
+
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }
     }
@@ -100,7 +107,8 @@ class ViewModelFactory private constructor(
                 Injection.provideProductRepository(context),
                 Injection.provideLinkRepository(context),
                 Injection.provideCategoryRepository(context),
-                Injection.provideScanCardRepository(context)
+                Injection.provideScanCardRepository(context),
+                Injection.provideProjectRepository(context)
             )
     }
 }

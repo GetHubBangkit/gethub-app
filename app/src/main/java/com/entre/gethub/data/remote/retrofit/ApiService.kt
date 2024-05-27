@@ -13,6 +13,7 @@ import com.entre.gethub.data.remote.response.products.ProductListResponse
 import com.entre.gethub.data.remote.response.products.ProductResponse
 import com.entre.gethub.data.remote.response.profiles.UpdateUserProfileResponse
 import com.entre.gethub.data.remote.response.profiles.UserProfileResponse
+import com.entre.gethub.data.remote.response.projects.ProjectsResponse
 import okhttp3.MultipartBody
 import retrofit2.http.DELETE
 import retrofit2.http.Field
@@ -150,4 +151,9 @@ interface ApiService {
     @GET("categories")
     suspend fun getCategories(): CategoriesResponse
     // Categories
+
+    // Projects
+    @GET("projects")
+    suspend fun getProjects(): ProjectsResponse
+    // Projects
 }

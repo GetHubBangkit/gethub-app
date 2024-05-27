@@ -43,7 +43,7 @@ class ProjectFragment : Fragment() {
         // Panggil setupRecyclerView() di sini
         setupRecyclerView()
 
-        setupRecyclerViewProjectBid()
+//        setupRecyclerViewProjectBid()
 
         setupClickListener()
 
@@ -165,22 +165,22 @@ class ProjectFragment : Fragment() {
 //        )
 //    }
 
-    private fun setupRecyclerViewProjectBid() {
-        binding.recyclerViewRekomendasiProjectBid.apply {
-            layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            adapter = HomeProjectBidsAdapter(createProjectBidList()) { projectBid, position ->
-                // Handling item click event
-                // Di sini, Anda dapat menangani klik item proyek sesuai dengan kebutuhan
-                // Misalnya, menampilkan pesan toast atau melakukan aksi tertentu
-                Toast.makeText(
-                    requireContext(),
-                    "Clicked on project: ${projectBid.rekomendasiprofilename}",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        }
-    }
+//    private fun setupRecyclerViewProjectBid() {
+//        binding.recyclerViewRekomendasiProjectBid.apply {
+//            layoutManager =
+//                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+//            adapter = HomeProjectBidsAdapter(createProjectBidList()) { projectBid, position ->
+//                // Handling item click event
+//                // Di sini, Anda dapat menangani klik item proyek sesuai dengan kebutuhan
+//                // Misalnya, menampilkan pesan toast atau melakukan aksi tertentu
+//                Toast.makeText(
+//                    requireContext(),
+//                    "Clicked on project: ${projectBid.rekomendasiprofilename}",
+//                    Toast.LENGTH_SHORT
+//                ).show()
+//            }
+//        }
+//    }
 
 
     private fun createProjectBidList(): ArrayList<ProjectBid> {
