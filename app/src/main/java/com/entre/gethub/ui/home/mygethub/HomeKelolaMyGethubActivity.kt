@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.entre.gethub.ui.MainActivity
 import com.entre.gethub.R
 import com.entre.gethub.data.Result
+import com.entre.gethub.data.remote.response.Category
 import com.entre.gethub.data.remote.response.certifications.Certification
 import com.entre.gethub.data.remote.response.products.Product
 import com.entre.gethub.databinding.ActivityHomeKelolaMyGetHubBinding
@@ -29,8 +30,10 @@ import com.entre.gethub.utils.ViewModelFactory
 class HomeKelolaMyGethubActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityHomeKelolaMyGetHubBinding.inflate(layoutInflater) }
-
     private lateinit var homeKelolaMyGetHubViewModel: HomeKelolaMyGethubViewModel
+
+    // Declare categories variable
+    private var categories: List<Category>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +41,7 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
 
         initViewModel()
         getLinkList()
+        getCategories()
         getProductList()
         getCertificationList()
 
@@ -61,7 +65,6 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
         binding.editSertifikasi.setOnClickListener {
             startActivity(Intent(this, HomeKelolaMyGethubTambahSertifikasiActivity::class.java))
         }
-
     }
 
     override fun onResume() {
@@ -86,12 +89,10 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
                         showLoadingOnProduct(false)
                         setupRecyclerViewHomeProdukJasa(result.data.data)
                     }
-
                     is Result.Error -> {
                         showLoadingOnProduct(false)
                         showToast(result.error)
                     }
-
                     is Result.Empty -> {
                         showLoadingOnProduct(false)
                         binding.emptyOnProduct.apply {
@@ -99,9 +100,27 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
                             tvEmpty.text = result.emptyError
                         }
                     }
-
                     else -> {
                         showLoadingOnProduct(false)
+                        showToast("Terjadi kesalahan")
+                    }
+                }
+            }
+        }
+    }
+
+    private fun getCategories() {
+        homeKelolaMyGetHubViewModel.getCategories().observe(this) { result ->
+            if (result != null) {
+                when (result) {
+                    is Result.Loading -> { /* Show loading indicator if needed */ }
+                    is Result.Success -> {
+                        categories = result.data.data
+                    }
+                    is Result.Error -> {
+                        showToast(result.error)
+                    }
+                    else -> {
                         showToast("Terjadi kesalahan")
                     }
                 }
@@ -113,27 +132,21 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
         homeKelolaMyGetHubViewModel.getCertificationList().observe(this) { result ->
             if (result != null) {
                 when (result) {
-                    is Result.Loading -> showLoadingOnProduct(true)
+                    is Result.Loading -> showLoadingOnCertification(true)
                     is Result.Success -> {
-                        showLoadingOnProduct(false)
+                        showLoadingOnCertification(false)
                         setupRecyclerViewHomeSertfikasi(result.data.data)
                     }
-
                     is Result.Error -> {
-                        showLoadingOnProduct(false)
+                        showLoadingOnCertification(false)
                         showToast(result.error)
                     }
-
                     is Result.Empty -> {
-                        showLoadingOnProduct(false)
-                        binding.emptyOnProduct.apply {
-                            llEmpty.visibility = View.VISIBLE
-                            tvEmpty.text = result.emptyError
-                        }
+                        showLoadingOnCertification(false)
+                        showEmptyErrorOnCertification(true, result.emptyError)
                     }
-
                     else -> {
-                        showLoadingOnProduct(false)
+                        showLoadingOnCertification(false)
                         showToast("Terjadi kesalahan")
                     }
                 }
@@ -161,12 +174,10 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
                                     showToast(result.data.message.toString())
                                     getLinkList()
                                 }
-
                                 is Result.Error -> {
                                     showLoadingOnLink(false)
                                     showToast(result.error)
                                 }
-
                                 else -> {
                                     //
                                 }
@@ -197,13 +208,12 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
                 override fun onDeleteProductItem(product: Product, position: Int) {
                     deleteProduct(product.id.toString())
                 }
-
             })
         }
     }
 
     private fun setupRecyclerViewHomeSertfikasi(listSertifikasi: List<Certification>) {
-        val adapter = HomeSertifikasiAdapter(listSertifikasi) { sertifikasi, position ->
+        val adapter = HomeSertifikasiAdapter(listSertifikasi, categories ?: listOf()) { sertifikasi, position ->
             val intent = Intent(
                 this@HomeKelolaMyGethubActivity,
                 HomeKelolaMyGethubEditSertifikasiActivity::class.java
@@ -218,7 +228,6 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
                 override fun onDeleteCertificationItem(certification: Certification, position: Int) {
                     deleteCertification(certification.id.toString())
                 }
-
             })
         }
     }
@@ -233,19 +242,16 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
                         showToast(result.data.message.toString())
                         getProductList()
                     }
-
                     is Result.Error -> {
                         showLoadingOnProduct(false)
                         showToast(result.error)
                     }
-
                     else -> {
                         showLoadingOnProduct(false)
                         showToast("Terjadi kesalahan")
                     }
                 }
             }
-
         }
     }
 
@@ -259,19 +265,16 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
                         showToast(result.data.message.toString())
                         getCertificationList()
                     }
-
                     is Result.Error -> {
                         showLoadingOnProduct(false)
                         showToast(result.error)
                     }
-
                     else -> {
                         showLoadingOnProduct(false)
                         showToast("Terjadi kesalahan")
                     }
                 }
             }
-
         }
     }
 
@@ -281,7 +284,6 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
                 is Result.Loading -> {
                     // Show loading indicator if needed
                 }
-
                 is Result.Success -> {
                     // Update the RecyclerView with new data
                     (binding.recyclerViewHomeGethubLink.adapter as? HomeGethubLinkAdapter)?.updateGethubLinks(
@@ -298,20 +300,16 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
                             ) // Handle nullability
                         })
                 }
-
                 is Result.Error -> {
                     Toast.makeText(
                         this,
                         "Error fetching links: ${result.error}",
                         Toast.LENGTH_SHORT
-                    )
-                        .show()
+                    ).show()
                 }
-
                 is Result.Empty -> {
                     showEmptyErrorOnLink(true, result.emptyError)
                 }
-
                 else -> {
                     // Handle other possible states
                 }
@@ -322,6 +320,9 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
     private fun showLoadingOnProduct(isLoading: Boolean) {
         binding.progressBarOnProductList.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
+    private fun showLoadingOnCertification(isLoading: Boolean) {
+        binding.progressBarCertification.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
 
     private fun showLoadingOnLink(isLoading: Boolean) {
         binding.progressBarLink.visibility = if (isLoading) View.VISIBLE else View.GONE
@@ -330,6 +331,11 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
     private fun showEmptyErrorOnLink(isError: Boolean, message: String) {
         binding.tvEmptyLink.text = message
         binding.tvEmptyLink.visibility = if (isError) View.VISIBLE else View.GONE
+    }
+
+    private fun showEmptyErrorOnCertification(isError: Boolean, message: String) {
+        binding.tvEmptyCertification.text = message
+        binding.tvEmptyCertification.visibility = if (isError) View.VISIBLE else View.GONE
     }
 
     private fun showToast(message: String) {

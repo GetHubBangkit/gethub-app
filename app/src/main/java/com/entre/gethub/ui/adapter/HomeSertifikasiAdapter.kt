@@ -5,14 +5,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.entre.gethub.R
+import com.entre.gethub.data.remote.response.Category
 import com.entre.gethub.data.remote.response.certifications.Certification
 import com.entre.gethub.databinding.ItemHomeKelolamygethubSertifikasiBinding
 
 class HomeSertifikasiAdapter(
     private val sertifikasiList: List<Certification>,
-    private val listener: (Certification, Int) -> Unit,
-) :
-    RecyclerView.Adapter<HomeSertifikasiAdapter.ViewHolder>() {
+    private val categories: List<Category>,
+    private val listener: (Certification, Int) -> Unit
+) : RecyclerView.Adapter<HomeSertifikasiAdapter.ViewHolder>() {
 
     private lateinit var onItemClickCallback: OnItemClickCallback
 
@@ -22,7 +23,7 @@ class HomeSertifikasiAdapter(
             parent,
             false
         )
-        return ViewHolder(v, onItemClickCallback)
+        return ViewHolder(v, onItemClickCallback, categories)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -36,9 +37,10 @@ class HomeSertifikasiAdapter(
 
     class ViewHolder(
         private val itemHomeKelolamygethubSertifikasiBinding: ItemHomeKelolamygethubSertifikasiBinding,
-        private val onItemClickCallback: OnItemClickCallback
-    ) :
-        RecyclerView.ViewHolder(itemHomeKelolamygethubSertifikasiBinding.root) {
+        private val onItemClickCallback: OnItemClickCallback,
+        private val categories: List<Category>
+    ) : RecyclerView.ViewHolder(itemHomeKelolamygethubSertifikasiBinding.root) {
+
         fun bindItem(sertifikasi: Certification) {
             with(itemHomeKelolamygethubSertifikasiBinding) {
                 Glide.with(itemView)
@@ -46,7 +48,10 @@ class HomeSertifikasiAdapter(
                     .placeholder(R.drawable.ic_image)
                     .into(ivCertificationImage)
                 tvCertificationTitle.text = sertifikasi.title
-                tvKategori.text = sertifikasi.categoryId
+
+                val category = categories.find { it.id == sertifikasi.categoryId }
+                tvKategori.text = category?.name ?: "Unknown Category"
+
                 ivDeleteCertification.setOnClickListener {
                     onItemClickCallback.onDeleteCertificationItem(sertifikasi, adapterPosition)
                 }
@@ -59,6 +64,6 @@ class HomeSertifikasiAdapter(
     }
 
     interface OnItemClickCallback {
-        fun onDeleteCertificationItem(Certification: Certification, position: Int)
+        fun onDeleteCertificationItem(certification: Certification, position: Int)
     }
 }

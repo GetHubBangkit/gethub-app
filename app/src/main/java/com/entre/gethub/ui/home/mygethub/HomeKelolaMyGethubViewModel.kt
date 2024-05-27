@@ -4,9 +4,11 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.entre.gethub.data.Result
 import com.entre.gethub.data.remote.response.ApiResponse
+import com.entre.gethub.data.remote.response.CategoriesResponse
 import com.entre.gethub.data.remote.response.LinkResponse
 import com.entre.gethub.data.remote.response.certifications.CertificationListResponse
 import com.entre.gethub.data.remote.response.products.ProductListResponse
+import com.entre.gethub.data.repositories.CategoryRepository
 import com.entre.gethub.data.repositories.CertificationRepository
 import com.entre.gethub.data.repositories.LinkRepository
 import com.entre.gethub.data.repositories.ProductRepository
@@ -17,7 +19,8 @@ import retrofit2.HttpException
 class HomeKelolaMyGethubViewModel(
     private val productRepository: ProductRepository,
     private val certificationRepository: CertificationRepository,
-    private val linkRepository: LinkRepository
+    private val linkRepository: LinkRepository,
+    private val categoryRepository: CategoryRepository
 ) : ViewModel() {
     private val getProductListResult = MediatorLiveData<Result<ProductListResponse>>()
     private val deleteProductResult = MediatorLiveData<Result<ApiResponse>>()
@@ -25,6 +28,7 @@ class HomeKelolaMyGethubViewModel(
     private val deleteLinkResult = MediatorLiveData<Result<ApiResponse>>()
     private val getCertificationListResult = MediatorLiveData<Result<CertificationListResponse>>()
     private val deleteCertificationResult = MediatorLiveData<Result<ApiResponse>>()
+    private val getCategoriesResult = MediatorLiveData<Result<CategoriesResponse>>()
 
     fun getProductList(): LiveData<Result<ProductListResponse>> {
         viewModelScope.launch {
@@ -131,14 +135,14 @@ class HomeKelolaMyGethubViewModel(
                 if (response.success == true) {
                     getCertificationListResult.value = Result.Success(response)
                 } else {
-                    getCertificationListResult.value = Result.Empty("Certification masih kosong")
+                    getCertificationListResult.value = Result.Empty("Sertifikasi masih kosong")
                 }
             } catch (e: HttpException) {
                 val jsonString = e.response()?.errorBody()?.string()
                 val errorBody = Gson().fromJson(jsonString, ApiResponse::class.java)
                 val errorMessage = errorBody.message
                 if (e.code().equals(404)) {
-                    getCertificationListResult.value = Result.Empty("Certification masih kosong")
+                    getCertificationListResult.value = Result.Empty("Sertfikasi masih kosong")
                 } else {
                     getCertificationListResult.value = Result.Error(errorMessage!!)
                 }
@@ -172,6 +176,29 @@ class HomeKelolaMyGethubViewModel(
         return deleteCertificationResult
     }
 
+
+    fun getCategories(): LiveData<Result<CategoriesResponse>> {
+        viewModelScope.launch {
+            try {
+                getCategoriesResult.value = Result.Loading
+                val response = categoryRepository.getCategories()
+
+                if (response.success == true) {
+                    getCategoriesResult.value = Result.Success(response)
+                } else {
+                    getCategoriesResult.value = Result.Error(response.message ?: "Unknown Error")
+                }
+            } catch (e: HttpException) {
+                val jsonString = e.response()?.errorBody()?.string()
+                val errorBody = Gson().fromJson(jsonString, ApiResponse::class.java)
+                val errorMessage = errorBody.message
+                getCategoriesResult.value = Result.Error(errorMessage!!)
+            } catch (e: Exception) {
+                getCategoriesResult.value = Result.Error(e.toString())
+            }
+        }
+        return getCategoriesResult
+    }
     companion object {
         private const val TAG = "HomeKelolaMyGethubViewModel"
     }

@@ -361,7 +361,7 @@
             style="@style/Poppins.Bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Link kosong"
+            android:text="Sertifikasi masih kosong"
             android:textSize="14sp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@id/rvCertification"
