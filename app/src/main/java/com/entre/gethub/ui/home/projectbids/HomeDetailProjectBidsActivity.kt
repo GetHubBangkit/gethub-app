@@ -32,16 +32,6 @@ class HomeDetailProjectBidsActivity : AppCompatActivity() {
         // Retrieve ProjectBid object from intent
         val projectBid = intent.getParcelableExtra<ProjectBid>("project_bid")
 
-//        ivProjectOwnerPic.setImageResource(projectBid.profilepic2)
-//        tvProjectOwnerName.text = projectBid.rekomendasiprofilename
-//        tvProjectOwnerProfession.text = projectBid.rekomendasiprofiledesc
-//        tvProjectTitle.text = projectBid.rekrutproject
-//        tvProjectPriceRange.text = projectBid.rekrutprice
-//        tvProjectDesc.text = projectBid.rekrutprojectdesc
-//        tvProjectTotalUserBids.text = projectBid.rekrutprojecttotal
-//        tvProjectPostDate.text = projectBid.rekrutprojectdate
-//        tvProjectDeadline.text = projectBid.rekrutprojectdeadline
-
         // Check if projectBid is not null before using it
         projectBid?.let {
             with(binding) {
