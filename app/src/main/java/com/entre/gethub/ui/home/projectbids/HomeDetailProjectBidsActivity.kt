@@ -32,17 +32,29 @@ class HomeDetailProjectBidsActivity : AppCompatActivity() {
         // Retrieve ProjectBid object from intent
         val projectBid = intent.getParcelableExtra<ProjectBid>("project_bid")
 
+//        ivProjectOwnerPic.setImageResource(projectBid.profilepic2)
+//        tvProjectOwnerName.text = projectBid.rekomendasiprofilename
+//        tvProjectOwnerProfession.text = projectBid.rekomendasiprofiledesc
+//        tvProjectTitle.text = projectBid.rekrutproject
+//        tvProjectPriceRange.text = projectBid.rekrutprice
+//        tvProjectDesc.text = projectBid.rekrutprojectdesc
+//        tvProjectTotalUserBids.text = projectBid.rekrutprojecttotal
+//        tvProjectPostDate.text = projectBid.rekrutprojectdate
+//        tvProjectDeadline.text = projectBid.rekrutprojectdeadline
+
         // Check if projectBid is not null before using it
         projectBid?.let {
-            binding.rekomendasiprofilename.text = it.rekomendasiprofilename
-            binding.rekomendasiprofiledesc.text = it.rekomendasiprofiledesc
-            binding.rekrutproject.text = it.rekrutproject
-            binding.rekrutprojectdesc.text = it.rekrutprojectdesc
-            binding.profilepic2.setImageResource(it.profilepic2)
-            binding.rekrutprice.text = it.rekrutprice
-            binding.rekrutprojecttotal.text = it.rekrutprojecttotal
-            binding.rekrutprojectdate.text = it.rekrutprojectdate
-            binding.tanggalawalakhir.text = it.tanggalawalakhir
+            with(binding) {
+                tvDetailProjectOwnerName.text = it.rekomendasiprofilename
+                tvDetailProjectOwnerProfession.text = it.rekomendasiprofiledesc
+                tvDetailProjectTitle.text = it.rekrutproject
+                tvDetailProjectDateRange.text = it.rekrutprice
+                tvDetailProjectDesc.text = it.rekrutprojectdesc
+                tvDetailProjectTotalUserBids.text = it.rekrutprojecttotal
+                tvDetailProjectDatePost.text = it.rekrutprojectdate
+                tvDetailProjectTotalUserBidsOnCard.text = it.rekrutprojecttotal
+                ivDetailProjectOwnerPic.setImageResource(it.profilepic2)
+            }
         }
 
         binding.iconBack.setOnClickListener {
@@ -61,7 +73,7 @@ class HomeDetailProjectBidsActivity : AppCompatActivity() {
         val teksanalisis: TextView = findViewById(R.id.teksanalisis)
 
         // Ambil nilai name dari rekomendasiprofilename
-        val name = binding.rekomendasiprofilename.text.toString()
+        val name = binding.tvDetailProjectOwnerName.text.toString()
 
         // Variabel untuk diisi sentimen analisis
         val sentiment = "Positive" // Ganti dengan nilai yang sesuai
@@ -112,8 +124,12 @@ class HomeDetailProjectBidsActivity : AppCompatActivity() {
 
 
     private fun setupRecyclerViewUserBidding() {
-        binding.recyclerViewProjectBid.apply {
-            layoutManager = LinearLayoutManager(this@HomeDetailProjectBidsActivity, LinearLayoutManager.HORIZONTAL, false)
+        binding.rvDetailProjectBidUser.apply {
+            layoutManager = LinearLayoutManager(
+                this@HomeDetailProjectBidsActivity,
+                LinearLayoutManager.HORIZONTAL,
+                false
+            )
             adapter =
                 UserProjectBiddingAdapter(createUserProjectBiddingList()) { userprojectbidding, position ->
                     Toast.makeText(
