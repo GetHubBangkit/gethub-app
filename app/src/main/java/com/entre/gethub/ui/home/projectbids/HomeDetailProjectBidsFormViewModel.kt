@@ -32,7 +32,9 @@ class HomeDetailProjectBidsFormViewModel(private val projectRepository: ProjectR
                 val errorBody = Gson().fromJson(jsonString, ApiResponse::class.java)
                 val errorMessage = errorBody.message
                 if (e.code().equals(403)) {
-                    bidProjectResult.value = Result.Empty(errorMessage!!)
+                    bidProjectResult.value =
+                        Result.Error("Anda belum melakukan verifikasi Email, Klik Kirim untuk mendapatkan Email verifikasi")
+                    return@launch
                 }
                 bidProjectResult.value = Result.Error(errorMessage!!)
             } catch (e: Exception) {
@@ -40,5 +42,15 @@ class HomeDetailProjectBidsFormViewModel(private val projectRepository: ProjectR
             }
         }
         return bidProjectResult
+    }
+
+    fun regenerateVerifyEmail() {
+        viewModelScope.launch {
+            try {
+                projectRepository.regenerateVerifyEmail()
+            } catch (e: HttpException) {
+                Result.Error(e.message())
+            }
+        }
     }
 }

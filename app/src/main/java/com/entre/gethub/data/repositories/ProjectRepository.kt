@@ -19,6 +19,10 @@ class ProjectRepository private constructor(private val apiService: ApiService){
         return apiService.bidProject(projectId, budgetBid, message)
     }
 
+    suspend fun regenerateVerifyEmail() {
+        return apiService.regenerateVerifyEmail()
+    }
+
     companion object {
         fun getInstance(apiService: ApiService): ProjectRepository = ProjectRepository(apiService)
     }

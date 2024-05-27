@@ -1,5 +1,7 @@
 package com.entre.gethub.ui.home.projectbids
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -10,7 +12,9 @@ import androidx.core.widget.doOnTextChanged
 import com.entre.gethub.R
 import com.entre.gethub.data.Result
 import com.entre.gethub.databinding.ItemDetailProjectbidsFormBinding
+import com.entre.gethub.ui.project.ProjectBidStatusActivity
 import com.entre.gethub.utils.ViewModelFactory
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class HomeDetailProjectBidsFormActivity : AppCompatActivity() {
 
@@ -55,7 +59,7 @@ class HomeDetailProjectBidsFormActivity : AppCompatActivity() {
                 }
             }
 
-            if(edBudgetBid?.text.toString().isEmpty() || edMessage?.text.toString().isEmpty()) {
+            if (edBudgetBid?.text.toString().isEmpty() || edMessage?.text.toString().isEmpty()) {
                 showToast(getString(R.string.field_couldnt_be_empty))
             } else {
                 val budgetBidNominal: Int = edBudgetBid?.text.toString().toInt()
@@ -75,11 +79,16 @@ class HomeDetailProjectBidsFormActivity : AppCompatActivity() {
                         is Result.Success -> {
                             showLoading(false)
                             showToast(result.data.message!!)
+                            startActivity(Intent(this@HomeDetailProjectBidsFormActivity, ProjectBidStatusActivity::class.java))
                         }
 
                         is Result.Error -> {
                             showLoading(false)
-                            showToast(result.error)
+                            showDialog(
+                                this@HomeDetailProjectBidsFormActivity,
+                                "Akun belum terverifikasi",
+                                result.error
+                            )
                         }
 
                         else -> {
@@ -96,6 +105,20 @@ class HomeDetailProjectBidsFormActivity : AppCompatActivity() {
 
     private fun showToast(message: String) {
         Toast.makeText(this@HomeDetailProjectBidsFormActivity, message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun showDialog(context: Context, title: String, message: String) {
+        MaterialAlertDialogBuilder(context)
+            .setTitle(title)
+            .setMessage(message)
+            .setPositiveButton("Kirim") { dialog, _ ->
+                dialog.dismiss()
+                showToast("Email berhasil dikirim")
+            }
+            .setOnDismissListener {
+                showToast("Verifikasi batal")
+            }
+            .show()
     }
 
     companion object {

@@ -170,4 +170,8 @@ interface ApiService {
         @Field("message") message: String
     ): ApiResponse
     // Projects
+
+    // Verify Email
+    @GET("api/verify")
+    suspend fun regenerateVerifyEmail()
 }

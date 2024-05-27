@@ -14,7 +14,6 @@ import com.entre.gethub.ui.models.ProjectBid
 import com.entre.gethub.R
 import com.entre.gethub.ui.models.TopTalent
 import com.entre.gethub.databinding.FragmentProjectBinding
-import com.entre.gethub.ui.adapter.HomeProjectBidsAdapter
 import com.entre.gethub.ui.adapter.TopTalentAdapter
 
 class ProjectFragment : Fragment() {
@@ -58,7 +57,7 @@ class ProjectFragment : Fragment() {
     private fun setupClickListener() {
         with(binding) {
             ivBidProject.setOnClickListener {
-                navigateToActivity(ProjectStatusActivity())
+                navigateToActivity(ProjectBidStatusActivity())
             }
         }
     }
