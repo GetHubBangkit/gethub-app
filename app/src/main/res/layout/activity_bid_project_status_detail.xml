@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/frame"
+            android:layout_width="match_parent"
+            android:layout_height="221dp"
+            android:src="@drawable/rectangle"
+            app:layout_constraintDimensionRatio="H,4:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvDetailProjectTitle"
+            style="@style/Poppins.Bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="52dp"
+            android:text="Butuh Konten Kreator"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@id/icon_back"
+            app:layout_constraintStart_toEndOf="@+id/icon_back"
+            app:layout_constraintTop_toTopOf="@id/icon_back" />
+
+        <ImageView
+            android:id="@+id/icon_back"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="26dp"
+            android:src="@drawable/icon_back"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.041"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvDetailProject"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="10dp"
+            app:cardCornerRadius="10dp"
+            app:layout_constraintTop_toBottomOf="@id/tvDetailProjectTitle">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="20dp">
+
+                <TextView
+                    android:id="@+id/tvDetailProjectDesc"
+                    style="@style/Nunito"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Sedang Mencari Konten Kreator untuk
+pembuatan konten makanan dan untuk
+promosi warung rumah makanan yg baru
+buka di butuhkan segera"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/icon_money"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginTop="20dp"
+                    android:src="@drawable/detail_money"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvDetailProjectDesc" />
+
+                <TextView
+                    android:id="@+id/tvDetailProjectPriceRange"
+                    style="@style/Nunito.ExtraBold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="Rp 3,000,000 - 4,500,000"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@id/icon_money"
+                    app:layout_constraintStart_toEndOf="@id/icon_money"
+                    app:layout_constraintTop_toTopOf="@id/icon_money" />
+
+                <ImageView
+                    android:id="@+id/icon_date"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginTop="12dp"
+                    android:src="@drawable/detail_date"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/icon_money" />
+
+                <TextView
+                    android:id="@+id/tvDetailProjectDateRange"
+                    style="@style/Nunito.ExtraBold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="2 Mei 2024 - 12 Mei 2024"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@id/icon_date"
+                    app:layout_constraintStart_toEndOf="@id/icon_date"
+                    app:layout_constraintTop_toTopOf="@id/icon_date" />
+
+                <TextView
+                    android:id="@+id/tvDetailProjectPostedBy"
+                    style="@style/Nunito"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Diposting Oleh"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/icon_date" />
+
+                <TextView
+                    android:id="@+id/tvDetailProjectPadaTanggal"
+                    style="@style/Nunito"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Pada Tanggal"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/icon_date" />
+
+                <ImageView
+                    android:id="@+id/ivDetailProjectOwnerPic"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/profilepic2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvDetailProjectPostedBy" />
+
+                <TextView
+                    android:id="@+id/tvDetailProjectOwnerName"
+                    style="@style/Nunito.Bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="Ajay Devgan"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@id/ivDetailProjectOwnerPic"
+                    app:layout_constraintStart_toEndOf="@id/ivDetailProjectOwnerPic"
+                    app:layout_constraintTop_toTopOf="@id/ivDetailProjectOwnerPic" />
+
+                <TextView
+                    android:id="@+id/tvDetailProjectOwnerProfession"
+                    style="@style/Nunito.SemiBold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="14dp"
+                    android:layout_marginStart="8dp"
+                    android:text="Software Enginer"
+                    android:textColor="@android:color/black"
+                    android:textSize="10sp"
+                    app:layout_constraintStart_toEndOf="@id/ivDetailProjectOwnerPic"
+                    app:layout_constraintTop_toBottomOf="@id/tvDetailProjectOwnerName" />
+
+                <TextView
+                    android:id="@+id/tvDetailProjectDatePost"
+                    style="@style/Nunito.Black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/nunito_extrabold"
+                    android:text="1 Mei 2024"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvDetailProjectPadaTanggal" />
+
+
+                <TextView
+                    android:id="@+id/TotalUserBidding"
+                    style="@style/Nunito"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Total User Bidding"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ivDetailProjectOwnerPic" />
+
+                <TextView
+                    android:id="@+id/tvDetailProjectTotalUserBidsOnCard"
+                    style="@style/Nunito.ExtraBold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2 Orang"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@id/TotalUserBidding"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/TotalUserBidding" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cvSentiment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:backgroundTint="@color/color_sentiment_neutral"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="0dp"
+                    app:layout_constraintTop_toBottomOf="@id/TotalUserBidding">
+
+                    <TextView
+                        android:id="@+id/tvDetailProjectOwnerSentiment"
+                        style="@style/Nunito"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginHorizontal="12dp"
+                        android:layout_marginVertical="8dp"
+                        android:text="Berdasarkan history review {name} sebagai
+pemberi project job memiliki penilaian sentimen
+analisis {Positive}, ayo ikuti project dan selesaikan
+pekerjaan kamu dan berikan hasil yg maksimal"
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
+                </androidx.cardview.widget.CardView>
+
+                <ProgressBar
+                    android:id="@+id/progressBarOnCard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:visibility="visible" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <ImageView
+            android:id="@+id/userbiddingsymbol"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/detail_usersymbol"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cvDetailProject" />
+
+        <TextView
+            android:id="@+id/DaftarUserBidding"
+            style="@style/Nunito.ExtraBold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:text="Daftar User Bidding"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/userbiddingsymbol"
+            app:layout_constraintStart_toEndOf="@id/userbiddingsymbol"
+            app:layout_constraintTop_toTopOf="@id/userbiddingsymbol" />
+
+        <TextView
+            android:id="@+id/tvDetailProjectTotalUserBids"
+            style="@style/Nunito.ExtraBold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:text="5 Orang"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/DaftarUserBidding"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/DaftarUserBidding" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvDetailProjectBidUser"
+            android:layout_width="match_parent"
+            android:layout_height="99dp"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/DaftarUserBidding"
+            tools:listitem="@layout/item_user_projectbid" />
+
+        <TextView
+            android:id="@+id/tvEmptyUserBidding"
+            style="@style/Poppins.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:gravity="center_vertical"
+            android:text="List Partner Kosong"
+            android:textSize="14sp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/rvDetailProjectBidUser"
+            app:layout_constraintEnd_toEndOf="@id/rvDetailProjectBidUser"
+            app:layout_constraintStart_toStartOf="@id/rvDetailProjectBidUser"
+            app:layout_constraintTop_toTopOf="@id/rvDetailProjectBidUser"
+            tools:visibility="visible" />
+
+        <ProgressBar
+            android:id="@+id/progressBarOnUserList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/rvDetailProjectBidUser"
+            app:layout_constraintEnd_toEndOf="@id/rvDetailProjectBidUser"
+            app:layout_constraintStart_toStartOf="@id/rvDetailProjectBidUser"
+            app:layout_constraintTop_toTopOf="@id/rvDetailProjectBidUser"
+            tools:visibility="visible" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

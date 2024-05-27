@@ -1,4 +1,4 @@
-package com.entre.gethub.ui.project
+package com.entre.gethub.ui.project.bidproject
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
@@ -12,7 +12,7 @@ import com.google.gson.Gson
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
-class ProjectBidStatusViewModel(private val projectRepository: ProjectRepository) : ViewModel() {
+class BidProjectStatusViewModel(private val projectRepository: ProjectRepository) : ViewModel() {
     val getMyProjectBidsResult = MediatorLiveData<Result<MyProjectBidResponse>>()
 
     fun getMyProjectBids(): LiveData<Result<MyProjectBidResponse>> {

@@ -1,4 +1,4 @@
-package com.entre.gethub.ui.project
+package com.entre.gethub.ui.project.bidproject
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,15 +9,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.entre.gethub.data.Result
 import com.entre.gethub.data.remote.response.projects.MyProjectBidResponse
-import com.entre.gethub.databinding.ActivityProjectBidStatusBinding
+import com.entre.gethub.databinding.ActivityBidProjectStatusBinding
 import com.entre.gethub.ui.MainActivity
 import com.entre.gethub.ui.adapter.MyProjectBidsAdapter
 import com.entre.gethub.utils.ViewModelFactory
 
-class ProjectBidStatusActivity : AppCompatActivity() {
+class BidProjectStatusActivity : AppCompatActivity() {
 
-    private val binding by lazy { ActivityProjectBidStatusBinding.inflate(layoutInflater) }
-    private val projectBidStatusViewModel by viewModels<ProjectBidStatusViewModel> {
+    private val binding by lazy { ActivityBidProjectStatusBinding.inflate(layoutInflater) }
+    private val bidProjectStatusViewModel by viewModels<BidProjectStatusViewModel> {
         ViewModelFactory.getInstance(
             this
         )
@@ -34,7 +34,7 @@ class ProjectBidStatusActivity : AppCompatActivity() {
 
         binding.iconBack.setOnClickListener {
             if (homeDetailProjectBidsFormId!!.equals(99)) {
-                startActivity(Intent(this@ProjectBidStatusActivity, MainActivity::class.java))
+                startActivity(Intent(this@BidProjectStatusActivity, MainActivity::class.java))
                 finish()
                 return@setOnClickListener
             }
@@ -43,7 +43,7 @@ class ProjectBidStatusActivity : AppCompatActivity() {
     }
 
     private fun getMyProjectBids() {
-        projectBidStatusViewModel.getMyProjectBids().observe(this) { result ->
+        bidProjectStatusViewModel.getMyProjectBids().observe(this) { result ->
             if (result != null) {
                 when (result) {
                     is Result.Loading -> showLoading(true)
@@ -70,12 +70,15 @@ class ProjectBidStatusActivity : AppCompatActivity() {
     private fun setupRecyclerView(myProjectBidList: List<MyProjectBidResponse.UsersBidItem>) {
         binding.rvMyProjectBids.apply {
             layoutManager = LinearLayoutManager(
-                this@ProjectBidStatusActivity,
+                this@BidProjectStatusActivity,
                 LinearLayoutManager.VERTICAL,
                 false
             )
             adapter = MyProjectBidsAdapter(myProjectBidList) { projectBid, _ ->
-                // Implement intent
+                val intent = Intent(this@BidProjectStatusActivity, BidProjectStatusDetailActivity::class.java)
+                intent.putExtra(BidProjectStatusDetailActivity.EXTRA_PROJECT_BID_ID, projectBid.id)
+
+                startActivity(intent)
             }
         }
     }

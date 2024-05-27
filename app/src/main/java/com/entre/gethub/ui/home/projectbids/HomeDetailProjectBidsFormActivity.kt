@@ -11,7 +11,7 @@ import androidx.core.widget.doOnTextChanged
 import com.entre.gethub.R
 import com.entre.gethub.data.Result
 import com.entre.gethub.databinding.ItemDetailProjectbidsFormBinding
-import com.entre.gethub.ui.project.ProjectBidStatusActivity
+import com.entre.gethub.ui.project.bidproject.BidProjectStatusActivity
 import com.entre.gethub.utils.ViewModelFactory
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
@@ -81,9 +81,9 @@ class HomeDetailProjectBidsFormActivity : AppCompatActivity() {
                             startActivity(
                                 Intent(
                                     this@HomeDetailProjectBidsFormActivity,
-                                    ProjectBidStatusActivity::class.java
+                                    BidProjectStatusActivity::class.java
                                 ).apply {
-                                    putExtra(ProjectBidStatusActivity.EXTRA_ID_FROM_PROJECT_BID_FORM_ACTIVITY, 99)
+                                    putExtra(BidProjectStatusActivity.EXTRA_ID_FROM_PROJECT_BID_FORM_ACTIVITY, 99)
                                 }
                             )
                             finish()
