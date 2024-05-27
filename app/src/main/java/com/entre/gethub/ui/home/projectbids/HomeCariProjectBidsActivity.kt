@@ -43,16 +43,15 @@ class HomeCariProjectBidsActivity : AppCompatActivity() {
                 LinearLayoutManager.VERTICAL,
                 false
             )
-            adapter = HomeProjectBidsAdapter(projectBidList) { projectBid, position ->
-                // Handling item click event
+            adapter = HomeProjectBidsAdapter(projectBidList) { projectBid, _ ->
                 val intent = Intent(
                     this@HomeCariProjectBidsActivity,
                     HomeDetailProjectBidsActivity::class.java
                 )
                 intent.putExtra(
-                    "project_bid",
-                    projectBid
-                ) // Passing ProjectBid object to detail activity
+                    HomeDetailProjectBidsActivity.extra_project_id,
+                    projectBid.id
+                )
                 startActivity(intent)
             }
         }

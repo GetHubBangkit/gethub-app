@@ -7,22 +7,31 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.TextPaint
 import android.text.style.MetricAffectingSpan
+import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.entre.gethub.R
+import com.entre.gethub.data.Result
 import com.entre.gethub.databinding.ItemDetailProjectbidsBinding
 import com.entre.gethub.ui.adapter.UserProjectBiddingAdapter
 import com.entre.gethub.ui.models.ProjectBid
 import com.entre.gethub.ui.models.UserProjectBidding
+import com.entre.gethub.utils.ViewModelFactory
 
 class HomeDetailProjectBidsActivity : AppCompatActivity() {
     private lateinit var binding: ItemDetailProjectbidsBinding
+    private val homeDetailProjectBidsViewModel by viewModels<HomeDetailProjectBidsViewModel> {
+        ViewModelFactory.getInstance(
+            this
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,22 +39,10 @@ class HomeDetailProjectBidsActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // Retrieve ProjectBid object from intent
-        val projectBid = intent.getParcelableExtra<ProjectBid>("project_bid")
+        val projectBidId = intent.getStringExtra(extra_project_id)
 
         // Check if projectBid is not null before using it
-        projectBid?.let {
-            with(binding) {
-                tvDetailProjectOwnerName.text = it.rekomendasiprofilename
-                tvDetailProjectOwnerProfession.text = it.rekomendasiprofiledesc
-                tvDetailProjectTitle.text = it.rekrutproject
-                tvDetailProjectDateRange.text = it.rekrutprice
-                tvDetailProjectDesc.text = it.rekrutprojectdesc
-                tvDetailProjectTotalUserBids.text = it.rekrutprojecttotal
-                tvDetailProjectDatePost.text = it.rekrutprojectdate
-                tvDetailProjectTotalUserBidsOnCard.text = "${it.rekrutprojecttotal} Orang"
-                ivDetailProjectOwnerPic.setImageResource(it.profilepic2)
-            }
-        }
+        getDetailProject(projectBidId!!)
 
         binding.iconBack.setOnClickListener {
             finish()
@@ -53,7 +50,7 @@ class HomeDetailProjectBidsActivity : AppCompatActivity() {
 
         binding.btnIkutBidding.setOnClickListener {
             val intent = Intent(this, HomeDetailProjectBidsFormActivity::class.java)
-            intent.putExtra("rekrutprice", projectBid?.rekrutprice)
+//            intent.putExtra("rekrutprice", projectBid?.rekrutprice)
             startActivity(intent)
         }
         setupRecyclerViewUserBidding()
@@ -109,6 +106,39 @@ class HomeDetailProjectBidsActivity : AppCompatActivity() {
         } else {
             // Font tidak ditemukan, lakukan penanganan kesalahan
             Toast.makeText(this, "Failed to load font", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun getDetailProject(id: String) {
+        homeDetailProjectBidsViewModel.getProjectDetail(id).observe(this) { result ->
+            if (result != null) {
+                when (result) {
+                    is Result.Loading -> showLoadingOnCard(true)
+                    is Result.Success -> {
+                        showLoadingOnCard(false)
+                        with(binding) {
+                            val projectBid = result.data.data
+                            tvDetailProjectTitle.text = projectBid?.title
+                            tvDetailProjectDesc.text = projectBid?.description
+                            tvDetailProjectPriceRange.text =
+                                "Rp ${projectBid?.minBudget} - Rp ${projectBid?.maxBudget}"
+                            tvDetailProjectDateRange.text =
+                                "${projectBid?.minDeadline} - ${projectBid?.maxDeadline}"
+                            tvDetailProjectDatePost.text = projectBid?.createdDate
+                            tvDetailProjectOwnerName.text = projectBid?.owner?.fullName
+                        }
+                    }
+
+                    is Result.Error -> {
+                        showLoadingOnCard(false)
+                        showToast(result.error)
+                    }
+
+                    else -> {
+                        //
+                    }
+                }
+            }
         }
     }
 
@@ -170,5 +200,17 @@ class HomeDetailProjectBidsActivity : AppCompatActivity() {
         override fun updateDrawState(tp: TextPaint) {
             tp.typeface = typeface
         }
+    }
+
+    private fun showLoadingOnCard(isLoading: Boolean) {
+        binding.progressBarOnCard.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this@HomeDetailProjectBidsActivity, message, Toast.LENGTH_SHORT).show()
+    }
+
+    companion object {
+        const val extra_project_id = "extra_project_id"
     }
 }

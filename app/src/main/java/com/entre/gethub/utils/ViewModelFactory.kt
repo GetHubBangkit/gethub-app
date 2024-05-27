@@ -29,6 +29,7 @@ import com.entre.gethub.ui.home.mygethub.link.HomeKelolaMyGethubTambahLinkViewMo
 import com.entre.gethub.ui.home.mygethub.product.HomeKelolaMyGethubEditProdukViewModel
 import com.entre.gethub.ui.home.mygethub.product.HomeKelolaMyGethubTambahProdukViewModel
 import com.entre.gethub.ui.home.projectbids.HomeCariProjectBidsViewModel
+import com.entre.gethub.ui.home.projectbids.HomeDetailProjectBidsViewModel
 import com.entre.gethub.ui.splash.SplashViewModel
 
 class ViewModelFactory private constructor(
@@ -88,6 +89,10 @@ class ViewModelFactory private constructor(
             ) as T
 
             HomeCariProjectBidsViewModel::class.java -> HomeCariProjectBidsViewModel(
+                projectRepository
+            ) as T
+
+            HomeDetailProjectBidsViewModel::class.java -> HomeDetailProjectBidsViewModel(
                 projectRepository
             ) as T
 
