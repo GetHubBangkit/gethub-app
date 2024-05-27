@@ -5,17 +5,17 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.entre.gethub.R
-import com.entre.gethub.data.remote.response.projects.Project
-import com.entre.gethub.ui.models.ProjectBid
+import com.entre.gethub.data.remote.response.projects.ProjectsResponse
 import com.entre.gethub.databinding.ItemProjectRekomendasijobbidBinding
 import com.entre.gethub.utils.DateUtils
 
 
 class HomeProjectBidsAdapter(
 
-    private val projectBidList: List<Project>,
-    private val listener: (Project, Int) -> Unit
+    private val projectBidList: List<ProjectsResponse.Project>,
+    private val listener: (ProjectsResponse.Project, Int) -> Unit
 ) :
     RecyclerView.Adapter<HomeProjectBidsAdapter.ViewHolder>() {
 
@@ -42,22 +42,25 @@ class HomeProjectBidsAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         @RequiresApi(Build.VERSION_CODES.O)
-        fun bindItem(projectBid: Project) {
+        fun bindItem(projectBid: ProjectsResponse.Project) {
             with(binding) {
-                val deadline = DateUtils.calculateDeadlineDays(
-                    projectBid.minDeadline!!,
-                    projectBid.maxDeadline!!
-                )
-                ivProjectOwnerPic.setImageResource(R.drawable.profilepic2)
-                tvProjectOwnerName.text = projectBid.ownerId
-                tvProjectOwnerProfession.text = projectBid.ownerId
+                val postDate = DateUtils.formatPostDate(projectBid.createdDate!!)
+
+                // Project Owner
+                Glide.with(itemView.context)
+                    .load(projectBid.ownerProject?.photo)
+                    .placeholder(R.drawable.profilepic2)
+                    .into(ivProjectOwnerPic)
+                tvProjectOwnerName.text = projectBid.ownerProject?.fullName
+                tvProjectOwnerProfession.text = projectBid.ownerProject?.profession
+
+                // Project Data
                 tvProjectTitle.text = projectBid.title
                 tvProjectPriceRange.text = "Rp ${projectBid.minBudget} - Rp ${projectBid.maxBudget}"
                 tvProjectDesc.text = projectBid.description
                 tvProjectTotalUserBids.text = "Total User Bids: 5 User"
-                tvProjectPostDate.text = "Diunggah: ${projectBid.createdDate}"
-                tvProjectDeadline.text = "Deadline: $deadline Hari"
-
+                tvProjectPostDate.text = "Diunggah: $postDate"
+                tvProjectDeadline.text = "Deadline: ${projectBid.deadlineDuration} Hari"
             }
         }
     }

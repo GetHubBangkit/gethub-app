@@ -13,7 +13,8 @@ import com.google.gson.Gson
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
-class HomeDetailProjectBidsViewModel(private val projectRepository: ProjectRepository) : ViewModel() {
+class HomeDetailProjectBidsViewModel(private val projectRepository: ProjectRepository) :
+    ViewModel() {
     private val getDetailProjectResult = MediatorLiveData<Result<ProjectDetailResponse>>()
 
     fun getProjectDetail(id: String): LiveData<Result<ProjectDetailResponse>> {
@@ -29,10 +30,10 @@ class HomeDetailProjectBidsViewModel(private val projectRepository: ProjectRepos
                 val errorBody = Gson().fromJson(jsonString, ApiResponse::class.java)
                 val errorMessage = errorBody.message
                 getDetailProjectResult.value = Result.Error(errorMessage!!)
-                Log.e(TAG, "getProjectDetail: $e", )
+                Log.e(TAG, "getProjectDetail: $e")
             } catch (e: Exception) {
                 getDetailProjectResult.value = Result.Error(e.toString())
-                Log.e(TAG, "getProjectDetail: $e", )
+                Log.e(TAG, "getProjectDetail: $e")
             }
         }
         return getDetailProjectResult

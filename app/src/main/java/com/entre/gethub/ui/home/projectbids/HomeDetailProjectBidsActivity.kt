@@ -17,6 +17,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.entre.gethub.R
 import com.entre.gethub.data.Result
 import com.entre.gethub.databinding.ItemDetailProjectbidsBinding
@@ -38,75 +39,14 @@ class HomeDetailProjectBidsActivity : AppCompatActivity() {
         binding = ItemDetailProjectbidsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Retrieve ProjectBid object from intent
-        val projectBidId = intent.getStringExtra(extra_project_id)
+        val projectBidId = intent.getStringExtra(EXTRA_PROJECT_ID)
 
-        // Check if projectBid is not null before using it
         getDetailProject(projectBidId!!)
 
         binding.iconBack.setOnClickListener {
             finish()
         }
 
-        binding.btnIkutBidding.setOnClickListener {
-            val intent = Intent(this, HomeDetailProjectBidsFormActivity::class.java)
-//            intent.putExtra("rekrutprice", projectBid?.rekrutprice)
-            startActivity(intent)
-        }
-        setupRecyclerViewUserBidding()
-
-
-        // Dapatkan TextView
-        val teksanalisis: TextView = findViewById(R.id.tvDetailProjectOwnerSentiment)
-
-        // Ambil nilai name dari rekomendasiprofilename
-        val name = binding.tvDetailProjectOwnerName.text.toString()
-
-        // Variabel untuk diisi sentimen analisis
-        val sentiment = "Positive" // Ganti dengan nilai yang sesuai
-
-        // Buat teks untuk ditampilkan
-        val teks =
-            "Berdasarkan history review $name sebagai pemberi project job memiliki penilaian sentimen analisis $sentiment, ayo ikuti project dan selesaikan pekerjaan kamu dan berikan hasil yg maksimal"
-
-        // Set teks ke TextView
-        teksanalisis.text = teks
-
-        // Buat objek Typeface dengan Nunito-Black
-        val nunitoBlackTypeface = ResourcesCompat.getFont(this, R.font.nunito_black)
-
-        if (nunitoBlackTypeface != null) {
-            // Buat spannable string untuk mengatur jenis font
-            val spannableString = SpannableString(teks)
-
-            // Temukan indeks teks "name" dan "sentiment" dalam teks
-            val startIndexName = teks.indexOf(name)
-            val endIndexName = startIndexName + name.length
-            val startIndexSentiment = teks.indexOf(sentiment)
-            val endIndexSentiment = startIndexSentiment + sentiment.length
-
-            // Terapkan jenis font Nunito-Black ke bagian "name"
-            spannableString.setSpan(
-                CustomTypefaceSpan(nunitoBlackTypeface),
-                startIndexName,
-                endIndexName,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-            )
-
-            // Terapkan jenis font Nunito-Black ke bagian "sentiment"
-            spannableString.setSpan(
-                CustomTypefaceSpan(nunitoBlackTypeface),
-                startIndexSentiment,
-                endIndexSentiment,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-            )
-
-            // Terapkan teks dengan jenis font yang sudah diatur
-            teksanalisis.text = spannableString
-        } else {
-            // Font tidak ditemukan, lakukan penanganan kesalahan
-            Toast.makeText(this, "Failed to load font", Toast.LENGTH_SHORT).show()
-        }
     }
 
     private fun getDetailProject(id: String) {
@@ -116,8 +56,15 @@ class HomeDetailProjectBidsActivity : AppCompatActivity() {
                     is Result.Loading -> showLoadingOnCard(true)
                     is Result.Success -> {
                         showLoadingOnCard(false)
+                        val projectBid = result.data.data
+
+                        if (projectBid?.totalBidders!! == 0) {
+                            showEmptyOnUserBidding(true, "Belum Ada User Yang Ikut Bidding")
+                        } else {
+                            setupRecyclerViewUserBidding()
+                        }
+
                         with(binding) {
-                            val projectBid = result.data.data
                             tvDetailProjectTitle.text = projectBid?.title
                             tvDetailProjectDesc.text = projectBid?.description
                             tvDetailProjectPriceRange.text =
@@ -125,7 +72,36 @@ class HomeDetailProjectBidsActivity : AppCompatActivity() {
                             tvDetailProjectDateRange.text =
                                 "${projectBid?.minDeadline} - ${projectBid?.maxDeadline}"
                             tvDetailProjectDatePost.text = projectBid?.createdDate
-                            tvDetailProjectOwnerName.text = projectBid?.owner?.fullName
+                            tvDetailProjectTotalUserBidsOnCard.text =
+                                projectBid?.totalBidders.toString()
+                            tvDetailProjectTotalUserBids.text = projectBid?.totalBidders.toString()
+
+                            showOwnerSentiment(projectBid?.ownerProject?.fullName!!)
+                            tvDetailProjectOwnerName.text = projectBid?.ownerProject?.fullName
+                            tvDetailProjectOwnerProfession.text =
+                                projectBid?.ownerProject?.profession
+                            Glide.with(this@HomeDetailProjectBidsActivity)
+                                .load(projectBid?.ownerProject?.photo)
+                                .placeholder(R.drawable.profilepic2)
+                                .into(ivDetailProjectOwnerPic)
+                        }
+
+                        binding.btnIkutBidding.setOnClickListener {
+                            val intent =
+                                Intent(this, HomeDetailProjectBidsFormActivity::class.java)
+                            intent.putExtra(
+                                HomeDetailProjectBidsFormActivity.EXTRA_MIN_BUDGET,
+                                projectBid.minBudget
+                            )
+                            intent.putExtra(
+                                HomeDetailProjectBidsFormActivity.EXTRA_MAX_BUDGET,
+                                projectBid.maxBudget
+                            )
+                            intent.putExtra(
+                                HomeDetailProjectBidsFormActivity.EXTRA_PROJECT_ID,
+                                projectBid.id
+                            )
+                            startActivity(intent)
                         }
                     }
 
@@ -134,8 +110,8 @@ class HomeDetailProjectBidsActivity : AppCompatActivity() {
                         showToast(result.error)
                     }
 
-                    else -> {
-                        //
+                    is Result.Empty -> {
+
                     }
                 }
             }
@@ -192,6 +168,61 @@ class HomeDetailProjectBidsActivity : AppCompatActivity() {
             )
     }
 
+    private fun showOwnerSentiment(projectOwnerName: String) {
+        val projectOwnerSentiment = binding.tvDetailProjectOwnerSentiment
+
+        // Variabel untuk diisi sentimen analisis
+        val sentiment = "Positive" // Ganti dengan nilai yang sesuai
+
+        if (sentiment == "Netral") {
+            binding.cvSentiment.setCardBackgroundColor(getColor(R.color.color_sentiment_neutral))
+        } else if (sentiment == "Positive") {
+            binding.cvSentiment.setCardBackgroundColor(getColor(R.color.color_sentiment_positive))
+        } else {
+            binding.cvSentiment.setCardBackgroundColor(getColor(R.color.color_sentiment_negative))
+        }
+
+        // Buat teks untuk ditampilkan
+        val teks =
+            "Berdasarkan history review $projectOwnerName sebagai pemberi project job memiliki penilaian sentimen analisis $sentiment, ayo ikuti project dan selesaikan pekerjaan kamu dan berikan hasil yg maksimal"
+
+        // Set teks ke TextView
+        projectOwnerSentiment.text = teks
+
+        // Buat objek Typeface dengan Nunito-Black
+        val nunitoBlackTypeface = ResourcesCompat.getFont(this, R.font.nunito_black)
+
+        if (nunitoBlackTypeface != null) {
+            // Buat spannable string untuk mengatur jenis font
+            val spannableString = SpannableString(teks)
+
+            // Temukan indeks teks "name" dan "sentiment" dalam teks
+            val startIndexName = teks.indexOf(projectOwnerName)
+            val endIndexName = startIndexName + projectOwnerName.length
+            val startIndexSentiment = teks.indexOf(sentiment)
+            val endIndexSentiment = startIndexSentiment + sentiment.length
+
+            // Terapkan jenis font Nunito-Black ke bagian "name"
+            spannableString.setSpan(
+                CustomTypefaceSpan(nunitoBlackTypeface),
+                startIndexName,
+                endIndexName,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+
+            // Terapkan jenis font Nunito-Black ke bagian "sentiment"
+            spannableString.setSpan(
+                CustomTypefaceSpan(nunitoBlackTypeface),
+                startIndexSentiment,
+                endIndexSentiment,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+
+            // Terapkan teks dengan jenis font yang sudah diatur
+            projectOwnerSentiment.text = spannableString
+        }
+    }
+
     private class CustomTypefaceSpan(private val typeface: Typeface) : MetricAffectingSpan() {
         override fun updateMeasureState(textPaint: TextPaint) {
             textPaint.typeface = typeface
@@ -206,11 +237,16 @@ class HomeDetailProjectBidsActivity : AppCompatActivity() {
         binding.progressBarOnCard.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
+    private fun showEmptyOnUserBidding(isEmpty: Boolean, message: String) {
+        binding.tvEmptyUserBidding.text = message
+        binding.tvEmptyUserBidding.visibility = if (isEmpty) View.VISIBLE else View.GONE
+    }
+
     private fun showToast(message: String) {
         Toast.makeText(this@HomeDetailProjectBidsActivity, message, Toast.LENGTH_SHORT).show()
     }
 
     companion object {
-        const val extra_project_id = "extra_project_id"
+        const val EXTRA_PROJECT_ID = "extra_project_id"
     }
 }

@@ -22,17 +22,16 @@ class HomeCariProjectBidsViewModel(private val projectRepository: ProjectReposit
             try {
                 val response = projectRepository.getProjects()
 
-                if (response.success == true) {
+                if (response.success == true && response.data?.totalData!! > 0) {
                     getAllProjectsResult.value = Result.Success(response)
+                } else {
+                    getAllProjectsResult.value = Result.Empty(response.message.toString())
                 }
             } catch (e: HttpException) {
                 Log.e(TAG, "getProjects: $e")
                 val jsonString = e.response()?.errorBody()?.string()
                 val errorBody = Gson().fromJson(jsonString, ApiResponse::class.java)
                 val errorMessage = errorBody.message
-                if (e.code().equals(404)) {
-                    getAllProjectsResult.value = Result.Empty(errorMessage!!)
-                }
                 getAllProjectsResult.value = Result.Error(errorMessage!!)
                 Log.e(TAG, "getProjects error msg: $errorMessage")
             } catch (e: Exception) {

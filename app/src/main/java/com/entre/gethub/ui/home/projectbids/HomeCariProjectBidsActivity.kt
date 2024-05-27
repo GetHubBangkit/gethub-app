@@ -3,18 +3,13 @@ package com.entre.gethub.ui.home.projectbids
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.entre.gethub.R
 import com.entre.gethub.data.Result
-import com.entre.gethub.data.remote.response.projects.Project
+import com.entre.gethub.data.remote.response.projects.ProjectsResponse
 import com.entre.gethub.databinding.ActivityHomeCariProjectBidsBinding
 import com.entre.gethub.ui.adapter.HomeProjectBidsAdapter
-import com.entre.gethub.ui.models.ProjectBid
 import com.entre.gethub.utils.ViewModelFactory
 
 class HomeCariProjectBidsActivity : AppCompatActivity() {
@@ -36,7 +31,12 @@ class HomeCariProjectBidsActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupRecyclerViewProjectBid(projectBidList: List<Project>) {
+    override fun onResume() {
+        super.onResume()
+        getProjects()
+    }
+
+    private fun setupRecyclerViewProjectBid(projectBidList: List<ProjectsResponse.Project>) {
         binding.rvRekomendasiProjectBid.apply {
             layoutManager = LinearLayoutManager(
                 this@HomeCariProjectBidsActivity,
@@ -48,10 +48,7 @@ class HomeCariProjectBidsActivity : AppCompatActivity() {
                     this@HomeCariProjectBidsActivity,
                     HomeDetailProjectBidsActivity::class.java
                 )
-                intent.putExtra(
-                    HomeDetailProjectBidsActivity.extra_project_id,
-                    projectBid.id
-                )
+                intent.putExtra(HomeDetailProjectBidsActivity.EXTRA_PROJECT_ID, projectBid.id)
                 startActivity(intent)
             }
         }
@@ -64,7 +61,7 @@ class HomeCariProjectBidsActivity : AppCompatActivity() {
                     is Result.Loading -> showLoading(true)
                     is Result.Success -> {
                         showLoading(false)
-                        setupRecyclerViewProjectBid(result.data.data)
+                        setupRecyclerViewProjectBid(result.data.data?.projects!!)
                     }
 
                     is Result.Empty -> {

@@ -161,5 +161,13 @@ interface ApiService {
     suspend fun getProjectDetail(
         @Path("id") id: String
     ): ProjectDetailResponse
+
+    @FormUrlEncoded
+    @POST("projects/bid")
+    suspend fun bidProject(
+        @Field("project_id") projectId: String,
+        @Field("budget_bid") budgetBid: Int,
+        @Field("message") message: String
+    ): ApiResponse
     // Projects
 }

@@ -69,6 +69,7 @@
                 android:backgroundTint="@color/color_warning_on_form"
                 app:cardCornerRadius="10dp"
                 app:contentPadding="8dp"
+                app:cardElevation="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -109,7 +110,7 @@ dan kerjakan dengan maksimal"
                 app:layout_constraintTop_toBottomOf="@id/teksbudgetdimiliki" />
 
             <TextView
-                android:id="@+id/rekrutprice"
+                android:id="@+id/tvFormPriceRange"
                 style="@style/Nunito.ExtraBold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -130,10 +131,10 @@ dan kerjakan dengan maksimal"
                 android:text="Nilai Bid yang Kamu Tawarkan"
                 android:textColor="@color/darkBlue"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rekrutprice" />
+                app:layout_constraintTop_toBottomOf="@+id/tvFormPriceRange" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/hargaTextField"
+                android:id="@+id/budgetBidTextField"
                 style="@style/AuthTextInputLayoutComplete"
                 android:layout_width="match_parent"
                 android:layout_height="37dp"
@@ -144,6 +145,8 @@ dan kerjakan dengan maksimal"
                     android:layout_width="match_parent"
                     android:layout_height="37dp"
                     android:layout_marginTop="10dp"
+                    android:hint="2000000"
+                    android:inputType="number"
                     android:paddingVertical="1dp"
                     android:textSize="14sp" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -152,15 +155,15 @@ dan kerjakan dengan maksimal"
                 android:id="@+id/tvPesan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="28dp"
                 android:layout_marginTop="15dp"
                 android:fontFamily="@font/nunito_bold"
                 android:text="Pesan"
                 android:textColor="@color/darkBlue"
-                app:layout_constraintTop_toBottomOf="@+id/hargaTextField" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/budgetBidTextField" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/pesanTextField"
+                android:id="@+id/messageTextField"
                 style="@style/AuthTextInputLayoutComplete"
                 android:layout_width="match_parent"
                 android:layout_height="114dp"
@@ -173,9 +176,13 @@ dan kerjakan dengan maksimal"
                     android:layout_height="114dp"
                     android:layout_marginStart="0dp"
                     android:layout_marginTop="10dp"
-
-                    android:paddingTop="1dp"
-                    android:paddingBottom="1dp"
+                    android:gravity="start|top"
+                    android:hint="Tulis pesan"
+                    android:inputType="textMultiLine"
+                    android:minLines="3"
+                    android:maxLines="6"
+                    android:paddingVertical="2dp"
+                    android:scrollbars="vertical"
                     android:textSize="14sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -187,9 +194,10 @@ dan kerjakan dengan maksimal"
                 android:backgroundTint="@color/color_sentiment_neutral"
                 app:cardCornerRadius="10dp"
                 app:contentPadding="8dp"
+                app:cardElevation="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/pesanTextField">
+                app:layout_constraintTop_toBottomOf="@id/messageTextField">
 
                 <TextView
                     android:id="@+id/tvFormWarningFee"
@@ -205,6 +213,18 @@ selesai"
 
             </androidx.cardview.widget.CardView>
 
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="visible" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -213,16 +233,16 @@ selesai"
 
 
     <Button
-        android:id="@+id/btnKirim"
+        android:id="@+id/btnSend"
         style="@style/CustomButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="40dp"
         android:layout_marginTop="20dp"
         android:text="Kirim"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cvForm"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cvForm" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
