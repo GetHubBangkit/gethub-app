@@ -59,7 +59,7 @@ class HomeCariProjectBidsActivity : AppCompatActivity() {
                 "Dibutuhkan UI UX Designer yg memiliki jiwa seni untuk membuat layout Aplikasi sesuai dengan recruitment yg telah saya tentukan dengan thema Coffee Shop",
                 "Rp 3,000,000 - 4,500,000", // Harga rekrut
                 "Deadline : 10 Days", // Deadline proyek
-                "Total User Bids : 5 Users", // Total proyek
+                "5", // Total proyek
                 "Di Post : 20-04-2024", // Tanggal proyek
                 "2 Mei 2024 - 12 Mei 2024" // Tanggal awal-akhir
             ),
@@ -71,7 +71,7 @@ class HomeCariProjectBidsActivity : AppCompatActivity() {
                 "Sedang Mencari Konten Kreator untuk pembuatan konten makanan dan untuk promosi warung rumah makanan yg baru buka di butuhkan segera",
                 "Rp 400,000 - 500,000", // Harga rekrut
                 "Deadline : 5 Days", // Deadline proyek
-                "Total User Bids : 5 Users", // Total proyek
+                "5", // Total proyek
                 "Di Post : 20-04-2024", // Tanggal proyek
                 "2 Mei 2024 - 12 Mei 2024" // Tanggal awal-akhir
             )

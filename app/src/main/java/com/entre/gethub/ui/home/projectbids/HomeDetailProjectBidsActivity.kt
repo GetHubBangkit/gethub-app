@@ -42,7 +42,7 @@ class HomeDetailProjectBidsActivity : AppCompatActivity() {
                 tvDetailProjectDesc.text = it.rekrutprojectdesc
                 tvDetailProjectTotalUserBids.text = it.rekrutprojecttotal
                 tvDetailProjectDatePost.text = it.rekrutprojectdate
-                tvDetailProjectTotalUserBidsOnCard.text = it.rekrutprojecttotal
+                tvDetailProjectTotalUserBidsOnCard.text = "${it.rekrutprojecttotal} Orang"
                 ivDetailProjectOwnerPic.setImageResource(it.profilepic2)
             }
         }
@@ -60,7 +60,7 @@ class HomeDetailProjectBidsActivity : AppCompatActivity() {
 
 
         // Dapatkan TextView
-        val teksanalisis: TextView = findViewById(R.id.teksanalisis)
+        val teksanalisis: TextView = findViewById(R.id.tvDetailProjectOwnerSentiment)
 
         // Ambil nilai name dari rekomendasiprofilename
         val name = binding.tvDetailProjectOwnerName.text.toString()

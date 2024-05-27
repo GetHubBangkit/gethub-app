@@ -43,7 +43,7 @@ class HomeProjectBidsAdapter(
                 tvProjectTitle.text = projectBid.rekrutproject
                 tvProjectPriceRange.text = projectBid.rekrutprice
                 tvProjectDesc.text = projectBid.rekrutprojectdesc
-                tvProjectTotalUserBids.text = projectBid.rekrutprojecttotal
+                tvProjectTotalUserBids.text = "Total User Bids: ${projectBid.rekrutprojecttotal} Users"
                 tvProjectPostDate.text = projectBid.rekrutprojectdate
                 tvProjectDeadline.text = projectBid.rekrutprojectdeadline
 
