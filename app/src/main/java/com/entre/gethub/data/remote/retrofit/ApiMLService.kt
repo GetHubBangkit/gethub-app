@@ -22,7 +22,6 @@ interface ApiMLService {
     ): ScanCardResponse
 
     // Cari Talent
-    // Cari Talent
     @GET("users")
     suspend fun getCariTalent(
         @Query("profession") profession: String

@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.entre.gethub.data.preferences.UserPreferences
 import com.entre.gethub.data.repositories.AuthRepository
+import com.entre.gethub.data.repositories.CariTalentRepository
 import com.entre.gethub.data.repositories.CategoryRepository
 import com.entre.gethub.data.repositories.CertificationRepository
 import com.entre.gethub.data.repositories.GethubRepository
@@ -43,7 +44,8 @@ class ViewModelFactory private constructor(
     private val certificationRepository: CertificationRepository,
     private val linkRepository: LinkRepository,
     private val categoryRepository: CategoryRepository,
-    private val scanCardRepository: ScanCardRepository
+    private val scanCardRepository: ScanCardRepository,
+    private val cariTalentRepository: CariTalentRepository
 ) : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when (modelClass) {
@@ -121,7 +123,8 @@ class ViewModelFactory private constructor(
                 Injection.provideCertificationRepository(context),
                 Injection.provideLinkRepository(context),
                 Injection.provideCategoryRepository(context),
-                Injection.provideScanCardRepository(context)
+                Injection.provideScanCardRepository(context),
+                Injection.provideCariTalentRepository(context)
             )
     }
 }
