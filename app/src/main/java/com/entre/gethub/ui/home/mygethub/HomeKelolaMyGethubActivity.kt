@@ -135,7 +135,7 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
                     is Result.Loading -> showLoadingOnCertification(true)
                     is Result.Success -> {
                         showLoadingOnCertification(false)
-                        setupRecyclerViewHomeSertfikasi(result.data.data)
+                        setupRecyclerViewHomeSertifikasi(result.data.data.toMutableList())
                     }
                     is Result.Error -> {
                         showLoadingOnCertification(false)
@@ -153,6 +153,7 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
             }
         }
     }
+
 
     private fun setupRecyclerViewHomeGethubLink() {
         val adapter = HomeGethubLinkAdapter(
@@ -214,7 +215,7 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
 
 
 
-    private fun setupRecyclerViewHomeSertfikasi(listSertifikasi: List<Certification>) {
+    private fun setupRecyclerViewHomeSertifikasi(listSertifikasi: MutableList<Certification>) {
         val adapter = HomeSertifikasiAdapter(listSertifikasi, categories ?: listOf()) { sertifikasi, position ->
             val intent = Intent(
                 this@HomeKelolaMyGethubActivity,
@@ -233,6 +234,7 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
             })
         }
     }
+
 
     private fun deleteProduct(id: String) {
         homeKelolaMyGetHubViewModel.deleteProduct(id).observe(this) { result ->
@@ -262,26 +264,27 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
 
     private fun deleteCertification(id: String) {
         homeKelolaMyGetHubViewModel.deleteCertification(id).observe(this) { result ->
-            if (result != null) {
-                when (result) {
-                    is Result.Loading -> showLoadingOnProduct(true)
-                    is Result.Success -> {
-                        showLoadingOnProduct(false)
-                        showToast(result.data.message.toString())
-                        getCertificationList()
-                    }
-                    is Result.Error -> {
-                        showLoadingOnProduct(false)
-                        showToast(result.error)
-                    }
-                    else -> {
-                        showLoadingOnProduct(false)
-                        showToast("Terjadi kesalahan")
-                    }
+            when (result) {
+                is Result.Loading -> showLoadingOnProduct(true)
+                is Result.Success -> {
+                    showLoadingOnProduct(false)
+                    showToast(result.data.message.toString())
+                    // Memanggil fungsi removeSertifikasi() di adapter
+                    val adapter = binding.rvCertification.adapter as? HomeSertifikasiAdapter
+                    adapter?.removeSertifikasi(id)
+                }
+                is Result.Error -> {
+                    showLoadingOnProduct(false)
+                    showToast(result.error)
+                }
+                else -> {
+                    showLoadingOnProduct(false)
+                    showToast("Terjadi kesalahan")
                 }
             }
         }
     }
+
 
     private fun getLinkList() {
         homeKelolaMyGetHubViewModel.getLinks().observe(this, Observer { result ->

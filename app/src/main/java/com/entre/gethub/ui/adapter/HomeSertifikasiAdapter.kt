@@ -10,7 +10,7 @@ import com.entre.gethub.data.remote.response.certifications.Certification
 import com.entre.gethub.databinding.ItemHomeKelolamygethubSertifikasiBinding
 
 class HomeSertifikasiAdapter(
-    private val sertifikasiList: List<Certification>,
+    private val sertifikasiList: MutableList<Certification>,
     private val categories: List<Category>,
     private val listener: (Certification, Int) -> Unit
 ) : RecyclerView.Adapter<HomeSertifikasiAdapter.ViewHolder>() {
@@ -65,5 +65,14 @@ class HomeSertifikasiAdapter(
 
     interface OnItemClickCallback {
         fun onDeleteCertificationItem(certification: Certification, position: Int)
+    }
+
+    // Tambahkan fungsi untuk menghapus item
+    fun removeSertifikasi(id: String) {
+        val position = sertifikasiList.indexOfFirst { it.id == id }
+        if (position != -1) {
+            sertifikasiList.removeAt(position)
+            notifyItemRemoved(position)
+        }
     }
 }
