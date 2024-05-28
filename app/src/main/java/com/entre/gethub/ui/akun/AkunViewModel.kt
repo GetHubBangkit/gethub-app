@@ -3,6 +3,7 @@ package com.entre.gethub.ui.akun
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.entre.gethub.data.Result
 import com.entre.gethub.data.preferences.UserPreferences
@@ -38,6 +39,10 @@ class AkunViewModel(
             }
         }
         return getUserProfileResult
+    }
+
+    fun getToken(): LiveData<String> {
+        return userPreferences.getToken().asLiveData()
     }
 
     fun logout() {
