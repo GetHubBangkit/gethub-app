@@ -21,6 +21,7 @@ import com.entre.gethub.ui.adapter.HomeProjectBidsAdapter
 import com.entre.gethub.ui.adapter.TopTalentAdapter
 import com.entre.gethub.ui.home.projectbids.HomeDetailProjectBidsActivity
 import com.entre.gethub.ui.project.bidproject.BidProjectStatusActivity
+import com.entre.gethub.ui.project.postedproject.PostedProjectStatusActivity
 import com.entre.gethub.ui.project.postproject.PostProjectActivity
 import com.entre.gethub.utils.ViewModelFactory
 
@@ -71,6 +72,10 @@ class ProjectFragment : Fragment() {
                 navigateToActivity(BidProjectStatusActivity())
             }
 
+            ivPostProject.setOnClickListener {
+                navigateToActivity(PostedProjectStatusActivity())
+            }
+
             fabPostProject.setOnClickListener {
                 navigateToActivity(PostProjectActivity())
             }
@@ -85,7 +90,7 @@ class ProjectFragment : Fragment() {
                         with(binding) {
                             val result = result.data.data
                             tvPostProject.text = result?.jobPosted.toString()
-                            tvBidProject.text = result?.bidProjects.toString()
+                            tvBidProject.text = result?.bidsMade.toString()
                             tvTerimaProject.text = result?.bidsAccepted.toString()
                         }
                     }

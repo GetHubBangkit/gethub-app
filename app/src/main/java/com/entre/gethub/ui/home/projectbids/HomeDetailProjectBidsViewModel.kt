@@ -22,22 +22,29 @@ class HomeDetailProjectBidsViewModel(private val projectRepository: ProjectRepos
             getDetailProjectResult.value = Result.Loading
             try {
                 val response = projectRepository.getProjectDetail(id)
-                if (response.success == true) {
+                if (response?.success == true) {
                     getDetailProjectResult.value = Result.Success(response)
+                } else {
+                    getDetailProjectResult.value = Result.Error("Failed to get project details")
                 }
             } catch (e: HttpException) {
                 val jsonString = e.response()?.errorBody()?.string()
-                val errorBody = Gson().fromJson(jsonString, ApiResponse::class.java)
-                val errorMessage = errorBody.message
-                getDetailProjectResult.value = Result.Error(errorMessage!!)
-                Log.e(TAG, "getProjectDetail: $e")
+                if (jsonString != null) {
+                    val errorBody = Gson().fromJson(jsonString, ApiResponse::class.java)
+                    val errorMessage = errorBody?.message ?: "Unknown error"
+                    getDetailProjectResult.value = Result.Error(errorMessage)
+                } else {
+                    getDetailProjectResult.value = Result.Error("Unknown error")
+                }
+                Log.e(TAG, "getProjectDetail: ${e.message}", e)
             } catch (e: Exception) {
                 getDetailProjectResult.value = Result.Error(e.toString())
-                Log.e(TAG, "getProjectDetail: $e")
+                Log.e(TAG, "getProjectDetail: ${e.message}", e)
             }
         }
         return getDetailProjectResult
     }
+
 
     companion object {
         private const val TAG = "HomeDetailProjectBidsViewModel"
