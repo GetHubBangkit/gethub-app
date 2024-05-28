@@ -64,7 +64,8 @@ class HomeKelolaMyGethubViewModel(
                 val response = productRepository.deleteProduct(id)
                 if (response.success == true) {
                     deleteProductResult.value = Result.Success(response)
-                    getProductList()
+                    // Memperbarui LiveData setelah penghapusan produk berhasil
+                    getProductList() // Pastikan ini memperbarui LiveData
                 }
             } catch (e: HttpException) {
                 val jsonString = e.response()?.errorBody()?.string()
@@ -72,7 +73,6 @@ class HomeKelolaMyGethubViewModel(
                 val errorMessage = errorBody.message
                 deleteProductResult.value = Result.Error(errorMessage!!)
             } catch (e: Exception) {
-                e.printStackTrace()
                 deleteProductResult.value = Result.Error(e.toString())
             }
         }

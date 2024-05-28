@@ -34,6 +34,11 @@ class HomeKelolaMyGethubTambahSertifikasiViewModel(
         image: String,
         categoryId: String,
     ): LiveData<Result<CertificationResponse>> {
+        if (title.isEmpty() || image.isEmpty() || categoryId.isEmpty()) {
+            createCertificationResult.value = Result.Error("Semua bidang harus diisi")
+            return createCertificationResult
+        }
+
         viewModelScope.launch {
             try {
                 createCertificationResult.value = Result.Loading
@@ -53,6 +58,7 @@ class HomeKelolaMyGethubTambahSertifikasiViewModel(
         }
         return createCertificationResult
     }
+
 
     fun uploadProfilePhoto(imageFile: File): LiveData<Result<UploadFileResponse>> {
         viewModelScope.launch {

@@ -58,6 +58,10 @@ class HomeKelolaMyGethubEditProdukViewModel(
         imageUrl: String,
         categoryId: String
     ): LiveData<Result<ProductResponse>> {
+        if (name.isEmpty() || description.isEmpty() ||imageUrl.isEmpty() || categoryId.isEmpty()) {
+            editProductResult.value = Result.Error("Semua bidang harus diisi")
+            return editProductResult
+        }
         viewModelScope.launch {
             try {
                 editProductResult.value = Result.Loading
