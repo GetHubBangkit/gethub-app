@@ -144,7 +144,7 @@
                     android:layout_marginStart="0dp"
                     android:layout_marginTop="5dp"
                     android:gravity="start|top"
-                    android:paddingTop="1dp"
+                    android:paddingTop="2dp"
                     android:paddingBottom="1dp"
                     android:textSize="14sp" />
             </com.google.android.material.textfield.TextInputLayout>

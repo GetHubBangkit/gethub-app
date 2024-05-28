@@ -58,7 +58,9 @@ class HomeKelolaMyGethubTambahLinkActivity : AppCompatActivity() {
                                     )
                                     intent.putExtra("message", "Link berhasil ditambah")
                                     startActivity(intent)
+                                    intent.putExtra("message", "Link berhasil ditambah")
                                     finish()
+                                    intent.putExtra("message", "Link berhasil ditambah")
                                 }
 
                                 is Result.Error -> {
@@ -70,7 +72,9 @@ class HomeKelolaMyGethubTambahLinkActivity : AppCompatActivity() {
                                     )
                                     intent.putExtra("message", "Link berhasil ditambah")
                                     startActivity(intent)
+                                    intent.putExtra("message", "Link berhasil ditambah")
                                     finish()
+                                    intent.putExtra("message", "Link berhasil ditambah")
                                 }
 
                                 else -> {

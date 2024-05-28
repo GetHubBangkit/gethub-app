@@ -307,8 +307,8 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
                     (binding.recyclerViewHomeGethubLink.adapter as? HomeGethubLinkAdapter)?.updateGethubLinks(
                         result.data.data!!.map {
                             val drawableRes = when (it.category) {
-                                "Shopee" -> R.drawable.kelola_shopee
-                                "Tiktok" -> R.drawable.kelola_tiktok
+                                "shopee" -> R.drawable.kelola_shopee
+                                "tiktok" -> R.drawable.kelola_tiktok
                                 else -> R.drawable.kelola_tiktok // Default image if no match
                             }
                             GethubLink(
