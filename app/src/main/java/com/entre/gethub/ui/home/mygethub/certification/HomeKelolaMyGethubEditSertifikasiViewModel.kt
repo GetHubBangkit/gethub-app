@@ -57,6 +57,10 @@ class HomeKelolaMyGethubEditSertifikasiViewModel(
         image: String,
         categoryId: String
     ): LiveData<Result<CertificationResponse>> {
+        if (title.isEmpty() || image.isEmpty() || categoryId.isEmpty()) {
+            editCertificationResult.value = Result.Error("Semua bidang harus diisi")
+            return editCertificationResult
+        }
         viewModelScope.launch {
             try {
                 editCertificationResult.value = Result.Loading

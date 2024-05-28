@@ -18,6 +18,9 @@ class HomeKelolaMyGethubTambahLinkViewModel(private val linkRepository: LinkRepo
     private val result = MutableLiveData<Result<LinkResponse>>()
 
     fun addLink(category: String, link: String): LiveData<Result<LinkResponse>> {
+        if (category.isEmpty() || link.isEmpty()) {
+            result.value = Result.Error("Semua bidang harus diisi")
+        }
         viewModelScope.launch {
             try {
                 result.value = Result.Loading

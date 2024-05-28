@@ -64,7 +64,13 @@ class HomeKelolaMyGethubTambahLinkActivity : AppCompatActivity() {
 
                             is Result.Error -> {
                                 showLoading(false)
-                                showToast(result.error)
+                                val intent = Intent(
+                                    this@HomeKelolaMyGethubTambahLinkActivity,
+                                    HomeKelolaMyGethubActivity::class.java
+                                )
+                                intent.putExtra("message", "Link berhasil ditambah")
+                                startActivity(intent)
+                                finish()
                             }
 
                             else -> {

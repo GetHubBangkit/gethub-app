@@ -305,8 +305,10 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
                                 it.id ?: "",
                                 it.link ?: "",
                                 drawableRes
-                            ) // Handle nullability
-                        })
+                            )
+                        }
+                    )
+
                 }
                 is Result.Error -> {
                     Toast.makeText(
