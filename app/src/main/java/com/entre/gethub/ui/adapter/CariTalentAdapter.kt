@@ -3,37 +3,45 @@ package com.entre.gethub.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.entre.gethub.data.remote.response.ml.CariTalentResponse
 import com.entre.gethub.databinding.ItemHomeCariTalentBinding
-import com.entre.gethub.ui.home.caritalent.CariTalent
+import com.entre.gethub.ui.models.CariTalent
 
 class CariTalentAdapter(
-    private val caritalentList: ArrayList<CariTalent>,
-    private val listener: (CariTalent, Int) -> Unit
-) :
-    RecyclerView.Adapter<CariTalentAdapter.ViewHolder>() {
+    private val cariTalentList: MutableList<CariTalentResponse.Data>, // Ubah tipe data menjadi MutableList
+    private val listener: (CariTalentResponse.Data, Int) -> Unit
+) : RecyclerView.Adapter<CariTalentAdapter.ViewHolder>() {
+
+    // Metode untuk menambahkan data ke daftar
+    fun addAll(data: List<CariTalentResponse.Data>) {
+        cariTalentList.clear() // Kosongkan daftar sebelum menambahkan data baru
+        cariTalentList.addAll(data)
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val v = ItemHomeCariTalentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(v)
+        val inflater = LayoutInflater.from(parent.context)
+        val binding = ItemHomeCariTalentBinding.inflate(inflater, parent, false)
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindItem(caritalentList[position])
-        holder.itemView.setOnClickListener { listener(caritalentList[position], position) }
+        holder.bind(cariTalentList[position])
+        holder.itemView.setOnClickListener { listener(cariTalentList[position], position) }
     }
 
     override fun getItemCount(): Int {
-        return caritalentList.size
+        return cariTalentList.size
     }
 
-    class ViewHolder(var binding: ItemHomeCariTalentBinding) :
+    inner class ViewHolder(private val binding: ItemHomeCariTalentBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bindItem(caritalent: CariTalent) {
-//            binding.frame1.setImageResource(caritalent.image)
-            binding.profilepic1.setImageResource(caritalent.profilepic)
-            binding.profilename.text = caritalent.profilename
-            binding.profiledesc.text = caritalent.profiledesc
 
+        fun bind(cariTalent: CariTalentResponse.Data) {
+            binding.apply {
+                tvName.text = cariTalent.fullName
+                tvProfesi.text = cariTalent.profession
+            }
         }
     }
 }

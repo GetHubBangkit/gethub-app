@@ -4,7 +4,9 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.entre.gethub.data.preferences.UserPreferences
+import com.entre.gethub.data.remote.retrofit.ApiMLService
 import com.entre.gethub.data.repositories.AuthRepository
+import com.entre.gethub.data.repositories.CariTalentRepository
 import com.entre.gethub.data.repositories.CategoryRepository
 import com.entre.gethub.data.repositories.CertificationRepository
 import com.entre.gethub.data.repositories.GethubRepository
@@ -24,6 +26,7 @@ import com.entre.gethub.ui.gethub.GethubAddPartnerFormViewModel
 import com.entre.gethub.ui.gethub.GethubPartnerListViewModel
 import com.entre.gethub.ui.gethub.GethubViewModel
 import com.entre.gethub.ui.home.HomeViewModel
+import com.entre.gethub.ui.home.caritalent.HomeCariTalentViewModel
 import com.entre.gethub.ui.home.mygethub.HomeKelolaMyGethubViewModel
 import com.entre.gethub.ui.home.mygethub.certification.HomeKelolaMyGethubEditSertifikasiViewModel
 import com.entre.gethub.ui.home.mygethub.certification.HomeKelolaMyGethubTambahSertifikasiViewModel
@@ -43,7 +46,8 @@ class ViewModelFactory private constructor(
     private val certificationRepository: CertificationRepository,
     private val linkRepository: LinkRepository,
     private val categoryRepository: CategoryRepository,
-    private val scanCardRepository: ScanCardRepository
+    private val scanCardRepository: ScanCardRepository,
+    private val cariTalentRepository: CariTalentRepository
 ) : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when (modelClass) {
@@ -61,6 +65,10 @@ class ViewModelFactory private constructor(
                 gethubRepository,
                 sponsorRepository,
                 userPreferences
+            ) as T
+
+            HomeCariTalentViewModel::class.java -> HomeCariTalentViewModel(
+                cariTalentRepository
             ) as T
 
             HomeKelolaMyGethubViewModel::class.java -> HomeKelolaMyGethubViewModel(
@@ -121,7 +129,8 @@ class ViewModelFactory private constructor(
                 Injection.provideCertificationRepository(context),
                 Injection.provideLinkRepository(context),
                 Injection.provideCategoryRepository(context),
-                Injection.provideScanCardRepository(context)
+                Injection.provideScanCardRepository(context),
+                Injection.provideCariTalentRepository(context)
             )
     }
 }
