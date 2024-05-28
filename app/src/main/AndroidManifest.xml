@@ -26,6 +26,9 @@
         android:theme="@style/Theme.GetHub"
         tools:targetApi="31">
         <activity
+            android:name=".ui.project.postproject.PostProjectActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.project.bidproject.BidProjectStatusDetailActivity"
             android:exported="false" />
         <activity
@@ -55,14 +58,12 @@
         <activity
             android:name=".ui.home.mygethub.product.HomeKelolaMyGethubTambahProdukActivity"
             android:exported="false" />
-
-        <activity android:name=".ui.home.mygethub.certification.HomeKelolaMyGethubTambahSertifikasiActivity"
+        <activity
+            android:name=".ui.home.mygethub.certification.HomeKelolaMyGethubTambahSertifikasiActivity"
             android:exported="false" />
-
-        <activity android:name=".ui.home.mygethub.certification.HomeKelolaMyGethubEditSertifikasiActivity"
+        <activity
+            android:name=".ui.home.mygethub.certification.HomeKelolaMyGethubEditSertifikasiActivity"
             android:exported="false" />
-
-
         <activity
             android:name=".ui.home.mygethub.link.HomeKelolaMyGethubTambahLinkActivity"
             android:exported="false" />

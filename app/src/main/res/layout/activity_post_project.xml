@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/frame"
+            android:layout_width="match_parent"
+            android:layout_height="77dp"
+            android:src="@drawable/rectangle"
+            app:layout_constraintDimensionRatio="H,4:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textgethub"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:fontFamily="@font/poppins_bold"
+            android:text="Posting Project"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            app:fontFamily="@font/nunito_extrabold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.085"
+            app:layout_constraintStart_toEndOf="@id/icon_back"
+            app:layout_constraintTop_toTopOf="@id/frame"
+            app:layout_constraintVertical_bias="0.024" />
+
+        <ImageView
+            android:id="@+id/icon_back"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="26dp"
+            android:src="@drawable/icon_back"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.041"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/llProjectWarning"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/post_project_warning_bg"
+            android:padding="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/frame">
+
+            <TextView
+                style="@style/Nunito"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/post_project_warning"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llDetailProjectText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="23dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/llProjectWarning">
+
+            <TextView
+                style="@style/Poppins.Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Detail "
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                style="@style/Poppins.Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Project"
+                android:textColor="@color/teal"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvDetailProject"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            app:cardCornerRadius="10dp"
+            app:contentPadding="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/llDetailProjectText">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/tvProjectAmountRange"
+                    style="@style/Nunito.Bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rentang Nilai Project"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:id="@+id/llProjectAmountRange"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/tvProjectAmountRange">
+
+                    <LinearLayout
+                        android:id="@+id/llAmountFrom"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvAmountFrom"
+                            style="@style/Nunito"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:text="Dari"
+                            android:textSize="14sp" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/minBudgetBidTextField"
+                            style="@style/AuthTextInputLayoutComplete"
+                            android:layout_width="match_parent"
+                            android:layout_height="37dp"
+                            android:minHeight="47dp"
+                            android:layout_marginEnd="4dp"
+                            app:layout_constraintTop_toBottomOf="@+id/tvHarga">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:layout_width="match_parent"
+                                android:layout_height="37dp"
+                                android:layout_marginTop="10dp"
+                                android:hint="200000"
+                                android:inputType="number"
+                                android:paddingVertical="1dp"
+                                android:textSize="14sp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llAmountUntil"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvAmountUntil"
+                            style="@style/Nunito"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:text="Sampai"
+                            android:textSize="14sp" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/maxBudgetBidTextField"
+                            style="@style/AuthTextInputLayoutComplete"
+                            android:layout_width="match_parent"
+                            android:layout_marginStart="4dp"
+                            android:layout_height="37dp"
+                            android:minHeight="47dp"
+                            app:layout_constraintTop_toBottomOf="@+id/tvHarga">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:layout_width="match_parent"
+                                android:layout_height="37dp"
+                                android:layout_marginTop="10dp"
+                                android:hint="2000000"
+                                android:inputType="number"
+                                android:paddingVertical="1dp"
+                                android:textSize="14sp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvProjectTitle"
+                    style="@style/Nunito.Bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Judul Project"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/llProjectAmountRange" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/projectTitleTextField"
+                    style="@style/AuthTextInputLayoutComplete"
+                    android:layout_width="match_parent"
+                    android:layout_height="37dp"
+                    android:minHeight="47dp"
+                    app:layout_constraintTop_toBottomOf="@+id/tvProjectTitle">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="37dp"
+                        android:layout_marginTop="10dp"
+                        android:hint="Pembuatan Website Profile"
+                        android:inputType="text"
+                        android:paddingVertical="1dp"
+                        android:textSize="14sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/tvProjectCategory"
+                    style="@style/Nunito.Bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Kategori"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/projectTitleTextField" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/kategoriTextField"
+                    style="@style/AuthTextInputLayoutComplete"
+                    android:layout_width="match_parent"
+                    android:layout_height="37dp"
+                    android:layout_marginTop="5dp"
+                    android:minHeight="47dp"
+                    app:layout_constraintTop_toBottomOf="@id/tvProjectCategory">
+                    <Spinner
+                        android:id="@+id/spinnerKategori"
+                        style="@style/AuthTextInputLayoutComplete"
+                        android:layout_width="match_parent"
+                        android:layout_height="37dp"
+                        android:layout_marginTop="5dp"
+                        android:hint="Pilih Kategori"
+                        android:paddingTop="1dp"
+                        android:paddingBottom="1dp"
+                        android:textSize="14sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <TextView
+                    android:id="@+id/tvProjectDescription"
+                    style="@style/Nunito.Bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Deskripsi"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/kategoriTextField" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/descriptionProjectTextField"
+                    style="@style/AuthTextInputLayoutComplete"
+                    android:layout_width="match_parent"
+                    android:layout_height="114dp"
+                    android:minHeight="47dp"
+                    app:layout_constraintTop_toBottomOf="@id/tvProjectDescription"
+                    app:startIconTint="@color/teal">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="114dp"
+                        android:layout_marginStart="0dp"
+                        android:layout_marginTop="10dp"
+                        android:gravity="start|top"
+                        android:hint="Tulis Deskripsi"
+                        android:inputType="textMultiLine"
+                        android:maxLines="6"
+                        android:minLines="3"
+                        android:paddingVertical="2dp"
+                        android:scrollbars="vertical"
+                        android:textSize="14sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/tvDeadlineDate"
+                    style="@style/Nunito.Bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Perkiraan Deadline"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/descriptionProjectTextField" />
+
+                <LinearLayout
+                    android:id="@+id/llProjectDeadlineRange"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/tvDeadlineDate">
+
+                    <LinearLayout
+                        android:id="@+id/llDateFrom"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvDateFrom"
+                            style="@style/Nunito"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:text="Dari"
+                            android:textSize="14sp" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/startDateProjectTextField"
+                            style="@style/AuthTextInputLayoutComplete"
+                            android:layout_width="match_parent"
+                            android:layout_height="37dp"
+                            android:minHeight="47dp"
+                            android:layout_marginEnd="4dp"
+                            app:layout_constraintTop_toBottomOf="@+id/tvHarga">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:layout_width="match_parent"
+                                android:layout_height="37dp"
+                                android:layout_marginTop="10dp"
+                                android:hint="11/5/2004"
+                                android:inputType="date"
+                                android:paddingVertical="1dp"
+                                android:textSize="14sp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llDateUntil"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvDateUntil"
+                            style="@style/Nunito"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:text="Sampai"
+                            android:textSize="14sp" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/endDateProjectTextField"
+                            style="@style/AuthTextInputLayoutComplete"
+                            android:layout_width="match_parent"
+                            android:layout_height="37dp"
+                            android:minHeight="47dp"
+                            android:layout_marginStart="4dp"
+                            app:layout_constraintTop_toBottomOf="@+id/tvHarga">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:layout_width="match_parent"
+                                android:layout_height="37dp"
+                                android:layout_marginTop="10dp"
+                                android:hint="20/5/2004"
+                                android:inputType="date"
+                                android:paddingVertical="1dp"
+                                android:textSize="14sp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+        <Button
+            android:id="@+id/btnSubscribe"
+            style="@style/CustomButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="28dp"
+            android:layout_marginTop="20dp"
+            android:text="Simpan"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cvDetailProject" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
