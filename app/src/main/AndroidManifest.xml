@@ -55,6 +55,14 @@
         <activity
             android:name=".ui.home.mygethub.product.HomeKelolaMyGethubTambahProdukActivity"
             android:exported="false" />
+
+        <activity android:name=".ui.home.mygethub.certification.HomeKelolaMyGethubTambahSertifikasiActivity"
+            android:exported="false" />
+
+        <activity android:name=".ui.home.mygethub.certification.HomeKelolaMyGethubEditSertifikasiActivity"
+            android:exported="false" />
+
+
         <activity
             android:name=".ui.home.mygethub.link.HomeKelolaMyGethubTambahLinkActivity"
             android:exported="false" />

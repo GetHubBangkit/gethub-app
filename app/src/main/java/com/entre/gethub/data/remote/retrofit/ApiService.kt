@@ -7,6 +7,9 @@ import com.entre.gethub.data.remote.response.LinkResponse
 import com.entre.gethub.data.remote.response.SponsorResponse
 import com.entre.gethub.data.remote.response.UploadFileResponse
 import com.entre.gethub.data.remote.response.auth.LoginResponse
+import com.entre.gethub.data.remote.response.certifications.Certification
+import com.entre.gethub.data.remote.response.certifications.CertificationListResponse
+import com.entre.gethub.data.remote.response.certifications.CertificationResponse
 import com.entre.gethub.data.remote.response.partners.AddPartnerResponse
 import com.entre.gethub.data.remote.response.partners.GetHubPartnerListResponse
 import com.entre.gethub.data.remote.response.products.ProductListResponse
@@ -183,4 +186,36 @@ interface ApiService {
     // Verify Email
     @GET("regenerate-verification")
     suspend fun regenerateVerifyEmail()
+    
+    // Products
+    @GET("user/certifications")
+    suspend fun getCertificationList(): CertificationListResponse
+
+    @FormUrlEncoded
+    @POST("certification")
+    suspend fun addCertification(
+        @Field("title") title: String,
+        @Field("image") image: String,
+        @Field("category_id") category: String,
+    ): CertificationResponse
+
+    @GET("certification/{id}")
+    suspend fun getCertificationDetail(
+        @Path("id") id: String
+    ): CertificationResponse
+
+    @FormUrlEncoded
+    @PUT("certification/{id}")
+    suspend fun editCertification(
+        @Path("id") id: String,
+        @Field("title") title: String,
+        @Field("image") image: String,
+        @Field("category_id") categoryId: String
+    ): CertificationResponse
+
+    @DELETE("certification/{id}")
+    suspend fun deleteCertification(
+        @Path("id") id: String,
+    ): ApiResponse
+    // Products
 }
