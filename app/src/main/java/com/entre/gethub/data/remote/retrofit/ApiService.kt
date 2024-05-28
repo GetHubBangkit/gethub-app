@@ -18,6 +18,7 @@ import com.entre.gethub.data.remote.response.profiles.UserProfileResponse
 import com.entre.gethub.data.remote.response.projects.MyProjectBidResponse
 import com.entre.gethub.data.remote.response.projects.PostProjectResponse
 import com.entre.gethub.data.remote.response.projects.ProjectDetailResponse
+import com.entre.gethub.data.remote.response.projects.ProjectStatsResponse
 import com.entre.gethub.data.remote.response.projects.ProjectsResponse
 import com.entre.gethub.data.remote.response.projects.SearchProjectResponse
 import okhttp3.MultipartBody
@@ -193,12 +194,15 @@ interface ApiService {
         @Field("min_deadline") minDeadline: String,
         @Field("max_deadline") maxDeadline: String,
     ): PostProjectResponse
+
+    @GET("projects/dashboard/my")
+    suspend fun getUserProjectStats(): ProjectStatsResponse
     // Projects
 
     // Verify Email
     @GET("regenerate-verification")
     suspend fun regenerateVerifyEmail()
-    
+
     // Products
     @GET("user/certifications")
     suspend fun getCertificationList(): CertificationListResponse

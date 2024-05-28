@@ -56,12 +56,12 @@
             app:layout_constraintTop_toBottomOf="@+id/textproject" />
 
         <TextView
-            android:id="@+id/text_postproject"
+            android:id="@+id/tvPostProject"
             android:layout_width="23dp"
             android:layout_height="42dp"
             android:layout_marginTop="12dp"
             android:fontFamily="@font/poppins_bold"
-            android:text="11"
+            android:text="0"
             android:textColor="@android:color/black"
             android:textSize="30sp"
 
@@ -82,10 +82,9 @@
 
             android:textSize="12sp"
             app:fontFamily="@font/nunito_bold"
-            app:layout_constraintEnd_toEndOf="@+id/ivPostProject"
-
-            app:layout_constraintStart_toStartOf="@+id/ivPostProject"
-            app:layout_constraintTop_toBottomOf="@+id/text_postproject" />
+            app:layout_constraintEnd_toEndOf="@id/ivPostProject"
+            app:layout_constraintStart_toStartOf="@id/ivPostProject"
+            app:layout_constraintTop_toBottomOf="@id/tvPostProject" />
 
         <ImageView
             android:id="@+id/ivBidProject"
@@ -99,14 +98,13 @@
             app:layout_constraintTop_toBottomOf="@+id/textproject" />
 
         <TextView
-            android:id="@+id/text_bidproject"
+            android:id="@+id/tvBidProject"
             android:layout_width="wrap_content"
             android:layout_height="42dp"
             android:layout_marginTop="12dp"
             android:fontFamily="@font/poppins_bold"
-            android:text="13"
+            android:text="0"
             android:textColor="@android:color/black"
-
             android:textSize="30sp"
             app:fontFamily="@font/poppins_bold"
             app:layout_constraintEnd_toEndOf="@+id/ivBidProject"
@@ -120,23 +118,20 @@
             android:layout_marginTop="3dp"
             android:fontFamily="@font/poppins_bold"
             android:text="Bid Project"
-
             android:textColor="@color/textproject"
             android:textSize="12sp"
             app:fontFamily="@font/nunito_bold"
-            app:layout_constraintEnd_toEndOf="@+id/ivBidProject"
-            app:layout_constraintStart_toStartOf="@+id/ivBidProject"
-            app:layout_constraintTop_toBottomOf="@+id/text_bidproject" />
+            app:layout_constraintEnd_toEndOf="@id/ivBidProject"
+            app:layout_constraintStart_toStartOf="@id/ivBidProject"
+            app:layout_constraintTop_toBottomOf="@id/tvBidProject" />
 
 
         <ImageView
             android:id="@+id/ivAcceptedProject"
             android:layout_width="110dp"
             android:layout_height="88dp"
-
             android:layout_marginTop="20dp"
             android:layout_marginEnd="18dp"
-
             android:src="@drawable/projectgreen"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
@@ -144,18 +139,16 @@
             app:layout_constraintTop_toBottomOf="@+id/textproject" />
 
         <TextView
-            android:id="@+id/text_terimaproject"
+            android:id="@+id/tvTerimaProject"
             android:layout_width="27dp"
             android:layout_height="42dp"
             android:layout_marginTop="12dp"
             android:fontFamily="@font/poppins_bold"
-            android:text="6"
+            android:text="0"
             android:textColor="@android:color/black"
-
             android:textSize="30sp"
             app:fontFamily="@font/poppins_bold"
             app:layout_constraintEnd_toEndOf="@+id/ivAcceptedProject"
-
             app:layout_constraintStart_toStartOf="@+id/ivAcceptedProject"
             app:layout_constraintTop_toTopOf="@+id/ivAcceptedProject" />
 
@@ -166,14 +159,12 @@
             android:layout_marginTop="3dp"
             android:fontFamily="@font/poppins_bold"
             android:text="Terima Project"
-
             android:textColor="@color/textproject"
             android:textSize="12sp"
             app:fontFamily="@font/nunito_bold"
-            app:layout_constraintEnd_toEndOf="@+id/ivAcceptedProject"
-
-            app:layout_constraintStart_toStartOf="@+id/ivAcceptedProject"
-            app:layout_constraintTop_toBottomOf="@+id/text_terimaproject" />
+            app:layout_constraintEnd_toEndOf="@id/ivAcceptedProject"
+            app:layout_constraintStart_toStartOf="@id/ivAcceptedProject"
+            app:layout_constraintTop_toBottomOf="@id/tvTerimaProject" />
 
         <LinearLayout
             android:id="@+id/toptalentgethub"

@@ -4,6 +4,7 @@ import com.entre.gethub.data.remote.response.ApiResponse
 import com.entre.gethub.data.remote.response.projects.MyProjectBidResponse
 import com.entre.gethub.data.remote.response.projects.PostProjectResponse
 import com.entre.gethub.data.remote.response.projects.ProjectDetailResponse
+import com.entre.gethub.data.remote.response.projects.ProjectStatsResponse
 import com.entre.gethub.data.remote.response.projects.ProjectsResponse
 import com.entre.gethub.data.remote.response.projects.SearchProjectResponse
 import com.entre.gethub.data.remote.retrofit.ApiService
@@ -52,6 +53,10 @@ class ProjectRepository private constructor(private val apiService: ApiService) 
             minDeadline,
             maxDeadline
         )
+    }
+
+    suspend fun getUserProjectStats(): ProjectStatsResponse {
+        return apiService.getUserProjectStats()
     }
 
     companion object {

@@ -49,12 +49,15 @@ class ProjectFragment : Fragment() {
 
         getAllProjectBids()
 
+        getUserProjectStats()
+
         return root
     }
 
     override fun onResume() {
         super.onResume()
         getAllProjectBids()
+        getUserProjectStats()
     }
 
     override fun onDestroyView() {
@@ -70,6 +73,31 @@ class ProjectFragment : Fragment() {
 
             fabPostProject.setOnClickListener {
                 navigateToActivity(PostProjectActivity())
+            }
+        }
+    }
+
+    private fun getUserProjectStats() {
+        projectViewModel.getUserProjectStats().observe(viewLifecycleOwner) { result ->
+            if (result != null) {
+                when (result) {
+                    is Result.Success -> {
+                        with(binding) {
+                            val result = result.data.data
+                            tvPostProject.text = result?.jobPosted.toString()
+                            tvBidProject.text = result?.bidProjects.toString()
+                            tvTerimaProject.text = result?.bidsAccepted.toString()
+                        }
+                    }
+
+                    is Result.Error -> {
+                        showToast(result.error)
+                    }
+
+                    else -> {
+                        //
+                    }
+                }
             }
         }
     }

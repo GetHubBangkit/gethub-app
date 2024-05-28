@@ -21,14 +21,6 @@ class BidProjectStatusViewModel(private val projectRepository: ProjectRepository
             getMyProjectBidsResult.value = Result.Loading
             try {
                 val response = projectRepository.getMyProjectBids()
-
-                if (response.message == "Tawaran proyek pengguna tidak ditemukan") {
-                    Log.w(TAG, "getMyProjectBids: $response")
-                    getMyProjectBidsResult.value =
-                        Result.Empty("Anda belum melakukan Project Bidding")
-                    return@launch
-                }
-
                 if (response.success == true) {
                     getMyProjectBidsResult.value = Result.Success(response)
                     Log.d(TAG, "getMyProjectBids: $response")
@@ -38,6 +30,9 @@ class BidProjectStatusViewModel(private val projectRepository: ProjectRepository
                 val jsonString = e.response()?.errorBody()?.string()
                 val errorBody = Gson().fromJson(jsonString, ApiResponse::class.java)
                 val errorMessage = errorBody.message
+                if (e.code().equals(404)) {
+                    getMyProjectBidsResult.value = Result.Empty(errorMessage!!)
+                }
                 getMyProjectBidsResult.value = Result.Error(errorMessage!!)
             } catch (e: Exception) {
                 Log.e(TAG, "getMyProjectBids: $e")
