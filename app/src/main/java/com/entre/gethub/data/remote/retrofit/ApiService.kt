@@ -176,6 +176,6 @@ interface ApiService {
     // Projects
 
     // Verify Email
-    @GET("api/verify")
+    @GET("regenerate-verification")
     suspend fun regenerateVerifyEmail()
 }

@@ -119,10 +119,12 @@ class HomeDetailProjectBidsFormActivity : AppCompatActivity() {
             .setTitle(title)
             .setMessage(message)
             .setPositiveButton("Kirim") { dialog, _ ->
+                homeDetailProjectBidsFormViewModel.regenerateVerifyEmail()
                 dialog.dismiss()
                 showToast("Email berhasil dikirim")
             }
-            .setOnDismissListener {
+            .setNegativeButton("Batal") {dialog, _ ->
+                dialog.dismiss()
                 showToast("Verifikasi batal")
             }
             .show()
