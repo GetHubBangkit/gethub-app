@@ -3,6 +3,7 @@ package com.entre.gethub.ui.home.projectbids
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,6 +27,8 @@ class HomeCariProjectBidsActivity : AppCompatActivity() {
 
         getProjects()
 
+        setupSearchProject()
+
         binding.iconBack.setOnClickListener {
             finish()
         }
@@ -34,6 +37,41 @@ class HomeCariProjectBidsActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         getProjects()
+    }
+
+    private fun setupSearchProject() {
+        binding.searchView.setupWithSearchBar(binding.searchBar)
+        binding.searchView
+            .editText
+            .setOnEditorActionListener { textView, _, _ ->
+                val query = textView.text.toString()
+                if (query.isNotEmpty()) {
+                    homeCariProjectBidsViewModel.searchProjects(query).observe(this) { result ->
+                        if (result != null) {
+                            when (result) {
+                                is Result.Loading -> showLoading(true)
+                                is Result.Success -> {
+                                    showLoading(false)
+                                    val projectBid = result.data.data
+                                    setupRecyclerViewProjectBid(projectBid)
+                                }
+
+                                is Result.Empty -> {
+                                    showLoading(false)
+                                    showEmptyError(true, result.emptyError)
+                                }
+
+                                is Result.Error -> {
+                                    showLoading(false)
+                                    showToast(result.error)
+                                }
+                            }
+                        }
+                    }
+                }
+
+                false
+            }
     }
 
     private fun setupRecyclerViewProjectBid(projectBidList: List<ProjectsResponse.Project>) {
@@ -85,5 +123,9 @@ class HomeCariProjectBidsActivity : AppCompatActivity() {
     private fun showEmptyError(isError: Boolean, message: String) {
         binding.empty.llEmpty.visibility = if (isError) View.VISIBLE else View.GONE
         binding.empty.tvEmpty.text = message
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }

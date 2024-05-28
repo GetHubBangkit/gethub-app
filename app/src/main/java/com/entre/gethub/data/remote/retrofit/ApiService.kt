@@ -16,6 +16,7 @@ import com.entre.gethub.data.remote.response.profiles.UserProfileResponse
 import com.entre.gethub.data.remote.response.projects.MyProjectBidResponse
 import com.entre.gethub.data.remote.response.projects.ProjectDetailResponse
 import com.entre.gethub.data.remote.response.projects.ProjectsResponse
+import com.entre.gethub.data.remote.response.projects.SearchProjectResponse
 import okhttp3.MultipartBody
 import retrofit2.http.DELETE
 import retrofit2.http.Field
@@ -27,6 +28,7 @@ import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Part
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ApiService {
     // Auth
@@ -173,6 +175,9 @@ interface ApiService {
 
     @GET("projects/my/bids")
     suspend fun getMyProjectBids(): MyProjectBidResponse
+
+    @GET("projects/search")
+    suspend fun searchProjects(@Query("title") title: String): SearchProjectResponse
     // Projects
 
     // Verify Email
