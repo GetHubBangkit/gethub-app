@@ -120,7 +120,7 @@ class BidProjectStatusDetailActivity : AppCompatActivity() {
             adapter =
                 UserProjectBiddingAdapter(userProjectBiddingList) { user, _ ->
                     Toast.makeText(
-                        this@BidProjectStatusDetailActivity, // Gunakan requireContext() untuk mendapatkan Context yang benar
+                        this@BidProjectStatusDetailActivity,
                         "Clicked on actor: ${user.fullName}",
                         Toast.LENGTH_SHORT
                     ).show()

@@ -76,7 +76,7 @@ class BidProjectStatusActivity : AppCompatActivity() {
             )
             adapter = MyProjectBidsAdapter(myProjectBidList) { projectBid, _ ->
                 val intent = Intent(this@BidProjectStatusActivity, BidProjectStatusDetailActivity::class.java)
-                intent.putExtra(BidProjectStatusDetailActivity.EXTRA_PROJECT_BID_ID, projectBid.id)
+                intent.putExtra(BidProjectStatusDetailActivity.EXTRA_PROJECT_BID_ID, projectBid.projectId)
 
                 startActivity(intent)
             }

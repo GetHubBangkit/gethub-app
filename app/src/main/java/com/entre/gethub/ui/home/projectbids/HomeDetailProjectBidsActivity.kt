@@ -82,6 +82,7 @@ class HomeDetailProjectBidsActivity : AppCompatActivity() {
                             tvDetailProjectTotalUserBidsOnCard.text =
                                 projectBid?.totalBidders.toString()
                             tvDetailProjectTotalUserBids.text = projectBid?.totalBidders.toString()
+                            tvDetailProjectStatus.text = projectBid?.statusProject
 
                             showOwnerSentiment(projectBid?.ownerProject?.fullName!!)
                             tvDetailProjectOwnerName.text = projectBid?.ownerProject?.fullName
