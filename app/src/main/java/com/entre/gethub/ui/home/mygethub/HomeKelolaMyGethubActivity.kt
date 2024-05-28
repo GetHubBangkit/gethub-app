@@ -165,26 +165,7 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
                 startActivity(intent)
             },
             { linkId ->
-                homeKelolaMyGetHubViewModel.deleteLink(linkId)
-                    .observe(this@HomeKelolaMyGethubActivity) { result ->
-                        if (result != null) {
-                            when (result) {
-                                is Result.Loading -> showLoadingOnLink(true)
-                                is Result.Success -> {
-                                    showLoadingOnLink(false)
-                                    showToast(result.data.message.toString())
-                                    getLinkList()
-                                }
-                                is Result.Error -> {
-                                    showLoadingOnLink(false)
-                                    showToast(result.error)
-                                }
-                                else -> {
-                                    //
-                                }
-                            }
-                        }
-                    }
+                deleteLink(linkId)
             }
         )
         binding.recyclerViewHomeGethubLink.apply {
@@ -260,6 +241,35 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
     }
 
 
+    private fun deleteLink(linkId: String) {
+        homeKelolaMyGetHubViewModel.deleteLink(linkId)
+            .observe(this@HomeKelolaMyGethubActivity) { result ->
+                if (result != null) {
+                    when (result) {
+                        is Result.Loading -> showLoadingOnLink(true)
+                        is Result.Success -> {
+                            showLoadingOnLink(false)
+                            showToast(result.data.message.toString())
+                            // Hapus item terakhir dari daftar link yang dipegang oleh adapter
+                            val adapter = binding.recyclerViewHomeGethubLink.adapter as? HomeGethubLinkAdapter
+                            adapter?.removeGethubLink(linkId)
+
+                            // Periksa apakah daftar link menjadi kosong setelah menghapus item terakhir
+                            if (adapter?.itemCount == 0) {
+                                showEmptyErrorOnLink(true, "Daftar link kosong")
+                            }
+                        }
+                        is Result.Error -> {
+                            showLoadingOnLink(false)
+                            showToast(result.error)
+                        }
+                        else -> {
+                            //
+                        }
+                    }
+                }
+            }
+    }
 
 
     private fun deleteCertification(id: String) {

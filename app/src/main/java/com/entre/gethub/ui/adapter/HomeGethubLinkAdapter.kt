@@ -7,10 +7,11 @@ import com.entre.gethub.databinding.ItemHomeKelolamygethubLinkBinding
 import com.entre.gethub.ui.models.GethubLink
 
 class HomeGethubLinkAdapter(
-    private var gethubLinks: List<GethubLink>,
+    private var gethubLinks: MutableList<GethubLink>,
     private val itemClickListener: (GethubLink, Int) -> Unit,
     private val deleteClickListener: (String) -> Unit
 ) : RecyclerView.Adapter<HomeGethubLinkAdapter.ViewHolder>() {
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemHomeKelolamygethubLinkBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -22,12 +23,21 @@ class HomeGethubLinkAdapter(
         holder.bindItem(currentItem)
     }
 
+    fun removeGethubLink(linkId: String) {
+        val position = gethubLinks.indexOfFirst { it.id == linkId }
+        if (position != -1) {
+            gethubLinks.removeAt(position)
+            notifyItemRemoved(position)
+        }
+    }
     override fun getItemCount(): Int = gethubLinks.size
 
     fun updateGethubLinks(newLinks: List<GethubLink>) {
-        gethubLinks = newLinks
+        gethubLinks.clear()
+        gethubLinks.addAll(newLinks)
         notifyDataSetChanged()
     }
+
 
     class ViewHolder(
         private val binding: ItemHomeKelolamygethubLinkBinding,
