@@ -1,4 +1,4 @@
-package com.entre.gethub.ui.home.projectbids
+package com.entre.gethub.ui.project.bidproject
 
 import android.content.Intent
 import android.graphics.Typeface
@@ -8,7 +8,6 @@ import android.text.SpannableString
 import android.text.TextPaint
 import android.text.style.MetricAffectingSpan
 import android.view.View
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -20,15 +19,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.entre.gethub.R
 import com.entre.gethub.data.Result
+import com.entre.gethub.databinding.ActivityBidProjectStatusBinding
+import com.entre.gethub.databinding.ActivityBidProjectStatusDetailBinding
 import com.entre.gethub.databinding.ItemDetailProjectbidsBinding
 import com.entre.gethub.ui.adapter.UserProjectBiddingAdapter
-import com.entre.gethub.ui.models.ProjectBid
+import com.entre.gethub.ui.home.projectbids.HomeDetailProjectBidsFormActivity
 import com.entre.gethub.ui.models.UserProjectBidding
 import com.entre.gethub.utils.ViewModelFactory
 
-class HomeDetailProjectBidsActivity : AppCompatActivity() {
-    private lateinit var binding: ItemDetailProjectbidsBinding
-    private val homeDetailProjectBidsViewModel by viewModels<HomeDetailProjectBidsViewModel> {
+class BidProjectStatusDetailActivity : AppCompatActivity() {
+
+    private val binding by lazy { ActivityBidProjectStatusDetailBinding.inflate(layoutInflater) }
+    private val bidProjectStatusDetailViewModel by viewModels<BidProjectStatusDetailViewModel> {
         ViewModelFactory.getInstance(
             this
         )
@@ -36,21 +38,21 @@ class HomeDetailProjectBidsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ItemDetailProjectbidsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val projectBidId = intent.getStringExtra(EXTRA_PROJECT_ID)
+        val projectBidId = intent.getStringExtra(EXTRA_PROJECT_BID_ID)
 
-        getDetailProject(projectBidId!!)
+        projectBidId?.let {
+            getDetailProject(it)
+        }
 
         binding.iconBack.setOnClickListener {
             finish()
         }
-
     }
 
     private fun getDetailProject(id: String) {
-        homeDetailProjectBidsViewModel.getProjectDetail(id).observe(this) { result ->
+        bidProjectStatusDetailViewModel.getProjectDetail(id).observe(this) { result ->
             if (result != null) {
                 when (result) {
                     is Result.Loading -> showLoadingOnCard(true)
@@ -82,34 +84,15 @@ class HomeDetailProjectBidsActivity : AppCompatActivity() {
                             tvDetailProjectTotalUserBidsOnCard.text =
                                 projectBid?.totalBidders.toString()
                             tvDetailProjectTotalUserBids.text = projectBid?.totalBidders.toString()
-                            tvDetailProjectStatus.text = projectBid?.statusProject
 
                             showOwnerSentiment(projectBid?.ownerProject?.fullName!!)
                             tvDetailProjectOwnerName.text = projectBid?.ownerProject?.fullName
                             tvDetailProjectOwnerProfession.text =
                                 projectBid?.ownerProject?.profession
-                            Glide.with(this@HomeDetailProjectBidsActivity)
+                            Glide.with(this@BidProjectStatusDetailActivity)
                                 .load(projectBid?.ownerProject?.photo)
                                 .placeholder(R.drawable.profilepic2)
                                 .into(ivDetailProjectOwnerPic)
-                        }
-
-                        binding.btnIkutBidding.setOnClickListener {
-                            val intent =
-                                Intent(this, HomeDetailProjectBidsFormActivity::class.java)
-                            intent.putExtra(
-                                HomeDetailProjectBidsFormActivity.EXTRA_MIN_BUDGET,
-                                projectBid.minBudget
-                            )
-                            intent.putExtra(
-                                HomeDetailProjectBidsFormActivity.EXTRA_MAX_BUDGET,
-                                projectBid.maxBudget
-                            )
-                            intent.putExtra(
-                                HomeDetailProjectBidsFormActivity.EXTRA_PROJECT_ID,
-                                projectBid.id
-                            )
-                            startActivity(intent)
                         }
                     }
 
@@ -130,14 +113,14 @@ class HomeDetailProjectBidsActivity : AppCompatActivity() {
     private fun setupRecyclerViewUserBidding(userProjectBiddingList: List<UserProjectBidding>) {
         binding.rvDetailProjectBidUser.apply {
             layoutManager = LinearLayoutManager(
-                this@HomeDetailProjectBidsActivity,
+                this@BidProjectStatusDetailActivity,
                 LinearLayoutManager.HORIZONTAL,
                 false
             )
             adapter =
                 UserProjectBiddingAdapter(userProjectBiddingList) { user, _ ->
                     Toast.makeText(
-                        this@HomeDetailProjectBidsActivity, // Gunakan requireContext() untuk mendapatkan Context yang benar
+                        this@BidProjectStatusDetailActivity,
                         "Clicked on actor: ${user.fullName}",
                         Toast.LENGTH_SHORT
                     ).show()
@@ -220,10 +203,10 @@ class HomeDetailProjectBidsActivity : AppCompatActivity() {
     }
 
     private fun showToast(message: String) {
-        Toast.makeText(this@HomeDetailProjectBidsActivity, message, Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
     companion object {
-        const val EXTRA_PROJECT_ID = "extra_project_id"
+        const val EXTRA_PROJECT_BID_ID = "extra_project_bid_id"
     }
 }

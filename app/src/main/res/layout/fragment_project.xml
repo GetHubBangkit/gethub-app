@@ -5,14 +5,14 @@
     android:id="@+id/nestedScrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    android:background="@color/background">
+    android:background="@color/background"
+    android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/background"
-    tools:context=".ui.project.ProjectFragment">
+        tools:context=".ui.project.ProjectFragment">
 
 
         <ImageView
@@ -92,7 +92,6 @@
             android:layout_width="110dp"
             android:layout_height="88dp"
             android:layout_marginTop="20dp"
-
             android:src="@drawable/projectblue"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
@@ -111,7 +110,7 @@
             android:textSize="30sp"
             app:fontFamily="@font/poppins_bold"
             app:layout_constraintEnd_toEndOf="@+id/ivBidProject"
-             app:layout_constraintStart_toStartOf="@+id/ivBidProject"
+            app:layout_constraintStart_toStartOf="@+id/ivBidProject"
             app:layout_constraintTop_toTopOf="@+id/ivBidProject" />
 
         <TextView
@@ -128,7 +127,6 @@
             app:layout_constraintEnd_toEndOf="@+id/ivBidProject"
             app:layout_constraintStart_toStartOf="@+id/ivBidProject"
             app:layout_constraintTop_toBottomOf="@+id/text_bidproject" />
-
 
 
         <ImageView
@@ -181,8 +179,8 @@
             android:id="@+id/toptalentgethub"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
             android:layout_marginStart="18dp"
+            android:layout_marginTop="18dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ivPostProject">
 
@@ -205,7 +203,6 @@
         </LinearLayout>
 
 
-
         <ImageView
             android:id="@+id/search"
             android:layout_width="24dp"
@@ -222,10 +219,7 @@
             android:id="@+id/recyclerViewTop"
             android:layout_width="match_parent"
             android:layout_height="59dp"
-
-
             android:layout_marginTop="13dp"
-
             android:orientation="horizontal"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -236,8 +230,8 @@
             android:id="@+id/rekomendasiprojectbid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_marginStart="18dp"
+            android:layout_marginTop="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recyclerViewTop">
 
@@ -260,7 +254,6 @@
         </LinearLayout>
 
 
-
         <ImageView
             android:id="@+id/search2"
             android:layout_width="24dp"
@@ -274,17 +267,16 @@
             app:layout_constraintTop_toBottomOf="@+id/recyclerViewTop" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewRekomendasiProjectBid"
+            android:id="@+id/rvRekomendasiProjectBid"
             android:layout_width="match_parent"
-            android:layout_height="359dp"
-
+            android:layout_height="0dp"
             android:layout_marginTop="12dp"
-
             android:orientation="vertical"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rekomendasiprojectbid" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rekomendasiprojectbid"
+            tools:listitem="@layout/item_project_rekomendasijobbid" />
 
         <ImageView
             android:id="@+id/fabPostProject"
@@ -297,5 +289,28 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.897" />
+
+        <ProgressBar
+            android:id="@+id/progressBarOnProjectBids"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/rvRekomendasiProjectBid"
+            app:layout_constraintEnd_toEndOf="@id/rvRekomendasiProjectBid"
+            app:layout_constraintStart_toStartOf="@id/rvRekomendasiProjectBid"
+            app:layout_constraintTop_toTopOf="@id/rvRekomendasiProjectBid"
+            tools:visibility="visible" />
+
+        <include
+            android:id="@+id/emptyOnProjectBids"
+            layout="@layout/item_empty_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/rvRekomendasiProjectBid"
+            app:layout_constraintEnd_toEndOf="@id/rvRekomendasiProjectBid"
+            app:layout_constraintStart_toStartOf="@id/rvRekomendasiProjectBid"
+            app:layout_constraintTop_toTopOf="@id/rvRekomendasiProjectBid" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

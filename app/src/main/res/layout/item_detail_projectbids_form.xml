@@ -19,12 +19,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textgethub"
+        android:id="@+id/tvDaftarBidding"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="7dp"
         android:fontFamily="@font/poppins_bold"
-        android:text="Butuh Konten Kreator"
+        android:text="Daftar Bidding"
         android:textColor="@android:color/white"
         android:textSize="18sp"
         app:fontFamily="@font/nunito_extrabold"
@@ -46,205 +46,203 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/framedetail"
-        android:layout_width="373dp"
-        android:layout_height="496dp"
-        android:layout_marginTop="12dp"
-        android:src="@drawable/rectanglewhite2"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.703"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textgethub" />
-
-    <ImageView
-        android:id="@+id/framered"
-        android:layout_width="316dp"
-        android:layout_height="78dp"
-        android:layout_marginTop="20dp"
-        android:src="@drawable/frameredterang"
-        app:layout_constraintEnd_toEndOf="@+id/framedetail"
-        app:layout_constraintStart_toStartOf="@+id/framedetail"
-        app:layout_constraintTop_toTopOf="@+id/framedetail" />
-
-    <ImageView
-        android:id="@+id/icon_money"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginTop="8dp"
-        android:src="@drawable/detail_money"
-        app:layout_constraintEnd_toEndOf="@+id/framedetail"
-        app:layout_constraintHorizontal_bias="0.083"
-        app:layout_constraintStart_toStartOf="@+id/framedetail"
-        app:layout_constraintTop_toBottomOf="@+id/teksbudgetdimiliki" />
-
-    <TextView
-        android:id="@+id/texdescdetail"
-        style="@style/Nunito"
-        android:layout_width="300dp"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvForm"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Dilarang keras untuk bertransaksi di luar aplikasi
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="12dp"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvDaftarBidding">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="20dp">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvFormWarning"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/color_warning_on_form"
+                app:cardCornerRadius="10dp"
+                app:contentPadding="8dp"
+                app:cardElevation="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/texdescdetail"
+                    style="@style/Nunito"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Dilarang keras untuk bertransaksi di luar aplikasi
 melalui rekening pribadi untuk menghindari penipuan
 dan lakukan pekerjaan mu dengan baik dan benar
 dan kerjakan dengan maksimal"
-        android:textColor="@color/black"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/framered"
-        app:layout_constraintEnd_toEndOf="@+id/framered"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
 
-        app:layout_constraintStart_toStartOf="@+id/framered"
-        app:layout_constraintTop_toTopOf="@+id/framered" />
+            </androidx.cardview.widget.CardView>
 
-    <TextView
-        android:id="@+id/teksbudgetdimiliki"
-        style="@style/Nunito"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="Budget yg dimiliki oleh pemberi project"
-        android:textColor="@color/black"
-        android:textSize="13sp"
-        app:layout_constraintBottom_toBottomOf="@+id/framedetail"
-        app:layout_constraintEnd_toEndOf="@+id/framedetail"
+            <TextView
+                android:id="@+id/teksbudgetdimiliki"
+                style="@style/Nunito"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Budget yg dimiliki oleh pemberi project"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cvFormWarning" />
 
-        app:layout_constraintHorizontal_bias="0.397"
-        app:layout_constraintStart_toStartOf="@+id/framedetail"
-        app:layout_constraintTop_toBottomOf="@+id/framered"
-        app:layout_constraintVertical_bias="0.021" />
+            <ImageView
+                android:id="@+id/icon_money"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/detail_money"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/teksbudgetdimiliki" />
 
-    <TextView
-        android:id="@+id/rekrutprice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:fontFamily="@font/nunito_extrabold"
-        android:text="Rp 3,000,000 - 4,500,000"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        app:fontFamily="@font/nunito_extrabold"
-        app:layout_constraintBottom_toBottomOf="@+id/framedetail"
-        app:layout_constraintEnd_toEndOf="@+id/framedetail"
-        app:layout_constraintHorizontal_bias="0.04"
+            <TextView
+                android:id="@+id/tvFormPriceRange"
+                style="@style/Nunito.ExtraBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="Rp 3,000,000 - 4,500,000"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@id/icon_money"
+                app:layout_constraintStart_toEndOf="@+id/icon_money"
+                app:layout_constraintTop_toTopOf="@id/icon_money" />
 
-        app:layout_constraintStart_toEndOf="@+id/icon_money"
+            <TextView
+                android:id="@+id/tvHarga"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/nunito_bold"
+                android:text="Nilai Bid yang Kamu Tawarkan"
+                android:textColor="@color/darkBlue"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvFormPriceRange" />
 
-        app:layout_constraintTop_toBottomOf="@+id/teksbudgetdimiliki"
-        app:layout_constraintVertical_bias="0.032" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/budgetBidTextField"
+                style="@style/AuthTextInputLayoutComplete"
+                android:layout_width="match_parent"
+                android:layout_height="37dp"
+                android:minHeight="47dp"
+                app:layout_constraintTop_toBottomOf="@+id/tvHarga">
 
-    <TextView
-        android:id="@+id/tvHarga"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="20dp"
-        android:fontFamily="@font/nunito_bold"
-        android:text="Nilai Bid yang Kamu Tawarkan"
-        android:textColor="@color/darkBlue"
-        app:layout_constraintStart_toStartOf="@+id/framedetail"
-        app:layout_constraintTop_toBottomOf="@+id/rekrutprice" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="37dp"
+                    android:layout_marginTop="10dp"
+                    android:hint="2000000"
+                    android:inputType="number"
+                    android:paddingVertical="1dp"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/hargaTextField"
-        style="@style/AuthTextInputLayoutComplete"
-        android:layout_width="316dp"
-        android:layout_height="37dp"
-        android:layout_marginHorizontal="40dp"
-        android:minHeight="47dp"
-        app:layout_constraintEnd_toEndOf="@+id/framedetail"
+            <TextView
+                android:id="@+id/tvPesan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/nunito_bold"
+                android:text="Pesan"
+                android:textColor="@color/darkBlue"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/budgetBidTextField" />
 
-        app:layout_constraintStart_toStartOf="@+id/framedetail"
-        app:layout_constraintTop_toBottomOf="@+id/tvHarga"
-        app:startIconTint="@color/teal">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/messageTextField"
+                style="@style/AuthTextInputLayoutComplete"
+                android:layout_width="match_parent"
+                android:layout_height="114dp"
+                android:minHeight="47dp"
+                app:layout_constraintTop_toBottomOf="@id/tvPesan"
+                app:startIconTint="@color/teal">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="316dp"
-            android:layout_height="37dp"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="10dp"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="114dp"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="start|top"
+                    android:hint="Tulis pesan"
+                    android:inputType="textMultiLine"
+                    android:minLines="3"
+                    android:maxLines="6"
+                    android:paddingVertical="2dp"
+                    android:scrollbars="vertical"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            android:paddingTop="1dp"
-            android:paddingBottom="1dp"
-            android:textSize="14sp" />
-    </com.google.android.material.textfield.TextInputLayout>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvFormWarningFee"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@color/color_sentiment_neutral"
+                app:cardCornerRadius="10dp"
+                app:contentPadding="8dp"
+                app:cardElevation="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/messageTextField">
 
-    <TextView
-        android:id="@+id/tvDeskripsi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="15dp"
-        android:fontFamily="@font/nunito_bold"
-        android:text="Pesan"
-        android:textColor="@color/darkBlue"
-        app:layout_constraintStart_toStartOf="@+id/framedetail"
-        app:layout_constraintTop_toBottomOf="@+id/hargaTextField" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/deskripsiTextField"
-        style="@style/AuthTextInputLayoutComplete"
-        android:layout_width="316dp"
-        android:layout_height="114dp"
-        android:layout_marginHorizontal="40dp"
-        android:minHeight="47dp"
-        app:layout_constraintEnd_toEndOf="@+id/framedetail"
-
-        app:layout_constraintStart_toStartOf="@+id/framedetail"
-        app:layout_constraintTop_toBottomOf="@+id/tvDeskripsi"
-        app:startIconTint="@color/teal">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="316dp"
-            android:layout_height="114dp"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="10dp"
-
-            android:paddingTop="1dp"
-            android:paddingBottom="1dp"
-            android:textSize="14sp" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <ImageView
-        android:id="@+id/frameyellow"
-        android:layout_width="316dp"
-        android:layout_height="78dp"
-        android:layout_marginTop="10dp"
-
-        android:src="@drawable/frame3"
-        app:layout_constraintEnd_toEndOf="@id/framedetail"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="@id/framedetail"
-        app:layout_constraintTop_toBottomOf="@+id/deskripsiTextField" />
-
-    <TextView
-        android:id="@+id/teksanalisis"
-        style="@style/Nunito"
-        android:layout_width="292dp"
-        android:layout_height="64dp"
-        android:layout_marginTop="1dp"
-        android:text="Fee Biaya Aplikasi adalah 10% dari total Nilai Bid
+                <TextView
+                    android:id="@+id/tvFormWarningFee"
+                    style="@style/Nunito"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Fee Biaya Aplikasi adalah 10% dari total Nilai Bid
 yg kamu tawarkan, kamu dapat melakukan settlement
 pembayaran ke rekening kamu setelah pekerjaan
 selesai"
-        android:textColor="@color/black"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/frameyellow"
-        app:layout_constraintEnd_toEndOf="@+id/frameyellow"
-        app:layout_constraintHorizontal_bias="0.437"
-        app:layout_constraintStart_toStartOf="@+id/frameyellow"
-        app:layout_constraintTop_toTopOf="@+id/frameyellow"
-        app:layout_constraintVertical_bias="0.3" />
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+            </androidx.cardview.widget.CardView>
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="visible" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.cardview.widget.CardView>
 
 
     <Button
-        android:id="@+id/btnKirim"
+        android:id="@+id/btnSend"
         style="@style/CustomButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="40dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:text="Kirim"
-        app:layout_constraintTop_toBottomOf="@+id/framedetail" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cvForm" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

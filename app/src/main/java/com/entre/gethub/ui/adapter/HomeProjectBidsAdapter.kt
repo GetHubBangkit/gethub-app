@@ -1,48 +1,67 @@
 package com.entre.gethub.ui.adapter
 
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
-import com.entre.gethub.ui.models.ProjectBid
+import com.bumptech.glide.Glide
+import com.entre.gethub.R
+import com.entre.gethub.data.remote.response.projects.ProjectsResponse
 import com.entre.gethub.databinding.ItemProjectRekomendasijobbidBinding
+import com.entre.gethub.utils.DateUtils
 
 
 class HomeProjectBidsAdapter(
 
-    private val ProjectBidsList: ArrayList<ProjectBid>,
-    private val listener: (ProjectBid, Int) -> Unit
+    private val projectBidList: List<ProjectsResponse.Project>,
+    private val listener: (ProjectsResponse.Project, Int) -> Unit
 ) :
     RecyclerView.Adapter<HomeProjectBidsAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val v = ItemProjectRekomendasijobbidBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val v = ItemProjectRekomendasijobbidBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
         return ViewHolder(v)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindItem(ProjectBidsList[position])
-        holder.itemView.setOnClickListener { listener(ProjectBidsList[position], position) }
+        holder.bindItem(projectBidList[position])
+        holder.itemView.setOnClickListener { listener(projectBidList[position], position) }
     }
 
     override fun getItemCount(): Int {
-        return ProjectBidsList.size
+        return projectBidList.size
     }
 
-    class ViewHolder(private val itemBinding: ItemProjectRekomendasijobbidBinding) :
-        RecyclerView.ViewHolder(itemBinding.root) {
+    class ViewHolder(private val binding: ItemProjectRekomendasijobbidBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-        fun bindItem(ProjectBids: ProjectBid) {
-            itemBinding.profilepic2.setImageResource(ProjectBids.profilepic2)
-            itemBinding.rekomendasiprofilename.text = ProjectBids.rekomendasiprofilename
-            itemBinding.rekomendasiprofiledesc.text = ProjectBids.rekomendasiprofiledesc
-            itemBinding.rekrutproject.text = ProjectBids.rekrutproject
-            itemBinding.rekrutprice.text = ProjectBids.rekrutprice
-            itemBinding.rekrutprojectdesc.text = ProjectBids.rekrutprojectdesc
-            itemBinding.rekrutprojecttotal.text = ProjectBids.rekrutprojecttotal
-            itemBinding.rekrutprojectdate.text = ProjectBids.rekrutprojectdate
-            itemBinding.rekrutprojectdeadline.text = ProjectBids.rekrutprojectdeadline
+        @RequiresApi(Build.VERSION_CODES.O)
+        fun bindItem(projectBid: ProjectsResponse.Project) {
+            with(binding) {
+                val postDate = DateUtils.formatPostDate(projectBid.createdDate!!)
 
+                // Project Owner
+                Glide.with(itemView.context)
+                    .load(projectBid.ownerProject?.photo)
+                    .placeholder(R.drawable.profilepic2)
+                    .into(ivProjectOwnerPic)
+                tvProjectOwnerName.text = projectBid.ownerProject?.fullName
+                tvProjectOwnerProfession.text = projectBid.ownerProject?.profession
 
+                // Project Data
+                tvProjectTitle.text = projectBid.title
+                tvProjectPriceRange.text = "Rp ${projectBid.minBudget} - Rp ${projectBid.maxBudget}"
+                tvProjectDesc.text = projectBid.description
+                tvProjectTotalUserBids.text = "Total User Bids: 5 User"
+                tvProjectPostDate.text = "Diunggah: $postDate"
+                tvProjectDeadline.text = "Deadline: ${projectBid.deadlineDuration} Hari"
+            }
         }
     }
 

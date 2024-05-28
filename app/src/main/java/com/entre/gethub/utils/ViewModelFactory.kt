@@ -14,6 +14,7 @@ import com.entre.gethub.data.repositories.InformationHubRepository
 import com.entre.gethub.data.repositories.LinkRepository
 import com.entre.gethub.data.repositories.ProductRepository
 import com.entre.gethub.data.repositories.ProfileRepository
+import com.entre.gethub.data.repositories.ProjectRepository
 import com.entre.gethub.data.repositories.ScanCardRepository
 import com.entre.gethub.data.repositories.SponsorRepository
 import com.entre.gethub.di.Injection
@@ -33,6 +34,12 @@ import com.entre.gethub.ui.home.mygethub.certification.HomeKelolaMyGethubTambahS
 import com.entre.gethub.ui.home.mygethub.link.HomeKelolaMyGethubTambahLinkViewModel
 import com.entre.gethub.ui.home.mygethub.product.HomeKelolaMyGethubEditProdukViewModel
 import com.entre.gethub.ui.home.mygethub.product.HomeKelolaMyGethubTambahProdukViewModel
+import com.entre.gethub.ui.home.projectbids.HomeCariProjectBidsViewModel
+import com.entre.gethub.ui.home.projectbids.HomeDetailProjectBidsFormViewModel
+import com.entre.gethub.ui.home.projectbids.HomeDetailProjectBidsViewModel
+import com.entre.gethub.ui.project.ProjectViewModel
+import com.entre.gethub.ui.project.bidproject.BidProjectStatusDetailViewModel
+import com.entre.gethub.ui.project.bidproject.BidProjectStatusViewModel
 import com.entre.gethub.ui.splash.SplashViewModel
 
 class ViewModelFactory private constructor(
@@ -47,6 +54,7 @@ class ViewModelFactory private constructor(
     private val linkRepository: LinkRepository,
     private val categoryRepository: CategoryRepository,
     private val scanCardRepository: ScanCardRepository,
+    private val projectRepository: ProjectRepository,
     private val cariTalentRepository: CariTalentRepository
 ) : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -112,6 +120,26 @@ class ViewModelFactory private constructor(
                 gethubRepository
             ) as T
 
+            HomeCariProjectBidsViewModel::class.java -> HomeCariProjectBidsViewModel(
+                projectRepository
+            ) as T
+
+            HomeDetailProjectBidsViewModel::class.java -> HomeDetailProjectBidsViewModel(
+                projectRepository
+            ) as T
+
+            HomeDetailProjectBidsFormViewModel::class.java -> HomeDetailProjectBidsFormViewModel(
+                projectRepository
+            ) as T
+
+            BidProjectStatusViewModel::class.java -> BidProjectStatusViewModel(projectRepository) as T
+
+            BidProjectStatusDetailViewModel::class.java -> BidProjectStatusDetailViewModel(
+                projectRepository
+            ) as T
+
+            ProjectViewModel::class.java -> ProjectViewModel(projectRepository) as T
+
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }
     }
@@ -130,7 +158,8 @@ class ViewModelFactory private constructor(
                 Injection.provideLinkRepository(context),
                 Injection.provideCategoryRepository(context),
                 Injection.provideScanCardRepository(context),
-                Injection.provideCariTalentRepository(context)
+                Injection.provideProjectRepository(context),
+                Injection.provideCariTalentRepository(context),
             )
     }
 }

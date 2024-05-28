@@ -12,6 +12,7 @@ import com.entre.gethub.data.repositories.InformationHubRepository
 import com.entre.gethub.data.repositories.LinkRepository
 import com.entre.gethub.data.repositories.ProductRepository
 import com.entre.gethub.data.repositories.ProfileRepository
+import com.entre.gethub.data.repositories.ProjectRepository
 import com.entre.gethub.data.repositories.ScanCardRepository
 import com.entre.gethub.data.repositories.SponsorRepository
 import kotlinx.coroutines.flow.first
@@ -75,6 +76,13 @@ object Injection {
         return CategoryRepository.getInstance(ApiConfig.getApiService(context, token))
     }
 
+    fun provideProjectRepository(context: Context): ProjectRepository {
+        val pref = provideUserPreferences(context)
+        val token = runBlocking { pref.getToken().first() }
+        return ProjectRepository.getInstance(ApiConfig.getApiService(context, token))
+    }
+
+    // ML API Service
     fun provideScanCardRepository(context: Context): ScanCardRepository {
         val pref = provideUserPreferences(context)
         val token = runBlocking { pref.getToken().first() }

@@ -8,51 +8,65 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.entre.gethub.ui.models.ProjectBid
 import com.entre.gethub.R
+import com.entre.gethub.data.Result
+import com.entre.gethub.data.remote.response.projects.ProjectsResponse
 import com.entre.gethub.ui.models.TopTalent
 import com.entre.gethub.databinding.FragmentProjectBinding
 import com.entre.gethub.ui.adapter.HomeProjectBidsAdapter
 import com.entre.gethub.ui.adapter.TopTalentAdapter
+import com.entre.gethub.ui.home.projectbids.HomeDetailProjectBidsActivity
+import com.entre.gethub.ui.project.bidproject.BidProjectStatusActivity
+import com.entre.gethub.utils.ViewModelFactory
 
 class ProjectFragment : Fragment() {
 
     private var _binding: FragmentProjectBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
+
+    private val projectViewModel by viewModels<ProjectViewModel> {
+        ViewModelFactory.getInstance(
+            requireContext()
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val projectViewModel =
-            ViewModelProvider(this).get(ProjectViewModel::class.java)
-
         _binding = FragmentProjectBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-//        val textView: TextView = binding.textProject
-        projectViewModel.text.observe(viewLifecycleOwner) {
-//            textView.text = it
-        }
-        // Panggil setupRecyclerView() di sini
         setupRecyclerView()
 
-        setupRecyclerViewProjectBid()
+        setupClickListener()
 
-
+        getAllProjectBids()
 
         return root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getAllProjectBids()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun setupClickListener() {
+        with(binding) {
+            ivBidProject.setOnClickListener {
+                navigateToActivity(BidProjectStatusActivity())
+            }
+        }
     }
 
     private fun navigateToActivity(activity: AppCompatActivity) {
@@ -113,91 +127,58 @@ class ProjectFragment : Fragment() {
         )
     }
 
-//    private fun setupRecyclerViewProjectBid() {
-//        binding.recyclerViewRekomendasiProjectBid.apply {
-//            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-//            adapter = RekomendasiProjectBidAdapter(createProjectBidList()) { projectbid, position ->
-//                Toast.makeText(
-//                    this@ProjectFragment.requireContext(), // Gunakan requireContext() untuk mendapatkan Context yang benar
-//                    "Clicked on actor: ${projectbid.rekomendasiprofilename}",
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//            }
-//        }
-//    }
+    private fun getAllProjectBids() {
+        projectViewModel.getProjects().observe(viewLifecycleOwner) { result ->
+            if (result != null) {
+                when (result) {
+                    is Result.Loading -> showLoadingOnProjectBids(true)
+                    is Result.Success -> {
+                        showLoadingOnProjectBids(false)
+                        setupRecyclerViewProjectBid(result.data.data?.projects!!)
+                    }
 
-//    private fun createProjectBidList(): ArrayList<ProjectBid> {
-//        return arrayListOf<ProjectBid>(
-//            ProjectBid(
-//
-//                "Ajay Devgan",
-//                R.drawable.profilepic1,
-//                "Software Enginer",
-//                "UI UX Designer",
-//                "Dibutuhkan UI UX Designer yg memiliki jiwa seni untuk membuat layout Aplikasi sesuai dengan recruitment yg telah saya tentukan dengan thema Coffee Shop ",
-//                "Rp 3,000,000 - 4,500,000",
-//                "Deadline : 10 Days",
-//                "Total User Bids : 10 Users",
-//                "Di Post : 20-04-2024"
-//
-//
-//            ),
-//            ProjectBid(
-//                "Ajay Devgan",
-//                R.drawable.profilepic1,
-//                "Software Enginer",
-//                "Butuh Konten Kreator   ",
-//                "Sedang Mencari Konten Kreator untuk pembuatan konten makanan dan untuk promosi warung rumah makanan yg baru buka di butuhkan segera",
-//                "Rp 3,000,000 - 4,500,000",
-//                "Deadline : 10 Days",
-//                "Total User Bids : 10 Users",
-//                "Di Post : 20-04-2024"
-//
-//            )
-//        )
-//    }
+                    is Result.Empty -> {
+                        showLoadingOnProjectBids(false)
+                        showEmptyOnProjectBids(true, result.emptyError)
+                    }
 
-    private fun setupRecyclerViewProjectBid() {
-        binding.recyclerViewRekomendasiProjectBid.apply {
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            adapter = HomeProjectBidsAdapter(createProjectBidList()) { projectBid, position ->
-                // Handling item click event
-                // Di sini, Anda dapat menangani klik item proyek sesuai dengan kebutuhan
-                // Misalnya, menampilkan pesan toast atau melakukan aksi tertentu
-                Toast.makeText(requireContext(), "Clicked on project: ${projectBid.rekomendasiprofilename}", Toast.LENGTH_SHORT).show()
+                    is Result.Error -> {
+                        showLoadingOnProjectBids(false)
+                        showToast(result.error)
+                    }
+                }
             }
         }
     }
 
-
-
-
-    private fun createProjectBidList(): ArrayList<ProjectBid> {
-        return arrayListOf<ProjectBid>(
-            ProjectBid(
-                "Ajay Devgan",
-                R.drawable.profilepic1,
-                "Software Engineer",
-                "UI UX Designer",
-                "Dibutuhkan UI UX Designer yg memiliki jiwa seni untuk membuat layout Aplikasi sesuai dengan recruitment yg telah saya tentukan dengan thema Coffee Shop ",
-                "Rp 3,000,000 - 4,500,000", // Harga rekrut
-                "Deadline : 10 Days", // Deadline proyek
-                "Total User Bids : 5 Users", // Total proyek
-                "Di Post : 20-04-2024", // Tanggal proyek
-                "2 Mei 2024 - 12 Mei 2024" // Tanggal awal-akhir
-            ),
-            ProjectBid(
-                "Michael",
-                R.drawable.profilepic1,
-                "Software Engineer",
-                "Butuh Konten Kreator",
-                "Sedang Mencari Konten Kreator untuk pembuatan konten makanan dan untuk promosi warung rumah makanan yg baru buka di butuhkan segera",
-                "Rp 400,000 - 500,000", // Harga rekrut
-                "Deadline : 5 Days", // Deadline proyek
-                "Total User Bids : 5 Users", // Total proyek
-                "Di Post : 20-04-2024", // Tanggal proyek
-                "2 Mei 2024 - 12 Mei 2024" // Tanggal awal-akhir
+    private fun setupRecyclerViewProjectBid(projectBidList: List<ProjectsResponse.Project>) {
+        binding.rvRekomendasiProjectBid.apply {
+            layoutManager = LinearLayoutManager(
+                requireContext(),
+                LinearLayoutManager.VERTICAL,
+                false
             )
-        )
+            adapter = HomeProjectBidsAdapter(projectBidList) { projectBid, _ ->
+                val intent = Intent(
+                    requireContext(),
+                    HomeDetailProjectBidsActivity::class.java
+                )
+                intent.putExtra(HomeDetailProjectBidsActivity.EXTRA_PROJECT_ID, projectBid.id)
+                startActivity(intent)
+            }
+        }
+    }
+
+    private fun showLoadingOnProjectBids(isLoading: Boolean) {
+        binding.progressBarOnProjectBids.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    private fun showEmptyOnProjectBids(isEmpty: Boolean, message: String) {
+        binding.emptyOnProjectBids.llEmpty.visibility = if (isEmpty) View.VISIBLE else View.GONE
+        binding.emptyOnProjectBids.tvEmpty.text = message
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 }

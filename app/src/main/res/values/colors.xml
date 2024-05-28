@@ -183,4 +183,9 @@
 
     <color name="post_project_warning">#FFF1C2</color>
     <color name="edit_text_unfocused">#F9FAFB</color>
+    <color name="color_sentiment_neutral">#FFF1C2</color>
+    <color name="color_sentiment_positive">#CCF6FF</color>
+    <color name="color_sentiment_negative">#FFCADA</color>
+    <color name="color_project_bid_status">#00B994</color>
+    <color name="color_warning_on_form">#FFE7EF</color>
 </resources>
