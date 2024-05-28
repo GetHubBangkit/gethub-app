@@ -140,7 +140,10 @@ class ViewModelFactory private constructor(
 
             ProjectViewModel::class.java -> ProjectViewModel(projectRepository) as T
 
-            PostProjectViewModel::class.java -> PostProjectViewModel(categoryRepository) as T
+            PostProjectViewModel::class.java -> PostProjectViewModel(
+                categoryRepository,
+                projectRepository
+            ) as T
 
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }

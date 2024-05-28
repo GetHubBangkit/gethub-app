@@ -7,7 +7,6 @@ import com.entre.gethub.data.remote.response.LinkResponse
 import com.entre.gethub.data.remote.response.SponsorResponse
 import com.entre.gethub.data.remote.response.UploadFileResponse
 import com.entre.gethub.data.remote.response.auth.LoginResponse
-import com.entre.gethub.data.remote.response.certifications.Certification
 import com.entre.gethub.data.remote.response.certifications.CertificationListResponse
 import com.entre.gethub.data.remote.response.certifications.CertificationResponse
 import com.entre.gethub.data.remote.response.partners.AddPartnerResponse
@@ -17,6 +16,7 @@ import com.entre.gethub.data.remote.response.products.ProductResponse
 import com.entre.gethub.data.remote.response.profiles.UpdateUserProfileResponse
 import com.entre.gethub.data.remote.response.profiles.UserProfileResponse
 import com.entre.gethub.data.remote.response.projects.MyProjectBidResponse
+import com.entre.gethub.data.remote.response.projects.PostProjectResponse
 import com.entre.gethub.data.remote.response.projects.ProjectDetailResponse
 import com.entre.gethub.data.remote.response.projects.ProjectsResponse
 import com.entre.gethub.data.remote.response.projects.SearchProjectResponse
@@ -181,6 +181,18 @@ interface ApiService {
 
     @GET("projects/search")
     suspend fun searchProjects(@Query("title") title: String): SearchProjectResponse
+
+    @FormUrlEncoded
+    @POST("projects")
+    suspend fun postProject(
+        @Field("title") title: String,
+        @Field("category_id") categoryId: String,
+        @Field("description") description: String,
+        @Field("min_budget") minBudget: Int,
+        @Field("max_budget") maxBudget: Int,
+        @Field("min_deadline") minDeadline: String,
+        @Field("max_deadline") maxDeadline: String,
+    ): PostProjectResponse
     // Projects
 
     // Verify Email

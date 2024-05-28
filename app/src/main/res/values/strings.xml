@@ -43,4 +43,5 @@
     <string name="failed_to_fetch_categories">Gagal mendapatkan kategori</string>
     <string name="search_project_hint">Cari project</string>
     <string name="post_project_warning">Pastikan untuk tidak bertransaksi di luar aplikasi dan hindari menghubungi langsung pengguna yang menawarkan bid. Aplikasi telah dilengkapi dengan sistem Machine Learning untuk memeriksa keaslian Project yang kamu berikan. Pelanggaran aturan ini dapat mengakibatkan pembekuan akunmu.</string>
+    <string name="account_is_not_verified">Akun belum terverifikasi</string>
 </resources>

@@ -416,7 +416,7 @@
 
 
         <Button
-            android:id="@+id/btnSubscribe"
+            android:id="@+id/btnPost"
             style="@style/CustomButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
