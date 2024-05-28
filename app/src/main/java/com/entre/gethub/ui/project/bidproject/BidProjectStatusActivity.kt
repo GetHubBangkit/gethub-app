@@ -55,6 +55,7 @@ class BidProjectStatusActivity : AppCompatActivity() {
 
                     is Result.Empty -> {
                         showLoading(false)
+                        binding.tvTotalMyProjectBids.text = "0"
                         showEmptyError(true, result.emptyError)
                     }
 

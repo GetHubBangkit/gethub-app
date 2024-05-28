@@ -267,7 +267,7 @@
             app:layout_constraintTop_toBottomOf="@+id/recyclerViewTop" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewRekomendasiProjectBid"
+            android:id="@+id/rvRekomendasiProjectBid"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="12dp"
@@ -275,7 +275,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rekomendasiprojectbid" />
+            app:layout_constraintTop_toBottomOf="@id/rekomendasiprojectbid"
+            tools:listitem="@layout/item_project_rekomendasijobbid" />
 
         <ImageView
             android:id="@+id/fabPostProject"
@@ -288,5 +289,28 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.897" />
+
+        <ProgressBar
+            android:id="@+id/progressBarOnProjectBids"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/rvRekomendasiProjectBid"
+            app:layout_constraintEnd_toEndOf="@id/rvRekomendasiProjectBid"
+            app:layout_constraintStart_toStartOf="@id/rvRekomendasiProjectBid"
+            app:layout_constraintTop_toTopOf="@id/rvRekomendasiProjectBid"
+            tools:visibility="visible" />
+
+        <include
+            android:id="@+id/emptyOnProjectBids"
+            layout="@layout/item_empty_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/rvRekomendasiProjectBid"
+            app:layout_constraintEnd_toEndOf="@id/rvRekomendasiProjectBid"
+            app:layout_constraintStart_toStartOf="@id/rvRekomendasiProjectBid"
+            app:layout_constraintTop_toTopOf="@id/rvRekomendasiProjectBid" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

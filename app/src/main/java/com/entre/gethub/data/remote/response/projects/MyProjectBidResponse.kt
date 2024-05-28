@@ -20,63 +20,6 @@ data class MyProjectBidResponse(
     val message: String? = null
 ) : Parcelable {
     @Parcelize
-    data class OwnerProject(
-
-        @field:SerializedName("full_name")
-        val fullName: String? = null,
-
-        @field:SerializedName("photo")
-        val photo: String? = null,
-
-        @field:SerializedName("email")
-        val email: String? = null,
-
-        @field:SerializedName("username")
-        val username: String? = null
-    ) : Parcelable
-
-    @Parcelize
-    data class Data(
-
-        @field:SerializedName("users_bid")
-        val usersBid: List<UsersBidItem>,
-
-        @field:SerializedName("total_bids")
-        val totalBids: Int? = null
-    ) : Parcelable
-
-    @Parcelize
-    data class UsersBidItem(
-
-        @field:SerializedName("createdAt")
-        val createdAt: String? = null,
-
-        @field:SerializedName("project_id")
-        val projectId: String? = null,
-
-        @field:SerializedName("user_id")
-        val userId: String? = null,
-
-        @field:SerializedName("is_selected")
-        val isSelected: Boolean? = null,
-
-        @field:SerializedName("budget_bid")
-        val budgetBid: Int? = null,
-
-        @field:SerializedName("project")
-        val project: Project? = null,
-
-        @field:SerializedName("id")
-        val id: String? = null,
-
-        @field:SerializedName("message")
-        val message: String? = null,
-
-        @field:SerializedName("updatedAt")
-        val updatedAt: String? = null
-    ) : Parcelable
-
-    @Parcelize
     data class Project(
 
         @field:SerializedName("deadline_duration")
@@ -150,6 +93,63 @@ data class MyProjectBidResponse(
 
         @field:SerializedName("updatedAt")
         val updatedAt: String? = null
+    ) : Parcelable
+
+    @Parcelize
+    data class Data(
+
+        @field:SerializedName("users_bid")
+        val usersBid: List<UsersBidItem>,
+
+        @field:SerializedName("total_bids")
+        val totalBids: Int? = null
+    ) : Parcelable
+
+    @Parcelize
+    data class UsersBidItem(
+
+        @field:SerializedName("createdAt")
+        val createdAt: String? = null,
+
+        @field:SerializedName("project_id")
+        val projectId: String? = null,
+
+        @field:SerializedName("user_id")
+        val userId: String? = null,
+
+        @field:SerializedName("is_selected")
+        val isSelected: Boolean? = null,
+
+        @field:SerializedName("budget_bid")
+        val budgetBid: Int? = null,
+
+        @field:SerializedName("project")
+        val project: Project? = null,
+
+        @field:SerializedName("id")
+        val id: String? = null,
+
+        @field:SerializedName("message")
+        val message: String? = null,
+
+        @field:SerializedName("updatedAt")
+        val updatedAt: String? = null
+    ) : Parcelable
+
+    @Parcelize
+    data class OwnerProject(
+
+        @field:SerializedName("full_name")
+        val fullName: String? = null,
+
+        @field:SerializedName("photo")
+        val photo: String? = null,
+
+        @field:SerializedName("email")
+        val email: String? = null,
+
+        @field:SerializedName("username")
+        val username: String? = null
     ) : Parcelable
 
 }
