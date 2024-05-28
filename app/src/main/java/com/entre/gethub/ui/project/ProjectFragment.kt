@@ -21,6 +21,7 @@ import com.entre.gethub.ui.adapter.HomeProjectBidsAdapter
 import com.entre.gethub.ui.adapter.TopTalentAdapter
 import com.entre.gethub.ui.home.projectbids.HomeDetailProjectBidsActivity
 import com.entre.gethub.ui.project.bidproject.BidProjectStatusActivity
+import com.entre.gethub.ui.project.postproject.PostProjectActivity
 import com.entre.gethub.utils.ViewModelFactory
 
 class ProjectFragment : Fragment() {
@@ -65,6 +66,10 @@ class ProjectFragment : Fragment() {
         with(binding) {
             ivBidProject.setOnClickListener {
                 navigateToActivity(BidProjectStatusActivity())
+            }
+
+            fabPostProject.setOnClickListener {
+                navigateToActivity(PostProjectActivity())
             }
         }
     }

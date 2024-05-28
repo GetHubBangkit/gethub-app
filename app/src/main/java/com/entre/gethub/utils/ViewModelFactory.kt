@@ -40,6 +40,8 @@ import com.entre.gethub.ui.home.projectbids.HomeDetailProjectBidsViewModel
 import com.entre.gethub.ui.project.ProjectViewModel
 import com.entre.gethub.ui.project.bidproject.BidProjectStatusDetailViewModel
 import com.entre.gethub.ui.project.bidproject.BidProjectStatusViewModel
+import com.entre.gethub.ui.project.postproject.PostProjectActivity
+import com.entre.gethub.ui.project.postproject.PostProjectViewModel
 import com.entre.gethub.ui.splash.SplashViewModel
 
 class ViewModelFactory private constructor(
@@ -106,8 +108,6 @@ class ViewModelFactory private constructor(
                 linkRepository
             ) as T
 
-
-
             HomeKelolaMyGethubTambahLinkViewModel::class.java -> HomeKelolaMyGethubTambahLinkViewModel(
                 linkRepository
             ) as T
@@ -139,6 +139,8 @@ class ViewModelFactory private constructor(
             ) as T
 
             ProjectViewModel::class.java -> ProjectViewModel(projectRepository) as T
+
+            PostProjectViewModel::class.java -> PostProjectViewModel(categoryRepository) as T
 
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }
