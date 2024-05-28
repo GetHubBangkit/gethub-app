@@ -35,6 +35,10 @@ class HomeKelolaMyGethubTambahProdukViewModel(
         imageUrl: String,
         categoryId: String,
     ): LiveData<Result<ProductResponse>> {
+        if (name.isEmpty() || description.isEmpty() ||imageUrl.isEmpty() || categoryId.isEmpty()) {
+            createProductResult.value = Result.Error("Semua bidang harus diisi")
+            return createProductResult
+        }
         viewModelScope.launch {
             try {
                 createProductResult.value = Result.Loading

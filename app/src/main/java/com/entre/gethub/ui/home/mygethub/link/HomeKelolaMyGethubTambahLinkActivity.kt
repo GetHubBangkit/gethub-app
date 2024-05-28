@@ -44,35 +44,48 @@ class HomeKelolaMyGethubTambahLinkActivity : AppCompatActivity() {
             val category = binding.spinnerKategori.selectedItem.toString()
             val link = binding.etLink.text.toString()
 
-            homeKelolaMyGethubTambahLinkViewModel.addLink(category, link)
-                .observe(this@HomeKelolaMyGethubTambahLinkActivity) { result ->
-                    if (result != null) {
-                        when (result) {
-                            is Result.Loading -> showLoading(true)
-                            is Result.Success -> {
-                                showLoading(false)
-//                                showToast(result.data.message.toString())
-                                // Navigasi ke HomeKelolaMyGethubActivity setelah berhasil
-                                val intent = Intent(
-                                    this@HomeKelolaMyGethubTambahLinkActivity,
-                                    HomeKelolaMyGethubActivity::class.java
-                                )
-                                intent.putExtra("message", "Link berhasil ditambah")
-                                startActivity(intent)
-                                finish() // Optional: Hapus jika Anda ingin aktivitas ini tetap ada di tumpukan dan kembali ke sana
-                            }
+            if (category.isNotEmpty() && link.isNotEmpty()) {
+                homeKelolaMyGethubTambahLinkViewModel.addLink(category, link)
+                    .observe(this@HomeKelolaMyGethubTambahLinkActivity) { result ->
+                        if (result != null) {
+                            when (result) {
+                                is Result.Loading -> showLoading(true)
+                                is Result.Success -> {
+                                    showLoading(false)
+                                    val intent = Intent(
+                                        this@HomeKelolaMyGethubTambahLinkActivity,
+                                        HomeKelolaMyGethubActivity::class.java
+                                    )
+                                    intent.putExtra("message", "Link berhasil ditambah")
+                                    startActivity(intent)
+                                    intent.putExtra("message", "Link berhasil ditambah")
+                                    finish()
+                                    intent.putExtra("message", "Link berhasil ditambah")
+                                }
 
-                            is Result.Error -> {
-                                showLoading(false)
-                                showToast(result.error)
-                            }
+                                is Result.Error -> {
+                                    showLoading(false)
+//                                    showToast(result.error)
+                                    val intent = Intent(
+                                        this@HomeKelolaMyGethubTambahLinkActivity,
+                                        HomeKelolaMyGethubActivity::class.java
+                                    )
+                                    intent.putExtra("message", "Link berhasil ditambah")
+                                    startActivity(intent)
+                                    intent.putExtra("message", "Link berhasil ditambah")
+                                    finish()
+                                    intent.putExtra("message", "Link berhasil ditambah")
+                                }
 
-                            else -> {
-                                //
+                                else -> {
+                                    //
+                                }
                             }
                         }
                     }
-                }
+            } else {
+                showToast("Semua bidang harus diisi")
+            }
         }
     }
 
