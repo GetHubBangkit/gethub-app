@@ -193,7 +193,7 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerViewHomeProdukJasa(listProdukJasa: List<Product>) {
-        val adapter = HomeProdukJasaAdapter(listProdukJasa) { produkjasa, position ->
+        val adapter = HomeProdukJasaAdapter(listProdukJasa.toMutableList()) { produkjasa, position ->
             val intent = Intent(
                 this@HomeKelolaMyGethubActivity,
                 HomeKelolaMyGethubEditProdukActivity::class.java
@@ -211,6 +211,8 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
             })
         }
     }
+
+
 
     private fun setupRecyclerViewHomeSertfikasi(listSertifikasi: List<Certification>) {
         val adapter = HomeSertifikasiAdapter(listSertifikasi, categories ?: listOf()) { sertifikasi, position ->
@@ -234,26 +236,29 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
 
     private fun deleteProduct(id: String) {
         homeKelolaMyGetHubViewModel.deleteProduct(id).observe(this) { result ->
-            if (result != null) {
-                when (result) {
-                    is Result.Loading -> showLoadingOnProduct(true)
-                    is Result.Success -> {
-                        showLoadingOnProduct(false)
-                        showToast(result.data.message.toString())
-                        getProductList()
-                    }
-                    is Result.Error -> {
-                        showLoadingOnProduct(false)
-                        showToast(result.error)
-                    }
-                    else -> {
-                        showLoadingOnProduct(false)
-                        showToast("Terjadi kesalahan")
-                    }
+            when (result) {
+                is Result.Loading -> showLoadingOnProduct(true)
+                is Result.Success -> {
+                    showLoadingOnProduct(false)
+                    showToast(result.data.message.toString())
+                    // Memanggil fungsi removeProduk() di adapter
+                    val adapter = binding.rvProducts.adapter as? HomeProdukJasaAdapter
+                    adapter?.removeProduk(id)
+                }
+                is Result.Error -> {
+                    showLoadingOnProduct(false)
+                    showToast(result.error)
+                }
+                else -> {
+                    showLoadingOnProduct(false)
+                    showToast("Terjadi kesalahan")
                 }
             }
         }
     }
+
+
+
 
     private fun deleteCertification(id: String) {
         homeKelolaMyGetHubViewModel.deleteCertification(id).observe(this) { result ->
@@ -303,9 +308,10 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
                 is Result.Error -> {
                     Toast.makeText(
                         this,
-                        "Error fetching links: ${result.error}",
+                        "${result.error}",
                         Toast.LENGTH_SHORT
                     ).show()
+                    showEmptyErrorOnLink(true, result.error)
                 }
                 is Result.Empty -> {
                     showEmptyErrorOnLink(true, result.emptyError)
