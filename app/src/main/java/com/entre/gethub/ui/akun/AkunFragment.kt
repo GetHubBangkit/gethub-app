@@ -3,6 +3,7 @@ package com.entre.gethub.ui.akun
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,6 +40,10 @@ class AkunFragment : Fragment() {
 
         _binding = FragmentAkunBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
+        akunViewModel.getToken().observe(viewLifecycleOwner) { token ->
+            Log.d(TAG, "onCreateView: $token")
+        }
 
         setupView()
         getUserData()
@@ -137,6 +142,10 @@ class AkunFragment : Fragment() {
 
     private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
+
+    companion object {
+        const val TAG = "AkunFragment"
     }
 
 }

@@ -27,51 +27,18 @@ class HomeCariProjectBidsActivity : AppCompatActivity() {
 
         getProjects()
 
-        setupSearchProject()
-
         binding.iconBack.setOnClickListener {
             finish()
+        }
+
+        binding.ivSearch.setOnClickListener {
+            startActivity(Intent(this, SearchProjectActivity::class.java))
         }
     }
 
     override fun onResume() {
         super.onResume()
         getProjects()
-    }
-
-    private fun setupSearchProject() {
-        binding.searchView.setupWithSearchBar(binding.searchBar)
-        binding.searchView
-            .editText
-            .setOnEditorActionListener { textView, _, _ ->
-                val query = textView.text.toString()
-                if (query.isNotEmpty()) {
-                    homeCariProjectBidsViewModel.searchProjects(query).observe(this) { result ->
-                        if (result != null) {
-                            when (result) {
-                                is Result.Loading -> showLoading(true)
-                                is Result.Success -> {
-                                    showLoading(false)
-                                    val projectBid = result.data.data
-                                    setupRecyclerViewProjectBid(projectBid)
-                                }
-
-                                is Result.Empty -> {
-                                    showLoading(false)
-                                    showEmptyError(true, result.emptyError)
-                                }
-
-                                is Result.Error -> {
-                                    showLoading(false)
-                                    showToast(result.error)
-                                }
-                            }
-                        }
-                    }
-                }
-
-                false
-            }
     }
 
     private fun setupRecyclerViewProjectBid(projectBidList: List<ProjectsResponse.Project>) {

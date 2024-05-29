@@ -16,7 +16,6 @@ import retrofit2.HttpException
 
 class HomeCariProjectBidsViewModel(private val projectRepository: ProjectRepository) : ViewModel() {
     private val getAllProjectsResult = MediatorLiveData<Result<ProjectsResponse>>()
-    private val searchProjectsResult = MediatorLiveData<Result<SearchProjectResponse>>()
 
     fun getProjects(): LiveData<Result<ProjectsResponse>> {
         viewModelScope.launch {
@@ -44,29 +43,6 @@ class HomeCariProjectBidsViewModel(private val projectRepository: ProjectReposit
             }
         }
         return getAllProjectsResult
-    }
-
-    fun searchProjects(title: String): LiveData<Result<SearchProjectResponse>> {
-        viewModelScope.launch {
-            searchProjectsResult.value = Result.Loading
-            try {
-                val response = projectRepository.searchProjects(title)
-                if (response.success == true) {
-                    searchProjectsResult.value = Result.Success(response)
-                }
-            } catch (e: HttpException) {
-                val jsonString = e.response()?.errorBody()?.string()
-                val errorBody = Gson().fromJson(jsonString, ApiResponse::class.java)
-                val errorMessage = errorBody.message
-                if (e.code().equals(404)) {
-                    searchProjectsResult.value = Result.Empty(errorMessage!!)
-                }
-                searchProjectsResult.value = Result.Error(errorMessage!!)
-            } catch (e: Exception) {
-                searchProjectsResult.value = Result.Error(e.toString())
-            }
-        }
-        return searchProjectsResult
     }
 
     companion object {

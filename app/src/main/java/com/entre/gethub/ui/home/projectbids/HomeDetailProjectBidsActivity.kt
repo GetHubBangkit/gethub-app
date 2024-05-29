@@ -33,20 +33,28 @@ class HomeDetailProjectBidsActivity : AppCompatActivity() {
             this
         )
     }
+    private var projectBidId: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ItemDetailProjectbidsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val projectBidId = intent.getStringExtra(EXTRA_PROJECT_ID)
+        projectBidId = intent.getStringExtra(EXTRA_PROJECT_ID)
 
-        getDetailProject(projectBidId!!)
+        projectBidId.let {
+            getDetailProject(it!!)
+        }
 
         binding.iconBack.setOnClickListener {
             finish()
         }
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        projectBidId = null
     }
 
     private fun getDetailProject(id: String) {
@@ -64,32 +72,32 @@ class HomeDetailProjectBidsActivity : AppCompatActivity() {
                             val userProjectBiddingList = projectBid.usersBid?.map { usersBidItem ->
                                 UserProjectBidding(
                                     usersBidItem?.fullName!!,
-                                    usersBidItem?.photo!!,
-                                    usersBidItem?.profession!!
+                                    usersBidItem.photo!!,
+                                    usersBidItem.profession!!
                                 )
                             }
                             setupRecyclerViewUserBidding(userProjectBiddingList!!)
                         }
 
                         with(binding) {
-                            tvDetailProjectTitle.text = projectBid?.title
-                            tvDetailProjectDesc.text = projectBid?.description
+                            tvDetailProjectTitle.text = projectBid.title
+                            tvDetailProjectDesc.text = projectBid.description
                             tvDetailProjectPriceRange.text =
                                 "Rp ${projectBid?.minBudget} - Rp ${projectBid?.maxBudget}"
                             tvDetailProjectDateRange.text =
                                 "${projectBid?.minDeadline} - ${projectBid?.maxDeadline}"
-                            tvDetailProjectDatePost.text = projectBid?.createdDate
+                            tvDetailProjectDatePost.text = projectBid.createdDate
                             tvDetailProjectTotalUserBidsOnCard.text =
-                                projectBid?.totalBidders.toString()
-                            tvDetailProjectTotalUserBids.text = projectBid?.totalBidders.toString()
-                            tvDetailProjectStatus.text = projectBid?.statusProject
+                                projectBid.totalBidders.toString()
+                            tvDetailProjectTotalUserBids.text = projectBid.totalBidders.toString()
+                            tvDetailProjectStatus.text = projectBid.statusProject
 
-                            showOwnerSentiment(projectBid?.ownerProject?.fullName!!)
-                            tvDetailProjectOwnerName.text = projectBid?.ownerProject?.fullName
+                            showOwnerSentiment(projectBid.ownerProject?.fullName!!)
+                            tvDetailProjectOwnerName.text = projectBid.ownerProject.fullName
                             tvDetailProjectOwnerProfession.text =
-                                projectBid?.ownerProject?.profession
+                                projectBid.ownerProject.profession
                             Glide.with(this@HomeDetailProjectBidsActivity)
-                                .load(projectBid?.ownerProject?.photo)
+                                .load(projectBid.ownerProject.photo)
                                 .placeholder(R.drawable.profilepic2)
                                 .into(ivDetailProjectOwnerPic)
                         }

@@ -1,0 +1,88 @@
+package com.entre.gethub.ui.project.postedproject
+
+import android.os.Bundle
+import android.view.View
+import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.entre.gethub.R
+import com.entre.gethub.data.Result
+import com.entre.gethub.data.remote.response.projects.PostedProjectResponse
+import com.entre.gethub.databinding.ActivityPostedProjectStatusBinding
+import com.entre.gethub.ui.adapter.PostedProjectAdapter
+import com.entre.gethub.utils.ViewModelFactory
+
+class PostedProjectStatusActivity : AppCompatActivity() {
+
+    private val binding by lazy { ActivityPostedProjectStatusBinding.inflate(layoutInflater) }
+    private val postedProjectStatusViewModel by viewModels<PostedProjectStatusViewModel> {
+        ViewModelFactory.getInstance(
+            this
+        )
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(binding.root)
+
+        getPostedProject()
+
+        binding.iconBack.setOnClickListener {
+            finish()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getPostedProject()
+    }
+
+    private fun setupRecyclerView(postedProjectList: List<PostedProjectResponse.DataItem>) {
+        binding.rvPostedProject.apply {
+            layoutManager = LinearLayoutManager(
+                this@PostedProjectStatusActivity,
+                LinearLayoutManager.VERTICAL,
+                false
+            )
+            adapter = PostedProjectAdapter(postedProjectList) { project, _ ->
+                showToast(project.title.toString())
+            }
+        }
+    }
+
+    private fun getPostedProject() {
+        postedProjectStatusViewModel.getPostedProjects().observe(this) { result ->
+            if (result != null) {
+                when (result) {
+                    is Result.Loading -> showLoading(true)
+                    is Result.Success -> {
+                        showLoading(false)
+                        setupRecyclerView(result.data.data)
+                        binding.tvTotalPostedProject.text = result.data.data.size.toString()
+                    }
+
+                    is Result.Error -> {
+                        showLoading(false)
+                        showToast(result.error)
+                    }
+
+                    is Result.Empty -> {
+                        binding.tvTotalPostedProject.text = "0"
+                    }
+                }
+            }
+        }
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+}

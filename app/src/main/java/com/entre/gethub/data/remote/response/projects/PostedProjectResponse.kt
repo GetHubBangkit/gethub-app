@@ -2,10 +2,10 @@ package com.entre.gethub.data.remote.response.projects
 
 import com.google.gson.annotations.SerializedName
 
-data class SearchProjectResponse(
+data class PostedProjectResponse(
 
     @field:SerializedName("data")
-    val data: Data? = null,
+    val data: List<DataItem>,
 
     @field:SerializedName("success")
     val success: Boolean? = null,
@@ -17,13 +17,13 @@ data class SearchProjectResponse(
     val message: String? = null
 ) {
 
-    data class Category(
+    data class DataItem(
 
-        @field:SerializedName("name")
-        val name: String? = null
-    )
+        @field:SerializedName("deadline_duration")
+        val deadlineDuration: String? = null,
 
-    data class ProjectsItem(
+        @field:SerializedName("is_active")
+        val isActive: Boolean? = null,
 
         @field:SerializedName("fee_freelance_transaction_value")
         val feeFreelanceTransactionValue: Any? = null,
@@ -46,8 +46,20 @@ data class SearchProjectResponse(
         @field:SerializedName("min_deadline")
         val minDeadline: String? = null,
 
+        @field:SerializedName("min_budget")
+        val minBudget: Int? = null,
+
+        @field:SerializedName("banned_message")
+        val bannedMessage: Any? = null,
+
+        @field:SerializedName("max_deadline")
+        val maxDeadline: String? = null,
+
         @field:SerializedName("createdAt")
         val createdAt: String? = null,
+
+        @field:SerializedName("status_freelance_task")
+        val statusFreelanceTask: String? = null,
 
         @field:SerializedName("status_payment")
         val statusPayment: String? = null,
@@ -61,50 +73,23 @@ data class SearchProjectResponse(
         @field:SerializedName("category_id")
         val categoryId: String? = null,
 
+        @field:SerializedName("owner_project")
+        val ownerProject: OwnerProject? = null,
+
         @field:SerializedName("fee_freelance_transaction_persen")
         val feeFreelanceTransactionPersen: Any? = null,
 
         @field:SerializedName("id")
         val id: String? = null,
 
+        @field:SerializedName("created_date")
+        val createdDate: String? = null,
+
         @field:SerializedName("chatroom_id")
         val chatroomId: String? = null,
 
         @field:SerializedName("updatedAt")
-        val updatedAt: String? = null,
-
-        @field:SerializedName("deadline_duration")
-        val deadlineDuration: String? = null,
-
-        @field:SerializedName("is_active")
-        val isActive: Boolean? = null,
-
-        @field:SerializedName("min_budget")
-        val minBudget: Int? = null,
-
-        @field:SerializedName("banned_message")
-        val bannedMessage: Any? = null,
-
-        @field:SerializedName("max_deadline")
-        val maxDeadline: String? = null,
-
-        @field:SerializedName("status_freelance_task")
-        val statusFreelanceTask: String? = null,
-
-        @field:SerializedName("owner_project")
-        val ownerProject: OwnerProject? = null,
-
-        @field:SerializedName("created_date")
-        val createdDate: String? = null,
-
-        @field:SerializedName("category")
-        val category: Category? = null
-    )
-
-    data class Data(
-
-        @field:SerializedName("projects")
-        val projects: List<ProjectsItem>
+        val updatedAt: String? = null
     )
 
     data class OwnerProject(

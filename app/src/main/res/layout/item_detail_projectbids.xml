@@ -31,9 +31,9 @@
             android:text="Butuh Konten Kreator"
             android:textColor="@android:color/white"
             android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@id/icon_back"
             app:layout_constraintStart_toEndOf="@+id/icon_back"
-            app:layout_constraintTop_toTopOf="@id/icon_back"
-            app:layout_constraintBottom_toBottomOf="@id/icon_back"/>
+            app:layout_constraintTop_toTopOf="@id/icon_back" />
 
         <ImageView
             android:id="@+id/icon_back"
@@ -143,14 +143,16 @@ buka di butuhkan segera"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/icon_date" />
 
-                <ImageView
+                <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/ivDetailProjectOwnerPic"
                     android:layout_width="28dp"
                     android:layout_height="28dp"
                     android:layout_marginTop="10dp"
+                    android:scaleType="centerCrop"
                     android:src="@drawable/profilepic2"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvDetailProjectPostedBy" />
+                    app:layout_constraintTop_toBottomOf="@id/tvDetailProjectPostedBy"
+                    app:shapeAppearance="@style/circle" />
 
                 <TextView
                     android:id="@+id/tvDetailProjectOwnerName"
