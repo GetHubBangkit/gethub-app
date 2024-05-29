@@ -34,6 +34,7 @@ import com.entre.gethub.ui.home.mygethub.certification.HomeKelolaMyGethubTambahS
 import com.entre.gethub.ui.home.mygethub.link.HomeKelolaMyGethubTambahLinkViewModel
 import com.entre.gethub.ui.home.mygethub.product.HomeKelolaMyGethubEditProdukViewModel
 import com.entre.gethub.ui.home.mygethub.product.HomeKelolaMyGethubTambahProdukViewModel
+import com.entre.gethub.ui.home.mygethub.tentangsaya.HomeKelolaMyGethubEditTentangSayaViewModel
 import com.entre.gethub.ui.home.projectbids.HomeCariProjectBidsViewModel
 import com.entre.gethub.ui.home.projectbids.HomeDetailProjectBidsFormViewModel
 import com.entre.gethub.ui.home.projectbids.HomeDetailProjectBidsViewModel
@@ -68,6 +69,10 @@ class ViewModelFactory private constructor(
                 profileRepository, scanCardRepository
             ) as T
 
+            HomeKelolaMyGethubEditTentangSayaViewModel::class.java -> {
+                HomeKelolaMyGethubEditTentangSayaViewModel(profileRepository) as T
+            }
+
             AkunViewModel::class.java -> AkunViewModel(profileRepository, userPreferences) as T
             GethubViewModel::class.java -> GethubViewModel(
                 gethubRepository,
@@ -80,6 +85,7 @@ class ViewModelFactory private constructor(
             ) as T
 
             HomeKelolaMyGethubViewModel::class.java -> HomeKelolaMyGethubViewModel(
+                profileRepository,
                 productRepository,
                 certificationRepository,
                 linkRepository,

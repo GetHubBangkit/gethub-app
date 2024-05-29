@@ -22,6 +22,7 @@ class ProfileRepository private constructor(private val apiService: ApiService) 
             updateUserProfileParams.phone,
             updateUserProfileParams.web,
             updateUserProfileParams.address,
+            updateUserProfileParams.about,
             updateUserProfileParams.photo ?: null
         )
     }

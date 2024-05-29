@@ -6,9 +6,11 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.entre.gethub.ui.MainActivity
 import com.entre.gethub.R
 import com.entre.gethub.data.Result
@@ -19,11 +21,14 @@ import com.entre.gethub.databinding.ActivityHomeKelolaMyGetHubBinding
 import com.entre.gethub.ui.adapter.HomeGethubLinkAdapter
 import com.entre.gethub.ui.adapter.HomeProdukJasaAdapter
 import com.entre.gethub.ui.adapter.HomeSertifikasiAdapter
+import com.entre.gethub.ui.akun.AkunViewModel
 import com.entre.gethub.ui.home.mygethub.certification.HomeKelolaMyGethubEditSertifikasiActivity
 import com.entre.gethub.ui.home.mygethub.certification.HomeKelolaMyGethubTambahSertifikasiActivity
 import com.entre.gethub.ui.home.mygethub.link.HomeKelolaMyGethubTambahLinkActivity
 import com.entre.gethub.ui.home.mygethub.product.HomeKelolaMyGethubEditProdukActivity
 import com.entre.gethub.ui.home.mygethub.product.HomeKelolaMyGethubTambahProdukActivity
+import com.entre.gethub.ui.home.mygethub.tentangsaya.HomeKelolaMyGethubEditTentangSayaActivity
+import com.entre.gethub.ui.home.mygethub.tentangsaya.HomeKelolaMyGethubEditTentangSayaViewModel
 import com.entre.gethub.ui.models.GethubLink
 import com.entre.gethub.utils.ViewModelFactory
 
@@ -40,6 +45,8 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         initViewModel()
+
+        getUserData()
         getLinkList()
         getCategories()
         getProductList()
@@ -55,6 +62,9 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
             startActivity(Intent(this, HomeKelolaMyGethubGantiDesignActivity::class.java))
         }
 
+        binding.edittentangsaya.setOnClickListener {
+            startActivity(Intent(this, HomeKelolaMyGethubEditTentangSayaActivity::class.java))
+        }
         binding.editgethublink.setOnClickListener {
             startActivity(Intent(this, HomeKelolaMyGethubTambahLinkActivity::class.java))
         }
@@ -73,6 +83,35 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
         getLinkList()
         getCertificationList()
     }
+
+    private fun getUserData() {
+        homeKelolaMyGetHubViewModel.getUserProfile().observe(this) { result ->
+            if (result != null) {
+                when (result) {
+                    is Result.Loading ->   showLoadingOnAbout(true)
+                    is Result.Success -> {
+                        val user = result.data.data
+                        showLoadingOnAbout(false)
+                        binding.tvAbout.text = user?.about as? String ?: ""
+                    }
+
+                    is Result.Empty -> {
+                        showLoadingOnCertification(false)
+                        showEmptyErrorOnAbout(true, result.emptyError)
+                    }
+                    is Result.Error -> {
+                        showLoadingOnAbout(false)
+                        showToast(result.error)
+                    }
+                    else -> {
+                        showLoadingOnAbout(false)
+                        showToast(getString(R.string.something_went_wrong))
+                    }
+                }
+            }
+        }
+    }
+
 
     private fun initViewModel() {
         val factory = ViewModelFactory.getInstance(this)
@@ -338,6 +377,9 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
         })
     }
 
+    private fun showLoadingOnAbout(isLoading: Boolean) {
+        binding.progressBarAbout.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
     private fun showLoadingOnProduct(isLoading: Boolean) {
         binding.progressBarOnProductList.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
@@ -349,6 +391,10 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
         binding.progressBarLink.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
+    private fun showEmptyErrorOnAbout(isError: Boolean, message: String) {
+        binding.tvEmptyAbout.text = message
+        binding.tvEmptyAbout.visibility = if (isError) View.VISIBLE else View.GONE
+    }
     private fun showEmptyErrorOnLink(isError: Boolean, message: String) {
         binding.tvEmptyLink.text = message
         binding.tvEmptyLink.visibility = if (isError) View.VISIBLE else View.GONE

@@ -7,5 +7,6 @@ data class UpdateUserProfileParams(
     val phone: String,
     val web: String,
     val address: String,
+    val about: String,
     val photo: String?
 )

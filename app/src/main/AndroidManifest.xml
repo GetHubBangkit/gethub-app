@@ -50,6 +50,9 @@
             android:name=".ui.home.projectbids.HomeCariProjectBidsActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.home.mygethub.tentangsaya.HomeKelolaMyGethubEditTentangSayaActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.home.mygethub.product.HomeKelolaMyGethubEditProdukActivity"
             android:exported="false" />
         <activity

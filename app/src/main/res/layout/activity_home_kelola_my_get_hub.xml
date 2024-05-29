@@ -89,13 +89,12 @@
             app:layout_constraintTop_toBottomOf="@+id/frame" />
 
         <TextView
-            android:id="@+id/tentangsayadesc"
+            android:id="@+id/tvAbout"
             style="@style/Nunito"
             android:layout_width="373dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="18dp"
             android:layout_marginRight="15dp"
-            android:text="Saya adalah arsitek digital yang berdedikasi untuk membawa inovasi ke dunia teknologi. Dengan pengetahuan mendalam dalam pengembangan perangkat lunak, saya menciptakan solusi yang efektif dan efisien untuk tantangan teknis modern."
             android:textColor="@android:color/black"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -104,6 +103,32 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tentangsaya"
             app:layout_constraintVertical_bias="0.027" />
+
+        <TextView
+            android:id="@+id/tvEmptyAbout"
+            style="@style/Poppins.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="About kosong"
+            android:textSize="14sp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/tvAbout"
+            app:layout_constraintEnd_toEndOf="@id/tvAbout"
+            app:layout_constraintStart_toStartOf="@id/tvAbout"
+            app:layout_constraintTop_toTopOf="@id/tvAbout"
+            tools:visibility="visible" />
+
+        <ProgressBar
+            android:id="@+id/progressBarAbout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/tvAbout"
+            app:layout_constraintEnd_toEndOf="@id/tvAbout"
+            app:layout_constraintStart_toStartOf="@id/tvAbout"
+            app:layout_constraintTop_toTopOf="@id/tvAbout"
+            tools:visibility="visible" />
 
         <ImageView
             android:id="@+id/framegantitema"
@@ -114,7 +139,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tentangsayadesc" />
+            app:layout_constraintTop_toBottomOf="@+id/tvAbout" />
 
         <TextView
             android:id="@+id/gantithema"

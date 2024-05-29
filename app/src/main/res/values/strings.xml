@@ -31,6 +31,7 @@
     <string name="website_field_couldn_be_empty">Website tidak boleh kosong</string>
     <string name="phone_field_couldn_be_empty">Phone tidak boleh kosong</string>
     <string name="address_field_couldn_be_empty">Alamat tidak boleh kosong</string>
+    <string name="about_field_couldn_be_empty">About tidak boleh kosong</string>
     <string name="login_success">Login berhasil</string>
     <string name="image_succesfully_uploaded">Gambar berhasil diunggah</string>
     <string name="onboarding_heading_one">Simpan Kartu Bisnis\nDan Share Usaha Anda</string>
