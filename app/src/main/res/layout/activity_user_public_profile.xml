@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/frame"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/rectangle"
+            app:layout_constraintDimensionRatio="H,2:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            app:layout_constraintBottom_toBottomOf="@id/frame"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/frame">
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textgethub"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/poppins_bold"
+            android:text="Gethub Profile"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            app:fontFamily="@font/nunito_extrabold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <ImageView
+            android:id="@+id/icon_back"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:src="@drawable/icon_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <include
+            android:id="@+id/cardBaseItem"
+            layout="@layout/card_base_item"
+            android:layout_width="372dp"
+            android:layout_height="195dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textgethub" />
+
+        <ImageView
+            android:id="@+id/icon_gethublink"
+            android:layout_marginTop="10dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/icon_kelola"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.052"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardBaseItem" />
+
+        <LinearLayout
+            android:id="@+id/GethubLink"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            app:layout_constraintStart_toEndOf="@+id/icon_gethublink"
+            app:layout_constraintTop_toBottomOf="@+id/cardBaseItem">
+
+            <TextView
+                style="@style/Poppins.Black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Get"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <TextView
+                style="@style/Poppins.Black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="1dp"
+                android:text="Hub Link"
+                android:textColor="@color/teal"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/editgethublink"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/kelola_edit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.903"
+            app:layout_constraintStart_toEndOf="@+id/GethubLink"
+            app:layout_constraintTop_toBottomOf="@+id/cardBaseItem" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewHomeGethubLink"
+            android:layout_width="match_parent"
+            android:layout_height="53dp"
+            android:layout_marginTop="2dp"
+            android:orientation="horizontal"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/GethubLink" />
+
+        <ProgressBar
+            android:id="@+id/progressBarLink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/recyclerViewHomeGethubLink"
+            app:layout_constraintEnd_toEndOf="@id/recyclerViewHomeGethubLink"
+            app:layout_constraintStart_toStartOf="@id/recyclerViewHomeGethubLink"
+            app:layout_constraintTop_toTopOf="@id/recyclerViewHomeGethubLink"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/tvEmptyLink"
+            style="@style/Poppins.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Link kosong"
+            android:textSize="14sp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/recyclerViewHomeGethubLink"
+            app:layout_constraintEnd_toEndOf="@id/recyclerViewHomeGethubLink"
+            app:layout_constraintStart_toStartOf="@id/recyclerViewHomeGethubLink"
+            app:layout_constraintTop_toTopOf="@id/recyclerViewHomeGethubLink"
+            tools:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/icon_produkjasa"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/icon_kelola"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.052"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerViewHomeGethubLink" />
+
+        <TextView
+            android:id="@+id/produkjasa"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:fontFamily="@font/poppins_bold"
+            android:text="Produk / Jasa"
+            android:textColor="@color/blue"
+            android:textSize="20sp"
+            android:layout_marginTop="16dp"
+            app:fontFamily="@font/poppins_bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.047"
+            app:layout_constraintStart_toEndOf="@+id/icon_produkjasa"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerViewHomeGethubLink"
+            app:layout_constraintVertical_bias="0.012" />
+
+        <ImageView
+            android:id="@+id/editprodukjasa"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/kelola_edit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.89"
+            app:layout_constraintStart_toEndOf="@+id/produkjasa"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerViewHomeGethubLink" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvProducts"
+            android:layout_width="match_parent"
+            android:layout_height="253dp"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/produkjasa"
+            tools:listitem="@layout/item_home_kelolamygethub_produkjasa" />
+
+        <ProgressBar
+            android:id="@+id/progressBarOnProductList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/rvProducts"
+            app:layout_constraintEnd_toEndOf="@id/rvProducts"
+            app:layout_constraintStart_toStartOf="@id/rvProducts"
+            app:layout_constraintTop_toTopOf="@id/rvProducts"
+            tools:visibility="visible" />
+
+        <include
+            android:id="@+id/emptyOnProduct"
+            layout="@layout/item_empty_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/rvProducts"
+            app:layout_constraintEnd_toEndOf="@id/rvProducts"
+            app:layout_constraintStart_toStartOf="@id/rvProducts"
+            app:layout_constraintTop_toTopOf="@id/rvProducts" />
+
+<!--        <ImageView-->
+<!--            android:id="@+id/icon_certiciation"-->
+<!--            android:layout_width="30dp"-->
+<!--            android:layout_height="30dp"-->
+<!--            android:layout_marginTop="16dp"-->
+<!--            android:src="@drawable/icon_kelola"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHorizontal_bias="0.052"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/rvProducts" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/Certification"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="30dp"-->
+<!--            android:layout_marginTop="16dp"-->
+<!--            android:fontFamily="@font/poppins_bold"-->
+<!--            android:text="Sertifikasi"-->
+<!--            android:textColor="@color/blue"-->
+<!--            android:textSize="20sp"-->
+<!--            app:fontFamily="@font/poppins_bold"-->
+
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHorizontal_bias="0.047"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/icon_produkjasa"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/rvProducts"-->
+<!--           />-->
+
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--            android:id="@+id/rvCertification"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_marginTop="20dp"-->
+<!--            android:layout_height="240dp"-->
+<!--            android:orientation="horizontal"-->
+<!--            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
+<!--            app:layout_constraintHorizontal_bias="0.0"-->
+<!--            app:layout_constraintLeft_toLeftOf="parent"-->
+<!--            app:layout_constraintRight_toRightOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/Certification"-->
+<!--            tools:listitem="@layout/item_home_kelolamygethub_sertifikasi" />-->
+
+<!--        <ProgressBar-->
+<!--            android:id="@+id/progressBarCertification"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:visibility="gone"-->
+<!--            app:layout_constraintBottom_toBottomOf="@id/rvCertification"-->
+<!--            app:layout_constraintEnd_toEndOf="@id/rvCertification"-->
+<!--            app:layout_constraintStart_toStartOf="@id/rvCertification"-->
+<!--            app:layout_constraintTop_toTopOf="@id/rvCertification"-->
+<!--            tools:visibility="visible" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/tvEmptyCertification"-->
+<!--            style="@style/Poppins.Bold"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Sertifikasi masih kosong"-->
+<!--            android:textSize="14sp"-->
+<!--            android:visibility="gone"-->
+<!--            app:layout_constraintBottom_toBottomOf="@id/rvCertification"-->
+<!--            app:layout_constraintEnd_toEndOf="@id/rvCertification"-->
+<!--            app:layout_constraintStart_toStartOf="@id/rvCertification"-->
+<!--            app:layout_constraintTop_toTopOf="@id/rvCertification"-->
+<!--            tools:visibility="visible" />-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/editSertifikasi"-->
+<!--            android:layout_width="26dp"-->
+<!--            android:layout_height="26dp"-->
+<!--            android:layout_marginTop="20dp"-->
+<!--            android:src="@drawable/kelola_edit"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHorizontal_bias="0.89"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/Certification"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/rvProducts" />-->
+
+<!--       -->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

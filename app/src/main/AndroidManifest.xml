@@ -70,6 +70,9 @@
             android:name=".ui.home.mygethub.link.HomeKelolaMyGethubTambahLinkActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.userpublicprofile.UserPublicProfileActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.home.mygethub.HomeKelolaMyGethubGantiDesignActivity"
             android:exported="false" />
         <activity
