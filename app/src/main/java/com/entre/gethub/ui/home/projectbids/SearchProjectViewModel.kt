@@ -29,6 +29,7 @@ class SearchProjectViewModel(private val projectRepository: ProjectRepository) :
                 val errorMessage = errorBody.message
                 if (e.code().equals(404)) {
                     searchProjectsResult.value = Result.Empty(errorMessage!!)
+                    return@launch
                 }
                 searchProjectsResult.value = Result.Error(errorMessage!!)
             } catch (e: Exception) {
