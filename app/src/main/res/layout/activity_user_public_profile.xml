@@ -22,6 +22,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/recyclerViewHomeGethubLink"
+            app:layout_constraintEnd_toEndOf="@id/recyclerViewHomeGethubLink"
+            app:layout_constraintStart_toStartOf="@id/recyclerViewHomeGethubLink"
+            app:layout_constraintTop_toTopOf="@id/recyclerViewHomeGethubLink"
+            tools:visibility="visible" />
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -105,16 +116,7 @@
                 android:textSize="20sp" />
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/editgethublink"
-            android:layout_width="26dp"
-            android:layout_height="26dp"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/kelola_edit"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.903"
-            app:layout_constraintStart_toEndOf="@+id/GethubLink"
-            app:layout_constraintTop_toBottomOf="@+id/cardBaseItem" />
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewHomeGethubLink"
@@ -179,16 +181,7 @@
             app:layout_constraintTop_toBottomOf="@+id/recyclerViewHomeGethubLink"
             app:layout_constraintVertical_bias="0.012" />
 
-        <ImageView
-            android:id="@+id/editprodukjasa"
-            android:layout_width="26dp"
-            android:layout_height="26dp"
-            android:layout_marginTop="20dp"
-            android:src="@drawable/kelola_edit"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.89"
-            app:layout_constraintStart_toEndOf="@+id/produkjasa"
-            app:layout_constraintTop_toBottomOf="@+id/recyclerViewHomeGethubLink" />
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvProducts"
