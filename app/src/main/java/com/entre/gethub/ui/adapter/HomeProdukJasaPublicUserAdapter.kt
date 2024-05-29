@@ -36,14 +36,6 @@ class HomeProdukJasaPublicUserAdapter(
         notifyDataSetChanged()
     }
 
-    fun removeProduk(id: String) {
-        val index = produkjasaList.indexOfFirst { it.id.toString() == id }
-        if (index != -1) {
-            produkjasaList.removeAt(index)
-            notifyItemRemoved(index)
-        }
-    }
-
     class ViewHolder(
         private val itemProdukJasaBinding: ItemHomeKelolamygethubProdukjasaBinding,
         private val listener: (UserPublicProfileResponse.Data.Product, Int) -> Unit,
@@ -58,9 +50,6 @@ class HomeProdukJasaPublicUserAdapter(
                     .into(ivProductImage)
                 tvProductTitle.text = produkjasa.name
                 tvProductDesc.text = produkjasa.description
-                ivDeleteProduct.setOnClickListener {
-                    onItemClickCallback.onDeleteProductItem(produkjasa, adapterPosition)
-                }
             }
         }
     }
@@ -70,6 +59,6 @@ class HomeProdukJasaPublicUserAdapter(
     }
 
     interface OnItemClickCallback {
-        fun onDeleteProductItem(product: UserPublicProfileResponse.Data.Product, position: Int)
+        fun onItemClick(product: UserPublicProfileResponse.Data.Product, position: Int)
     }
 }

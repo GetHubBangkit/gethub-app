@@ -3,7 +3,7 @@ package com.entre.gethub.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.entre.gethub.databinding.ItemHomeKelolamygethubLinkBinding
+import com.entre.gethub.databinding.ItemHomeKelolamygethubLinkPublicUserBinding
 import com.entre.gethub.ui.models.GethubLink
 
 class HomeGethubLinkPublicUserAdapter(
@@ -12,7 +12,7 @@ class HomeGethubLinkPublicUserAdapter(
 ) : RecyclerView.Adapter<HomeGethubLinkPublicUserAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemHomeKelolamygethubLinkBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemHomeKelolamygethubLinkPublicUserBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding, itemClickListener)
     }
 
@@ -30,7 +30,7 @@ class HomeGethubLinkPublicUserAdapter(
     }
 
     class ViewHolder(
-        private val binding: ItemHomeKelolamygethubLinkBinding,
+        private val binding: ItemHomeKelolamygethubLinkPublicUserBinding,
         private val itemClickListener: (GethubLink, Int) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
