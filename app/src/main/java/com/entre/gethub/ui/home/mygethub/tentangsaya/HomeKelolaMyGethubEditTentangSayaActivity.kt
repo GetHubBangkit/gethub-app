@@ -19,6 +19,7 @@ import com.entre.gethub.data.remote.params.UpdateUserProfileParams
 import com.entre.gethub.data.remote.response.ml.ScanCardResponse
 import com.entre.gethub.databinding.ActivityHomeKelolaMyGethubEditTentangsayaBinding
 import com.entre.gethub.ui.completeprofile.CompleteProfileViewModel
+import com.entre.gethub.ui.home.mygethub.HomeKelolaMyGethubActivity
 import com.entre.gethub.utils.ViewModelFactory
 import com.entre.gethub.utils.uriToFile
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -26,14 +27,10 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 class HomeKelolaMyGethubEditTentangSayaActivity : AppCompatActivity() {
 
     private val binding: ActivityHomeKelolaMyGethubEditTentangsayaBinding by lazy {
-        ActivityHomeKelolaMyGethubEditTentangsayaBinding.inflate(
-            layoutInflater
-        )
+        ActivityHomeKelolaMyGethubEditTentangsayaBinding.inflate(layoutInflater)
     }
     private val completeProfileViewModel by viewModels<CompleteProfileViewModel> {
-        ViewModelFactory.getInstance(
-            this
-        )
+        ViewModelFactory.getInstance(this)
     }
     private var currentImageUri: Uri? = null
     private var imageUrl: String? = null
@@ -68,7 +65,6 @@ class HomeKelolaMyGethubEditTentangSayaActivity : AppCompatActivity() {
         edAddress = binding.alamatTextField.editText!!
         edAbout = binding.aboutTextField.editText!!
 
-
         with(binding) {
             tvUploadPhoto.setOnClickListener {
                 selectImage()
@@ -99,8 +95,6 @@ class HomeKelolaMyGethubEditTentangSayaActivity : AppCompatActivity() {
                 )
 
                 updateUserProfile(updateUserProfileParams)
-
-
             }
 
             setUpEditText()
@@ -109,8 +103,6 @@ class HomeKelolaMyGethubEditTentangSayaActivity : AppCompatActivity() {
 
     private fun setUpEditText() {
         binding.apply {
-
-
             edFullname.doOnTextChanged { text, _, _, _ ->
                 if (text.toString().isEmpty()) {
                     edFullname.error = getString(R.string.name_field_couldn_be_empty)
@@ -121,8 +113,7 @@ class HomeKelolaMyGethubEditTentangSayaActivity : AppCompatActivity() {
 
             edProfession.doOnTextChanged { text, _, _, _ ->
                 if (text.toString().isEmpty()) {
-                    edProfession.error =
-                        getString(R.string.profession_field_couldn_be_empty)
+                    edProfession.error = getString(R.string.profession_field_couldn_be_empty)
                 } else {
                     edProfession.error = null
                 }
@@ -152,13 +143,42 @@ class HomeKelolaMyGethubEditTentangSayaActivity : AppCompatActivity() {
                 }
             }
 
-//            edAbout.doOnTextChanged { text, _, _, _ ->
-//                if (text.toString().isEmpty()) {
-//                    edAbout.error = getString(R.string.about_field_couldn_be_empty)
-//                } else {
-//                    edAbout.error = null
-//                }
-//            }
+            edAbout.doOnTextChanged { text, _, _, _ ->
+                if (text.toString().isEmpty()) {
+                    edAbout.error = getString(R.string.about_field_couldn_be_empty)
+                } else {
+                    edAbout.error = null
+                }
+            }
+
+            // Keep edAbout outside the scanCardResponse check
+            completeProfileViewModel.getUserProfile().observe(this@HomeKelolaMyGethubEditTentangSayaActivity) { result ->
+                if (result != null) {
+                    when (result) {
+                        is Result.Loading -> showLoading(true)
+                        is Result.Success -> {
+                            showLoading(false)
+                            val userProfile = result.data.data
+                            edFullname.setText(userProfile?.fullName ?: "")
+                            edProfession.setText(userProfile?.profession ?: "")
+                            edPhone.setText(userProfile?.phone ?: "")
+                            edEmail.setText(userProfile?.email ?: "")
+                            edWebsite.setText(userProfile?.web ?: "")
+                            edAddress.setText(userProfile?.address ?: "")
+                            edAbout.setText(userProfile?.about ?: "")
+
+                        }
+                        is Result.Error -> {
+                            showLoading(false)
+                            showToast(result.error)
+                        }
+                        else -> {
+                            showLoading(false)
+                            showToast(getString(R.string.something_went_wrong))
+                        }
+                    }
+                }
+            }
 
             if (scanCardResponse != null) {
                 val userProfile = scanCardResponse?.data
@@ -168,42 +188,7 @@ class HomeKelolaMyGethubEditTentangSayaActivity : AppCompatActivity() {
                 edEmail.setText(userProfile?.email ?: "")
                 edWebsite.setText(userProfile?.web ?: "")
                 edAddress.setText(userProfile?.address ?: "")
-
-                return@apply
             }
-
-            completeProfileViewModel.getUserProfile()
-                .observe(this@HomeKelolaMyGethubEditTentangSayaActivity) { result ->
-                    if (result != null) {
-                        when (result) {
-                            is Result.Loading -> showLoading(true)
-                            is Result.Success -> {
-                                showLoading(false)
-                                val userProfile = result.data.data
-                                edFullname.setText(userProfile?.fullName ?: "")
-                                edProfession.setText(
-                                    userProfile?.profession ?: ""
-                                )
-                                edPhone.setText(userProfile?.phone ?: "")
-                                edEmail.setText(userProfile?.email ?: "")
-                                edWebsite.setText(userProfile?.web ?: "")
-                                edAddress.setText(userProfile?.address ?: "")
-                            }
-
-                            is Result.Error -> {
-                                showLoading(false)
-                                showToast(result.error)
-                            }
-
-                            else -> {
-                                showLoading(false)
-                                showToast(getString(R.string.something_went_wrong))
-                            }
-                        }
-                    }
-
-                }
-
         }
     }
 
@@ -212,33 +197,30 @@ class HomeKelolaMyGethubEditTentangSayaActivity : AppCompatActivity() {
             .observe(this@HomeKelolaMyGethubEditTentangSayaActivity) { result ->
                 if (result != null) {
                     when (result) {
-                        is Result.Loading -> showLoading(true)
+                        is Result.Loading -> showLoading(true                        )
                         is Result.Success -> {
                             showLoading(false)
-                            // Intent untuk berpindah ke MainActivity
+                            // Intent to move to MainActivity
                             startActivity(
                                 Intent(
                                     this@HomeKelolaMyGethubEditTentangSayaActivity,
-                                    MainActivity::class.java
+                                    HomeKelolaMyGethubActivity::class.java
                                 )
                             )
-                            // Menutup Activity CompleteProfileActivity
+                            // Close the CompleteProfileActivity
                             finish()
                             showToast(result.data.message!!)
                         }
-
                         is Result.Error -> {
                             showLoading(false)
                             showToast(result.error)
                         }
-
                         else -> {
                             showLoading(false)
                             showToast("Terjadi Kesalahan")
                         }
                     }
                 }
-
             }
     }
 
@@ -276,12 +258,10 @@ class HomeKelolaMyGethubEditTentangSayaActivity : AppCompatActivity() {
                                     showLoading(false)
                                     imageUrl = result.data.data
                                 }
-
                                 is Result.Error -> {
                                     showLoading(false)
                                     showToast(result.error)
                                 }
-
                                 else -> {
                                     showLoading(false)
                                     showToast(getString(R.string.something_went_wrong))
@@ -292,7 +272,6 @@ class HomeKelolaMyGethubEditTentangSayaActivity : AppCompatActivity() {
             }
         }
     }
-
 
     private fun selectImage() {
         val options = arrayOf<CharSequence>(
@@ -308,13 +287,11 @@ class HomeKelolaMyGethubEditTentangSayaActivity : AppCompatActivity() {
                         val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
                         takePicture.launch(takePictureIntent)
                     }
-
                     options[item] == getString(R.string.choose_form_gallery) -> {
                         val pickPhotoIntent =
                             Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
                         pickImage.launch(pickPhotoIntent)
                     }
-
                 }
             }
             .setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
@@ -326,7 +303,7 @@ class HomeKelolaMyGethubEditTentangSayaActivity : AppCompatActivity() {
     }
 
     private fun showImage() {
-        currentImageUri.let {
+        currentImageUri?.let {
             binding.ivProfilePicture.setImageURI(it)
         }
     }
@@ -343,3 +320,4 @@ class HomeKelolaMyGethubEditTentangSayaActivity : AppCompatActivity() {
         const val SCAN_CARD_RESULT_EXTRA = "scan_card_result_extra"
     }
 }
+

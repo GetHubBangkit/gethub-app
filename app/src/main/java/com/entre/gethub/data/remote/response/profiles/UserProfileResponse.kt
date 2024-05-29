@@ -29,7 +29,7 @@ data class Data(
 	val isVerify: Boolean? = null,
 
 	@field:SerializedName("about")
-	val about: Any? = null,
+	val about: String? = null,
 
 	@field:SerializedName("photo")
 	val photo: String? = null,

@@ -182,6 +182,7 @@ class CompleteProfileActivity : AppCompatActivity() {
                                 edEmail.setText(userProfile?.email ?: "")
                                 edWebsite.setText(userProfile?.web ?: "")
                                 edAddress.setText(userProfile?.address ?: "")
+                                edAbout.setText(userProfile?.about ?: "")
                             }
 
                             is Result.Error -> {
