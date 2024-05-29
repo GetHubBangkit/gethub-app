@@ -6,27 +6,26 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.entre.gethub.R
 import com.entre.gethub.data.remote.response.UserPublicProfileResponse
-import com.entre.gethub.databinding.ItemHomeKelolamygethubProdukjasaBinding
+import com.entre.gethub.databinding.ItemHomeKelolamygethubProdukjasaPublicUserBinding
 
 class HomeProdukJasaPublicUserAdapter(
     private var produkjasaList: MutableList<UserPublicProfileResponse.Data.Product>,
     private val listener: (UserPublicProfileResponse.Data.Product, Int) -> Unit
 ) : RecyclerView.Adapter<HomeProdukJasaPublicUserAdapter.ViewHolder>() {
 
-    private lateinit var onItemClickCallback: OnItemClickCallback
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemHomeKelolamygethubProdukjasaBinding.inflate(
+        val binding = ItemHomeKelolamygethubProdukjasaPublicUserBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
         )
-        return ViewHolder(binding, listener, onItemClickCallback)
+        return ViewHolder(binding, listener)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bindItem(produkjasaList[position])
-        holder.itemView.setOnClickListener { listener(produkjasaList[position], position) }
     }
 
     override fun getItemCount(): Int = produkjasaList.size
@@ -37,9 +36,8 @@ class HomeProdukJasaPublicUserAdapter(
     }
 
     class ViewHolder(
-        private val itemProdukJasaBinding: ItemHomeKelolamygethubProdukjasaBinding,
+        private val itemProdukJasaBinding: ItemHomeKelolamygethubProdukjasaPublicUserBinding,
         private val listener: (UserPublicProfileResponse.Data.Product, Int) -> Unit,
-        private val onItemClickCallback: OnItemClickCallback
     ) : RecyclerView.ViewHolder(itemProdukJasaBinding.root) {
 
         fun bindItem(produkjasa: UserPublicProfileResponse.Data.Product) {
@@ -54,11 +52,7 @@ class HomeProdukJasaPublicUserAdapter(
         }
     }
 
-    fun setOnItemClickCallback(callback: OnItemClickCallback) {
-        this.onItemClickCallback = callback
-    }
 
-    interface OnItemClickCallback {
-        fun onItemClick(product: UserPublicProfileResponse.Data.Product, position: Int)
-    }
+
+
 }
