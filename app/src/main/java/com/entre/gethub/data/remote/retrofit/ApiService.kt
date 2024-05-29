@@ -59,6 +59,7 @@ interface ApiService {
         @Field("phone") phone: String,
         @Field("web") web: String,
         @Field("address") address: String,
+        @Field("about") about: String?,
         @Field("photo") photo: String?,
     ): UpdateUserProfileResponse
     // Complete Profile

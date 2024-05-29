@@ -72,6 +72,7 @@ class ViewModelFactory private constructor(
             ) as T
 
             HomeKelolaMyGethubViewModel::class.java -> HomeKelolaMyGethubViewModel(
+                profileRepository,
                 productRepository,
                 certificationRepository,
                 linkRepository,

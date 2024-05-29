@@ -8,15 +8,18 @@ import com.entre.gethub.data.remote.response.CategoriesResponse
 import com.entre.gethub.data.remote.response.LinkResponse
 import com.entre.gethub.data.remote.response.certifications.CertificationListResponse
 import com.entre.gethub.data.remote.response.products.ProductListResponse
+import com.entre.gethub.data.remote.response.profiles.UserProfileResponse
 import com.entre.gethub.data.repositories.CategoryRepository
 import com.entre.gethub.data.repositories.CertificationRepository
 import com.entre.gethub.data.repositories.LinkRepository
 import com.entre.gethub.data.repositories.ProductRepository
+import com.entre.gethub.data.repositories.ProfileRepository
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
 class HomeKelolaMyGethubViewModel(
+    private val profileRepository: ProfileRepository,
     private val productRepository: ProductRepository,
     private val certificationRepository: CertificationRepository,
     private val linkRepository: LinkRepository,
@@ -29,7 +32,28 @@ class HomeKelolaMyGethubViewModel(
     private val getCertificationListResult = MediatorLiveData<Result<CertificationListResponse>>()
     private val deleteCertificationResult = MediatorLiveData<Result<ApiResponse>>()
     private val getCategoriesResult = MediatorLiveData<Result<CategoriesResponse>>()
+    private val getUserProfileResult = MediatorLiveData<Result<UserProfileResponse>>()
 
+    fun getUserProfile(): LiveData<Result<UserProfileResponse>> {
+        viewModelScope.launch {
+            getUserProfileResult.value = Result.Loading
+            try {
+                val response = profileRepository.getUserProfile()
+                if (response.success == true) {
+                    getUserProfileResult.value = Result.Success(response)
+                }
+            } catch (e: HttpException) {
+                val jsonString = e.response()?.errorBody()?.string()
+                val errorBody = Gson().fromJson(jsonString, ApiResponse::class.java)
+                val errorMessage = errorBody.message
+                getUserProfileResult.value = Result.Error(errorMessage!!)
+            } catch (e: Exception) {
+                e.printStackTrace()
+                getUserProfileResult.value = Result.Error(e.message.toString())
+            }
+        }
+        return getUserProfileResult
+    }
     fun getProductList(): LiveData<Result<ProductListResponse>> {
         viewModelScope.launch {
             try {
