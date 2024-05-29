@@ -2,79 +2,130 @@ package com.entre.gethub.ui.home.projectbids
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
+import android.view.View
+import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.entre.gethub.R
+import com.entre.gethub.data.Result
+import com.entre.gethub.data.remote.response.projects.ProjectsResponse
 import com.entre.gethub.databinding.ActivityHomeCariProjectBidsBinding
 import com.entre.gethub.ui.adapter.HomeProjectBidsAdapter
-import com.entre.gethub.ui.models.ProjectBid
+import com.entre.gethub.utils.ViewModelFactory
 
 class HomeCariProjectBidsActivity : AppCompatActivity() {
     private val binding by lazy { ActivityHomeCariProjectBidsBinding.inflate(layoutInflater) }
+    private val homeCariProjectBidsViewModel by viewModels<HomeCariProjectBidsViewModel> {
+        ViewModelFactory.getInstance(
+            this
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        setupRecyclerViewProjectBid()
+        getProjects()
+
+        setupSearchProject()
 
         binding.iconBack.setOnClickListener {
             finish()
         }
     }
 
-    private fun setupRecyclerViewProjectBid() {
-        binding.recyclerViewRekomendasiProjectBid.apply {
+    override fun onResume() {
+        super.onResume()
+        getProjects()
+    }
+
+    private fun setupSearchProject() {
+        binding.searchView.setupWithSearchBar(binding.searchBar)
+        binding.searchView
+            .editText
+            .setOnEditorActionListener { textView, _, _ ->
+                val query = textView.text.toString()
+                if (query.isNotEmpty()) {
+                    homeCariProjectBidsViewModel.searchProjects(query).observe(this) { result ->
+                        if (result != null) {
+                            when (result) {
+                                is Result.Loading -> showLoading(true)
+                                is Result.Success -> {
+                                    showLoading(false)
+                                    val projectBid = result.data.data
+                                    setupRecyclerViewProjectBid(projectBid)
+                                }
+
+                                is Result.Empty -> {
+                                    showLoading(false)
+                                    showEmptyError(true, result.emptyError)
+                                }
+
+                                is Result.Error -> {
+                                    showLoading(false)
+                                    showToast(result.error)
+                                }
+                            }
+                        }
+                    }
+                }
+
+                false
+            }
+    }
+
+    private fun setupRecyclerViewProjectBid(projectBidList: List<ProjectsResponse.Project>) {
+        binding.rvRekomendasiProjectBid.apply {
             layoutManager = LinearLayoutManager(
                 this@HomeCariProjectBidsActivity,
                 LinearLayoutManager.VERTICAL,
                 false
             )
-            adapter = HomeProjectBidsAdapter(createProjectBidList()) { projectBid, position ->
-                // Handling item click event
+            adapter = HomeProjectBidsAdapter(projectBidList) { projectBid, _ ->
                 val intent = Intent(
                     this@HomeCariProjectBidsActivity,
                     HomeDetailProjectBidsActivity::class.java
                 )
-                intent.putExtra(
-                    "project_bid",
-                    projectBid
-                ) // Passing ProjectBid object to detail activity
+                intent.putExtra(HomeDetailProjectBidsActivity.EXTRA_PROJECT_ID, projectBid.id)
                 startActivity(intent)
             }
         }
     }
 
+    private fun getProjects() {
+        homeCariProjectBidsViewModel.getProjects().observe(this) { result ->
+            if (result != null) {
+                when (result) {
+                    is Result.Loading -> showLoading(true)
+                    is Result.Success -> {
+                        showLoading(false)
+                        setupRecyclerViewProjectBid(result.data.data?.projects!!)
+                    }
 
-    private fun createProjectBidList(): ArrayList<ProjectBid> {
-        return arrayListOf<ProjectBid>(
-            ProjectBid(
-                "Ajay Devgan",
-                R.drawable.profilepic1,
-                "Software Engineer",
-                "UI UX Designer",
-                "Dibutuhkan UI UX Designer yg memiliki jiwa seni untuk membuat layout Aplikasi sesuai dengan recruitment yg telah saya tentukan dengan thema Coffee Shop",
-                "Rp 3,000,000 - 4,500,000", // Harga rekrut
-                "Deadline : 10 Days", // Deadline proyek
-                "Total User Bids : 5 Users", // Total proyek
-                "Di Post : 20-04-2024", // Tanggal proyek
-                "2 Mei 2024 - 12 Mei 2024" // Tanggal awal-akhir
-            ),
-            ProjectBid(
-                "Michael",
-                R.drawable.profilepic1,
-                "Software Engineer",
-                "Butuh Konten Kreator",
-                "Sedang Mencari Konten Kreator untuk pembuatan konten makanan dan untuk promosi warung rumah makanan yg baru buka di butuhkan segera",
-                "Rp 400,000 - 500,000", // Harga rekrut
-                "Deadline : 5 Days", // Deadline proyek
-                "Total User Bids : 5 Users", // Total proyek
-                "Di Post : 20-04-2024", // Tanggal proyek
-                "2 Mei 2024 - 12 Mei 2024" // Tanggal awal-akhir
-            )
-        )
+                    is Result.Empty -> {
+                        showLoading(false)
+                        showEmptyError(true, message = result.emptyError)
+                    }
+
+                    is Result.Error -> {
+                        showLoading(false)
+                        showEmptyError(true, message = result.error)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    private fun showEmptyError(isError: Boolean, message: String) {
+        binding.empty.llEmpty.visibility = if (isError) View.VISIBLE else View.GONE
+        binding.empty.tvEmpty.text = message
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }

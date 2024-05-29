@@ -26,6 +26,12 @@
         android:theme="@style/Theme.GetHub"
         tools:targetApi="31">
         <activity
+            android:name=".ui.project.bidproject.BidProjectStatusDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.project.bidproject.BidProjectStatusActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.gethub.GethubAddPartnerFormActivity"
             android:exported="false" />
         <activity

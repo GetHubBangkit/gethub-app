@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="15dp"
-    android:layout_marginRight="15dp"
+    android:layout_marginStart="15dp"
+    android:layout_marginEnd="15dp"
     android:layout_marginBottom="13dp"
     app:cardCornerRadius="10dp">
 
@@ -13,150 +12,117 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?android:attr/selectableItemBackground"
-        tools:context=".ui.MainActivity">
+        android:paddingHorizontal="14dp"
+        android:paddingVertical="12dp">
 
-
-        <ImageView
-            android:id="@+id/profilepic2"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivProjectOwnerPic"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:scaleType="centerCrop"
             android:src="@drawable/profilepic2"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.045"
+            app:layout_constraintBottom_toTopOf="@id/tvProjectTitle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.121" />
+            app:shapeAppearance="@style/circle" />
 
         <TextView
-            android:id="@+id/rekomendasiprofilename"
+            android:id="@+id/tvProjectOwnerName"
+            style="@style/Nunito.Black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/nunito_bold"
+            android:layout_marginStart="8dp"
             android:text="Arman Juliansyah"
             android:textColor="@android:color/black"
             android:textSize="12sp"
-            app:fontFamily="@font/nunito_bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.058"
-            app:layout_constraintStart_toEndOf="@+id/profilepic2"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.102" />
+            app:layout_constraintStart_toEndOf="@id/ivProjectOwnerPic"
+            app:layout_constraintTop_toTopOf="@id/ivProjectOwnerPic" />
 
         <TextView
-            android:id="@+id/rekomendasiprofiledesc"
+            android:id="@+id/tvProjectOwnerProfession"
+            style="@style/Nunito.SemiBold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/nunito_semibold"
             android:text="Software Enginer"
             android:textColor="@android:color/black"
             android:textSize="10sp"
-
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.053"
-            app:layout_constraintStart_toEndOf="@+id/profilepic2"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.224" />
+            app:layout_constraintStart_toStartOf="@id/tvProjectOwnerName"
+            app:layout_constraintTop_toBottomOf="@id/tvProjectOwnerName" />
 
         <TextView
-            android:id="@+id/rekrutproject"
-            android:layout_width="150dp"
-            android:layout_height="18dp"
-            android:fontFamily="@font/nunito_semibold"
+            android:id="@+id/tvProjectTitle"
+            style="@style/Nunito.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:text="Butuh UI UX Designer"
             android:textColor="@android:color/black"
             android:textSize="10sp"
-
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.061"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profilepic2"
-            app:layout_constraintVertical_bias="0.109" />
+            app:layout_constraintTop_toBottomOf="@id/ivProjectOwnerPic" />
 
         <TextView
-            android:id="@+id/rekrutprice"
+            android:id="@+id/tvProjectPriceRange"
+            style="@style/Nunito.SemiBold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/nunito_semibold"
+            android:layout_marginTop="20dp"
             android:text="Rp 3,000,000 - 4,500,000"
             android:textColor="@android:color/black"
             android:textSize="10sp"
-
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.846"
-            app:layout_constraintStart_toEndOf="@+id/rekrutproject"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.378" />
+            app:layout_constraintTop_toBottomOf="@id/ivProjectOwnerPic" />
 
         <TextView
-            android:id="@+id/rekrutprojectdesc"
-            android:layout_width="329dp"
-            android:layout_height="wrap_content"
+            android:id="@+id/tvProjectDesc"
             style="@style/Nunito"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:ellipsize="end"
+            android:maxLines="3"
             android:text="Dibutuhkan UI UX Designer yg memiliki jiwa seni untuk membuat layout
 Aplikasi sesuai dengan recruitment yg telah saya tentukan dengan thema
 Coffee Shop "
             android:textColor="@android:color/black"
             android:textSize="10sp"
-
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.36"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rekrutproject"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@id/tvProjectTitle" />
 
         <TextView
-            android:id="@+id/rekrutprojectdeadline"
+            android:id="@+id/tvProjectDeadline"
+            style="@style/Nunito.SemiBold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/nunito_semibold"
-            android:text="Deadline : 10 Days"
+            android:layout_marginTop="10dp"
+            android:text="Deadline: 10 Days"
             android:textColor="@android:color/black"
             android:textSize="10sp"
-
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.041"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rekrutprojectdesc"
-            app:layout_constraintVertical_bias="0.2" />
+            app:layout_constraintTop_toBottomOf="@id/tvProjectDesc" />
 
         <TextView
-            android:id="@+id/rekrutprojecttotal"
-            android:layout_width="wrap_content"
-            android:layout_height="27dp"
-            android:fontFamily="@font/nunito_semibold"
-            android:text="Total User Bids : 10 Users"
-            android:textColor="@android:color/black"
-            android:textSize="10sp"
-
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.044"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rekrutprojectdeadline"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <TextView
-            android:id="@+id/rekrutprojectdate"
+            android:id="@+id/tvProjectTotalUserBids"
+            style="@style/Nunito.SemiBold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/nunito_semibold"
-            android:text="Di Post : 20-04-2024"
+            android:text="Total User Bids: 10 Users"
             android:textColor="@android:color/black"
             android:textSize="10sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvProjectDeadline" />
 
+        <TextView
+            android:id="@+id/tvProjectPostDate"
+            style="@style/Nunito.SemiBold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Di Post: 20-04-2024"
+            android:textColor="@android:color/black"
+            android:textSize="10sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.846"
-            app:layout_constraintStart_toEndOf="@+id/rekrutprojectdeadline"
-            app:layout_constraintTop_toBottomOf="@+id/rekrutprojectdesc"
-            app:layout_constraintVertical_bias="0.31" />
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
