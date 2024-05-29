@@ -17,6 +17,7 @@ import com.entre.gethub.data.repositories.ProfileRepository
 import com.entre.gethub.data.repositories.ProjectRepository
 import com.entre.gethub.data.repositories.ScanCardRepository
 import com.entre.gethub.data.repositories.SponsorRepository
+import com.entre.gethub.data.repositories.UserPublicProfileRepository
 import com.entre.gethub.di.Injection
 import com.entre.gethub.ui.akun.AkunViewModel
 import com.entre.gethub.ui.auth.LoginViewModel
@@ -46,6 +47,7 @@ import com.entre.gethub.ui.project.postedproject.PostedProjectStatusViewModel
 import com.entre.gethub.ui.project.postproject.PostProjectActivity
 import com.entre.gethub.ui.project.postproject.PostProjectViewModel
 import com.entre.gethub.ui.splash.SplashViewModel
+import com.entre.gethub.ui.userpublicprofile.UserPublicProfileViewModel
 
 class ViewModelFactory private constructor(
     private val authRepository: AuthRepository,
@@ -60,10 +62,14 @@ class ViewModelFactory private constructor(
     private val categoryRepository: CategoryRepository,
     private val scanCardRepository: ScanCardRepository,
     private val projectRepository: ProjectRepository,
-    private val cariTalentRepository: CariTalentRepository
+    private val cariTalentRepository: CariTalentRepository,
+    private val userPublicProfileRepository: UserPublicProfileRepository
 ) : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when (modelClass) {
+            UserPublicProfileViewModel::class.java -> UserPublicProfileViewModel(
+                userPublicProfileRepository
+            ) as T
             SplashViewModel::class.java -> SplashViewModel(userPreferences) as T
             LoginViewModel::class.java -> LoginViewModel(authRepository, userPreferences) as T
             RegisterViewModel::class.java -> RegisterViewModel(authRepository) as T
@@ -179,6 +185,7 @@ class ViewModelFactory private constructor(
                 Injection.provideScanCardRepository(context),
                 Injection.provideProjectRepository(context),
                 Injection.provideCariTalentRepository(context),
+                Injection.provideUserPublicProfileRepository(context)
             )
     }
 }

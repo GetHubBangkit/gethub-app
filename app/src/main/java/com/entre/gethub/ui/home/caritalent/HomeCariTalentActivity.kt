@@ -1,5 +1,6 @@
 package com.entre.gethub.ui.home.caritalent
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -9,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.entre.gethub.databinding.ActivityHomeCariTalentBinding
 import com.entre.gethub.ui.adapter.CariTalentAdapter
+import com.entre.gethub.ui.userpublicprofile.UserPublicProfileActivity
 import com.entre.gethub.utils.ViewModelFactory
 
 class HomeCariTalentActivity : AppCompatActivity() {
@@ -40,7 +42,10 @@ class HomeCariTalentActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerViewCariTalent() {
-        cariTalentAdapter = CariTalentAdapter(ArrayList()) { _, _ -> }
+        cariTalentAdapter = CariTalentAdapter(ArrayList()) { talent ->
+            navigateToUserProfile(talent.username!!)
+        }
+
         binding.rvHomeCariTalent.apply {
             layoutManager = LinearLayoutManager(this@HomeCariTalentActivity)
             adapter = cariTalentAdapter
@@ -72,5 +77,11 @@ class HomeCariTalentActivity : AppCompatActivity() {
         } else {
             Toast.makeText(this, "Please enter a profession", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun navigateToUserProfile(username: String) {
+        val intent = Intent(this, UserPublicProfileActivity::class.java)
+        intent.putExtra("username", username)
+        startActivity(intent)
     }
 }

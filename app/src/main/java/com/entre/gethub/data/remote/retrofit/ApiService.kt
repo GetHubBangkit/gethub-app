@@ -6,6 +6,7 @@ import com.entre.gethub.data.remote.response.InformationHubResponse
 import com.entre.gethub.data.remote.response.LinkResponse
 import com.entre.gethub.data.remote.response.SponsorResponse
 import com.entre.gethub.data.remote.response.UploadFileResponse
+import com.entre.gethub.data.remote.response.UserPublicProfileResponse
 import com.entre.gethub.data.remote.response.auth.LoginResponse
 import com.entre.gethub.data.remote.response.certifications.CertificationListResponse
 import com.entre.gethub.data.remote.response.certifications.CertificationResponse
@@ -239,4 +240,9 @@ interface ApiService {
         @Path("id") id: String,
     ): ApiResponse
     // Products
+
+    @GET("public/profile")
+    suspend fun getPublicProfile(
+        @Query("username") username: String
+    ): UserPublicProfileResponse
 }
