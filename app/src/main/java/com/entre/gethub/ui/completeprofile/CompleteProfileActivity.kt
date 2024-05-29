@@ -43,6 +43,7 @@ class CompleteProfileActivity : AppCompatActivity() {
     private lateinit var edEmail: EditText
     private lateinit var edWebsite: EditText
     private lateinit var edAddress: EditText
+    private lateinit var edAbout: EditText
 
     private var scanCardResponse: ScanCardResponse? = null
 
@@ -64,6 +65,7 @@ class CompleteProfileActivity : AppCompatActivity() {
         edEmail = binding.emailTextField.editText!!
         edWebsite = binding.websiteTextField.editText!!
         edAddress = binding.alamatTextField.editText!!
+        edAbout = binding.aboutTextField.editText!!
 
         with(binding) {
             tvUploadPhoto.setOnClickListener {
@@ -77,6 +79,7 @@ class CompleteProfileActivity : AppCompatActivity() {
                 val email = edEmail.text.toString()
                 val website = edWebsite.text.toString()
                 val alamat = edAddress.text.toString()
+                val about = edAbout.text.toString()
 
                 val updateUserProfileParams = UpdateUserProfileParams(
                     fullname,
@@ -85,6 +88,7 @@ class CompleteProfileActivity : AppCompatActivity() {
                     phone,
                     website,
                     alamat,
+                    about,
                     imageUrl
                 )
 
@@ -141,6 +145,14 @@ class CompleteProfileActivity : AppCompatActivity() {
                     edAddress.error = null
                 }
             }
+
+//            edAbout.doOnTextChanged { text, _, _, _ ->
+//                if (text.toString().isEmpty()) {
+//                    edAbout.error = getString(R.string.about_field_couldn_be_empty)
+//                } else {
+//                    edAbout.error = null
+//                }
+//            }
 
             if (scanCardResponse != null) {
                 val userProfile = scanCardResponse?.data
