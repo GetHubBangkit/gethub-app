@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:fillViewport="true"
+    tools:context=".ui.home.mygethub.product.HomeKelolaMyGethubEditProdukActivity">
+
+    <ImageView
+        android:id="@+id/frame"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/rectangle"
+        app:layout_constraintDimensionRatio="H,3:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvEditTentangSaya"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Edit Tentang Saya"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:fontFamily="@font/nunito_extrabold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.036"
+        app:layout_constraintStart_toEndOf="@+id/icon_back"
+        app:layout_constraintTop_toTopOf="@+id/frame"
+        app:layout_constraintVertical_bias="0.034" />
+
+    <ImageView
+        android:id="@+id/icon_back"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="24dp"
+        android:src="@drawable/icon_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.041"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="45dp"
+        app:cardCornerRadius="10dp"
+        app:contentPadding="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvEditTentangSaya">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            
+            <TextView
+                android:id="@+id/tvAbout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/nunito_bold"
+                android:text="About"
+                android:textColor="@color/darkBlue" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/aboutTextField"
+                style="@style/AuthTextInputLayoutComplete"
+                android:layout_width="match_parent"
+                android:layout_height="114dp"
+                android:minHeight="47dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="114dp"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="5dp"
+                    android:gravity="start|top"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="1dp"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <Button
+                android:id="@+id/btnSimpan"
+                style="@style/CustomButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="Simpan" />
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+    </androidx.cardview.widget.CardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -27,6 +27,8 @@ import com.entre.gethub.ui.home.mygethub.certification.HomeKelolaMyGethubTambahS
 import com.entre.gethub.ui.home.mygethub.link.HomeKelolaMyGethubTambahLinkActivity
 import com.entre.gethub.ui.home.mygethub.product.HomeKelolaMyGethubEditProdukActivity
 import com.entre.gethub.ui.home.mygethub.product.HomeKelolaMyGethubTambahProdukActivity
+import com.entre.gethub.ui.home.mygethub.tentangsaya.HomeKelolaMyGethubEditTentangSayaActivity
+import com.entre.gethub.ui.home.mygethub.tentangsaya.HomeKelolaMyGethubEditTentangSayaViewModel
 import com.entre.gethub.ui.models.GethubLink
 import com.entre.gethub.utils.ViewModelFactory
 
@@ -60,6 +62,9 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
             startActivity(Intent(this, HomeKelolaMyGethubGantiDesignActivity::class.java))
         }
 
+        binding.edittentangsaya.setOnClickListener {
+            startActivity(Intent(this, HomeKelolaMyGethubEditTentangSayaActivity::class.java))
+        }
         binding.editgethublink.setOnClickListener {
             startActivity(Intent(this, HomeKelolaMyGethubTambahLinkActivity::class.java))
         }
@@ -98,7 +103,6 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
                         showLoadingOnAbout(false)
                         showToast(result.error)
                     }
-
                     else -> {
                         showLoadingOnAbout(false)
                         showToast(getString(R.string.something_went_wrong))

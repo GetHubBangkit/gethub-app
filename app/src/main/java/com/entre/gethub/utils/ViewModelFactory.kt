@@ -33,6 +33,7 @@ import com.entre.gethub.ui.home.mygethub.certification.HomeKelolaMyGethubTambahS
 import com.entre.gethub.ui.home.mygethub.link.HomeKelolaMyGethubTambahLinkViewModel
 import com.entre.gethub.ui.home.mygethub.product.HomeKelolaMyGethubEditProdukViewModel
 import com.entre.gethub.ui.home.mygethub.product.HomeKelolaMyGethubTambahProdukViewModel
+import com.entre.gethub.ui.home.mygethub.tentangsaya.HomeKelolaMyGethubEditTentangSayaViewModel
 import com.entre.gethub.ui.splash.SplashViewModel
 
 class ViewModelFactory private constructor(
@@ -59,6 +60,10 @@ class ViewModelFactory private constructor(
             CompleteProfileValidationViewModel::class.java -> CompleteProfileValidationViewModel(
                 profileRepository, scanCardRepository
             ) as T
+
+            HomeKelolaMyGethubEditTentangSayaViewModel::class.java -> {
+                HomeKelolaMyGethubEditTentangSayaViewModel(profileRepository) as T
+            }
 
             AkunViewModel::class.java -> AkunViewModel(profileRepository, userPreferences) as T
             GethubViewModel::class.java -> GethubViewModel(
