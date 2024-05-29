@@ -9,17 +9,15 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.entre.gethub.ui.models.ProjectBid
 import com.entre.gethub.R
 import com.entre.gethub.data.Result
-import com.entre.gethub.data.remote.response.projects.ProjectsResponse
-import com.entre.gethub.ui.models.TopTalent
+import com.entre.gethub.data.remote.response.projects.ProjectStatsResponse
 import com.entre.gethub.databinding.FragmentProjectBinding
-import com.entre.gethub.ui.adapter.HomeProjectBidsAdapter
+import com.entre.gethub.ui.adapter.OwnerPostedProjectAdapter
 import com.entre.gethub.ui.adapter.TopTalentAdapter
 import com.entre.gethub.ui.home.projectbids.HomeDetailProjectBidsActivity
+import com.entre.gethub.ui.models.TopTalent
 import com.entre.gethub.ui.project.bidproject.BidProjectStatusActivity
 import com.entre.gethub.ui.project.postedproject.PostedProjectStatusActivity
 import com.entre.gethub.ui.project.postproject.PostProjectActivity
@@ -48,8 +46,6 @@ class ProjectFragment : Fragment() {
 
         setupClickListener()
 
-        getAllProjectBids()
-
         getUserProjectStats()
 
         return root
@@ -57,7 +53,6 @@ class ProjectFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        getAllProjectBids()
         getUserProjectStats()
     }
 
@@ -93,6 +88,7 @@ class ProjectFragment : Fragment() {
                             tvBidProject.text = result?.bidsMade.toString()
                             tvTerimaProject.text = result?.bidsAccepted.toString()
                         }
+                        setupRecyclerViewProjectBid(result.data.data?.bidProjects!!)
                     }
 
                     is Result.Error -> {
@@ -165,43 +161,20 @@ class ProjectFragment : Fragment() {
         )
     }
 
-    private fun getAllProjectBids() {
-        projectViewModel.getProjects().observe(viewLifecycleOwner) { result ->
-            if (result != null) {
-                when (result) {
-                    is Result.Loading -> showLoadingOnProjectBids(true)
-                    is Result.Success -> {
-                        showLoadingOnProjectBids(false)
-                        setupRecyclerViewProjectBid(result.data.data?.projects!!)
-                    }
 
-                    is Result.Empty -> {
-                        showLoadingOnProjectBids(false)
-                        showEmptyOnProjectBids(true, result.emptyError)
-                    }
-
-                    is Result.Error -> {
-                        showLoadingOnProjectBids(false)
-                        showToast(result.error)
-                    }
-                }
-            }
-        }
-    }
-
-    private fun setupRecyclerViewProjectBid(projectBidList: List<ProjectsResponse.Project>) {
+    private fun setupRecyclerViewProjectBid(projectBidList: List<ProjectStatsResponse.BidProjectsItem>) {
         binding.rvRekomendasiProjectBid.apply {
             layoutManager = LinearLayoutManager(
                 requireContext(),
                 LinearLayoutManager.VERTICAL,
                 false
             )
-            adapter = HomeProjectBidsAdapter(projectBidList) { projectBid, _ ->
+            adapter = OwnerPostedProjectAdapter(projectBidList) { projectBid, _ ->
                 val intent = Intent(
                     requireContext(),
                     HomeDetailProjectBidsActivity::class.java
                 )
-                intent.putExtra(HomeDetailProjectBidsActivity.EXTRA_PROJECT_ID, projectBid.id)
+                intent.putExtra(HomeDetailProjectBidsActivity.EXTRA_PROJECT_ID, projectBid.projectId)
                 startActivity(intent)
             }
         }

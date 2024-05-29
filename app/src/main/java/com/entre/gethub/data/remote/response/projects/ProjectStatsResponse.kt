@@ -16,10 +16,11 @@ data class ProjectStatsResponse(
     @field:SerializedName("message")
     val message: String? = null
 ) {
+
     data class Data(
 
         @field:SerializedName("bid_projects")
-        val bidProjects: List<BidProjectsItem?>? = null,
+        val bidProjects: List<BidProjectsItem>,
 
         @field:SerializedName("bids_made")
         val bidsMade: Int? = null,
@@ -28,16 +29,46 @@ data class ProjectStatsResponse(
         val jobPosted: Int? = null,
 
         @field:SerializedName("bids_accepted")
-        val bidsAccepted: Int? = null
+        val bidsAccepted: Int? = null,
+
+        @field:SerializedName("total_bidders")
+        val totalBidders: Int? = null
+    )
+
+    data class Owner(
+
+        @field:SerializedName("profession")
+        val profession: String? = null,
+
+        @field:SerializedName("full_name")
+        val fullName: String? = null,
+
+        @field:SerializedName("photo")
+        val photo: String? = null,
+
+        @field:SerializedName("id")
+        val id: String? = null,
+
+        @field:SerializedName("email")
+        val email: String? = null,
+
+        @field:SerializedName("username")
+        val username: String? = null
     )
 
     data class BidProjectsItem(
+
+        @field:SerializedName("owner")
+        val owner: Owner? = null,
 
         @field:SerializedName("min_budget")
         val minBudget: Int? = null,
 
         @field:SerializedName("max_deadline")
         val maxDeadline: String? = null,
+
+        @field:SerializedName("deadline_duration")
+        val deadlineDuration: String? = null,
 
         @field:SerializedName("is_selected")
         val isSelected: Boolean? = null,
