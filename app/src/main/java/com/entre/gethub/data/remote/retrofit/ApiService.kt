@@ -4,6 +4,7 @@ import com.entre.gethub.data.remote.response.ApiResponse
 import com.entre.gethub.data.remote.response.CategoriesResponse
 import com.entre.gethub.data.remote.response.InformationHubResponse
 import com.entre.gethub.data.remote.response.LinkResponse
+import com.entre.gethub.data.remote.response.SearchingPartnerResponse
 import com.entre.gethub.data.remote.response.SponsorResponse
 import com.entre.gethub.data.remote.response.UploadFileResponse
 import com.entre.gethub.data.remote.response.UserPublicProfileResponse
@@ -110,6 +111,11 @@ interface ApiService {
     @GET("user/partners")
     suspend fun getPartnerList(): GetHubPartnerListResponse
     // Partner
+
+    @GET("/api/partner/search")
+    suspend fun searchPartner(
+        @Query("name") name: String
+    ): SearchingPartnerResponse
 
     // Sponsors
     @GET("sponsors")
