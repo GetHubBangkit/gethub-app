@@ -26,6 +26,7 @@ class GethubPartnerListActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         initViewModel()
+        getPartnerList() // Memanggil fungsi untuk mendapatkan daftar partner
 
         // Ketika tombol cari ditekan
         binding.btnSimpan.setOnClickListener {
@@ -97,20 +98,21 @@ class GethubPartnerListActivity : AppCompatActivity() {
                 val gethubPartnerList = gethubPartnerListResponse.data
                 showLoading(false)
                 setupRecyclerGethubPartnerList(gethubPartnerList)
+                toggleEmptyView(gethubPartnerList.isEmpty())
             }
             is Result.Error -> {
                 showLoading(false)
                 showToast(result.error)
+                toggleEmptyView(true)
             }
             is Result.Empty -> {
-                binding.empty.apply {
-                    llEmpty.visibility = View.VISIBLE
-                    tvEmpty.text = result.emptyError
-                }
+                showLoading(false)
+                toggleEmptyView(true, result.emptyError)
             }
             else -> {
                 showLoading(false)
                 showToast("Terjadi kesalahan")
+                toggleEmptyView(true)
             }
         }
     }
@@ -123,20 +125,21 @@ class GethubPartnerListActivity : AppCompatActivity() {
                 val searchingPartnerList = searchingPartnerResponse.data.partners
                 showLoading(false)
                 setupRecyclerGethubPartnerSearchList(searchingPartnerList)
+                toggleEmptyView(searchingPartnerList.isEmpty())
             }
             is Result.Error -> {
                 showLoading(false)
                 showToast(result.error)
+                toggleEmptyView(true)
             }
             is Result.Empty -> {
-                binding.empty.apply {
-                    llEmpty.visibility = View.VISIBLE
-                    tvEmpty.text = result.emptyError
-                }
+                showLoading(false)
+                toggleEmptyView(true, result.emptyError)
             }
             else -> {
                 showLoading(false)
                 showToast("Terjadi kesalahan")
+                toggleEmptyView(true)
             }
         }
     }
@@ -147,5 +150,12 @@ class GethubPartnerListActivity : AppCompatActivity() {
 
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun toggleEmptyView(isEmpty: Boolean, emptyMessage: String = "List Partner Masih Kosong") {
+        binding.empty.apply {
+            llEmpty.visibility = if (isEmpty) View.VISIBLE else View.GONE
+            tvEmpty.text = emptyMessage
+        }
     }
 }
