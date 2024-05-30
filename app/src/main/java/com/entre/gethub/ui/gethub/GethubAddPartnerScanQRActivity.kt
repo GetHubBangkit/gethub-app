@@ -1,6 +1,7 @@
 package com.entre.gethub.ui.gethub
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.zxing.integration.android.IntentIntegrator
@@ -9,6 +10,7 @@ class GethubAddPartnerScanQRActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT // Set orientation to portrait
         initiateScan()
     }
 
@@ -19,6 +21,7 @@ class GethubAddPartnerScanQRActivity : AppCompatActivity() {
         integrator.setCameraId(0) // Use a specific camera of the device
         integrator.setBeepEnabled(false)
         integrator.setBarcodeImageEnabled(true)
+        integrator.setCaptureActivity(CaptureActivityPortrait::class.java)
         integrator.initiateScan()
     }
 
