@@ -39,9 +39,13 @@ import com.entre.gethub.ui.home.mygethub.tentangsaya.HomeKelolaMyGethubEditTenta
 import com.entre.gethub.ui.home.projectbids.HomeCariProjectBidsViewModel
 import com.entre.gethub.ui.home.projectbids.HomeDetailProjectBidsFormViewModel
 import com.entre.gethub.ui.home.projectbids.HomeDetailProjectBidsViewModel
+import com.entre.gethub.ui.home.projectbids.SearchProjectViewModel
 import com.entre.gethub.ui.project.ProjectViewModel
 import com.entre.gethub.ui.project.bidproject.BidProjectStatusDetailViewModel
 import com.entre.gethub.ui.project.bidproject.BidProjectStatusViewModel
+import com.entre.gethub.ui.project.postedproject.PostedProjectStatusViewModel
+import com.entre.gethub.ui.project.postproject.PostProjectActivity
+import com.entre.gethub.ui.project.postproject.PostProjectViewModel
 import com.entre.gethub.ui.splash.SplashViewModel
 import com.entre.gethub.ui.userpublicprofile.UserPublicProfileViewModel
 
@@ -118,8 +122,6 @@ class ViewModelFactory private constructor(
                 linkRepository
             ) as T
 
-
-
             HomeKelolaMyGethubTambahLinkViewModel::class.java -> HomeKelolaMyGethubTambahLinkViewModel(
                 linkRepository
             ) as T
@@ -151,6 +153,17 @@ class ViewModelFactory private constructor(
             ) as T
 
             ProjectViewModel::class.java -> ProjectViewModel(projectRepository) as T
+
+            PostProjectViewModel::class.java -> PostProjectViewModel(
+                categoryRepository,
+                projectRepository
+            ) as T
+
+            PostedProjectStatusViewModel::class.java -> PostedProjectStatusViewModel(
+                projectRepository
+            ) as T
+
+            SearchProjectViewModel::class.java -> SearchProjectViewModel(projectRepository) as T
 
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }

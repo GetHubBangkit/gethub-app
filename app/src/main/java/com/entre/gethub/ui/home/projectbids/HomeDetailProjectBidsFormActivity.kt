@@ -91,15 +91,16 @@ class HomeDetailProjectBidsFormActivity : AppCompatActivity() {
 
                         is Result.Error -> {
                             showLoading(false)
-                            showDialog(
-                                this@HomeDetailProjectBidsFormActivity,
-                                "Akun belum terverifikasi",
-                                result.error
-                            )
+                            showToast(result.error)
                         }
 
-                        else -> {
-                            //
+                        is Result.Empty -> {
+                            showLoading(false)
+                            showDialog(
+                                this@HomeDetailProjectBidsFormActivity,
+                                getString(R.string.account_is_not_verified),
+                                result.emptyError
+                            )
                         }
                     }
                 }

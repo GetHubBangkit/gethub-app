@@ -2,12 +2,15 @@ package com.entre.gethub.data.repositories
 
 import com.entre.gethub.data.remote.response.ApiResponse
 import com.entre.gethub.data.remote.response.projects.MyProjectBidResponse
+import com.entre.gethub.data.remote.response.projects.PostProjectResponse
+import com.entre.gethub.data.remote.response.projects.PostedProjectResponse
 import com.entre.gethub.data.remote.response.projects.ProjectDetailResponse
+import com.entre.gethub.data.remote.response.projects.ProjectStatsResponse
 import com.entre.gethub.data.remote.response.projects.ProjectsResponse
 import com.entre.gethub.data.remote.response.projects.SearchProjectResponse
 import com.entre.gethub.data.remote.retrofit.ApiService
 
-class ProjectRepository private constructor(private val apiService: ApiService){
+class ProjectRepository private constructor(private val apiService: ApiService) {
 
     suspend fun getProjects(): ProjectsResponse {
         return apiService.getProjects()
@@ -31,6 +34,34 @@ class ProjectRepository private constructor(private val apiService: ApiService){
 
     suspend fun searchProjects(title: String): SearchProjectResponse {
         return apiService.searchProjects(title)
+    }
+
+    suspend fun postProject(
+        title: String,
+        categoryId: String,
+        description: String,
+        minBudget: Int,
+        maxBudget: Int,
+        minDeadline: String,
+        maxDeadline: String,
+    ): PostProjectResponse {
+        return apiService.postProject(
+            title,
+            categoryId,
+            description,
+            minBudget,
+            maxBudget,
+            minDeadline,
+            maxDeadline
+        )
+    }
+
+    suspend fun getUserProjectStats(): ProjectStatsResponse {
+        return apiService.getUserProjectStats()
+    }
+
+    suspend fun getPostedProjects(): PostedProjectResponse {
+        return apiService.getPostedProjects()
     }
 
     companion object {
