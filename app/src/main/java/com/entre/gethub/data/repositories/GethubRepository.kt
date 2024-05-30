@@ -35,10 +35,9 @@ class GethubRepository private constructor(private val apiService: ApiService) {
         return apiService.getPartnerList()
     }
 
-    suspend fun searchPartner(name: String): SearchingPartnerResponse {
-        return apiService.searchPartner(name)
+    suspend fun searchPartner(name: String?, profession: String?): SearchingPartnerResponse {
+        return apiService.searchPartner(name, profession)
     }
-
 
     suspend fun uploadPhoto(file: MultipartBody.Part): UploadFileResponse {
         return apiService.uploadFile(file)

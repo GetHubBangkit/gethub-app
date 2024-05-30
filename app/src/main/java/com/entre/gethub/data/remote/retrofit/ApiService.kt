@@ -114,7 +114,8 @@ interface ApiService {
 
     @GET("/api/partner/search")
     suspend fun searchPartner(
-        @Query("name") name: String
+        @Query("name") name: String?,
+        @Query("profession") profession: String?
     ): SearchingPartnerResponse
 
     // Sponsors

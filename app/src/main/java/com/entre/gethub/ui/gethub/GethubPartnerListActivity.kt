@@ -29,10 +29,11 @@ class GethubPartnerListActivity : AppCompatActivity() {
 
         // Ketika tombol cari ditekan
         binding.btnSimpan.setOnClickListener {
-            val query = binding.linkTextField.editText?.text.toString()
-            if (query.isNotBlank()) {
+            val query = binding.namakTextField.editText?.text.toString()
+            val profession = binding.profesiTextField.editText?.text.toString()
+            if (query.isNotBlank() || profession.isNotBlank()) {
                 isSearching = true // Mengubah status menjadi sedang mencari
-                searchPartner(query) // Memanggil fungsi pencarian
+                searchPartner(query, profession) // Memanggil fungsi pencarian
             } else {
                 isSearching = false // Mengubah status menjadi tidak mencari
                 getPartnerList() // Memanggil fungsi untuk mendapatkan daftar partner
@@ -56,20 +57,20 @@ class GethubPartnerListActivity : AppCompatActivity() {
             adapter = GethubPartnerListAdapter(gethubPartnerList) { gethubpartnerlist, position ->
                 Toast.makeText(
                     this@GethubPartnerListActivity,
-                    "Clicked on actor: ${gethubpartnerlist.fullName}",
+                    "Clicked on partner: ${gethubpartnerlist.fullName}",
                     Toast.LENGTH_SHORT
                 ).show()
             }
         }
     }
 
-    private fun setupRecyclerGethubPartnerSearchList(searchingPartnerList: List<SearchingPartnerResponse.Partner>) {
+    private fun setupRecyclerGethubPartnerSearchList(partnerList: List<SearchingPartnerResponse.Partner>) {
         binding.rvGethubPartner.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            adapter = GethubPartnerSearchListAdapter(searchingPartnerList) { partner, position ->
+            adapter = GethubPartnerSearchListAdapter(partnerList) { partner, position ->
                 Toast.makeText(
                     this@GethubPartnerListActivity,
-                    "Clicked on actor: ${partner.fullName}",
+                    "Clicked on partner: ${partner.fullName}",
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -82,8 +83,8 @@ class GethubPartnerListActivity : AppCompatActivity() {
         }
     }
 
-    private fun searchPartner(name: String) {
-        getHubPartnerListViewModel.searchPartner(name).observe(this) { result ->
+    private fun searchPartner(name: String, profession: String) {
+        getHubPartnerListViewModel.searchPartner(name, profession).observe(this) { result ->
             handleSearchResult(result)
         }
     }
