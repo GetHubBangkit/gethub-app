@@ -21,6 +21,7 @@ import java.io.File
 class GethubAddPartnerFormViewModel(private val gethubRepository: GethubRepository) : ViewModel() {
     private val addPartnerResult = MediatorLiveData<Result<AddPartnerResponse>>()
     private val uploadProfilePhotoResult = MediatorLiveData<Result<UploadFileResponse>>()
+    private val addPartnerQRResult = MediatorLiveData<Result<AddPartnerResponse>>()
 
     fun addPartner(addPartnerParams: AddPartnerParams): LiveData<Result<AddPartnerResponse>> {
         viewModelScope.launch {
@@ -43,6 +44,7 @@ class GethubAddPartnerFormViewModel(private val gethubRepository: GethubReposito
         return addPartnerResult
     }
 
+
     fun uploadProfilePhoto(imageFile: File): LiveData<Result<UploadFileResponse>> {
         viewModelScope.launch {
             val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
@@ -63,5 +65,22 @@ class GethubAddPartnerFormViewModel(private val gethubRepository: GethubReposito
             }
         }
         return uploadProfilePhotoResult
+    }
+
+    fun addPartnerQR(qrCode: String): LiveData<Result<AddPartnerResponse>> {
+        viewModelScope.launch {
+            try {
+                addPartnerQRResult.value = Result.Loading
+                val response = gethubRepository.addPartnerQR(qrCode)
+                if (response.success == true) {
+                    addPartnerQRResult.value = Result.Success(response)
+                } else {
+                    addPartnerQRResult.value = Result.Error(response.message ?: "Unknown error")
+                }
+            } catch (e: Exception) {
+                addPartnerQRResult.value = Result.Error(e.message ?: "Exception occurred")
+            }
+        }
+        return addPartnerQRResult
     }
 }

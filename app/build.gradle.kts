@@ -103,4 +103,8 @@ dependencies {
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
+
+    // scan QR
+    implementation ("com.journeyapps:zxing-android-embedded:4.3.0")
+
 }

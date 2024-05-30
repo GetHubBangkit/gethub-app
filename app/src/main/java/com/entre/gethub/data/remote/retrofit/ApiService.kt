@@ -99,6 +99,14 @@ interface ApiService {
         @Field("image") image: String?,
     ): AddPartnerResponse
 
+    // Partner QR
+    @FormUrlEncoded
+    @POST("partner-qr")
+    suspend fun addPartnerQR(
+        @Field("qr_code") qrCode: String
+    ): AddPartnerResponse
+
+
     @GET("user/partners")
     suspend fun getPartnerList(): GetHubPartnerListResponse
     // Partner
