@@ -1,6 +1,7 @@
 package com.entre.gethub.data.repositories
 
 import com.entre.gethub.data.remote.params.AddPartnerParams
+import com.entre.gethub.data.remote.response.SearchingPartnerResponse
 import com.entre.gethub.data.remote.response.UploadFileResponse
 import com.entre.gethub.data.remote.response.partners.AddPartnerResponse
 import com.entre.gethub.data.remote.response.partners.GetHubPartnerListResponse
@@ -32,6 +33,10 @@ class GethubRepository private constructor(private val apiService: ApiService) {
 
     suspend fun getPartnerList(): GetHubPartnerListResponse {
         return apiService.getPartnerList()
+    }
+
+    suspend fun searchPartner(name: String?, profession: String?): SearchingPartnerResponse {
+        return apiService.searchPartner(name, profession)
     }
 
     suspend fun uploadPhoto(file: MultipartBody.Part): UploadFileResponse {

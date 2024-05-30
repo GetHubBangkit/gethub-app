@@ -28,13 +28,16 @@
 
         <activity
             android:name=".ui.project.postedproject.PostedProjectStatusActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.home.projectbids.SearchProjectActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.project.postproject.PostProjectActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.project.bidproject.BidProjectStatusDetailActivity"
             android:exported="false"
