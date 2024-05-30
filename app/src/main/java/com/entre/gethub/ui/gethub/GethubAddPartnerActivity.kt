@@ -18,6 +18,11 @@ class GethubAddPartnerActivity : AppCompatActivity() {
             val intent = Intent(this, GethubAddPartnerFormActivity::class.java)
             startActivity(intent)
         }
+        binding.ivScanqr.setOnClickListener {
+            // Intent untuk berpindah ke CompleteProfileActivity
+            val intent = Intent(this, GethubAddPartnerScanQRActivity::class.java)
+            startActivity(intent)
+        }
 
         binding.iconBack.setOnClickListener {
             finish()

@@ -48,6 +48,12 @@ class GethubAddPartnerFormActivity : AppCompatActivity() {
 
         initViewModel()
 
+        // Get the QR code from the intent
+        val qrCode = intent.getStringExtra("QR_CODE")
+        if (qrCode != null) {
+            addPartnerUsingQRCode(qrCode)
+        }
+
         with(binding) {
             tvUploadPhoto.setOnClickListener {
                 selectImage()
@@ -188,5 +194,30 @@ class GethubAddPartnerFormActivity : AppCompatActivity() {
 
         }
 
+    }
+
+    private fun addPartnerUsingQRCode(qrCode: String) {
+        getHubPartnerFormViewModel.addPartnerQR(qrCode).observe(this) { result ->
+            if (result != null) {
+                when (result) {
+                    is Result.Loading -> showLoading(true)
+                    is Result.Success -> {
+                        showLoading(false)
+                        finish()
+                        showToast(result.data.message.toString())
+                    }
+
+                    is Result.Error -> {
+                        showLoading(false)
+                        showToast(result.error)
+                    }
+
+                    else -> {
+                        showLoading(false)
+                        showToast("Terjadi kesalahan")
+                    }
+                }
+            }
+        }
     }
 }

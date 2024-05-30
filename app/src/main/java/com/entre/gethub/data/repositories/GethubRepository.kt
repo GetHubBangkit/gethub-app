@@ -26,6 +26,10 @@ class GethubRepository private constructor(private val apiService: ApiService) {
         )
     }
 
+    suspend fun addPartnerQR(qrCode: String): AddPartnerResponse {
+        return apiService.addPartnerQR(qrCode)
+    }
+
     suspend fun getPartnerList(): GetHubPartnerListResponse {
         return apiService.getPartnerList()
     }

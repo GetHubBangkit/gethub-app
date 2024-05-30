@@ -109,7 +109,7 @@
         app:layout_constraintTop_toBottomOf="@+id/teks" />
 
     <ImageView
-        android:id="@+id/scanqr"
+        android:id="@+id/ivScanqr"
         android:layout_width="335dp"
         android:layout_height="174dp"
         android:layout_marginTop="16dp"
