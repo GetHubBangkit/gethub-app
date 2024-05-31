@@ -36,6 +36,9 @@ class ApiConfig {
             }
 
             val client = OkHttpClient.Builder()
+                .connectTimeout(60, TimeUnit.SECONDS)
+                .readTimeout(60, TimeUnit.SECONDS)
+                .writeTimeout(60, TimeUnit.SECONDS)
                 .addInterceptor(chuckerInterceptor)
                 .addInterceptor(authInterceptor)
                 .build()

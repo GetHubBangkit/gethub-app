@@ -41,8 +41,10 @@ import com.entre.gethub.ui.home.projectbids.HomeDetailProjectBidsFormViewModel
 import com.entre.gethub.ui.home.projectbids.HomeDetailProjectBidsViewModel
 import com.entre.gethub.ui.home.projectbids.SearchProjectViewModel
 import com.entre.gethub.ui.project.ProjectViewModel
+import com.entre.gethub.ui.project.acceptedbidproject.AcceptedBidProjectViewModel
 import com.entre.gethub.ui.project.bidproject.BidProjectStatusDetailViewModel
 import com.entre.gethub.ui.project.bidproject.BidProjectStatusViewModel
+import com.entre.gethub.ui.project.postedproject.PostedProjectStatusDetailViewModel
 import com.entre.gethub.ui.project.postedproject.PostedProjectStatusViewModel
 import com.entre.gethub.ui.project.postproject.PostProjectActivity
 import com.entre.gethub.ui.project.postproject.PostProjectViewModel
@@ -70,6 +72,7 @@ class ViewModelFactory private constructor(
             UserPublicProfileViewModel::class.java -> UserPublicProfileViewModel(
                 userPublicProfileRepository
             ) as T
+
             SplashViewModel::class.java -> SplashViewModel(userPreferences) as T
             LoginViewModel::class.java -> LoginViewModel(authRepository, userPreferences) as T
             RegisterViewModel::class.java -> RegisterViewModel(authRepository) as T
@@ -162,6 +165,12 @@ class ViewModelFactory private constructor(
             PostedProjectStatusViewModel::class.java -> PostedProjectStatusViewModel(
                 projectRepository
             ) as T
+
+            PostedProjectStatusDetailViewModel::class.java -> PostedProjectStatusDetailViewModel(
+                projectRepository
+            ) as T
+
+            AcceptedBidProjectViewModel::class.java -> AcceptedBidProjectViewModel(projectRepository) as T
 
             SearchProjectViewModel::class.java -> SearchProjectViewModel(projectRepository) as T
 

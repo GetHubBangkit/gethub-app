@@ -2,7 +2,7 @@ package com.entre.gethub.data.remote.response.projects
 
 import com.google.gson.annotations.SerializedName
 
-data class PostedProjectResponse(
+data class PostedProjectDetailResponse(
 
     @field:SerializedName("data")
     val data: Data? = null,
@@ -16,12 +16,6 @@ data class PostedProjectResponse(
     @field:SerializedName("message")
     val message: String? = null
 ) {
-
-    data class Category(
-
-        @field:SerializedName("name")
-        val name: String? = null
-    )
 
     data class OwnerProject(
 
@@ -38,7 +32,34 @@ data class PostedProjectResponse(
         val username: String? = null
     )
 
-    data class ProjectsItem(
+    data class UsersBidItem(
+
+        @field:SerializedName("profession")
+        val profession: String? = null,
+
+        @field:SerializedName("full_name")
+        val fullName: String? = null,
+
+        @field:SerializedName("is_selected")
+        val isSelected: Boolean? = null,
+
+        @field:SerializedName("budget_bid")
+        val budgetBid: Int,
+
+        @field:SerializedName("photo")
+        val photo: String? = null,
+
+        @field:SerializedName("id")
+        val id: String? = null,
+
+        @field:SerializedName("message")
+        val message: String? = null,
+
+        @field:SerializedName("username")
+        val username: String? = null
+    )
+
+    data class Data(
 
         @field:SerializedName("fee_freelance_transaction_value")
         val feeFreelanceTransactionValue: Any? = null,
@@ -55,11 +76,17 @@ data class PostedProjectResponse(
         @field:SerializedName("max_budget")
         val maxBudget: Int? = null,
 
+        @field:SerializedName("users_bid")
+        val usersBid: List<UsersBidItem>,
+
         @field:SerializedName("title")
         val title: String? = null,
 
         @field:SerializedName("min_deadline")
         val minDeadline: String? = null,
+
+        @field:SerializedName("total_bidders")
+        val totalBidders: Int? = null,
 
         @field:SerializedName("createdAt")
         val createdAt: String? = null,
@@ -113,18 +140,13 @@ data class PostedProjectResponse(
         val createdDate: String? = null,
 
         @field:SerializedName("category")
-        val category: Category? = null,
-
-        @field:SerializedName("project_tasks")
-        val projectTasks: List<Any?>? = null
+        val category: Category? = null
     )
 
-    data class Data(
+    data class Category(
 
-        @field:SerializedName("projects")
-        val projects: List<ProjectsItem>,
-
-        @field:SerializedName("total_projects")
-        val totalProjects: Int? = null
+        @field:SerializedName("name")
+        val name: String? = null
     )
+
 }

@@ -18,7 +18,9 @@ import com.entre.gethub.ui.adapter.OwnerPostedProjectAdapter
 import com.entre.gethub.ui.adapter.TopTalentAdapter
 import com.entre.gethub.ui.home.projectbids.HomeDetailProjectBidsActivity
 import com.entre.gethub.ui.models.TopTalent
+import com.entre.gethub.ui.project.acceptedbidproject.AcceptedBidProjectActivity
 import com.entre.gethub.ui.project.bidproject.BidProjectStatusActivity
+import com.entre.gethub.ui.project.bidproject.BidProjectStatusDetailActivity
 import com.entre.gethub.ui.project.postedproject.PostedProjectStatusActivity
 import com.entre.gethub.ui.project.postproject.PostProjectActivity
 import com.entre.gethub.utils.ViewModelFactory
@@ -71,6 +73,10 @@ class ProjectFragment : Fragment() {
                 navigateToActivity(PostedProjectStatusActivity())
             }
 
+            ivAcceptedProject.setOnClickListener {
+                navigateToActivity(AcceptedBidProjectActivity())
+            }
+
             fabPostProject.setOnClickListener {
                 navigateToActivity(PostProjectActivity())
             }
@@ -81,22 +87,36 @@ class ProjectFragment : Fragment() {
         projectViewModel.getUserProjectStats().observe(viewLifecycleOwner) { result ->
             if (result != null) {
                 when (result) {
+                    is Result.Loading -> showLoadingOnProjectBids(true)
                     is Result.Success -> {
+                        showLoadingOnProjectBids(false)
                         with(binding) {
                             val result = result.data.data
                             tvPostProject.text = result?.jobPosted.toString()
                             tvBidProject.text = result?.bidsMade.toString()
                             tvTerimaProject.text = result?.bidsAccepted.toString()
                         }
-                        setupRecyclerViewProjectBid(result.data.data?.bidProjects!!)
+                        if (result.data.data?.bidProjects?.size == 0) {
+                            showEmptyOnProjectBids(true, "Anda belum melakukan bidding projek")
+                            binding.rvRekomendasiProjectBid.visibility = View.GONE
+                            return@observe
+                        } else {
+                            setupRecyclerViewProjectBid(
+                                result.data.data?.bidProjects ?: emptyList()
+                            )
+                            binding.rvRekomendasiProjectBid.visibility = View.VISIBLE
+
+                        }
                     }
 
                     is Result.Error -> {
+                        showLoadingOnProjectBids(false)
                         showToast(result.error)
                     }
 
-                    else -> {
-                        //
+                    is Result.Empty -> {
+                        showLoadingOnProjectBids(false)
+                        showEmptyOnProjectBids(true, result.emptyError)
                     }
                 }
             }
@@ -172,9 +192,12 @@ class ProjectFragment : Fragment() {
             adapter = OwnerPostedProjectAdapter(projectBidList) { projectBid, _ ->
                 val intent = Intent(
                     requireContext(),
-                    HomeDetailProjectBidsActivity::class.java
+                    BidProjectStatusDetailActivity::class.java
                 )
-                intent.putExtra(HomeDetailProjectBidsActivity.EXTRA_PROJECT_ID, projectBid.projectId)
+                intent.putExtra(
+                    BidProjectStatusDetailActivity.EXTRA_PROJECT_BID_ID,
+                    projectBid.projectId
+                )
                 startActivity(intent)
             }
         }

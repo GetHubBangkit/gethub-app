@@ -2,10 +2,10 @@ package com.entre.gethub.data.remote.response.projects
 
 import com.google.gson.annotations.SerializedName
 
-data class PostedProjectResponse(
+data class AcceptedProjectBidResponse(
 
     @field:SerializedName("data")
-    val data: Data? = null,
+    val data: List<DataItem>,
 
     @field:SerializedName("success")
     val success: Boolean? = null,
@@ -17,28 +17,13 @@ data class PostedProjectResponse(
     val message: String? = null
 ) {
 
-    data class Category(
+    data class Project(
 
-        @field:SerializedName("name")
-        val name: String? = null
-    )
+        @field:SerializedName("deadline_duration")
+        val deadlineDuration: String? = null,
 
-    data class OwnerProject(
-
-        @field:SerializedName("profession")
-        val profession: String? = null,
-
-        @field:SerializedName("full_name")
-        val fullName: String? = null,
-
-        @field:SerializedName("photo")
-        val photo: String? = null,
-
-        @field:SerializedName("username")
-        val username: String? = null
-    )
-
-    data class ProjectsItem(
+        @field:SerializedName("is_active")
+        val isActive: Boolean? = null,
 
         @field:SerializedName("fee_freelance_transaction_value")
         val feeFreelanceTransactionValue: Any? = null,
@@ -61,8 +46,20 @@ data class PostedProjectResponse(
         @field:SerializedName("min_deadline")
         val minDeadline: String? = null,
 
+        @field:SerializedName("min_budget")
+        val minBudget: Int? = null,
+
+        @field:SerializedName("banned_message")
+        val bannedMessage: Any? = null,
+
+        @field:SerializedName("max_deadline")
+        val maxDeadline: String? = null,
+
         @field:SerializedName("createdAt")
         val createdAt: String? = null,
+
+        @field:SerializedName("status_freelance_task")
+        val statusFreelanceTask: String? = null,
 
         @field:SerializedName("status_payment")
         val statusPayment: String? = null,
@@ -82,49 +79,47 @@ data class PostedProjectResponse(
         @field:SerializedName("id")
         val id: String? = null,
 
-        @field:SerializedName("chatroom_id")
-        val chatroomId: String? = null,
-
-        @field:SerializedName("updatedAt")
-        val updatedAt: String? = null,
-
-        @field:SerializedName("deadline_duration")
-        val deadlineDuration: String? = null,
-
-        @field:SerializedName("is_active")
-        val isActive: Boolean? = null,
-
-        @field:SerializedName("min_budget")
-        val minBudget: Int? = null,
-
-        @field:SerializedName("banned_message")
-        val bannedMessage: Any? = null,
-
-        @field:SerializedName("max_deadline")
-        val maxDeadline: String? = null,
-
-        @field:SerializedName("status_freelance_task")
-        val statusFreelanceTask: String? = null,
-
-        @field:SerializedName("owner_project")
-        val ownerProject: OwnerProject? = null,
-
         @field:SerializedName("created_date")
         val createdDate: String? = null,
 
-        @field:SerializedName("category")
-        val category: Category? = null,
+        @field:SerializedName("chatroom_id")
+        val chatroomId: String? = null,
 
         @field:SerializedName("project_tasks")
-        val projectTasks: List<Any?>? = null
+        val projectTasks: List<Any?>? = null,
+
+        @field:SerializedName("updatedAt")
+        val updatedAt: String? = null
     )
 
-    data class Data(
+    data class DataItem(
 
-        @field:SerializedName("projects")
-        val projects: List<ProjectsItem>,
+        @field:SerializedName("createdAt")
+        val createdAt: String? = null,
 
-        @field:SerializedName("total_projects")
-        val totalProjects: Int? = null
+        @field:SerializedName("project_id")
+        val projectId: String? = null,
+
+        @field:SerializedName("user_id")
+        val userId: String? = null,
+
+        @field:SerializedName("is_selected")
+        val isSelected: Boolean? = null,
+
+        @field:SerializedName("budget_bid")
+        val budgetBid: Int? = null,
+
+        @field:SerializedName("project")
+        val project: Project? = null,
+
+        @field:SerializedName("id")
+        val id: String? = null,
+
+        @field:SerializedName("message")
+        val message: String? = null,
+
+        @field:SerializedName("updatedAt")
+        val updatedAt: String? = null
     )
+
 }

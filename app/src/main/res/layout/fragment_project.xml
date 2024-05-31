@@ -299,6 +299,7 @@
             layout="@layout/item_empty_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
             app:layout_constraintBottom_toBottomOf="@id/rvRekomendasiProjectBid"
             app:layout_constraintEnd_toEndOf="@id/rvRekomendasiProjectBid"
             app:layout_constraintStart_toStartOf="@id/rvRekomendasiProjectBid"

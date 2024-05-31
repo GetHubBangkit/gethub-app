@@ -83,7 +83,10 @@ class HomeDetailProjectBidsFormActivity : AppCompatActivity() {
                                     this@HomeDetailProjectBidsFormActivity,
                                     BidProjectStatusActivity::class.java
                                 ).apply {
-                                    putExtra(BidProjectStatusActivity.EXTRA_ID_FROM_PROJECT_BID_FORM_ACTIVITY, 99)
+                                    putExtra(
+                                        BidProjectStatusActivity.EXTRA_ID_FROM_PROJECT_BID_FORM_ACTIVITY,
+                                        99
+                                    )
                                 }
                             )
                             finish()
@@ -92,11 +95,19 @@ class HomeDetailProjectBidsFormActivity : AppCompatActivity() {
                         is Result.Error -> {
                             showLoading(false)
                             showToast(result.error)
+
+                            if (result.errorCode == 405) {
+                                showPortfolioDialog(
+                                    this@HomeDetailProjectBidsFormActivity,
+                                    "Portfolio tidak sesuai",
+                                    result.error
+                                )
+                            }
                         }
 
                         is Result.Empty -> {
                             showLoading(false)
-                            showDialog(
+                            showDialogVerificationDialog(
                                 this@HomeDetailProjectBidsFormActivity,
                                 getString(R.string.account_is_not_verified),
                                 result.emptyError
@@ -115,7 +126,7 @@ class HomeDetailProjectBidsFormActivity : AppCompatActivity() {
         Toast.makeText(this@HomeDetailProjectBidsFormActivity, message, Toast.LENGTH_SHORT).show()
     }
 
-    private fun showDialog(context: Context, title: String, message: String) {
+    private fun showDialogVerificationDialog(context: Context, title: String, message: String) {
         MaterialAlertDialogBuilder(context)
             .setTitle(title)
             .setMessage(message)
@@ -124,9 +135,19 @@ class HomeDetailProjectBidsFormActivity : AppCompatActivity() {
                 dialog.dismiss()
                 showToast("Email berhasil dikirim")
             }
-            .setNegativeButton("Batal") {dialog, _ ->
+            .setNegativeButton("Batal") { dialog, _ ->
                 dialog.dismiss()
                 showToast("Verifikasi batal")
+            }
+            .show()
+    }
+
+    private fun showPortfolioDialog(context: Context, title: String, message: String) {
+        MaterialAlertDialogBuilder(context)
+            .setTitle(title)
+            .setMessage(message)
+            .setPositiveButton("OK") { dialog, _ ->
+                dialog.dismiss()
             }
             .show()
     }

@@ -1,6 +1,5 @@
 package com.entre.gethub.ui.project.bidproject
 
-import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
 import android.text.Spannable
@@ -9,22 +8,17 @@ import android.text.TextPaint
 import android.text.style.MetricAffectingSpan
 import android.view.View
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.entre.gethub.R
 import com.entre.gethub.data.Result
-import com.entre.gethub.databinding.ActivityBidProjectStatusBinding
 import com.entre.gethub.databinding.ActivityBidProjectStatusDetailBinding
-import com.entre.gethub.databinding.ItemDetailProjectbidsBinding
 import com.entre.gethub.ui.adapter.UserProjectBiddingAdapter
-import com.entre.gethub.ui.home.projectbids.HomeDetailProjectBidsFormActivity
 import com.entre.gethub.ui.models.UserProjectBidding
+import com.entre.gethub.utils.Formatter
 import com.entre.gethub.utils.ViewModelFactory
 
 class BidProjectStatusDetailActivity : AppCompatActivity() {
@@ -59,6 +53,8 @@ class BidProjectStatusDetailActivity : AppCompatActivity() {
                     is Result.Success -> {
                         showLoadingOnCard(false)
                         val projectBid = result.data.data
+                        val minBudget = Formatter.formatRupiah(projectBid?.minBudget ?: 0)
+                        val maxBudget = Formatter.formatRupiah(projectBid?.maxBudget ?: 0)
 
                         if (projectBid?.totalBidders!! == 0) {
                             showEmptyOnUserBidding(true, "Belum Ada User Yang Ikut Bidding")
@@ -77,7 +73,7 @@ class BidProjectStatusDetailActivity : AppCompatActivity() {
                             tvDetailProjectTitle.text = projectBid?.title
                             tvDetailProjectDesc.text = projectBid?.description
                             tvDetailProjectPriceRange.text =
-                                "Rp ${projectBid?.minBudget} - Rp ${projectBid?.maxBudget}"
+                                "$minBudget - $maxBudget"
                             tvDetailProjectDateRange.text =
                                 "${projectBid?.minDeadline} - ${projectBid?.maxDeadline}"
                             tvDetailProjectDatePost.text = projectBid?.createdDate
