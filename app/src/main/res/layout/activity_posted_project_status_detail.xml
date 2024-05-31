@@ -16,13 +16,15 @@
     <TextView
         android:id="@+id/tvProjectDetailTitle"
         style="@style/Nunito.ExtraBold"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="14dp"
+        android:layout_marginEnd="20dp"
         android:text="Project Job"
         android:textColor="@android:color/white"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@id/icon_back"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/icon_back"
         app:layout_constraintTop_toTopOf="@id/icon_back" />
 
