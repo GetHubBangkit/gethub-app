@@ -17,6 +17,7 @@ import com.entre.gethub.data.remote.response.products.ProductListResponse
 import com.entre.gethub.data.remote.response.products.ProductResponse
 import com.entre.gethub.data.remote.response.profiles.UpdateUserProfileResponse
 import com.entre.gethub.data.remote.response.profiles.UserProfileResponse
+import com.entre.gethub.data.remote.response.projects.AcceptedProjectBidResponse
 import com.entre.gethub.data.remote.response.projects.MyProjectBidResponse
 import com.entre.gethub.data.remote.response.projects.PostProjectResponse
 import com.entre.gethub.data.remote.response.projects.PostedProjectDetailResponse
@@ -229,6 +230,9 @@ interface ApiService {
         @Path("id") projectId: String,
         @Field("freelancer_id") freelancerId: String,
     ): ApiResponse
+
+    @GET("projects/my/selected-bids")
+    suspend fun getAcceptedBids(): AcceptedProjectBidResponse
     // Projects
 
     // Verify Email

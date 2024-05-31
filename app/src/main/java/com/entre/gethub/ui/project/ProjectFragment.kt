@@ -18,6 +18,7 @@ import com.entre.gethub.ui.adapter.OwnerPostedProjectAdapter
 import com.entre.gethub.ui.adapter.TopTalentAdapter
 import com.entre.gethub.ui.home.projectbids.HomeDetailProjectBidsActivity
 import com.entre.gethub.ui.models.TopTalent
+import com.entre.gethub.ui.project.acceptedbidproject.AcceptedBidProjectActivity
 import com.entre.gethub.ui.project.bidproject.BidProjectStatusActivity
 import com.entre.gethub.ui.project.bidproject.BidProjectStatusDetailActivity
 import com.entre.gethub.ui.project.postedproject.PostedProjectStatusActivity
@@ -70,6 +71,10 @@ class ProjectFragment : Fragment() {
 
             ivPostProject.setOnClickListener {
                 navigateToActivity(PostedProjectStatusActivity())
+            }
+
+            ivAcceptedProject.setOnClickListener {
+                navigateToActivity(AcceptedBidProjectActivity())
             }
 
             fabPostProject.setOnClickListener {
