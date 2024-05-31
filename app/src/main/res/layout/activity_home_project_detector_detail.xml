@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.home.deteksiproject.HomeDeteksiProjectActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/frame"
+            android:layout_width="match_parent"
+            android:layout_height="97dp"
+            android:src="@drawable/rectangle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textgethub"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_bold"
+            android:text="Deteksi Project"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            app:fontFamily="@font/nunito_extrabold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.048"
+            app:layout_constraintStart_toEndOf="@id/ivBack"
+            app:layout_constraintTop_toTopOf="@id/frame"
+            app:layout_constraintVertical_bias="0.034" />
+
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="24dp"
+            android:src="@drawable/icon_back"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.041"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/ivFrame"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/frame1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textgethub"
+            app:layout_constraintDimensionRatio="h,4:3" />
+
+        <ImageView
+            android:id="@+id/ivDeteksi"
+            android:layout_width="133dp"
+            android:layout_height="270dp"
+            android:src="@drawable/homedeteksiproject"
+            app:layout_constraintBottom_toBottomOf="@+id/ivFrame"
+            app:layout_constraintEnd_toEndOf="@+id/ivFrame"
+            app:layout_constraintStart_toStartOf="@+id/ivFrame"
+            app:layout_constraintTop_toTopOf="@+id/ivFrame" />
+
+        <TextView
+            android:id="@+id/tvPrediksi"
+            style="@style/Poppins.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="Prediksi"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivFrame" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvPrediksi"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvPrediksi" />
+
+        <TextView
+            android:id="@+id/tvKesimpulanPreodiksi"
+            style="@style/Poppins.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:text="Kesimpulan Prediksi"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rvPrediksi" />
+        <ImageView
+            android:id="@+id/ivPrediksiKesimpulanFraudTotal"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/prediksikesimpulanfraudtotal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvKesimpulanPreodiksi"
+            app:layout_constraintEnd_toStartOf="@+id/ivPrediksiKesimpulanRealTotal"/>
+
+        <TextView
+            android:id="@+id/tvFraudTotal"
+            style="@style/Nunito.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:text="Fraud Total"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/ivPrediksiKesimpulanFraudTotal"
+            app:layout_constraintStart_toStartOf="@+id/ivPrediksiKesimpulanFraudTotal"
+            app:layout_constraintTop_toTopOf="@+id/ivPrediksiKesimpulanFraudTotal"/>
+
+        <TextView
+            android:id="@+id/tvFraudTotalJumlah"
+            style="@style/Poppins.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:text="2"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="@+id/ivPrediksiKesimpulanFraudTotal"
+            app:layout_constraintEnd_toEndOf="@+id/ivPrediksiKesimpulanFraudTotal"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/tvFraudTotal"
+            app:layout_constraintTop_toTopOf="@+id/ivPrediksiKesimpulanFraudTotal"
+            app:layout_constraintVertical_bias="0.0"/>
+
+        <!-- Real Total Section -->
+        <ImageView
+            android:id="@+id/ivPrediksiKesimpulanRealTotal"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/prediksikesimpulanrealtotal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ivPrediksiKesimpulanFraudTotal"
+            app:layout_constraintTop_toBottomOf="@+id/tvKesimpulanPreodiksi"/>
+
+        <TextView
+            android:id="@+id/tvRealTotal"
+            style="@style/Nunito.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:text="Real Total"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/ivPrediksiKesimpulanRealTotal"
+            app:layout_constraintStart_toStartOf="@+id/ivPrediksiKesimpulanRealTotal"
+            app:layout_constraintTop_toTopOf="@+id/ivPrediksiKesimpulanRealTotal"/>
+
+        <TextView
+            android:id="@+id/tvRealTotalJumlah"
+            style="@style/Poppins.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:text="2"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="@+id/ivPrediksiKesimpulanRealTotal"
+            app:layout_constraintEnd_toEndOf="@+id/ivPrediksiKesimpulanRealTotal"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/tvRealTotal"
+            app:layout_constraintTop_toTopOf="@+id/ivPrediksiKesimpulanRealTotal"
+            app:layout_constraintVertical_bias="0.0"/>
+
+        <TextView
+            android:id="@+id/tvSentiment"
+            style="@style/Poppins.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="Sentiment"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivPrediksiKesimpulanFraudTotal" />
+
+        <ImageView
+            android:id="@+id/ivPrediksiSentimentPositive"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/prediksisentimentpositive"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvSentiment"
+            app:layout_constraintEnd_toStartOf="@+id/ivPrediksiSentimentNegative" />
+
+        <TextView
+            android:id="@+id/tvPositive"
+            style="@style/Nunito.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:text="Positive"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/ivPrediksiSentimentPositive"
+            app:layout_constraintStart_toStartOf="@+id/ivPrediksiSentimentPositive"
+            app:layout_constraintTop_toTopOf="@+id/ivPrediksiSentimentPositive" />
+
+        <TextView
+            android:id="@+id/tvPositiveJumlah"
+            style="@style/Poppins.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_marginEnd="15dp"
+            android:text="2"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="@+id/ivPrediksiSentimentPositive"
+            app:layout_constraintEnd_toEndOf="@+id/ivPrediksiSentimentPositive"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/tvPositive"
+            app:layout_constraintTop_toTopOf="@+id/ivPrediksiSentimentPositive"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <!-- Negative Sentiment -->
+        <ImageView
+            android:id="@+id/ivPrediksiSentimentNegative"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/prediksisentimentnegative"
+            app:layout_constraintEnd_toStartOf="@+id/ivPrediksiSentimentNetral"
+            app:layout_constraintStart_toEndOf="@+id/ivPrediksiSentimentPositive"
+            app:layout_constraintTop_toBottomOf="@+id/tvSentiment" />
+
+        <TextView
+            android:id="@+id/tvNegative"
+            style="@style/Nunito.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:text="Negative"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/ivPrediksiSentimentNegative"
+            app:layout_constraintStart_toStartOf="@+id/ivPrediksiSentimentNegative"
+            app:layout_constraintTop_toTopOf="@+id/ivPrediksiSentimentNegative" />
+
+        <TextView
+            android:id="@+id/tvNegativeJumlah"
+            style="@style/Poppins.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_marginEnd="15dp"
+            android:text="2"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="@+id/ivPrediksiSentimentNegative"
+            app:layout_constraintEnd_toEndOf="@+id/ivPrediksiSentimentNegative"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/tvNegative"
+            app:layout_constraintTop_toTopOf="@+id/ivPrediksiSentimentNegative"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <!-- Neutral Sentiment -->
+        <ImageView
+            android:id="@+id/ivPrediksiSentimentNetral"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/prediksisentimentnetral"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ivPrediksiSentimentNegative"
+            app:layout_constraintTop_toBottomOf="@+id/tvSentiment" />
+
+        <TextView
+            android:id="@+id/tvNetral"
+            style="@style/Nunito.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:text="Netral"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/ivPrediksiSentimentNetral"
+            app:layout_constraintStart_toStartOf="@+id/ivPrediksiSentimentNetral"
+            app:layout_constraintTop_toTopOf="@+id/ivPrediksiSentimentNetral" />
+
+        <TextView
+            android:id="@+id/tvNetralJumlah"
+            style="@style/Poppins.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_marginEnd="15dp"
+            android:text="2"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="@+id/ivPrediksiSentimentNetral"
+            app:layout_constraintEnd_toEndOf="@+id/ivPrediksiSentimentNetral"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/tvNetral"
+            app:layout_constraintTop_toTopOf="@+id/ivPrediksiSentimentNetral"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvSentiment"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:backgroundTint="@color/color_sentiment_neutral"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivPrediksiSentimentNetral">
+
+            <TextView
+                android:id="@+id/tvDetailSentiment"
+                style="@style/Nunito"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="12dp"
+                android:layout_marginVertical="8dp"
+                android:text="Berdasarkan hasil prediksi dengan menggunakan model analisis untuk mengecek keaslian project, project ini terdeteksi project palsu disarankan
+untuk tidak melanjutkan proses tersebut"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/tvInsight"
+            style="@style/Poppins.Bold"
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="Insight"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cvSentiment" />
+
+        <TextView
+            android:id="@+id/tvCiriCiri"
+            style="@style/Poppins"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:text="Ciri Ciri Lowongan Project Palsu"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvInsight" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvInsight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvCiriCiri" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>
