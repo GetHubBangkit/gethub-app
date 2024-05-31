@@ -24,6 +24,7 @@ import com.entre.gethub.databinding.ItemDetailProjectbidsBinding
 import com.entre.gethub.ui.adapter.UserProjectBiddingAdapter
 import com.entre.gethub.ui.models.ProjectBid
 import com.entre.gethub.ui.models.UserProjectBidding
+import com.entre.gethub.utils.Formatter
 import com.entre.gethub.utils.ViewModelFactory
 
 class HomeDetailProjectBidsActivity : AppCompatActivity() {
@@ -80,10 +81,15 @@ class HomeDetailProjectBidsActivity : AppCompatActivity() {
                         }
 
                         with(binding) {
+                            val minBudget = Formatter.formatRupiah(projectBid.minBudget ?: 0)
+                            val maxBudget = Formatter.formatRupiah(projectBid.maxBudget ?: 0)
+
+                            tvDetailProjectCategory.text = projectBid.category?.name.toString()
+
                             tvDetailProjectTitle.text = projectBid.title
                             tvDetailProjectDesc.text = projectBid.description
                             tvDetailProjectPriceRange.text =
-                                "Rp ${projectBid?.minBudget} - Rp ${projectBid?.maxBudget}"
+                                "$minBudget - $maxBudget"
                             tvDetailProjectDateRange.text =
                                 "${projectBid?.minDeadline} - ${projectBid?.maxDeadline}"
                             tvDetailProjectDatePost.text = projectBid.createdDate
