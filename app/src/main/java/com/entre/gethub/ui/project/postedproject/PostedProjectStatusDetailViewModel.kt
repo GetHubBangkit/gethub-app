@@ -16,6 +16,7 @@ class PostedProjectStatusDetailViewModel(private val projectRepository: ProjectR
     ViewModel() {
     private val getPostedProjectDetailResult =
         MediatorLiveData<Result<PostedProjectDetailResponse>>()
+    private val chooseBidderResult = MediatorLiveData<Result<ApiResponse>>()
 
     fun getPostedProjectDetail(id: String): LiveData<Result<PostedProjectDetailResponse>> {
         viewModelScope.launch {
@@ -35,5 +36,25 @@ class PostedProjectStatusDetailViewModel(private val projectRepository: ProjectR
             }
         }
         return getPostedProjectDetailResult
+    }
+
+    fun chooseBidder(projectId: String, freelancerId: String): LiveData<Result<ApiResponse>> {
+        viewModelScope.launch {
+            chooseBidderResult.value = Result.Loading
+            try {
+                val response = projectRepository.chooseBidder(projectId, freelancerId)
+                if (response.success == true) {
+                    chooseBidderResult.value = Result.Success(response)
+                }
+            } catch (e: HttpException) {
+                val jsonString = e.response()?.errorBody()?.string()
+                val errorBody = Gson().fromJson(jsonString, ApiResponse::class.java)
+                val errorMessage = errorBody.message
+                chooseBidderResult.value = Result.Error(errorMessage!!)
+            } catch (e: Exception) {
+                chooseBidderResult.value = Result.Error(e.toString())
+            }
+        }
+        return chooseBidderResult
     }
 }

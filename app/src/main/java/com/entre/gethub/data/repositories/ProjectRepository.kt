@@ -69,6 +69,10 @@ class ProjectRepository private constructor(private val apiService: ApiService) 
         return apiService.getPostedProjectDetail(id)
     }
 
+    suspend fun chooseBidder(projectId: String, freelancerId: String): ApiResponse {
+        return apiService.chooseBidder(projectId, freelancerId)
+    }
+
     companion object {
         fun getInstance(apiService: ApiService): ProjectRepository = ProjectRepository(apiService)
     }

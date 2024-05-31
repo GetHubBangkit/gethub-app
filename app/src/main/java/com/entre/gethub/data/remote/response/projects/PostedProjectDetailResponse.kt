@@ -32,6 +32,33 @@ data class PostedProjectDetailResponse(
         val username: String? = null
     )
 
+    data class UsersBidItem(
+
+        @field:SerializedName("profession")
+        val profession: String? = null,
+
+        @field:SerializedName("full_name")
+        val fullName: String? = null,
+
+        @field:SerializedName("is_selected")
+        val isSelected: Boolean? = null,
+
+        @field:SerializedName("budget_bid")
+        val budgetBid: Int,
+
+        @field:SerializedName("photo")
+        val photo: String? = null,
+
+        @field:SerializedName("id")
+        val id: String? = null,
+
+        @field:SerializedName("message")
+        val message: String? = null,
+
+        @field:SerializedName("username")
+        val username: String? = null
+    )
+
     data class Data(
 
         @field:SerializedName("fee_freelance_transaction_value")
@@ -120,27 +147,6 @@ data class PostedProjectDetailResponse(
 
         @field:SerializedName("name")
         val name: String? = null
-    )
-
-    data class UsersBidItem(
-
-        @field:SerializedName("profession")
-        val profession: String? = null,
-
-        @field:SerializedName("full_name")
-        val fullName: String? = null,
-
-        @field:SerializedName("is_selected")
-        val isSelected: Boolean? = null,
-
-        @field:SerializedName("photo")
-        val photo: String? = null,
-
-        @field:SerializedName("id")
-        val id: String? = null,
-
-        @field:SerializedName("username")
-        val username: String? = null
     )
 
 }

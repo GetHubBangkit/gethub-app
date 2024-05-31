@@ -222,6 +222,13 @@ interface ApiService {
 
     @GET("projects/{id}/bidders")
     suspend fun getPostedProjectDetail(@Path("id") id: String): PostedProjectDetailResponse
+
+    @FormUrlEncoded
+    @POST("projects/{id}/select-bidder")
+    suspend fun chooseBidder(
+        @Path("id") projectId: String,
+        @Field("freelancer_id") freelancerId: String,
+    ): ApiResponse
     // Projects
 
     // Verify Email

@@ -68,7 +68,10 @@ class PostedProjectStatusDetailActivity : AppCompatActivity() {
                             tvUserBiddingTotalPerson.text = "${project?.totalBidders ?: 0} Orang"
                             tvUserBiddingTotalOnList.text = "${project?.totalBidders ?: 0} Orang"
                         }
-                        setupRecyclerViewUserBidding(result.data.data?.usersBid ?: emptyList())
+                        setupRecyclerViewUserBidding(
+                            result.data.data?.usersBid ?: emptyList(),
+                            project?.id.toString()
+                        )
 
                         if (project?.totalBidders == 0) {
                             showEmptyError(true, "Belum ada user bidding")
@@ -88,7 +91,10 @@ class PostedProjectStatusDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupRecyclerViewUserBidding(userBiddingList: List<PostedProjectDetailResponse.UsersBidItem>) {
+    private fun setupRecyclerViewUserBidding(
+        userBiddingList: List<PostedProjectDetailResponse.UsersBidItem>,
+        projectId: String
+    ) {
         binding.rvUserBidding.apply {
             layoutManager = LinearLayoutManager(
                 this@PostedProjectStatusDetailActivity,
@@ -96,7 +102,10 @@ class PostedProjectStatusDetailActivity : AppCompatActivity() {
                 false
             )
             adapter = SelectUserBiddingAdapter(userBiddingList) { usersBidItem ->
-                showToast(usersBidItem.fullName.toString())
+                postedProjectStatusDetailViewModel.chooseBidder(
+                    projectId,
+                    usersBidItem.id.toString()
+                )
             }
         }
     }

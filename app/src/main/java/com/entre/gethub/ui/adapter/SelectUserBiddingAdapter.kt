@@ -13,8 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.entre.gethub.R
 import com.entre.gethub.data.remote.response.projects.PostedProjectDetailResponse
-import com.entre.gethub.data.remote.response.projects.PostedProjectResponse
-import com.entre.gethub.databinding.ItemPostedProjectBinding
 import com.entre.gethub.databinding.ItemSelectUserBiddingBinding
 import com.entre.gethub.utils.Formatter
 
@@ -44,16 +42,29 @@ class SelectUserBiddingAdapter(
             onSelectUserBid: (PostedProjectDetailResponse.UsersBidItem) -> Unit
         ) {
             with(binding) {
+                val budgetBid = Formatter.formatRupiah(userBidding.budgetBid)
+
                 tvUserName.text = userBidding.fullName
                 tvUserJobName.text = userBidding.profession
                 Glide.with(binding.root.context)
                     .load(userBidding.photo)
                     .placeholder(R.drawable.profilepic1)
                     .into(ivUserProfile)
-                tvProjectAmount.text = "Rupiah coy"
-                tvMessage.text = "Pesan coy"
+                tvProjectAmount.text = budgetBid
+                tvMessage.text = userBidding.message
 
-                cvSelect.setOnClickListener { onSelectUserBid(userBidding) }
+                if (userBidding.isSelected == true) {
+                    tvDetailProjectStatus.text = "Terpilih"
+                    cvSelect.setCardBackgroundColor(
+                        getColor(
+                            binding.root.context,
+                            R.color.color_sentiment_neutral
+                        )
+                    )
+                } else {
+                    cvSelect.setOnClickListener { onSelectUserBid(userBidding) }
+                }
+
 
                 showUserSentiment(userBidding.fullName.toString())
             }
