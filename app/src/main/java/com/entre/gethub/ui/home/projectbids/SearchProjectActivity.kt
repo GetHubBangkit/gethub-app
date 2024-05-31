@@ -41,6 +41,7 @@ class SearchProjectActivity : AppCompatActivity() {
             .setOnEditorActionListener { textView, _, _ ->
                 val query = textView.text.toString()
                 if (query.isNotEmpty()) {
+                    binding.tvHasilPencarian.text = "Hasil Pencarian \"$query\""
                     searchProjectViewModel.searchProjects(query).observe(this) { result ->
                         if (result != null) {
                             when (result) {
@@ -99,7 +100,6 @@ class SearchProjectActivity : AppCompatActivity() {
     private fun showEmptyError(isError: Boolean, message: String) {
         binding.empty.llEmpty.visibility = if (isError) View.VISIBLE else View.GONE
         binding.empty.tvEmpty.text = message
-        binding.tvHasilPencarian.visibility = if (isError) View.GONE else View.VISIBLE
         binding.rvRekomendasiProjectBid.visibility = if (isError) View.GONE else View.VISIBLE
     }
 

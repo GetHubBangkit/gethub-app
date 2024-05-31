@@ -25,7 +25,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GetHub"
         tools:targetApi="31">
-
+        <activity
+            android:name=".ui.project.postedproject.PostedProjectStatusDetailActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.project.postedproject.PostedProjectStatusActivity"
             android:exported="false"
@@ -54,14 +56,12 @@
             android:name=".ui.gethub.GethubAddPartnerScanQRActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
-
-        <activity android:name=".ui.gethub.CaptureActivityPortrait"
+        <activity
+            android:name=".ui.gethub.CaptureActivityPortrait"
             android:screenOrientation="sensorPortrait"
             android:stateNotNeeded="true"
             android:theme="@style/zxing_CaptureTheme"
-            android:windowSoftInputMode="stateAlwaysHidden"
-            />
-
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".ui.gethub.GethubAddPartnerActivity"
             android:exported="false"
@@ -92,7 +92,6 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.home.mygethub.product.HomeKelolaMyGethubTambahProdukActivity"
-
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
@@ -150,13 +149,13 @@
         <activity
             android:name=".ui.MainActivity"
             android:exported="false"
-            android:theme="@style/MainActivityTheme"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/MainActivityTheme" />
         <activity
             android:name=".ui.home.HomeDetailInformationHubActivity"
             android:exported="false"
-            android:theme="@style/MainActivityTheme"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/MainActivityTheme" />
         <activity
             android:name=".ui.splash.SplashActivity"
             android:exported="true"
@@ -176,9 +175,7 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
-        </provider>
-
-        <!-- Trigger Google Play services to install the backported photo picker module. -->
+        </provider> <!-- Trigger Google Play services to install the backported photo picker module. -->
         <service
             android:name="com.google.android.gms.metadata.ModuleDependencies"
             android:enabled="false"

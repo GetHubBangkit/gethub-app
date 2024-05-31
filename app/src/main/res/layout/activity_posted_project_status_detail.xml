@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View
+            android:id="@+id/frame"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@color/teal"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textgethub"
+            style="@style/Nunito.ExtraBold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:text="Project Job"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@id/icon_back"
+            app:layout_constraintStart_toEndOf="@id/icon_back"
+            app:layout_constraintTop_toTopOf="@id/icon_back" />
+
+        <ImageView
+            android:id="@+id/icon_back"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="26dp"
+            android:src="@drawable/icon_back"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.041"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvTotalProject"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="20dp"
+            app:cardCornerRadius="10dp"
+            app:contentPadding="24dp"
+            app:layout_constraintTop_toBottomOf="@id/textgethub">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tvProjectDetailDescription"
+                    style="@style/Nunito"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Sedang Mencari Konten Kreator untuk pembuatan konten makanan dan untuk promosi warung rumah makanan yg baru buka di butuhkan segera"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <ImageView
+                    android:id="@+id/ivIconMoney"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginTop="16dp"
+                    android:src="@drawable/ic_money"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvProjectDetailDescription" />
+
+                <TextView
+                    android:id="@+id/tvProjectDetailAmountRange"
+                    style="@style/Nunito.Bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="Rp 400,000 - 500.000"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@id/ivIconMoney"
+                    app:layout_constraintStart_toEndOf="@id/ivIconMoney"
+                    app:layout_constraintTop_toTopOf="@id/ivIconMoney" />
+
+                <ImageView
+                    android:id="@+id/ivIconCalendar"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/ic_calendar"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ivIconMoney" />
+
+                <TextView
+                    android:id="@+id/tvProjectDetailDateRange"
+                    style="@style/Nunito.Bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="2 Mei 2024 - 12 Mei 2024"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@id/ivIconCalendar"
+                    app:layout_constraintStart_toEndOf="@id/ivIconCalendar"
+                    app:layout_constraintTop_toTopOf="@id/ivIconCalendar" />
+
+                <TextView
+                    android:id="@+id/tvPostedBy"
+                    style="@style/Nunito"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Diposting Oleh"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ivIconCalendar" />
+
+                <TextView
+                    android:id="@+id/tvDateAt"
+                    style="@style/Nunito"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pada Tanggal"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@id/tvPostedBy"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tvPostedBy" />
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/ivPosterProfile"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/profilepic1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvPostedBy"
+                    app:shapeAppearance="@style/circle" />
+
+                <TextView
+                    android:id="@+id/tvPosterName"
+                    style="@style/Nunito.Bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text="Tono Jaya"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toEndOf="@id/ivPosterProfile"
+                    app:layout_constraintTop_toTopOf="@id/ivPosterProfile" />
+
+                <TextView
+                    android:id="@+id/tvPosterJobName"
+                    style="@style/Nunito"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text="Freelancer"
+                    android:textSize="10sp"
+                    app:layout_constraintStart_toEndOf="@id/ivPosterProfile"
+                    app:layout_constraintTop_toBottomOf="@id/tvPosterName" />
+
+                <TextView
+                    android:id="@+id/tvPostDate"
+                    style="@style/Nunito.Bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text="1 Mei 2024"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/ivPosterProfile" />
+
+                <TextView
+                    android:id="@+id/tvUserBiddingTotal"
+                    style="@style/Nunito"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Total User Bidding"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ivPosterProfile" />
+
+
+                <TextView
+                    android:id="@+id/tvUserBiddingTotalPerson"
+                    style="@style/Nunito.Bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2 Orang"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@id/tvUserBiddingTotal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tvUserBiddingTotal" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+        <ImageView
+            android:id="@+id/ivTeamIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/ic_team"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cvTotalProject" />
+
+        <TextView
+            android:id="@+id/tvDaftarUserBidding"
+            style="@style/Nunito.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:text="Daftar User Bidding"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/ivTeamIcon"
+            app:layout_constraintStart_toEndOf="@id/ivTeamIcon"
+            app:layout_constraintTop_toTopOf="@id/ivTeamIcon" />
+
+        <TextView
+            android:id="@+id/tvUserBiddingTotalOnList"
+            style="@style/Nunito.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginEnd="20dp"
+            android:text="2 Orang"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/ivTeamIcon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/ivTeamIcon" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivTeamIcon"
+            tools:listitem="@layout/item_select_user_bidding" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

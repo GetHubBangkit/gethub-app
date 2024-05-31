@@ -19,6 +19,7 @@ import com.entre.gethub.data.remote.response.profiles.UpdateUserProfileResponse
 import com.entre.gethub.data.remote.response.profiles.UserProfileResponse
 import com.entre.gethub.data.remote.response.projects.MyProjectBidResponse
 import com.entre.gethub.data.remote.response.projects.PostProjectResponse
+import com.entre.gethub.data.remote.response.projects.PostedProjectDetailResponse
 import com.entre.gethub.data.remote.response.projects.PostedProjectResponse
 import com.entre.gethub.data.remote.response.projects.ProjectDetailResponse
 import com.entre.gethub.data.remote.response.projects.ProjectStatsResponse
@@ -218,6 +219,9 @@ interface ApiService {
 
     @GET("projects/my")
     suspend fun getPostedProjects(): PostedProjectResponse
+
+    @GET("projects/{id}/bidders")
+    suspend fun getPostedProjectDetail(@Path("id") id: String): PostedProjectDetailResponse
     // Projects
 
     // Verify Email

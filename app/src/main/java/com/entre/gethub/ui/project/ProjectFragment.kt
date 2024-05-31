@@ -81,22 +81,36 @@ class ProjectFragment : Fragment() {
         projectViewModel.getUserProjectStats().observe(viewLifecycleOwner) { result ->
             if (result != null) {
                 when (result) {
+                    is Result.Loading -> showLoadingOnProjectBids(true)
                     is Result.Success -> {
+                        showLoadingOnProjectBids(false)
                         with(binding) {
                             val result = result.data.data
                             tvPostProject.text = result?.jobPosted.toString()
                             tvBidProject.text = result?.bidsMade.toString()
                             tvTerimaProject.text = result?.bidsAccepted.toString()
                         }
-                        setupRecyclerViewProjectBid(result.data.data?.bidProjects!!)
+                        if (result.data.data?.bidProjects?.size == 0) {
+                            showEmptyOnProjectBids(true, "Anda belum melakukan bidding projek")
+                            binding.rvRekomendasiProjectBid.visibility = View.GONE
+                            return@observe
+                        } else {
+                            setupRecyclerViewProjectBid(
+                                result.data.data?.bidProjects ?: emptyList()
+                            )
+                            binding.rvRekomendasiProjectBid.visibility = View.VISIBLE
+
+                        }
                     }
 
                     is Result.Error -> {
+                        showLoadingOnProjectBids(false)
                         showToast(result.error)
                     }
 
-                    else -> {
-                        //
+                    is Result.Empty -> {
+                        showLoadingOnProjectBids(false)
+                        showEmptyOnProjectBids(true, result.emptyError)
                     }
                 }
             }
@@ -174,7 +188,10 @@ class ProjectFragment : Fragment() {
                     requireContext(),
                     HomeDetailProjectBidsActivity::class.java
                 )
-                intent.putExtra(HomeDetailProjectBidsActivity.EXTRA_PROJECT_ID, projectBid.projectId)
+                intent.putExtra(
+                    HomeDetailProjectBidsActivity.EXTRA_PROJECT_ID,
+                    projectBid.projectId
+                )
                 startActivity(intent)
             }
         }

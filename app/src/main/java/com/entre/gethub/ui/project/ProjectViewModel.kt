@@ -28,6 +28,9 @@ class ProjectViewModel(private val projectRepository: ProjectRepository) : ViewM
                 val jsonString = e.response()?.errorBody()?.string()
                 val errorBody = Gson().fromJson(jsonString, ApiResponse::class.java)
                 val errorMessage = errorBody.message
+                if (e.code().equals(404)) {
+                    getUserProjectStats.value = Result.Empty(errorMessage!!)
+                }
                 getUserProjectStats.value = Result.Error(errorMessage!!)
             } catch (e: Exception) {
                 getUserProjectStats.value = Result.Error(e.toString())

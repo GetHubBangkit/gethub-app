@@ -131,7 +131,7 @@ buka di butuhkan segera"
                     app:layout_constraintStart_toStartOf="parent">
 
                     <TextView
-                        style="@style/Nunito.SemiBold"
+                        style="@style/Nunito.Bold"
                         android:id="@+id/tvDetailProjectCategory"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
