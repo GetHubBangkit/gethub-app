@@ -19,6 +19,7 @@ import com.entre.gethub.ui.adapter.HomeInformationHubAdapter
 import com.entre.gethub.utils.ViewModelFactory
 import com.entre.gethub.data.Result
 import com.entre.gethub.ui.home.caritalent.HomeCariTalentActivity
+import com.entre.gethub.ui.home.deteksiproject.HomeProjectDetectorActivity
 import com.entre.gethub.ui.home.mygethub.HomeKelolaMyGethubActivity
 import com.entre.gethub.ui.home.projectbids.HomeCariProjectBidsActivity
 
@@ -64,6 +65,9 @@ class HomeFragment : Fragment() {
         }
         binding.ivCariProjectBid.setOnClickListener {
             startActivity(Intent(requireContext(), HomeCariProjectBidsActivity::class.java))
+        }
+        binding.ivProjectDetector.setOnClickListener {
+            startActivity(Intent(requireContext(), HomeProjectDetectorActivity::class.java))
         }
     }
 

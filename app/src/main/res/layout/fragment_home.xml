@@ -156,6 +156,33 @@
             app:layout_constraintStart_toEndOf="@+id/CariProjectBids"
             app:layout_constraintTop_toBottomOf="@+id/ivCariTalent" />
 
+        <ImageView
+            android:id="@+id/ivProjectDetector"
+            android:layout_width="80dp"
+            android:layout_height="72dp"
+            android:layout_marginTop="4dp"
+            android:src="@drawable/homeprojectdetector"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.375"
+            app:layout_constraintStart_toEndOf="@+id/ivCariTalent"
+            app:layout_constraintTop_toBottomOf="@+id/frameGethub" />
+
+
+        <TextView
+            android:id="@+id/ProjectDetector"
+            style="@style/Nunito"
+            android:layout_width="80dp"
+
+            android:layout_height="32dp"
+            android:gravity="center"
+            android:text="Cari\nTalent"
+            android:textColor="@android:color/black"
+            android:textSize="10sp"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.404"
+            app:layout_constraintStart_toEndOf="@+id/CariTalent"
+            app:layout_constraintTop_toBottomOf="@+id/ivCariTalent" />
 
         <LinearLayout
             android:id="@+id/HomeGethubPartner"
