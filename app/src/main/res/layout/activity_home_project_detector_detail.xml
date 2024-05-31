@@ -26,11 +26,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_bold"
+            android:layout_marginTop="23dp"
             android:text="Deteksi Project"
             android:textColor="@android:color/white"
             android:textSize="18sp"
             app:fontFamily="@font/nunito_extrabold"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.048"
             app:layout_constraintStart_toEndOf="@id/ivBack"
@@ -93,7 +93,8 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvPrediksi" />
+            app:layout_constraintTop_toBottomOf="@+id/tvPrediksi"
+            tools:listitem="@layout/item_home_project_detector_prediksi"/>
 
         <TextView
             android:id="@+id/tvKesimpulanPreodiksi"
@@ -219,7 +220,7 @@
             style="@style/Nunito.Bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
+            android:layout_marginStart="10dp"
             android:text="Positive"
             android:textColor="@color/white"
             android:textSize="12sp"
@@ -232,7 +233,7 @@
             style="@style/Poppins.Bold"
             android:layout_width="wrap_content"
             android:layout_height="45dp"
-            android:layout_marginEnd="15dp"
+            android:layout_marginEnd="10dp"
             android:text="2"
             android:textColor="@color/white"
             android:textSize="30sp"
@@ -261,7 +262,7 @@
             style="@style/Nunito.Bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
+            android:layout_marginStart="10dp"
             android:text="Negative"
             android:textColor="@color/white"
             android:textSize="12sp"
@@ -274,7 +275,7 @@
             style="@style/Poppins.Bold"
             android:layout_width="wrap_content"
             android:layout_height="45dp"
-            android:layout_marginEnd="15dp"
+            android:layout_marginEnd="10dp"
             android:text="2"
             android:textColor="@color/white"
             android:textSize="30sp"
@@ -302,7 +303,7 @@
             style="@style/Nunito.Bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
+            android:layout_marginStart="10dp"
             android:text="Netral"
             android:textColor="@color/white"
             android:textSize="12sp"
@@ -315,7 +316,7 @@
             style="@style/Poppins.Bold"
             android:layout_width="wrap_content"
             android:layout_height="45dp"
-            android:layout_marginEnd="15dp"
+            android:layout_marginEnd="10dp"
             android:text="2"
             android:textColor="@color/white"
             android:textSize="30sp"
@@ -388,7 +389,8 @@ untuk tidak melanjutkan proses tersebut"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvCiriCiri" />
+            app:layout_constraintTop_toBottomOf="@+id/tvCiriCiri"
+            tools:listitem="@layout/item_home_project_detector_insight"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.core.widget.NestedScrollView>
