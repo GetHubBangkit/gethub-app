@@ -63,8 +63,8 @@
 
         <ImageView
             android:id="@+id/ivDeteksi"
-            android:layout_width="133dp"
-            android:layout_height="270dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:src="@drawable/homedeteksiproject"
             app:layout_constraintBottom_toBottomOf="@+id/ivFrame"
             app:layout_constraintEnd_toEndOf="@+id/ivFrame"

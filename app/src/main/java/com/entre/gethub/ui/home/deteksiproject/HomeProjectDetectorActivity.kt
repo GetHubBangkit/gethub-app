@@ -17,8 +17,12 @@ class HomeProjectDetectorActivity : AppCompatActivity() {
         if (uri != null) {
             // Menampilkan gambar yang dipilih di ivFrame
             binding.ivFrame.setImageURI(uri)
+            // Buang gambar dari ivDeteksi
+            binding.ivDeteksi.setImageDrawable(null)
             // Simpan URI gambar yang dipilih untuk digunakan saat menekan btnSimpan
             this.selectedImageUri = uri
+            // Reset bitmap yang diambil dari kamera
+            this.selectedImageBitmap = null
         }
     }
 
@@ -26,8 +30,12 @@ class HomeProjectDetectorActivity : AppCompatActivity() {
         if (bitmap != null) {
             // Menampilkan gambar yang diambil dari kamera di ivFrame
             binding.ivFrame.setImageBitmap(bitmap)
+            // Buang gambar dari ivDeteksi
+            binding.ivDeteksi.setImageDrawable(null)
             // Simpan bitmap gambar yang diambil untuk digunakan saat menekan btnSimpan
             this.selectedImageBitmap = bitmap
+            // Reset URI gambar yang dipilih dari galeri
+            this.selectedImageUri = null
         }
     }
 
@@ -79,4 +87,5 @@ class HomeProjectDetectorActivity : AppCompatActivity() {
         }
         builder.show()
     }
+
 }
