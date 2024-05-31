@@ -10,6 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="92dp"
         android:layout_height="97dp"
+        android:paddingHorizontal="8dp"
         android:background="?android:attr/selectableItemBackground">
 
         <com.google.android.material.imageview.ShapeableImageView
@@ -33,6 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:text="Budi Santoso"
+            android:maxLines="1"
             android:ellipsize="end"
             android:textAlignment="center"
             android:textColor="@android:color/black"
@@ -48,6 +50,7 @@
             android:layout_height="wrap_content"
             android:text="Software Enginer"
             android:textAlignment="center"
+            android:maxLines="1"
             android:ellipsize="end"
             android:textColor="@android:color/black"
             android:textSize="10sp"

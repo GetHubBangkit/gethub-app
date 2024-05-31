@@ -25,6 +25,7 @@ import com.entre.gethub.databinding.ItemDetailProjectbidsBinding
 import com.entre.gethub.ui.adapter.UserProjectBiddingAdapter
 import com.entre.gethub.ui.home.projectbids.HomeDetailProjectBidsFormActivity
 import com.entre.gethub.ui.models.UserProjectBidding
+import com.entre.gethub.utils.Formatter
 import com.entre.gethub.utils.ViewModelFactory
 
 class BidProjectStatusDetailActivity : AppCompatActivity() {
@@ -59,6 +60,8 @@ class BidProjectStatusDetailActivity : AppCompatActivity() {
                     is Result.Success -> {
                         showLoadingOnCard(false)
                         val projectBid = result.data.data
+                        val minBudget = Formatter.formatRupiah(projectBid?.minBudget ?: 0)
+                        val maxBudget = Formatter.formatRupiah(projectBid?.maxBudget ?: 0)
 
                         if (projectBid?.totalBidders!! == 0) {
                             showEmptyOnUserBidding(true, "Belum Ada User Yang Ikut Bidding")
@@ -77,7 +80,7 @@ class BidProjectStatusDetailActivity : AppCompatActivity() {
                             tvDetailProjectTitle.text = projectBid?.title
                             tvDetailProjectDesc.text = projectBid?.description
                             tvDetailProjectPriceRange.text =
-                                "Rp ${projectBid?.minBudget} - Rp ${projectBid?.maxBudget}"
+                                "$minBudget - $maxBudget"
                             tvDetailProjectDateRange.text =
                                 "${projectBid?.minDeadline} - ${projectBid?.maxDeadline}"
                             tvDetailProjectDatePost.text = projectBid?.createdDate

@@ -36,6 +36,11 @@ class HomeDetailProjectBidsFormViewModel(private val projectRepository: ProjectR
                         Result.Empty("Anda belum melakukan verifikasi Email, Klik Kirim untuk mendapatkan Email verifikasi")
                     return@launch
                 }
+                if (e.code().equals(405)) {
+                    bidProjectResult.value =
+                        Result.Error(errorMessage!!, errorCode = 405)
+                    return@launch
+                }
                 bidProjectResult.value = Result.Error(errorMessage!!)
             } catch (e: Exception) {
                 bidProjectResult.value = Result.Error(e.toString())
