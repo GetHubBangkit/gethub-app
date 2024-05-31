@@ -1,8 +1,9 @@
 package com.entre.gethub.ui.home.deteksiproject
 
+import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.entre.gethub.data.remote.response.ml.ProjectDetectorResponse
 import com.entre.gethub.databinding.ActivityHomeProjectDetectorDetailBinding
 import com.entre.gethub.ui.adapter.HomeProjectDetectorInsightAdapter
@@ -10,42 +11,42 @@ import com.entre.gethub.ui.adapter.HomeProjectDetectorPrediksiAdapter
 
 class HomeProjectDetectorDetailActivity : AppCompatActivity() {
 
-    private val binding: ActivityHomeProjectDetectorDetailBinding by lazy {
-        ActivityHomeProjectDetectorDetailBinding.inflate(layoutInflater)
-    }
-
-    private lateinit var prediksiAdapter: HomeProjectDetectorPrediksiAdapter
-    private lateinit var insightAdapter: HomeProjectDetectorInsightAdapter
+    private lateinit var binding: ActivityHomeProjectDetectorDetailBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityHomeProjectDetectorDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Dummy data for demonstration
-        val prediksiList = listOf(
-            ProjectDetectorResponse.Insight("Prediksi 1"),
-            ProjectDetectorResponse.Insight("Prediksi 2"),
-            ProjectDetectorResponse.Insight("Prediksi 3")
-        )
-        val insightList = listOf(
-            ProjectDetectorResponse.Insight("Insight 1"),
-            ProjectDetectorResponse.Insight("Insight 2"),
-            ProjectDetectorResponse.Insight("Insight 3")
-        )
+        // Menerima data gambar dari intent
+        val imageUriString = intent.getStringExtra("imageUri")
+        val imageBitmap = intent.getParcelableExtra<Bitmap>("imageBitmap")
 
-        // Initialize adapters
-        prediksiAdapter = HomeProjectDetectorPrediksiAdapter(prediksiList)
-        insightAdapter = HomeProjectDetectorInsightAdapter(insightList)
-
-        // Set layout manager and adapters for RecyclerViews
-        binding.rvPrediksi.apply {
-            layoutManager = LinearLayoutManager(this@HomeProjectDetectorDetailActivity, LinearLayoutManager.HORIZONTAL, false)
-            adapter = prediksiAdapter
+        // Menampilkan gambar dari URI atau bitmap ke ImageView
+        if (imageUriString != null) {
+            val imageUri = Uri.parse(imageUriString)
+            binding.ivDeteksi.setImageURI(imageUri)
+        } else if (imageBitmap != null) {
+            binding.ivDeteksi.setImageBitmap(imageBitmap)
         }
 
-        binding.rvInsight.apply {
-            layoutManager = LinearLayoutManager(this@HomeProjectDetectorDetailActivity, LinearLayoutManager.HORIZONTAL, false)
-            adapter = insightAdapter
-        }
+        // Menerima data hasil deteksi dari intent
+        val result = intent.getParcelableExtra<ProjectDetectorResponse>("fraudDetectionResult")
+
+        // Menampilkan prediksi pada RecyclerView
+        result?.results?.let { showPredictions(it) }
+
+        // Menampilkan insight pada RecyclerView
+        result?.insight?.let { showInsight(it) }
+    }
+
+    private fun showPredictions(results: List<ProjectDetectorResponse.Result>) {
+        val adapter = HomeProjectDetectorPrediksiAdapter(results)
+        binding.rvPrediksi.adapter = adapter
+    }
+
+    private fun showInsight(insight: List<ProjectDetectorResponse.Insight>) {
+        val adapter = HomeProjectDetectorInsightAdapter(insight)
+        binding.rvInsight.adapter = adapter
     }
 }

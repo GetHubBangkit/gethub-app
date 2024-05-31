@@ -34,7 +34,7 @@ interface ApiMLService {
     @Headers("Content-Type: application/json")
     @POST("/api/scan-fraud-project")
     suspend fun scanFraudProject(
-        @Body request: RequestBody
+        @Part imageFile: MultipartBody.Part
     ): ProjectDetectorResponse
 
 }
