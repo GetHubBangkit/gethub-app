@@ -50,7 +50,7 @@ data class PostedProjectDetailResponse(
         val maxBudget: Int? = null,
 
         @field:SerializedName("users_bid")
-        val usersBid: List<UsersBidItem?>? = null,
+        val usersBid: List<UsersBidItem>,
 
         @field:SerializedName("title")
         val title: String? = null,

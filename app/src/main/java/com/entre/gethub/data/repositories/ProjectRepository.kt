@@ -3,6 +3,7 @@ package com.entre.gethub.data.repositories
 import com.entre.gethub.data.remote.response.ApiResponse
 import com.entre.gethub.data.remote.response.projects.MyProjectBidResponse
 import com.entre.gethub.data.remote.response.projects.PostProjectResponse
+import com.entre.gethub.data.remote.response.projects.PostedProjectDetailResponse
 import com.entre.gethub.data.remote.response.projects.PostedProjectResponse
 import com.entre.gethub.data.remote.response.projects.ProjectDetailResponse
 import com.entre.gethub.data.remote.response.projects.ProjectStatsResponse
@@ -62,6 +63,10 @@ class ProjectRepository private constructor(private val apiService: ApiService) 
 
     suspend fun getPostedProjects(): PostedProjectResponse {
         return apiService.getPostedProjects()
+    }
+
+    suspend fun getPostedProjectDetail(id: String): PostedProjectDetailResponse {
+        return apiService.getPostedProjectDetail(id)
     }
 
     companion object {

@@ -1,5 +1,6 @@
 package com.entre.gethub.ui.project.postedproject
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -45,7 +46,9 @@ class PostedProjectStatusActivity : AppCompatActivity() {
                 false
             )
             adapter = PostedProjectAdapter(postedProjectList) { project, _ ->
-                showToast(project.title.toString())
+                val intent = Intent(this@PostedProjectStatusActivity, PostedProjectStatusDetailActivity::class.java);
+                intent.putExtra(PostedProjectStatusDetailActivity.EXTRA_PROJECT_ID, project.id)
+                startActivity(intent)
             }
         }
     }
