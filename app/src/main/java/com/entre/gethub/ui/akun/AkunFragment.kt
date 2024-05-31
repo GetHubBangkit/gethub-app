@@ -42,7 +42,7 @@ class AkunFragment : Fragment() {
         val root: View = binding.root
 
         akunViewModel.getToken().observe(viewLifecycleOwner) { token ->
-            Log.d(TAG, "onCreateView: $token")
+            Log.d(TAG, "Token: $token")
         }
 
         setupView()

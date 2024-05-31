@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.entre.gethub.R
 import com.entre.gethub.data.remote.response.projects.SearchProjectResponse
 import com.entre.gethub.databinding.ItemProjectRekomendasijobbidBinding
+import com.entre.gethub.utils.Formatter
 
 class SearchProjectAdapter(
     private val projectBidList: List<SearchProjectResponse.ProjectsItem>,
@@ -41,6 +42,9 @@ class SearchProjectAdapter(
         @RequiresApi(Build.VERSION_CODES.O)
         fun bindItem(projectBid: SearchProjectResponse.ProjectsItem) {
             with(binding) {
+                val minBudget = Formatter.formatRupiah(projectBid.minBudget ?: 0)
+                val maxBudget = Formatter.formatRupiah(projectBid.maxBudget ?: 0)
+
                 // Project Owner
                 Glide.with(itemView.context)
                     .load(projectBid.ownerProject?.photo)
@@ -51,7 +55,7 @@ class SearchProjectAdapter(
 
                 // Project Data
                 tvProjectTitle.text = projectBid.title
-                tvProjectPriceRange.text = "Rp ${projectBid.minBudget} - Rp ${projectBid.maxBudget}"
+                tvProjectPriceRange.text = "$minBudget - $maxBudget"
                 tvProjectDesc.text = projectBid.description
                 tvProjectTotalUserBids.text = "Total User Bids: 5 User"
                 tvProjectPostDate.text = "Diunggah: ${projectBid.createdDate}"

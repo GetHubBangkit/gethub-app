@@ -2,12 +2,14 @@ package com.entre.gethub.utils
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import java.text.NumberFormat
 import java.time.LocalDate
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
+import java.util.Locale
 
-object DateUtils {
+object Formatter {
     @RequiresApi(Build.VERSION_CODES.O)
     fun calculateDeadlineDays(minDeadline: String, maxDeadline: String): Long {
         val formatter = DateTimeFormatter.ofPattern("d-MMM-yyyy")
@@ -27,5 +29,12 @@ object DateUtils {
         val outputFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
 
         return parsedDate.format(outputFormatter)
+    }
+
+    // Format rupiah currency
+    fun formatRupiah(value: Int): String {
+        val localeID = Locale("id", "ID")
+        val numberFormat = NumberFormat.getCurrencyInstance(localeID)
+        return numberFormat.format(value)
     }
 }

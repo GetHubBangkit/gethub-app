@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import com.entre.gethub.R
 import com.entre.gethub.data.remote.response.projects.MyProjectBidResponse
 import com.entre.gethub.databinding.ItemProjectRekomendasijobbidBinding
-import com.entre.gethub.utils.DateUtils
+import com.entre.gethub.utils.Formatter
 
 class MyProjectBidsAdapter(
     private val myProjectBidList: List<MyProjectBidResponse.UsersBidItem>,
@@ -41,7 +41,9 @@ class MyProjectBidsAdapter(
         @RequiresApi(Build.VERSION_CODES.O)
         fun bindItem(projectBid: MyProjectBidResponse.UsersBidItem) {
             with(binding) {
-                val postDate = DateUtils.formatPostDate(projectBid.project?.createdDate!!)
+                val postDate = Formatter.formatPostDate(projectBid.project?.createdDate!!)
+                val minBudget = Formatter.formatRupiah(projectBid.project?.minBudget ?: 0)
+                val maxBudget = Formatter.formatRupiah(projectBid.project?.maxBudget ?: 0)
 
                 // Project Owner
                 Glide.with(itemView.context)
@@ -54,7 +56,7 @@ class MyProjectBidsAdapter(
                 // Project Data
                 tvProjectTitle.text = projectBid.project.title
                 tvProjectPriceRange.text =
-                    "Rp ${projectBid.project.minBudget} - Rp ${projectBid.project.maxBudget}"
+                    "$minBudget - $maxBudget"
                 tvProjectDesc.text = projectBid.project.description
                 tvProjectTotalUserBids.text = "Total User Bids: 5 User"
                 tvProjectPostDate.text = "Diunggah: $postDate"

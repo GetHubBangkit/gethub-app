@@ -3,13 +3,9 @@ package com.entre.gethub.ui.project.postedproject
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.entre.gethub.R
 import com.entre.gethub.data.Result
 import com.entre.gethub.data.remote.response.projects.PostedProjectResponse
 import com.entre.gethub.databinding.ActivityPostedProjectStatusBinding
@@ -41,7 +37,7 @@ class PostedProjectStatusActivity : AppCompatActivity() {
         getPostedProject()
     }
 
-    private fun setupRecyclerView(postedProjectList: List<PostedProjectResponse.DataItem>) {
+    private fun setupRecyclerView(postedProjectList: List<PostedProjectResponse.ProjectsItem>) {
         binding.rvPostedProject.apply {
             layoutManager = LinearLayoutManager(
                 this@PostedProjectStatusActivity,
@@ -61,8 +57,8 @@ class PostedProjectStatusActivity : AppCompatActivity() {
                     is Result.Loading -> showLoading(true)
                     is Result.Success -> {
                         showLoading(false)
-                        setupRecyclerView(result.data.data)
-                        binding.tvTotalPostedProject.text = result.data.data.size.toString()
+                        setupRecyclerView(result.data.data?.projects ?: emptyList())
+                        binding.tvTotalPostedProject.text = result.data.data?.projects?.size.toString()
                     }
 
                     is Result.Error -> {
@@ -72,6 +68,7 @@ class PostedProjectStatusActivity : AppCompatActivity() {
 
                     is Result.Empty -> {
                         binding.tvTotalPostedProject.text = "0"
+                        showEmptyError(true, result.emptyError)
                     }
                 }
             }
@@ -84,5 +81,10 @@ class PostedProjectStatusActivity : AppCompatActivity() {
 
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun showEmptyError(isEmpty: Boolean, message: String) {
+        binding.empty.llEmpty.visibility = if (isEmpty) View.VISIBLE else View.GONE
+        binding.empty.tvEmpty.text = message
     }
 }
