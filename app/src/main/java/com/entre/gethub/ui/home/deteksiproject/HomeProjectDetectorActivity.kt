@@ -1,48 +1,54 @@
 package com.entre.gethub.ui.home.deteksiproject
 
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import android.content.Context
 import android.content.Intent
 import android.database.Cursor
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import com.entre.gethub.data.Result
 import com.entre.gethub.data.remote.response.ml.ProjectDetectorResponse
 import com.entre.gethub.databinding.ActivityHomeProjectDetectorBinding
 import com.entre.gethub.ui.MainActivity
 import com.entre.gethub.utils.ViewModelFactory
 import java.io.File
+import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.*
 
 class HomeProjectDetectorActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeProjectDetectorBinding
     private lateinit var viewModel: HomeProjectDetectorViewModel
 
-    private val pickPhoto = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
-        if (uri != null) {
-            binding.ivFrame.setImageURI(uri)
-            binding.ivDeteksi.setImageDrawable(null)
-            selectedImageUri = uri
-            selectedImageBitmap = null
+    private val pickPhoto =
+        registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+            if (uri != null) {
+                binding.ivFrame.setImageURI(uri)
+                binding.ivDeteksi.setImageDrawable(null)
+                selectedImageUri = uri
+                selectedImageBitmap = null
+            }
         }
-    }
 
-    private val capturePhoto = registerForActivityResult(ActivityResultContracts.TakePicturePreview()) { bitmap ->
-        if (bitmap != null) {
-            binding.ivFrame.setImageBitmap(bitmap)
-            binding.ivDeteksi.setImageDrawable(null)
-            selectedImageBitmap = bitmap
-            selectedImageUri = null
+    private val capturePhoto =
+        registerForActivityResult(ActivityResultContracts.TakePicturePreview()) { bitmap ->
+            if (bitmap != null) {
+                binding.ivFrame.setImageBitmap(bitmap)
+                binding.ivDeteksi.setImageDrawable(null)
+                selectedImageBitmap = bitmap
+                selectedImageUri = null
+            }
         }
-    }
 
     private var selectedImageUri: Uri? = null
     private var selectedImageBitmap: Bitmap? = null
@@ -92,13 +98,20 @@ class HomeProjectDetectorActivity : AppCompatActivity() {
                     }
                 }
                 selectedImageBitmap != null -> {
-                    val tempFile = createTempFile("image", ".jpg")
-                    tempFile.outputStream().use { outputStream ->
-                        selectedImageBitmap?.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+                    val tempFile = try {
+                        createImageFile()
+                    } catch (ex: IOException) {
+                        // Error occurred while creating the File
+                        null
                     }
-                    Log.d("HomeProjectDetector", "Temp File: ${tempFile.absolutePath}")
-                    viewModel.scanProject(tempFile).observe(this) { result ->
-                        handleScanResult(result)
+                    tempFile?.let {
+                        tempFile.outputStream().use { outputStream ->
+                            selectedImageBitmap?.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+                        }
+                        Log.d("HomeProjectDetector", "Temp File: ${tempFile.absolutePath}")
+                        viewModel.scanProject(tempFile).observe(this) { result ->
+                            handleScanResult(result)
+                        }
                     }
                 }
                 else -> {
@@ -153,5 +166,17 @@ class HomeProjectDetectorActivity : AppCompatActivity() {
 
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    @Throws(IOException::class)
+    private fun createImageFile(): File {
+        // Create an image file name
+        val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
+        val storageDir: File? = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        return File.createTempFile(
+            "JPEG_${timeStamp}_", /* prefix */
+            ".jpg", /* suffix */
+            storageDir /* directory */
+        )
     }
 }
