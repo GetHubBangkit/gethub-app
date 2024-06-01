@@ -1,8 +1,11 @@
 package com.entre.gethub.ui.adapter
 
+import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.entre.gethub.R
 import com.entre.gethub.data.remote.response.ml.ProjectDetectorResponse
 import com.entre.gethub.databinding.ItemHomeProjectDetectorPrediksiBinding
 
@@ -26,6 +29,27 @@ class HomeProjectDetectorPrediksiAdapter(
         fun bind(result: ProjectDetectorResponse.Result) {
             binding.tvPrediksiDesc.text = result.text
             binding.tvPersenFraudCheck.text = "${(result.accuracy?.times(100))?.toFixed(1)}%"
+            binding.cvFraud.apply {
+                backgroundTintList = ColorStateList.valueOf(
+                    when (result.prediction) {
+                        "real_project_job" -> ContextCompat.getColor(context, R .color.green) // Green color
+                        "fraud_project_job" -> ContextCompat.getColor(context, R.color.red) // Red color
+                        else -> ContextCompat.getColor(context, R.color.green) // Default color
+                    }
+                )
+            }
+            binding.cvSentiment.apply {
+                backgroundTintList = ColorStateList.valueOf(
+                    when (result.sentiment) {
+                        "Netral" -> ContextCompat.getColor(context, R.color.darkblue_netral)
+                        "Positif" -> ContextCompat.getColor(context, R.color.green)
+                        "Negatif" -> ContextCompat.getColor(context, R.color.red)
+                        else -> ContextCompat.getColor(context, R.color.green)
+                    }
+                )
+            }
+
+
             binding.tvDetailFraud.text = when (result.prediction) {
                 "real_project_job" -> "Real"
                 "fraud_project_job" -> "Fraud"

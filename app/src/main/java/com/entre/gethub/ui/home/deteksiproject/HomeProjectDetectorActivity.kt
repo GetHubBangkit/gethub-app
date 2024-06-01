@@ -83,6 +83,7 @@ class HomeProjectDetectorActivity : AppCompatActivity() {
         }
 
         binding.btnSimpan.setOnClickListener {
+            showLoading(true)
             when {
                 selectedImageUri != null -> {
                     val filePath = getRealPathFromURI(this, selectedImageUri!!)
@@ -92,8 +93,10 @@ class HomeProjectDetectorActivity : AppCompatActivity() {
                         Log.d("HomeProjectDetector", "Image File: ${imageFile.absolutePath}")
                         viewModel.scanProject(imageFile).observe(this) { result ->
                             handleScanResult(result)
+                            showLoading(true)
                         }
                     } else {
+                        showLoading(false)
                         showToast("Invalid image file")
                     }
                 }
@@ -111,11 +114,13 @@ class HomeProjectDetectorActivity : AppCompatActivity() {
                         Log.d("HomeProjectDetector", "Temp File: ${tempFile.absolutePath}")
                         viewModel.scanProject(tempFile).observe(this) { result ->
                             handleScanResult(result)
+                            showLoading(true)
                         }
                     }
                 }
                 else -> {
                     showToast("No image selected")
+                    showLoading(false)
                 }
             }
         }
@@ -125,6 +130,7 @@ class HomeProjectDetectorActivity : AppCompatActivity() {
         when (result) {
             is Result.Success -> {
                 Log.d("HomeProjectDetectorActivity", "result = ${result.data}")
+                showLoading(true)
                 startActivity(Intent(this, HomeProjectDetectorDetailActivity::class.java).apply {
                     putExtra("imageUri", selectedImageUri?.toString())
                     putExtra("imageBitmap", selectedImageBitmap)
