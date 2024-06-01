@@ -4,7 +4,9 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.entre.gethub.data.remote.response.ml.ProjectDetectorResponse
 import com.entre.gethub.databinding.ActivityHomeProjectDetectorDetailBinding
 import com.entre.gethub.ui.MainActivity
@@ -35,17 +37,24 @@ class HomeProjectDetectorDetailActivity : AppCompatActivity() {
             binding.ivDeteksi.setImageBitmap(imageBitmap)
         }
 
-        result?.results?.let { showPredictions(it) }
-        result?.insight?.let { showInsight(it) }
+        Log.d("HomeProjectDetailActivity", "result: $result ")
+
+
+        result?.data?.results?.let { showPredictions(it) }
+        result?.data?.insight?.let { showInsight(it) }
     }
 
     private fun showPredictions(results: List<ProjectDetectorResponse.Result>) {
-        val adapter = HomeProjectDetectorPrediksiAdapter(results)
-        binding.rvPrediksi.adapter = adapter
+       binding.rvPrediksi.apply {
+           layoutManager= LinearLayoutManager(this@HomeProjectDetectorDetailActivity, LinearLayoutManager.VERTICAL, false)
+           adapter=HomeProjectDetectorPrediksiAdapter(results)
+       }
     }
 
     private fun showInsight(insight: List<ProjectDetectorResponse.Insight>) {
-        val adapter = HomeProjectDetectorInsightAdapter(insight)
-        binding.rvInsight.adapter = adapter
+        binding.rvInsight.apply {
+            layoutManager= LinearLayoutManager(this@HomeProjectDetectorDetailActivity, LinearLayoutManager.VERTICAL, false)
+            adapter=HomeProjectDetectorInsightAdapter(insight)
+        }
     }
 }

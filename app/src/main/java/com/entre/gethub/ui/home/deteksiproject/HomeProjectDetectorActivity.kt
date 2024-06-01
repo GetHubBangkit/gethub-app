@@ -124,12 +124,13 @@ class HomeProjectDetectorActivity : AppCompatActivity() {
     private fun handleScanResult(result: Result<ProjectDetectorResponse>) {
         when (result) {
             is Result.Success -> {
+                Log.d("HomeProjectDetectorActivity", "result = ${result.data}")
                 startActivity(Intent(this, HomeProjectDetectorDetailActivity::class.java).apply {
                     putExtra("imageUri", selectedImageUri?.toString())
                     putExtra("imageBitmap", selectedImageBitmap)
                     putExtra("fraudDetectionResult", result.data)
-                })
-            }
+                })}
+
             is Result.Error -> {
                 showLoading(false)
                 showToast(result.error)
