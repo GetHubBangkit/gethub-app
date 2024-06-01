@@ -31,8 +31,9 @@ interface ApiMLService {
     ): CariTalentResponse
 
     // Scan Fraud Project
+    @Multipart
     @Headers("Accept: application/json")
-    @POST("/api/scan-fraud-project")
+    @POST("scan-fraud-project")
     suspend fun scanFraudProject(
         @Part imageFile: MultipartBody.Part
     ): ProjectDetectorResponse

@@ -24,11 +24,10 @@ class HomeProjectDetectorDetailActivity : AppCompatActivity() {
             startActivity(Intent(this, HomeProjectDetectorActivity::class.java))
         }
 
-        // Menerima data gambar dari intent
         val imageUriString = intent.getStringExtra("imageUri")
         val imageBitmap = intent.getParcelableExtra<Bitmap>("imageBitmap")
+        val result = intent.getParcelableExtra<ProjectDetectorResponse>("fraudDetectionResult")
 
-        // Menampilkan gambar dari URI atau bitmap ke ImageView
         if (imageUriString != null) {
             val imageUri = Uri.parse(imageUriString)
             binding.ivDeteksi.setImageURI(imageUri)
@@ -36,13 +35,7 @@ class HomeProjectDetectorDetailActivity : AppCompatActivity() {
             binding.ivDeteksi.setImageBitmap(imageBitmap)
         }
 
-        // Menerima data hasil deteksi dari intent
-        val result = intent.getParcelableExtra<ProjectDetectorResponse>("fraudDetectionResult")
-
-        // Menampilkan prediksi pada RecyclerView
         result?.results?.let { showPredictions(it) }
-
-        // Menampilkan insight pada RecyclerView
         result?.insight?.let { showInsight(it) }
     }
 
