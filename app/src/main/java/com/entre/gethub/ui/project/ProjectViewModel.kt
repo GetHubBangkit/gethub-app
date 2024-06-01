@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.entre.gethub.data.Result
 import com.entre.gethub.data.remote.response.ApiResponse
 import com.entre.gethub.data.remote.response.projects.ProjectStatsResponse
-import com.entre.gethub.data.remote.response.projects.ProjectsResponse
 import com.entre.gethub.data.repositories.ProjectRepository
 import com.google.gson.Gson
 import kotlinx.coroutines.launch

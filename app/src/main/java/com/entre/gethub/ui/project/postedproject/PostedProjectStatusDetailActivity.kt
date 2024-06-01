@@ -1,5 +1,6 @@
 package com.entre.gethub.ui.project.postedproject
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -14,6 +15,7 @@ import com.entre.gethub.databinding.ActivityPostedProjectStatusDetailBinding
 import com.entre.gethub.ui.adapter.SelectUserBiddingAdapter
 import com.entre.gethub.utils.Formatter
 import com.entre.gethub.utils.ViewModelFactory
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class PostedProjectStatusDetailActivity : AppCompatActivity() {
 
@@ -23,6 +25,7 @@ class PostedProjectStatusDetailActivity : AppCompatActivity() {
             this
         )
     }
+    private var projectIdOnResume: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +34,7 @@ class PostedProjectStatusDetailActivity : AppCompatActivity() {
         val projectId = intent.getStringExtra(EXTRA_PROJECT_ID)
 
         projectId?.let {
+            projectIdOnResume = it
             getPostedProjectDetail(it)
         }
 
@@ -102,12 +106,39 @@ class PostedProjectStatusDetailActivity : AppCompatActivity() {
                 false
             )
             adapter = SelectUserBiddingAdapter(userBiddingList) { usersBidItem ->
-                postedProjectStatusDetailViewModel.chooseBidder(
+                showDialog(
+                    this@PostedProjectStatusDetailActivity,
+                    "Pilih user bidding",
+                    "Apakah anda yakin memilih ${usersBidItem.fullName} untuk mengerjakan proyek Anda?",
                     projectId,
                     usersBidItem.id.toString()
                 )
             }
         }
+    }
+
+    private fun showDialog(
+        context: Context,
+        title: String,
+        message: String,
+        projectId: String,
+        freelancerId: String
+    ) {
+        MaterialAlertDialogBuilder(context)
+            .setTitle(title)
+            .setMessage(message)
+            .setPositiveButton("Yakin") { dialog, _ ->
+                postedProjectStatusDetailViewModel.chooseBidder(
+                    projectId = projectId,
+                    freelancerId = freelancerId
+                )
+                getPostedProjectDetail(projectIdOnResume)
+                dialog.dismiss()
+            }
+            .setNegativeButton("Batal") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
     }
 
     private fun showLoading(isLoading: Boolean) {

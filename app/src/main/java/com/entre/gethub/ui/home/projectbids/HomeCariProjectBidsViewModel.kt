@@ -7,27 +7,22 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.entre.gethub.data.Result
 import com.entre.gethub.data.remote.response.ApiResponse
-import com.entre.gethub.data.remote.response.projects.ProjectsResponse
-import com.entre.gethub.data.remote.response.projects.SearchProjectResponse
+import com.entre.gethub.data.remote.response.projects.ProjectResponse
 import com.entre.gethub.data.repositories.ProjectRepository
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
 class HomeCariProjectBidsViewModel(private val projectRepository: ProjectRepository) : ViewModel() {
-    private val getAllProjectsResult = MediatorLiveData<Result<ProjectsResponse>>()
+    private val getAllProjectsResult = MediatorLiveData<Result<ProjectResponse>>()
 
-    fun getProjects(): LiveData<Result<ProjectsResponse>> {
+    fun getProjects(): LiveData<Result<ProjectResponse>> {
         viewModelScope.launch {
             getAllProjectsResult.value = Result.Loading
             try {
                 val response = projectRepository.getProjects()
 
                 if (response.success == true) {
-                    if (response.data?.totalData == 0) {
-                        getAllProjectsResult.value = Result.Empty(response.message.toString())
-                        return@launch
-                    }
                     getAllProjectsResult.value = Result.Success(response)
                 }
             } catch (e: HttpException) {
@@ -35,6 +30,10 @@ class HomeCariProjectBidsViewModel(private val projectRepository: ProjectReposit
                 val jsonString = e.response()?.errorBody()?.string()
                 val errorBody = Gson().fromJson(jsonString, ApiResponse::class.java)
                 val errorMessage = errorBody.message
+                if (e.code().equals(404)) {
+                    getAllProjectsResult.value = Result.Empty(errorMessage.toString())
+                    return@launch
+                }
                 getAllProjectsResult.value = Result.Error(errorMessage!!)
                 Log.e(TAG, "getProjects error msg: $errorMessage")
             } catch (e: Exception) {

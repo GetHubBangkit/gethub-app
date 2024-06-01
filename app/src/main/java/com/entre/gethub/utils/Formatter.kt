@@ -35,6 +35,7 @@ object Formatter {
     fun formatRupiah(value: Int): String {
         val localeID = Locale("id", "ID")
         val numberFormat = NumberFormat.getCurrencyInstance(localeID)
+        numberFormat.maximumFractionDigits = 0
         return numberFormat.format(value)
     }
 }

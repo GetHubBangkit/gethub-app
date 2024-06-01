@@ -2,7 +2,7 @@ package com.entre.gethub.data.remote.response.projects
 
 import com.google.gson.annotations.SerializedName
 
-data class SearchProjectResponse(
+data class ProjectResponse(
 
     @field:SerializedName("data")
     val data: Data? = null,
@@ -17,10 +17,19 @@ data class SearchProjectResponse(
     val message: String? = null
 ) {
 
-    data class Category(
+    data class UsersBidItem(
 
-        @field:SerializedName("name")
-        val name: String? = null
+        @field:SerializedName("id")
+        val id: String? = null
+    )
+
+    data class Data(
+
+        @field:SerializedName("projects")
+        val projects: List<ProjectsItem>,
+
+        @field:SerializedName("total_projects")
+        val totalProjects: Int? = null
     )
 
     data class OwnerProject(
@@ -36,6 +45,12 @@ data class SearchProjectResponse(
 
         @field:SerializedName("username")
         val username: String? = null
+    )
+
+    data class Category(
+
+        @field:SerializedName("name")
+        val name: String? = null
     )
 
     data class ProjectsItem(
@@ -56,7 +71,7 @@ data class SearchProjectResponse(
         val maxBudget: Int? = null,
 
         @field:SerializedName("users_bid")
-        val usersBid: List<UsersBidItem?>? = null,
+        val usersBid: List<Any?>? = null,
 
         @field:SerializedName("title")
         val title: String? = null,
@@ -119,19 +134,10 @@ data class SearchProjectResponse(
         val createdDate: String? = null,
 
         @field:SerializedName("category")
-        val category: Category? = null
+        val category: Category? = null,
+
+        @field:SerializedName("project_tasks")
+        val projectTasks: List<Any?>? = null
     )
 
-    data class UsersBidItem(
-
-        @field:SerializedName("id")
-        val id: String? = null
-    )
-
-    data class Data(
-
-        @field:SerializedName("projects")
-        val projects: List<ProjectsItem>
-    )
 }
-

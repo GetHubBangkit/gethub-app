@@ -8,7 +8,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.entre.gethub.data.Result
-import com.entre.gethub.data.remote.response.projects.ProjectsResponse
+import com.entre.gethub.data.remote.response.projects.ProjectResponse
 import com.entre.gethub.databinding.ActivityHomeCariProjectBidsBinding
 import com.entre.gethub.ui.adapter.HomeProjectBidsAdapter
 import com.entre.gethub.utils.ViewModelFactory
@@ -41,7 +41,7 @@ class HomeCariProjectBidsActivity : AppCompatActivity() {
         getProjects()
     }
 
-    private fun setupRecyclerViewProjectBid(projectBidList: List<ProjectsResponse.Project>) {
+    private fun setupRecyclerViewProjectBid(projectBidList: List<ProjectResponse.ProjectsItem>) {
         binding.rvRekomendasiProjectBid.apply {
             layoutManager = LinearLayoutManager(
                 this@HomeCariProjectBidsActivity,
