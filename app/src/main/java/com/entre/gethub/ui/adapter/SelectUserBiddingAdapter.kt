@@ -55,6 +55,12 @@ class SelectUserBiddingAdapter(
 
                 if (userBidding.isSelected == true) {
                     tvDetailProjectStatus.text = "Terpilih"
+                    tvDetailProjectStatus.setTextColor(
+                        getColor(
+                            binding.root.context,
+                            R.color.black
+                        )
+                    )
                     cvSelect.setCardBackgroundColor(
                         getColor(
                             binding.root.context,

@@ -25,22 +25,24 @@
         <TextView
             android:id="@+id/tvUserName"
             style="@style/Nunito.Bold"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:text="Tono Jaya"
             android:textSize="12sp"
+            app:layout_constraintEnd_toStartOf="@id/cvSelect"
             app:layout_constraintStart_toEndOf="@id/ivUserProfile"
             app:layout_constraintTop_toTopOf="@id/ivUserProfile" />
 
         <TextView
             android:id="@+id/tvUserJobName"
             style="@style/Nunito"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:text="Freelancer"
             android:textSize="10sp"
+            app:layout_constraintEnd_toStartOf="@id/cvSelect"
             app:layout_constraintStart_toEndOf="@id/ivUserProfile"
             app:layout_constraintTop_toBottomOf="@id/tvUserName" />
 

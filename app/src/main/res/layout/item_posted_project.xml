@@ -17,11 +17,11 @@
 
         <TextView
             android:id="@+id/tvProjectTitle"
-            style="@style/Nunito.SemiBold"
+            style="@style/Nunito.Bold"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="UI/UX Designer"
-            android:textSize="10sp"
+            android:textSize="12sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toStartOf="@id/tvProjectAmountRange"/>
