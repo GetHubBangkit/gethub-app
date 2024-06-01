@@ -7,14 +7,14 @@ import com.entre.gethub.data.remote.response.projects.PostProjectResponse
 import com.entre.gethub.data.remote.response.projects.PostedProjectDetailResponse
 import com.entre.gethub.data.remote.response.projects.PostedProjectResponse
 import com.entre.gethub.data.remote.response.projects.ProjectDetailResponse
+import com.entre.gethub.data.remote.response.projects.ProjectResponse
 import com.entre.gethub.data.remote.response.projects.ProjectStatsResponse
-import com.entre.gethub.data.remote.response.projects.ProjectsResponse
 import com.entre.gethub.data.remote.response.projects.SearchProjectResponse
 import com.entre.gethub.data.remote.retrofit.ApiService
 
 class ProjectRepository private constructor(private val apiService: ApiService) {
 
-    suspend fun getProjects(): ProjectsResponse {
+    suspend fun getProjects(): ProjectResponse {
         return apiService.getProjects()
     }
 
