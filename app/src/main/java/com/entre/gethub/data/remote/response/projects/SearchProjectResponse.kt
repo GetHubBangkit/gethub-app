@@ -23,6 +23,21 @@ data class SearchProjectResponse(
         val name: String? = null
     )
 
+    data class OwnerProject(
+
+        @field:SerializedName("profession")
+        val profession: String? = null,
+
+        @field:SerializedName("full_name")
+        val fullName: String? = null,
+
+        @field:SerializedName("photo")
+        val photo: String? = null,
+
+        @field:SerializedName("username")
+        val username: String? = null
+    )
+
     data class ProjectsItem(
 
         @field:SerializedName("fee_freelance_transaction_value")
@@ -39,6 +54,9 @@ data class SearchProjectResponse(
 
         @field:SerializedName("max_budget")
         val maxBudget: Int? = null,
+
+        @field:SerializedName("users_bid")
+        val usersBid: List<UsersBidItem?>? = null,
 
         @field:SerializedName("title")
         val title: String? = null,
@@ -69,6 +87,9 @@ data class SearchProjectResponse(
 
         @field:SerializedName("chatroom_id")
         val chatroomId: String? = null,
+
+        @field:SerializedName("total_bids")
+        val totalBids: Int? = null,
 
         @field:SerializedName("updatedAt")
         val updatedAt: String? = null,
@@ -101,25 +122,16 @@ data class SearchProjectResponse(
         val category: Category? = null
     )
 
+    data class UsersBidItem(
+
+        @field:SerializedName("id")
+        val id: String? = null
+    )
+
     data class Data(
 
         @field:SerializedName("projects")
         val projects: List<ProjectsItem>
     )
-
-    data class OwnerProject(
-
-        @field:SerializedName("profession")
-        val profession: String? = null,
-
-        @field:SerializedName("full_name")
-        val fullName: String? = null,
-
-        @field:SerializedName("photo")
-        val photo: String? = null,
-
-        @field:SerializedName("username")
-        val username: String? = null
-    )
-
 }
+
