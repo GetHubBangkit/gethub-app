@@ -1,11 +1,13 @@
 package com.entre.gethub.ui.home.deteksiproject
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.entre.gethub.data.remote.response.ml.ProjectDetectorResponse
 import com.entre.gethub.databinding.ActivityHomeProjectDetectorDetailBinding
+import com.entre.gethub.ui.MainActivity
 import com.entre.gethub.ui.adapter.HomeProjectDetectorInsightAdapter
 import com.entre.gethub.ui.adapter.HomeProjectDetectorPrediksiAdapter
 
@@ -17,6 +19,10 @@ class HomeProjectDetectorDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeProjectDetectorDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.ivBack.setOnClickListener {
+            startActivity(Intent(this, HomeProjectDetectorActivity::class.java))
+        }
 
         // Menerima data gambar dari intent
         val imageUriString = intent.getStringExtra("imageUri")

@@ -8,6 +8,7 @@ import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.entre.gethub.databinding.ActivityHomeProjectDetectorBinding
+import com.entre.gethub.ui.MainActivity
 
 class HomeProjectDetectorActivity : AppCompatActivity() {
 
@@ -51,6 +52,10 @@ class HomeProjectDetectorActivity : AppCompatActivity() {
         binding.ivFrame.setOnClickListener {
             // Memilih sumber gambar: galeri atau kamera
             showImageSourceOptions()
+        }
+
+        binding.ivBack.setOnClickListener {
+            startActivity(Intent(this, MainActivity::class.java))
         }
 
         binding.btnSimpan.setOnClickListener {
