@@ -12,12 +12,12 @@ import com.entre.gethub.databinding.ItemProjectRekomendasijobbidBinding
 import com.entre.gethub.utils.Formatter
 
 
-class OwnerPostedProjectAdapter(
+class UserProjectBidAdapter(
 
     private val projectBidList: List<ProjectStatsResponse.BidProjectsItem>,
     private val listener: (ProjectStatsResponse.BidProjectsItem, Int) -> Unit
 ) :
-    RecyclerView.Adapter<OwnerPostedProjectAdapter.ViewHolder>() {
+    RecyclerView.Adapter<UserProjectBidAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = ItemProjectRekomendasijobbidBinding.inflate(
@@ -59,7 +59,7 @@ class OwnerPostedProjectAdapter(
                 tvProjectTitle.text = projectBid.title
                 tvProjectPriceRange.text = "$minBudget - $maxBudget"
                 tvProjectDesc.text = "projectBid.description"
-                tvProjectTotalUserBids.text = "Total User Bids: 5 User"
+                tvProjectTotalUserBids.text = "Total User Bids: ${projectBid.totalBids} User"
                 tvProjectPostDate.text = "Diunggah: ${projectBid.createdDate}"
                 tvProjectDeadline.text = "Deadline: ${projectBid.deadlineDuration} Hari"
             }

@@ -14,9 +14,8 @@ import com.entre.gethub.R
 import com.entre.gethub.data.Result
 import com.entre.gethub.data.remote.response.projects.ProjectStatsResponse
 import com.entre.gethub.databinding.FragmentProjectBinding
-import com.entre.gethub.ui.adapter.OwnerPostedProjectAdapter
+import com.entre.gethub.ui.adapter.UserProjectBidAdapter
 import com.entre.gethub.ui.adapter.TopTalentAdapter
-import com.entre.gethub.ui.home.projectbids.HomeDetailProjectBidsActivity
 import com.entre.gethub.ui.models.TopTalent
 import com.entre.gethub.ui.project.acceptedbidproject.AcceptedBidProjectActivity
 import com.entre.gethub.ui.project.bidproject.BidProjectStatusActivity
@@ -189,7 +188,7 @@ class ProjectFragment : Fragment() {
                 LinearLayoutManager.VERTICAL,
                 false
             )
-            adapter = OwnerPostedProjectAdapter(projectBidList) { projectBid, _ ->
+            adapter = UserProjectBidAdapter(projectBidList) { projectBid, _ ->
                 val intent = Intent(
                     requireContext(),
                     BidProjectStatusDetailActivity::class.java
