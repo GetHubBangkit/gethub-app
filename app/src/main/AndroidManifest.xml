@@ -126,6 +126,14 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".ui.home.deteksiproject.HomeProjectDetectorActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.home.deteksiproject.HomeProjectDetectorDetailActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ui.auth.TermsConditionActivity"
             android:exported="false"
             android:screenOrientation="portrait" />

@@ -12,6 +12,7 @@ import com.entre.gethub.data.repositories.InformationHubRepository
 import com.entre.gethub.data.repositories.LinkRepository
 import com.entre.gethub.data.repositories.ProductRepository
 import com.entre.gethub.data.repositories.ProfileRepository
+import com.entre.gethub.data.repositories.ProjectDetectorRepository
 import com.entre.gethub.data.repositories.ProjectRepository
 import com.entre.gethub.data.repositories.ScanCardRepository
 import com.entre.gethub.data.repositories.SponsorRepository
@@ -89,6 +90,13 @@ object Injection {
         val token = runBlocking { pref.getToken().first() }
         return ScanCardRepository.getInstance(ApiConfig.getApiMLService(context, token))
     }
+
+    fun provideProjectDetectorRepository(context: Context): ProjectDetectorRepository {
+        val pref = provideUserPreferences(context)
+        val token = runBlocking { pref.getToken().first() }
+        return ProjectDetectorRepository.getInstance(ApiConfig.getApiMLService(context, token))
+    }
+
 
     fun provideCariTalentRepository(context: Context): CariTalentRepository {
         val pref = provideUserPreferences(context)

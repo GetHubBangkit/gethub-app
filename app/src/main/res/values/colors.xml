@@ -151,6 +151,11 @@
     <color name="inactive">#C4C4C4</color>
     <color name="active">#50C2C9</color>
 
+    <color name="red">#FF004F</color>
+    <color name="red_conclusion">#FFDCDC</color>
+    <color name="green">#00B994</color>
+    <color name="darkblue_netral">#192145</color>
+
     <color name="darkblue">#21335B</color>
     <color name="purple_200">#FFBB86FC</color>
     <color name="darkgrey">#F9FAFB</color>

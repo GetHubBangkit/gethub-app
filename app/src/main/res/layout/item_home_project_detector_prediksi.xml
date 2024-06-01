@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:backgroundTint="@color/white"
+    android:layout_marginLeft="17dp"
+    android:layout_marginRight="17dp"
+    android:layout_marginBottom="10dp"
+    app:cardCornerRadius="10dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvPrediksiDesc"
+            style="@style/Nunito"
+            android:layout_width="0dp"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:text="HAL Panggilan Tes dan Inteview kerja sekaligus pembagian Wilayah kerja POSISI RESEPSIONIS Kepada Yth, Peserta Tes / Interview calon karyawan"
+            android:textColor="@color/black"
+            android:textSize="10sp"
+
+            app:layout_constraintEnd_toEndOf="parent"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+           />
+
+        <TextView
+            android:id="@+id/tvFraudCheck"
+            style="@style/Poppins.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="19dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="15dp"
+            android:text="Fraud Check"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvPrediksiDesc" />
+
+        <TextView
+            android:id="@+id/tvPersenFraudCheck"
+            style="@style/Nunito.BoldItalic"
+            android:layout_width="wrap_content"
+            android:layout_height="14dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginBottom="12dp"
+            android:text="90.1%"
+            android:textColor="@color/black"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvFraudCheck" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvFraud"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="13dp"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="@color/color_sentiment_neutral"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="0dp"
+
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/tvFraudCheck"
+            app:layout_constraintTop_toBottomOf="@+id/tvPrediksiDesc">
+
+            <TextView
+                android:id="@+id/tvDetailFraud"
+                style="@style/Nunito.Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="4dp"
+                android:text="Fraud"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+        </androidx.cardview.widget.CardView>
+
+
+        <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="33dp"
+        android:orientation="vertical"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="13dp"
+        android:layout_marginBottom="12dp"
+        app:layout_constraintEnd_toStartOf="@+id/cvSentiment"
+        app:layout_constraintTop_toBottomOf="@+id/tvPrediksiDesc"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.5">
+
+        <TextView
+            android:id="@+id/tvSentiment"
+            style="@style/Poppins.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="19dp"
+            android:text="Sentiment"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tvPersenSentiment"
+            style="@style/Nunito.BoldItalic"
+            android:layout_width="wrap_content"
+            android:layout_height="14dp"
+            android:text="80%"
+            android:textColor="@color/black"
+            android:textSize="10sp" />
+
+    </LinearLayout>
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvSentiment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="15dp"
+            android:backgroundTint="@color/color_sentiment_neutral"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvPrediksiDesc">
+
+            <TextView
+                android:id="@+id/tvDetailSentiment"
+                style="@style/Nunito.Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="4dp"
+                android:text="Netral"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

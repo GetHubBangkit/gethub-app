@@ -263,6 +263,7 @@
         <item name="android:fontFamily">@font/poppins_bold</item>
     </style>
 
+
     <style name="Poppins.Black">
         <item name="android:fontFamily">@font/poppins_black</item>
     </style>
@@ -288,6 +289,11 @@
 
     <style name="Nunito.Bold">
         <item name="android:fontFamily">@font/nunito_bold</item>
+    </style>
+
+    <style name="Nunito.BoldItalic">
+        <item name="android:fontFamily">@font/nunito_bold</item>
+        <item name="android:textStyle">italic</item>
     </style>
 
     <style name="Nunito.ExtraBold">
