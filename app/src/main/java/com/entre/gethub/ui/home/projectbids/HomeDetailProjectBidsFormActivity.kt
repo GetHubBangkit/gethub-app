@@ -12,6 +12,7 @@ import com.entre.gethub.R
 import com.entre.gethub.data.Result
 import com.entre.gethub.databinding.ItemDetailProjectbidsFormBinding
 import com.entre.gethub.ui.project.bidproject.BidProjectStatusActivity
+import com.entre.gethub.utils.Formatter
 import com.entre.gethub.utils.ViewModelFactory
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
@@ -29,10 +30,10 @@ class HomeDetailProjectBidsFormActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val projectBidId = intent.getStringExtra(EXTRA_PROJECT_ID)
-        val minBudget = intent.getIntExtra(EXTRA_MIN_BUDGET, 0)
-        val maxBudget = intent.getIntExtra(EXTRA_MAX_BUDGET, 0)
+        val minBudget = Formatter.formatRupiah(intent.getIntExtra(EXTRA_MIN_BUDGET, 0))
+        val maxBudget = Formatter.formatRupiah(intent.getIntExtra(EXTRA_MAX_BUDGET, 0))
 
-        binding.tvFormPriceRange.text = "Rp $minBudget - Rp $maxBudget"
+        binding.tvFormPriceRange.text = "$minBudget - $maxBudget"
 
         binding.iconBack.setOnClickListener {
             finish()
