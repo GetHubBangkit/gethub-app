@@ -17,6 +17,15 @@ data class PostedProjectResponse(
     val message: String? = null
 ) {
 
+    data class Data(
+
+        @field:SerializedName("projects")
+        val projects: List<ProjectsItem>,
+
+        @field:SerializedName("total_projects")
+        val totalProjects: Int? = null
+    )
+
     data class Category(
 
         @field:SerializedName("name")
@@ -55,11 +64,17 @@ data class PostedProjectResponse(
         @field:SerializedName("max_budget")
         val maxBudget: Int? = null,
 
+        @field:SerializedName("users_bid")
+        val usersBid: List<UsersBidItem?>? = null,
+
         @field:SerializedName("title")
         val title: String? = null,
 
         @field:SerializedName("min_deadline")
         val minDeadline: String? = null,
+
+        @field:SerializedName("total_bidders")
+        val totalBidders: Int? = null,
 
         @field:SerializedName("createdAt")
         val createdAt: String? = null,
@@ -119,12 +134,9 @@ data class PostedProjectResponse(
         val projectTasks: List<Any?>? = null
     )
 
-    data class Data(
+    data class UsersBidItem(
 
-        @field:SerializedName("projects")
-        val projects: List<ProjectsItem>,
-
-        @field:SerializedName("total_projects")
-        val totalProjects: Int? = null
+        @field:SerializedName("id")
+        val id: String? = null
     )
 }

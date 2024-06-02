@@ -1,6 +1,5 @@
 package com.entre.gethub.ui.project.bidproject
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
@@ -9,7 +8,6 @@ import com.entre.gethub.data.Result
 import com.entre.gethub.data.remote.response.ApiResponse
 import com.entre.gethub.data.remote.response.projects.ProjectDetailResponse
 import com.entre.gethub.data.repositories.ProjectRepository
-import com.entre.gethub.ui.home.projectbids.HomeDetailProjectBidsViewModel
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
