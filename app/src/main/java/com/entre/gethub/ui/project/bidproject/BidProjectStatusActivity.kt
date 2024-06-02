@@ -49,7 +49,7 @@ class BidProjectStatusActivity : AppCompatActivity() {
                     is Result.Loading -> showLoading(true)
                     is Result.Success -> {
                         showLoading(false)
-                        binding.tvTotalMyProjectBids.text = result.data.data?.totalBids.toString()
+                        binding.tvTotalMyProjectBids.text = result.data.data?.totalUsersBids.toString()
                         setupRecyclerView(result.data.data?.usersBid!!)
                     }
 

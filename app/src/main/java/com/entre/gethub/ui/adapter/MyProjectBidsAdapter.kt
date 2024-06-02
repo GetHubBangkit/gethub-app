@@ -42,8 +42,8 @@ class MyProjectBidsAdapter(
         fun bindItem(projectBid: MyProjectBidResponse.UsersBidItem) {
             with(binding) {
                 val postDate = Formatter.formatPostDate(projectBid.project?.createdDate!!)
-                val minBudget = Formatter.formatRupiah(projectBid.project?.minBudget ?: 0)
-                val maxBudget = Formatter.formatRupiah(projectBid.project?.maxBudget ?: 0)
+                val minBudget = Formatter.formatRupiah(projectBid.project.minBudget ?: 0)
+                val maxBudget = Formatter.formatRupiah(projectBid.project.maxBudget ?: 0)
 
                 // Project Owner
                 Glide.with(itemView.context)
