@@ -38,7 +38,7 @@ class PostedProjectAdapter(
                 tvProjectDescription.text = project.description
                 tvProjectAmountRange.text = "$minBudget - $maxBudget"
                 tvProjectDeadline.text = "Deadline ${project.deadlineDuration} Hari"
-                tvProjectTotalUserBids.text = "Total User Bids: 5 User"
+                tvProjectTotalUserBids.text = "Total User Bids: ${project.totalBidders} User"
             }
         }
     }

@@ -46,12 +46,10 @@
             android:id="@+id/ivPostProject"
             android:layout_width="110dp"
             android:layout_height="88dp"
-            android:layout_marginStart="18dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="20dp"
-
             android:src="@drawable/projectyellow"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintEnd_toStartOf="@+id/ivBidProject"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textproject" />
 
@@ -90,9 +88,8 @@
             android:layout_height="88dp"
             android:layout_marginTop="20dp"
             android:src="@drawable/projectblue"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/ivAcceptedProject"
+            app:layout_constraintStart_toEndOf="@id/ivPostProject"
             app:layout_constraintTop_toBottomOf="@+id/textproject" />
 
         <TextView
@@ -129,11 +126,10 @@
             android:layout_width="110dp"
             android:layout_height="88dp"
             android:layout_marginTop="20dp"
-            android:layout_marginEnd="18dp"
+            android:layout_marginEnd="8dp"
             android:src="@drawable/projectgreen"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/frame"
+            app:layout_constraintStart_toEndOf="@id/ivBidProject"
             app:layout_constraintTop_toBottomOf="@+id/textproject" />
 
         <TextView
