@@ -224,7 +224,9 @@ class PostProjectActivity : AppCompatActivity() {
                     is Result.Success -> {
                         showLoading(false)
                         showToast(result.data.message!!)
-                        val intent = Intent(this, PostedProjectStatusActivity::class.java)
+                        val intent = Intent(this, PostedProjectStatusActivity::class.java).apply {
+                            putExtra(PostedProjectStatusActivity.EXTRA_ID_FROM_POST_PROJECT_ACTIVITY, 100)
+                        }
                         startActivity(intent)
                         finish()
                     }

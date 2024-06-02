@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.entre.gethub.data.Result
 import com.entre.gethub.data.remote.response.projects.PostedProjectResponse
 import com.entre.gethub.databinding.ActivityPostedProjectStatusBinding
+import com.entre.gethub.ui.MainActivity
 import com.entre.gethub.ui.adapter.PostedProjectAdapter
 import com.entre.gethub.utils.ViewModelFactory
 
@@ -21,6 +22,7 @@ class PostedProjectStatusActivity : AppCompatActivity() {
             this
         )
     }
+    private var postProjectId: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +30,15 @@ class PostedProjectStatusActivity : AppCompatActivity() {
 
         getPostedProject()
 
+        postProjectId = intent.getIntExtra(EXTRA_ID_FROM_POST_PROJECT_ACTIVITY, 0)
+
         binding.iconBack.setOnClickListener {
+            if (postProjectId!!.equals(100)) {
+                startActivity(Intent(this@PostedProjectStatusActivity, MainActivity::class.java))
+                finish()
+                return@setOnClickListener
+            }
+
             finish()
         }
     }
@@ -46,7 +56,10 @@ class PostedProjectStatusActivity : AppCompatActivity() {
                 false
             )
             adapter = PostedProjectAdapter(postedProjectList) { project, _ ->
-                val intent = Intent(this@PostedProjectStatusActivity, PostedProjectStatusDetailActivity::class.java);
+                val intent = Intent(
+                    this@PostedProjectStatusActivity,
+                    PostedProjectStatusDetailActivity::class.java
+                );
                 intent.putExtra(PostedProjectStatusDetailActivity.EXTRA_PROJECT_ID, project.id)
                 startActivity(intent)
             }
@@ -61,7 +74,8 @@ class PostedProjectStatusActivity : AppCompatActivity() {
                     is Result.Success -> {
                         showLoading(false)
                         setupRecyclerView(result.data.data?.projects ?: emptyList())
-                        binding.tvTotalPostedProject.text = result.data.data?.projects?.size.toString()
+                        binding.tvTotalPostedProject.text =
+                            result.data.data?.projects?.size.toString()
                     }
 
                     is Result.Error -> {
@@ -89,5 +103,10 @@ class PostedProjectStatusActivity : AppCompatActivity() {
     private fun showEmptyError(isEmpty: Boolean, message: String) {
         binding.empty.llEmpty.visibility = if (isEmpty) View.VISIBLE else View.GONE
         binding.empty.tvEmpty.text = message
+    }
+
+    companion object {
+        const val EXTRA_ID_FROM_POST_PROJECT_ACTIVITY =
+            "extra_id_from_post_project_activity"
     }
 }
