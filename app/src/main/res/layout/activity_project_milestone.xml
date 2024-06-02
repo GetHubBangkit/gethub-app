@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.project.postproject.milestone.ProjectMilestoneActivity">
+
+    <ImageView
+        android:id="@+id/frame"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:src="@drawable/rectangle"
+        app:layout_constraintDimensionRatio="H,4:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textgethub"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Milestone Project"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:fontFamily="@font/nunito_extrabold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.085"
+        app:layout_constraintStart_toEndOf="@id/icon_back"
+        app:layout_constraintTop_toTopOf="@id/frame"
+        app:layout_constraintVertical_bias="0.024" />
+
+    <ImageView
+        android:id="@+id/icon_back"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="26dp"
+        android:src="@drawable/icon_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.041"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/llProjectWarning"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/post_project_warning_bg"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textgethub">
+
+        <TextView
+            style="@style/Nunito"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Silahkan deskripsikan dengan jelas detail project yg harus dikerjakan oleh freelancer. Jelaskan sedetail mungkin agar freelancer mendapatkan informasi yg sangat jelas dan detail. Milestone ini akan menjadi patokan progress untuk freelancer mengerjakan project yg Anda berikan"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvMilestoneProject"
+        style="@style/Poppins.Bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="23dp"
+        android:text="Milestone Project"
+        android:textColor="@color/md_theme_primary"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/llProjectWarning" />
+
+    <Button
+        android:id="@+id/btnAddMilestone"
+        style="@style/CustomButton"
+        android:layout_width="120dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="20dp"
+        android:text="Tambah"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@id/tvMilestoneProject"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvMilestoneProject" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvMilestone"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnAddMilestone"
+        tools:listitem="@layout/item_project_milestone" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

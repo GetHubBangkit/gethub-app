@@ -26,6 +26,9 @@
         android:theme="@style/Theme.GetHub"
         tools:targetApi="31">
         <activity
+            android:name=".ui.project.postproject.milestone.ProjectMilestoneActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.project.acceptedbidproject.AcceptedBidProjectActivity"
             android:exported="false" />
         <activity
