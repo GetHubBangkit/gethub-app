@@ -3,6 +3,8 @@ package com.entre.gethub.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.entre.gethub.R
 import com.entre.gethub.data.remote.response.projects.AcceptedProjectBidResponse
 import com.entre.gethub.databinding.ItemAcceptedProjectbidBinding
 import com.entre.gethub.utils.Formatter
@@ -36,17 +38,21 @@ class AcceptedBidAdapter(
                 val acceptedBudget = Formatter.formatRupiah(projectBid.budgetBid ?: 0)
 
                 // Project Owner
-//                Glide.with(itemView.context)
-//                    .load(projectBid.project.ownerProject?.photo)
-//                    .placeholder(R.drawable.profilepic2)
-//                    .into(ivProjectOwnerPic)
-//                tvProjectOwnerName.text = projectBid.project.ownerProject?.fullName
-//                tvProjectOwnerProfession.text = projectBid.project.ownerProject?.fullName
+                Glide.with(itemView.context)
+                    .load(projectBid.project.ownerProject?.photo)
+                    .placeholder(R.drawable.profilepic2)
+                    .into(ivUserProfile)
+                tvUserName.text = projectBid.project.ownerProject?.fullName
+                tvUserJobName.text = projectBid.project.ownerProject?.fullName
 
                 // Project Data
-                tvProjectTitle.text = projectBid.project?.title
-                tvProjectDeadline.text = "Deadline: ${projectBid.project?.deadlineDuration} Hari"
+                tvProjectTitle.text = projectBid.project.title
+                tvProjectDeadline.text = "Deadline: ${projectBid.project.deadlineDuration} Hari"
                 tvProjectAmount.text = acceptedBudget
+
+                cvChat.setOnClickListener {
+                    //
+                }
             }
         }
 
