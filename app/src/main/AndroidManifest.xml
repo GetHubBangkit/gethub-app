@@ -118,6 +118,10 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".ui.home.mygethub.HomeKelolaMyGethubGantiDesignPreviewWebViewActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ui.home.mygethub.HomeKelolaMyGethubActivity"
             android:exported="false"
             android:screenOrientation="portrait" />

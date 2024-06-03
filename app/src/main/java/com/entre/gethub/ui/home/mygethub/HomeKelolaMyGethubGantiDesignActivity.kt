@@ -1,12 +1,9 @@
 package com.entre.gethub.ui.home.mygethub
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.entre.gethub.data.Result
@@ -96,7 +93,10 @@ class HomeKelolaMyGethubGantiDesignActivity : AppCompatActivity() {
     private fun getUserProfile() {
         viewModel.getUserProfile().observe(this) { result ->
             when (result) {
-                is Result.Loading -> showLoading(true)
+                is Result.Loading -> {
+
+
+                }
                 is Result.Success -> {
                     val userProfile = result.data.data
                     val username = userProfile?.username ?: ""
@@ -115,14 +115,11 @@ class HomeKelolaMyGethubGantiDesignActivity : AppCompatActivity() {
     private fun setupPreviewButton(username: String) {
         binding.btnPriview.setOnClickListener {
             val url = "https://gethub-webporto-kot54pmj3q-et.a.run.app/$username"
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+            val intent = Intent(this, HomeKelolaMyGethubGantiDesignPreviewWebViewActivity::class.java)
+            intent.putExtra("URL", url)
             startActivity(intent)
         }
     }
-
-    private fun showLoading(isLoading: Boolean) {
-        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
-    }
-
-
 }
+
+
