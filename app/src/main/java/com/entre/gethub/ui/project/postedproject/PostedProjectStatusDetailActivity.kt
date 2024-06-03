@@ -117,6 +117,30 @@ class PostedProjectStatusDetailActivity : AppCompatActivity() {
         }
     }
 
+    private fun chooseBidder(projectId: String, freelancerId: String) {
+        postedProjectStatusDetailViewModel.chooseBidder(projectId, freelancerId)
+            .observe(this) { result ->
+                if (result != null) {
+                    when (result) {
+                        is Result.Loading -> showLoading(true)
+                        is Result.Success -> {
+                            showLoading(false)
+                            getPostedProjectDetail(projectId)
+                        }
+
+                        is Result.Error -> {
+                            showLoading(false)
+                            showToast(result.error)
+                        }
+
+                        else -> {
+                            //
+                        }
+                    }
+                }
+            }
+    }
+
     private fun showDialog(
         context: Context,
         title: String,
@@ -128,11 +152,7 @@ class PostedProjectStatusDetailActivity : AppCompatActivity() {
             .setTitle(title)
             .setMessage(message)
             .setPositiveButton("Yakin") { dialog, _ ->
-                postedProjectStatusDetailViewModel.chooseBidder(
-                    projectId = projectId,
-                    freelancerId = freelancerId
-                )
-                getPostedProjectDetail(projectIdOnResume)
+                chooseBidder(projectId, freelancerId)
                 dialog.dismiss()
             }
             .setNegativeButton("Batal") { dialog, _ ->
