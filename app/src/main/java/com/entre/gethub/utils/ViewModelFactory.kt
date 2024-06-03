@@ -19,6 +19,7 @@ import com.entre.gethub.data.repositories.ProjectRepository
 import com.entre.gethub.data.repositories.ScanCardRepository
 import com.entre.gethub.data.repositories.SponsorRepository
 import com.entre.gethub.data.repositories.ThemeHubRepository
+import com.entre.gethub.data.repositories.TopTalentRepository
 import com.entre.gethub.data.repositories.UserPublicProfileRepository
 import com.entre.gethub.data.repositories.VisibilityRepository
 import com.entre.gethub.di.Injection
@@ -76,7 +77,8 @@ class ViewModelFactory private constructor(
     private val cariTalentRepository: CariTalentRepository,
     private val userPublicProfileRepository: UserPublicProfileRepository,
     private val projectDetectorRepository: ProjectDetectorRepository,
-    private val themeHubRepository: ThemeHubRepository
+    private val themeHubRepository: ThemeHubRepository,
+    private val topTalentRepository: TopTalentRepository
 ) : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when (modelClass) {
@@ -175,7 +177,7 @@ class ViewModelFactory private constructor(
                 projectRepository
             ) as T
 
-            ProjectViewModel::class.java -> ProjectViewModel(projectRepository) as T
+            ProjectViewModel::class.java -> ProjectViewModel(projectRepository, topTalentRepository) as T
 
             PostProjectViewModel::class.java -> PostProjectViewModel(
                 categoryRepository,
@@ -230,7 +232,8 @@ class ViewModelFactory private constructor(
                 Injection.provideCariTalentRepository(context),
                 Injection.provideUserPublicProfileRepository(context),
                 Injection.provideProjectDetectorRepository(context),
-                Injection.provideThemeHubRepository(context)
+                Injection.provideThemeHubRepository(context),
+                Injection.provideTopTalentRepository(context)
             )
 
     }
