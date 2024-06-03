@@ -66,9 +66,9 @@ class AkunFragment : Fragment() {
     }
 
     private fun setupVisibilitySwitch() {
-        binding.switchVisibilty.setOnCheckedChangeListener { _, isChecked ->
-            akunViewModel.setVisibility(isChecked)
-        }
+//        binding.switchVisibilty.setOnCheckedChangeListener { _, isChecked ->
+//            akunViewModel.setVisibility(isChecked)
+//        }
 
         akunViewModel.getVisibility().observe(viewLifecycleOwner) { isVisible ->
             binding.switchVisibilty.isChecked = isVisible

@@ -277,10 +277,11 @@ interface ApiService {
         @Query("username") username: String
     ): UserPublicProfileResponse
 
-    @FormUrlEncoded
-    @POST("update/visibility")
-    suspend fun updatePostVisibility(
-        @Field("is_visibility") isVisibility: Boolean
-    ): VisibilityResponse
+//    @FormUrlEncoded
+//    @POST("update/visibility")
+//    suspend fun updatePostVisibility(
+//        @Field("is_visibility") isVisibility: Boolean
+//    ): VisibilityResponse
+
 
 }

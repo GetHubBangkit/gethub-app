@@ -59,12 +59,12 @@ class AkunViewModel(
         return visibilityLiveData
     }
 
-    fun setVisibility(isVisible: Boolean) {
-        viewModelScope.launch {
-            visibilityRepository.setVisibility(isVisible)
-            visibilityLiveData.value = isVisible
-        }
-    }
+//    fun setVisibility(isVisible: Boolean) {
+//        viewModelScope.launch {
+//            visibilityRepository.setVisibility(isVisible)
+//            visibilityLiveData.value = isVisible
+//        }
+//    }
 
     fun logout() {
         viewModelScope.launch {

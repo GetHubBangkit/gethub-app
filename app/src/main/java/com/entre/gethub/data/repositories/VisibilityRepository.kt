@@ -8,9 +8,9 @@
 
 
         // Update the visibility status
-        suspend fun setVisibility(isVisible: Boolean): VisibilityResponse {
-            return apiService.updatePostVisibility(isVisible)
-        }
+//        suspend fun setVisibility(isVisible: Boolean): VisibilityResponse {
+//            return apiService.updatePostVisibility(isVisible)
+//        }
 
 
         companion object {
