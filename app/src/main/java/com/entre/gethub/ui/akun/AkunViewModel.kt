@@ -10,15 +10,18 @@ import com.entre.gethub.data.preferences.UserPreferences
 import com.entre.gethub.data.remote.response.ApiResponse
 import com.entre.gethub.data.remote.response.profiles.UserProfileResponse
 import com.entre.gethub.data.repositories.ProfileRepository
+import com.entre.gethub.data.repositories.VisibilityRepository
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
 class AkunViewModel(
     private val profileRepository: ProfileRepository,
-    private val userPreferences: UserPreferences
+    private val userPreferences: UserPreferences,
+    private val visibilityRepository: VisibilityRepository
 ) : ViewModel() {
     private val getUserProfileResult = MediatorLiveData<Result<UserProfileResponse>>()
+    private val visibilityLiveData = MediatorLiveData<Boolean>()
 
     fun getUserProfile(): LiveData<Result<UserProfileResponse>> {
         viewModelScope.launch {
@@ -44,6 +47,24 @@ class AkunViewModel(
     fun getToken(): LiveData<String> {
         return userPreferences.getToken().asLiveData()
     }
+
+    fun getVisibility(): LiveData<Boolean> {
+        viewModelScope.launch {
+            try {
+                visibilityLiveData.value = profileRepository.getVisibility()
+            } catch (e: Exception) {
+                visibilityLiveData.value = false
+            }
+        }
+        return visibilityLiveData
+    }
+
+//    fun setVisibility(isVisible: Boolean) {
+//        viewModelScope.launch {
+//            visibilityRepository.setVisibility(isVisible)
+//            visibilityLiveData.value = isVisible
+//        }
+//    }
 
     fun logout() {
         viewModelScope.launch {

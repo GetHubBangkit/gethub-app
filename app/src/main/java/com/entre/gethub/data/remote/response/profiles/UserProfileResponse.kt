@@ -34,6 +34,9 @@ data class Data(
 	@field:SerializedName("photo")
 	val photo: String? = null,
 
+	@field:SerializedName("is_visibility")
+	val isVisibility: Boolean? = null,
+
 	@field:SerializedName("is_complete_profile")
 	val isCompleteProfile: Boolean? = null,
 

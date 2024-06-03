@@ -46,6 +46,7 @@ class AkunFragment : Fragment() {
         }
 
         setupView()
+        setupVisibilitySwitch()
         getUserData()
 
         return root
@@ -61,6 +62,16 @@ class AkunFragment : Fragment() {
             framesettingkeluar.setOnClickListener {
                 showDialog(requireContext(), "Keluar", "Apakah Anda yakin ingin keluar?")
             }
+        }
+    }
+
+    private fun setupVisibilitySwitch() {
+//        binding.switchVisibilty.setOnCheckedChangeListener { _, isChecked ->
+//            akunViewModel.setVisibility(isChecked)
+//        }
+
+        akunViewModel.getVisibility().observe(viewLifecycleOwner) { isVisible ->
+            binding.switchVisibilty.isChecked = isVisible
         }
     }
 

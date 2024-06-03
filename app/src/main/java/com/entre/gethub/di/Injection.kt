@@ -17,6 +17,7 @@ import com.entre.gethub.data.repositories.ProjectRepository
 import com.entre.gethub.data.repositories.ScanCardRepository
 import com.entre.gethub.data.repositories.SponsorRepository
 import com.entre.gethub.data.repositories.UserPublicProfileRepository
+import com.entre.gethub.data.repositories.VisibilityRepository
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 
@@ -107,5 +108,10 @@ object Injection {
         val pref = provideUserPreferences(context)
         val token = runBlocking { pref.getToken().first() }
         return UserPublicProfileRepository.getInstance(ApiConfig.getApiService(context, token))
+    }
+    fun provideVisibilityRepository(context: Context): VisibilityRepository {
+        val pref = provideUserPreferences(context)
+        val token = runBlocking { pref.getToken().first() }
+        return VisibilityRepository.getInstance(ApiConfig.getApiService(context, token))
     }
 }

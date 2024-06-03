@@ -297,7 +297,7 @@
         app:layout_constraintVertical_bias="0.024" />
 
     <com.google.android.material.switchmaterial.SwitchMaterial
-        android:id="@+id/switch_theme"
+        android:id="@+id/switch_visibilty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@+id/framesetting1"
