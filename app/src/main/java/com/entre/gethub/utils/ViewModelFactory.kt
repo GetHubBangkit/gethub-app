@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.entre.gethub.data.preferences.UserPreferences
 import com.entre.gethub.data.remote.retrofit.ApiMLService
+import com.entre.gethub.data.repositories.AnaliticTotalRepository
 import com.entre.gethub.data.repositories.AuthRepository
 import com.entre.gethub.data.repositories.CariTalentRepository
 import com.entre.gethub.data.repositories.CategoryRepository
@@ -24,6 +25,7 @@ import com.entre.gethub.data.repositories.UserPublicProfileRepository
 import com.entre.gethub.data.repositories.VisibilityRepository
 import com.entre.gethub.di.Injection
 import com.entre.gethub.ui.akun.AkunViewModel
+import com.entre.gethub.ui.analitic.AnaliticViewModel
 import com.entre.gethub.ui.auth.LoginViewModel
 import com.entre.gethub.ui.auth.RegisterViewModel
 import com.entre.gethub.ui.completeprofile.CompleteProfileValidationViewModel
@@ -78,7 +80,8 @@ class ViewModelFactory private constructor(
     private val userPublicProfileRepository: UserPublicProfileRepository,
     private val projectDetectorRepository: ProjectDetectorRepository,
     private val themeHubRepository: ThemeHubRepository,
-    private val topTalentRepository: TopTalentRepository
+    private val topTalentRepository: TopTalentRepository,
+    private val analiticTotalRepository: AnaliticTotalRepository
 ) : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when (modelClass) {
@@ -209,6 +212,10 @@ class ViewModelFactory private constructor(
                 projectRepository
             ) as T
 
+            AnaliticViewModel::class.java -> AnaliticViewModel(
+                analiticTotalRepository
+            ) as T
+
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }
     }
@@ -233,7 +240,8 @@ class ViewModelFactory private constructor(
                 Injection.provideUserPublicProfileRepository(context),
                 Injection.provideProjectDetectorRepository(context),
                 Injection.provideThemeHubRepository(context),
-                Injection.provideTopTalentRepository(context)
+                Injection.provideTopTalentRepository(context),
+                Injection.provideAnaliticTotalRepository(context)
             )
 
     }
