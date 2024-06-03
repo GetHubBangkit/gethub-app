@@ -28,8 +28,10 @@ class LayoutDesignAdapter(
         val currentItem = layoutdesignList[position]
         holder.bindItem(currentItem)
 
-        // Check if the current item is selected
-        if (selectedBayarPosition == position || selectedGratisPosition == position) {
+        // Check if the current item is selected for recyclerViewHomeDesignGratis
+        if (selectedGratisPosition == position) {
+            holder.itemView.alpha = 1.0f // Highlight selected item
+        } else if (selectedBayarPosition == position) {
             holder.itemView.alpha = 1.0f // Highlight selected item
         } else {
             holder.itemView.alpha = 0.5f // Dim unselected items
@@ -38,27 +40,31 @@ class LayoutDesignAdapter(
         holder.itemView.setOnClickListener {
             val adapterPosition = holder.adapterPosition
             if (adapterPosition != RecyclerView.NO_POSITION) {
-                if (selectedBayarPosition != RecyclerView.NO_POSITION && selectedBayarPosition != adapterPosition) {
-                    selectedBayarPosition = RecyclerView.NO_POSITION
-                }
-                if (selectedGratisPosition != RecyclerView.NO_POSITION && selectedGratisPosition != adapterPosition) {
-                    selectedGratisPosition = RecyclerView.NO_POSITION
-                }
-                if (selectedBayarPosition == RecyclerView.NO_POSITION && selectedGratisPosition == RecyclerView.NO_POSITION) {
-                    // No item selected, select the current one
-                    selectedBayarPosition = adapterPosition
-                } else if (selectedBayarPosition != RecyclerView.NO_POSITION) {
-                    // Clear previous selection and select the current item for recyclerViewHomeDesignBayar
-                    selectedBayarPosition = adapterPosition
-                } else {
+                if (selectedGratisPosition != adapterPosition) {
                     // Clear previous selection and select the current item for recyclerViewHomeDesignGratis
                     selectedGratisPosition = adapterPosition
+                    // Unselect item for recyclerViewHomeDesignBayar
+                    selectedBayarPosition = RecyclerView.NO_POSITION
+                    notifyDataSetChanged()
+                    listener(currentItem, adapterPosition)
+                } else if (selectedBayarPosition != adapterPosition) {
+                    // Clear previous selection and select the current item for recyclerViewHomeDesignBayar
+                    selectedBayarPosition = adapterPosition
+                    // Unselect item for recyclerViewHomeDesignGratis
+                    selectedGratisPosition = RecyclerView.NO_POSITION
+                    notifyDataSetChanged()
+                    listener(currentItem, adapterPosition)
                 }
-                notifyDataSetChanged()
-                listener(currentItem, adapterPosition)
             }
         }
     }
+
+
+
+
+
+
+
 
     override fun getItemCount(): Int {
         return layoutdesignList.size
