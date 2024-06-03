@@ -175,7 +175,7 @@ kamu sesuai criteria yg kamu inginkan"
         tools:layout_editor_absoluteX="0dp" />
 
     <Button
-        android:id="@+id/btnSimpan"
+        android:id="@+id/btnPriview"
         style="@style/CustomButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

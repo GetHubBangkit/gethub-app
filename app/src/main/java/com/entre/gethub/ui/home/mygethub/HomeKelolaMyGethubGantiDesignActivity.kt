@@ -30,8 +30,8 @@ class HomeKelolaMyGethubGantiDesignActivity : AppCompatActivity() {
         binding.iconBack.setOnClickListener {
             finish()
         }
-        binding.btnSimpan.setOnClickListener {
-            finish()
+        binding.btnPriview.setOnClickListener {
+
         }
     }
 
