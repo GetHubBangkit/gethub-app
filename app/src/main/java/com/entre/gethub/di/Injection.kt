@@ -11,6 +11,7 @@ import com.entre.gethub.data.repositories.CertificationRepository
 import com.entre.gethub.data.repositories.GethubRepository
 import com.entre.gethub.data.repositories.InformationHubRepository
 import com.entre.gethub.data.repositories.LinkRepository
+import com.entre.gethub.data.repositories.NewPartnerRepository
 import com.entre.gethub.data.repositories.ProductRepository
 import com.entre.gethub.data.repositories.ProfileRepository
 import com.entre.gethub.data.repositories.ProjectDetectorRepository
@@ -131,5 +132,10 @@ object Injection {
         val pref = provideUserPreferences(context)
         val token = runBlocking { pref.getToken().first() }
         return AnaliticTotalRepository.getInstance(ApiConfig.getApiService(context, token))
+    }
+    fun provideNewPartnerRepository(context: Context): NewPartnerRepository {
+        val pref = provideUserPreferences(context)
+        val token = runBlocking { pref.getToken().first() }
+        return NewPartnerRepository.getInstance(ApiConfig.getApiService(context, token))
     }
 }
