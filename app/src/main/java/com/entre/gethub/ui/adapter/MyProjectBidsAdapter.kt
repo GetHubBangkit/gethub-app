@@ -39,28 +39,28 @@ class MyProjectBidsAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         @RequiresApi(Build.VERSION_CODES.O)
-        fun bindItem(projectBid: MyProjectBidResponse.UsersBidItem) {
+        fun bindItem(userBid: MyProjectBidResponse.UsersBidItem) {
             with(binding) {
-                val postDate = Formatter.formatPostDate(projectBid.project?.createdDate!!)
-                val minBudget = Formatter.formatRupiah(projectBid.project?.minBudget ?: 0)
-                val maxBudget = Formatter.formatRupiah(projectBid.project?.maxBudget ?: 0)
+                val postDate = Formatter.formatPostDate(userBid.project?.createdDate!!)
+                val minBudget = Formatter.formatRupiah(userBid.project.minBudget ?: 0)
+                val maxBudget = Formatter.formatRupiah(userBid.project.maxBudget ?: 0)
 
                 // Project Owner
                 Glide.with(itemView.context)
-                    .load(projectBid.project.ownerProject?.photo)
+                    .load(userBid.project.ownerProject?.photo)
                     .placeholder(R.drawable.profilepic2)
                     .into(ivProjectOwnerPic)
-                tvProjectOwnerName.text = projectBid.project.ownerProject?.fullName
-                tvProjectOwnerProfession.text = projectBid.project.ownerProject?.fullName
+                tvProjectOwnerName.text = userBid.project.ownerProject?.fullName
+                tvProjectOwnerProfession.text = userBid.project.ownerProject?.fullName
 
                 // Project Data
-                tvProjectTitle.text = projectBid.project.title
+                tvProjectTitle.text = userBid.project.title
                 tvProjectPriceRange.text =
                     "$minBudget - $maxBudget"
-                tvProjectDesc.text = projectBid.project.description
-                tvProjectTotalUserBids.text = "Total User Bids: 5 User"
+                tvProjectDesc.text = userBid.project.description
+                tvProjectTotalUserBids.text = "Total User Bids: ${userBid.project.totalBidders} User"
                 tvProjectPostDate.text = "Diunggah: $postDate"
-                tvProjectDeadline.text = "Deadline: ${projectBid.project.deadlineDuration} Hari"
+                tvProjectDeadline.text = "Deadline: ${userBid.project.deadlineDuration} Hari"
             }
         }
 

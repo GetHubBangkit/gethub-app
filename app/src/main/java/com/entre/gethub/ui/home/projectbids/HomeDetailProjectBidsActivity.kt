@@ -46,6 +46,12 @@ class HomeDetailProjectBidsActivity : AppCompatActivity() {
             finish()
         }
 
+        binding.cvLihatMilestone.setOnClickListener {
+            val intent = Intent(this, HomeMilestoneProjectBidsActivity::class.java).apply {
+                putExtra(HomeMilestoneProjectBidsActivity.EXTRA_PROJECT_ID, projectBidId)
+            }
+            startActivity(intent)
+        }
     }
 
     override fun onDestroy() {
@@ -65,14 +71,14 @@ class HomeDetailProjectBidsActivity : AppCompatActivity() {
                         if (projectBid?.totalBidders!! == 0) {
                             showEmptyOnUserBidding(true, "Belum Ada User Yang Ikut Bidding")
                         } else {
-                            val userProjectBiddingList = projectBid.usersBid?.map { usersBidItem ->
+                            val userProjectBiddingList = projectBid.usersBid.map { usersBidItem ->
                                 UserProjectBidding(
-                                    usersBidItem?.fullName!!,
+                                    usersBidItem.fullName!!,
                                     usersBidItem.photo!!,
                                     usersBidItem.profession!!
                                 )
                             }
-                            setupRecyclerViewUserBidding(userProjectBiddingList!!)
+                            setupRecyclerViewUserBidding(userProjectBiddingList)
                         }
 
                         with(binding) {
@@ -93,7 +99,10 @@ class HomeDetailProjectBidsActivity : AppCompatActivity() {
                             tvDetailProjectTotalUserBids.text = projectBid.totalBidders.toString()
                             tvDetailProjectStatus.text = projectBid.statusProject
 
-                            showOwnerSentiment(projectBid.ownerProject?.fullName!!)
+                            showOwnerSentiment(
+                                projectBid.ownerProject?.fullName!!,
+                                projectBid.ownerProject.sentimentOwnerAnalisis ?: "Netral"
+                            )
                             tvDetailProjectOwnerName.text = projectBid.ownerProject.fullName
                             tvDetailProjectOwnerProfession.text =
                                 projectBid.ownerProject.profession
@@ -154,15 +163,12 @@ class HomeDetailProjectBidsActivity : AppCompatActivity() {
         }
     }
 
-    private fun showOwnerSentiment(projectOwnerName: String) {
+    private fun showOwnerSentiment(projectOwnerName: String, sentiment: String?) {
         val projectOwnerSentiment = binding.tvDetailProjectOwnerSentiment
-
-        // Variabel untuk diisi sentimen analisis
-        val sentiment = "Positive" // Ganti dengan nilai yang sesuai
 
         if (sentiment == "Netral") {
             binding.cvSentiment.setCardBackgroundColor(getColor(R.color.color_sentiment_neutral))
-        } else if (sentiment == "Positive") {
+        } else if (sentiment == "Positif") {
             binding.cvSentiment.setCardBackgroundColor(getColor(R.color.color_sentiment_positive))
         } else {
             binding.cvSentiment.setCardBackgroundColor(getColor(R.color.color_sentiment_negative))
@@ -185,8 +191,8 @@ class HomeDetailProjectBidsActivity : AppCompatActivity() {
             // Temukan indeks teks "name" dan "sentiment" dalam teks
             val startIndexName = teks.indexOf(projectOwnerName)
             val endIndexName = startIndexName + projectOwnerName.length
-            val startIndexSentiment = teks.indexOf(sentiment)
-            val endIndexSentiment = startIndexSentiment + sentiment.length
+            val startIndexSentiment = teks.indexOf(sentiment.toString())
+            val endIndexSentiment = startIndexSentiment + sentiment!!.length
 
             // Terapkan jenis font Nunito-Black ke bagian "name"
             spannableString.setSpan(

@@ -58,7 +58,7 @@ class UserProjectBidAdapter(
                 // Project Data
                 tvProjectTitle.text = projectBid.title
                 tvProjectPriceRange.text = "$minBudget - $maxBudget"
-                tvProjectDesc.text = "projectBid.description"
+                tvProjectDesc.text = projectBid.description
                 tvProjectTotalUserBids.text = "Total User Bids: ${projectBid.totalBids} User"
                 tvProjectPostDate.text = "Diunggah: ${projectBid.createdDate}"
                 tvProjectDeadline.text = "Deadline: ${projectBid.deadlineDuration} Hari"

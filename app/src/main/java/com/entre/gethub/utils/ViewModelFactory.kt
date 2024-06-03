@@ -44,6 +44,7 @@ import com.entre.gethub.ui.home.mygethub.tentangsaya.HomeKelolaMyGethubEditTenta
 import com.entre.gethub.ui.home.projectbids.HomeCariProjectBidsViewModel
 import com.entre.gethub.ui.home.projectbids.HomeDetailProjectBidsFormViewModel
 import com.entre.gethub.ui.home.projectbids.HomeDetailProjectBidsViewModel
+import com.entre.gethub.ui.home.projectbids.HomeMilestoneProjectBidsViewModel
 import com.entre.gethub.ui.home.projectbids.SearchProjectViewModel
 import com.entre.gethub.ui.project.ProjectViewModel
 import com.entre.gethub.ui.project.acceptedbidproject.AcceptedBidProjectViewModel
@@ -53,6 +54,8 @@ import com.entre.gethub.ui.project.postedproject.PostedProjectStatusDetailViewMo
 import com.entre.gethub.ui.project.postedproject.PostedProjectStatusViewModel
 import com.entre.gethub.ui.project.postproject.PostProjectActivity
 import com.entre.gethub.ui.project.postproject.PostProjectViewModel
+import com.entre.gethub.ui.project.postproject.milestone.ProjectMilestoneFormViewModel
+import com.entre.gethub.ui.project.postproject.milestone.ProjectMilestoneViewModel
 import com.entre.gethub.ui.splash.SplashViewModel
 import com.entre.gethub.ui.userpublicprofile.UserPublicProfileViewModel
 
@@ -94,7 +97,12 @@ class ViewModelFactory private constructor(
                 HomeKelolaMyGethubEditTentangSayaViewModel(profileRepository) as T
             }
 
-            AkunViewModel::class.java -> AkunViewModel(profileRepository,userPreferences,  visibilityRepository) as T
+            AkunViewModel::class.java -> AkunViewModel(
+                profileRepository,
+                userPreferences,
+                visibilityRepository
+            ) as T
+
             GethubViewModel::class.java -> GethubViewModel(
                 gethubRepository,
                 sponsorRepository,
@@ -152,6 +160,7 @@ class ViewModelFactory private constructor(
             HomeProjectDetectorViewModel::class.java -> {
                 HomeProjectDetectorViewModel(projectDetectorRepository) as T
             }
+
             HomeDetailProjectBidsViewModel::class.java -> HomeDetailProjectBidsViewModel(
                 projectRepository
             ) as T
@@ -188,6 +197,16 @@ class ViewModelFactory private constructor(
 
             SearchProjectViewModel::class.java -> SearchProjectViewModel(projectRepository) as T
 
+            ProjectMilestoneViewModel::class.java -> ProjectMilestoneViewModel(projectRepository) as T
+
+            ProjectMilestoneFormViewModel::class.java -> ProjectMilestoneFormViewModel(
+                projectRepository
+            ) as T
+
+            HomeMilestoneProjectBidsViewModel::class.java -> HomeMilestoneProjectBidsViewModel(
+                projectRepository
+            ) as T
+
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }
     }
@@ -213,5 +232,6 @@ class ViewModelFactory private constructor(
                 Injection.provideProjectDetectorRepository(context),
                 Injection.provideThemeHubRepository(context)
             )
+
     }
 }

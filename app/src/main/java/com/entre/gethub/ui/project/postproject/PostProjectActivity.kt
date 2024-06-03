@@ -16,6 +16,7 @@ import com.entre.gethub.databinding.ActivityPostProjectBinding
 import com.entre.gethub.ui.MainActivity
 import com.entre.gethub.ui.adapter.CategoryAdapter
 import com.entre.gethub.ui.project.postedproject.PostedProjectStatusActivity
+import com.entre.gethub.ui.project.postproject.milestone.ProjectMilestoneActivity
 import com.entre.gethub.utils.ViewModelFactory
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.util.Calendar
@@ -224,7 +225,9 @@ class PostProjectActivity : AppCompatActivity() {
                     is Result.Success -> {
                         showLoading(false)
                         showToast(result.data.message!!)
-                        val intent = Intent(this, PostedProjectStatusActivity::class.java)
+                        val intent = Intent(this, ProjectMilestoneActivity::class.java).apply {
+                            putExtra(ProjectMilestoneActivity.EXTRA_PROJECT_ID, result.data.data?.id.toString())
+                        }
                         startActivity(intent)
                         finish()
                     }
@@ -236,7 +239,7 @@ class PostProjectActivity : AppCompatActivity() {
 
                     is Result.Empty -> {
                         showLoading(false)
-                        showDialog(
+                        showVerificationDialog(
                             this@PostProjectActivity,
                             getString(R.string.account_is_not_verified),
                             result.emptyError
@@ -247,7 +250,7 @@ class PostProjectActivity : AppCompatActivity() {
         }
     }
 
-    private fun showDialog(context: Context, title: String, message: String) {
+    private fun showVerificationDialog(context: Context, title: String, message: String) {
         MaterialAlertDialogBuilder(context)
             .setTitle(title)
             .setMessage(message)
