@@ -18,6 +18,7 @@ import com.entre.gethub.data.repositories.ProjectDetectorRepository
 import com.entre.gethub.data.repositories.ProjectRepository
 import com.entre.gethub.data.repositories.ScanCardRepository
 import com.entre.gethub.data.repositories.SponsorRepository
+import com.entre.gethub.data.repositories.ThemeHubRepository
 import com.entre.gethub.data.repositories.UserPublicProfileRepository
 import com.entre.gethub.data.repositories.VisibilityRepository
 import com.entre.gethub.di.Injection
@@ -32,6 +33,7 @@ import com.entre.gethub.ui.gethub.GethubViewModel
 import com.entre.gethub.ui.home.HomeViewModel
 import com.entre.gethub.ui.home.caritalent.HomeCariTalentViewModel
 import com.entre.gethub.ui.home.deteksiproject.HomeProjectDetectorViewModel
+import com.entre.gethub.ui.home.mygethub.HomeKelolaMyGethubGantiDesignViewModel
 import com.entre.gethub.ui.home.mygethub.HomeKelolaMyGethubViewModel
 import com.entre.gethub.ui.home.mygethub.certification.HomeKelolaMyGethubEditSertifikasiViewModel
 import com.entre.gethub.ui.home.mygethub.certification.HomeKelolaMyGethubTambahSertifikasiViewModel
@@ -73,7 +75,8 @@ class ViewModelFactory private constructor(
     private val projectRepository: ProjectRepository,
     private val cariTalentRepository: CariTalentRepository,
     private val userPublicProfileRepository: UserPublicProfileRepository,
-    private val projectDetectorRepository: ProjectDetectorRepository
+    private val projectDetectorRepository: ProjectDetectorRepository,
+    private val themeHubRepository: ThemeHubRepository
 ) : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when (modelClass) {
@@ -186,6 +189,9 @@ class ViewModelFactory private constructor(
             PostedProjectStatusDetailViewModel::class.java -> PostedProjectStatusDetailViewModel(
                 projectRepository
             ) as T
+            HomeKelolaMyGethubGantiDesignViewModel::class.java -> HomeKelolaMyGethubGantiDesignViewModel(
+                profileRepository, themeHubRepository
+            ) as T
 
             AcceptedBidProjectViewModel::class.java -> AcceptedBidProjectViewModel(projectRepository) as T
 
@@ -224,8 +230,8 @@ class ViewModelFactory private constructor(
                 Injection.provideCariTalentRepository(context),
                 Injection.provideUserPublicProfileRepository(context),
                 Injection.provideProjectDetectorRepository(context),
+                Injection.provideThemeHubRepository(context)
+            )
 
-
-                )
     }
 }

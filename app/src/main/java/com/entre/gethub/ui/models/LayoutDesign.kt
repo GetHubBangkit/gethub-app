@@ -1,3 +1,3 @@
 package com.entre.gethub.ui.models
 
-class LayoutDesign(var image: Int)
+class LayoutDesign( val image: String)
