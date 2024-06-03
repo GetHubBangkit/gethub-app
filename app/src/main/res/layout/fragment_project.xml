@@ -211,6 +211,34 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toptalentgethub" />
 
+        <ProgressBar
+            android:id="@+id/progressBarOnTopTalent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/recyclerViewTop"
+            app:layout_constraintEnd_toEndOf="@+id/recyclerViewTop"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="@+id/recyclerViewTop"
+            app:layout_constraintTop_toTopOf="@+id/recyclerViewTop"
+            app:layout_constraintVertical_bias="1.0"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/tvEmptyTopTalent"
+            style="@style/Poppins.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Top Talent kosong"
+            android:textSize="14sp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/recyclerViewTop"
+            app:layout_constraintEnd_toEndOf="@+id/recyclerViewTop"
+            app:layout_constraintStart_toStartOf="@+id/recyclerViewTop"
+            app:layout_constraintTop_toTopOf="@+id/recyclerViewTop"
+            tools:visibility="visible" />
+
         <LinearLayout
             android:id="@+id/rekomendasiprojectbid"
             android:layout_width="wrap_content"

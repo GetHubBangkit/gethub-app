@@ -3,38 +3,42 @@ package com.entre.gethub.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.entre.gethub.ui.models.TopTalent
+import com.bumptech.glide.Glide
+import com.entre.gethub.R
+import com.entre.gethub.data.remote.response.TopTalent
 import com.entre.gethub.databinding.ItemProjectToptalentBinding
 
-
 class TopTalentAdapter(
-    private val toptalentList: ArrayList<TopTalent>,
+    private val toptalentList: List<TopTalent>,
     private val listener: (TopTalent, Int) -> Unit
-) :
-    RecyclerView.Adapter<TopTalentAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<TopTalentAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val v = ItemProjectToptalentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(v)
+        val binding = ItemProjectToptalentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindItem(toptalentList[position])
-        holder.itemView.setOnClickListener { listener(toptalentList[position], position) }
+        val toptalent = toptalentList[position]
+        holder.bindItem(toptalent)
+        holder.itemView.setOnClickListener { listener(toptalent, position) }
     }
+
 
     override fun getItemCount(): Int {
         return toptalentList.size
     }
 
-    class ViewHolder(var ItemProjectToptalentBinding: ItemProjectToptalentBinding) :
-        RecyclerView.ViewHolder(ItemProjectToptalentBinding.root) {
+    class ViewHolder(private val binding: ItemProjectToptalentBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bindItem(toptalent: TopTalent) {
-//            ItemProjectToptalentBinding.frame1.setImageResource(toptalent.image)
-            ItemProjectToptalentBinding.profilepic1.setImageResource(toptalent.profilepic)
-            ItemProjectToptalentBinding.profilename.text = toptalent.profilename
-            ItemProjectToptalentBinding.profiledesc.text = toptalent.profiledesc
-
+            // Set data from TopTalent to views
+            Glide.with(itemView.context)
+                .load(toptalent.photo)
+                .placeholder(R.drawable.profilepic1) // Placeholder image
+                .into(binding.profilepic1)
+            binding.profilename.text = toptalent.fullName
+            binding.profiledesc.text = toptalent.profession ?: ""
         }
     }
+
 }

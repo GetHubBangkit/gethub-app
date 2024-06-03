@@ -29,35 +29,36 @@
         <TextView
             android:id="@+id/profilename"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_height="16dp"
             android:fontFamily="@font/nunito_bold"
             android:text="Danish Rabbani"
             android:textColor="@android:color/black"
             android:textSize="12sp"
             app:fontFamily="@font/nunito_bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.318"
+
             app:layout_constraintStart_toEndOf="@+id/profilepic1"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.228" />
+            app:layout_constraintVertical_bias="0.333" />
 
         <TextView
             android:id="@+id/profiledesc"
+            style="@style/Nunito"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_height="12dp"
             android:layout_marginBottom="8dp"
             android:fontFamily="@font/nunito_semibold"
             android:text="Software Enginer"
             android:textColor="@android:color/black"
             android:textSize="10sp"
-            style="@style/Nunito"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.318"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/profilepic1"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.866" />
+            app:layout_constraintVertical_bias="0.87" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

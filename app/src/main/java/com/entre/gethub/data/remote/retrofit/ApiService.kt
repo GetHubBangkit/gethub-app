@@ -7,6 +7,7 @@ import com.entre.gethub.data.remote.response.LinkResponse
 import com.entre.gethub.data.remote.response.SearchingPartnerResponse
 import com.entre.gethub.data.remote.response.SponsorResponse
 import com.entre.gethub.data.remote.response.ThemeHubResponse
+import com.entre.gethub.data.remote.response.TopTalentResponse
 import com.entre.gethub.data.remote.response.UploadFileResponse
 import com.entre.gethub.data.remote.response.UserPublicProfileResponse
 import com.entre.gethub.data.remote.response.VisibilityResponse
@@ -305,4 +306,7 @@ interface ApiService {
         @Field("theme_hub") themeHub: Int
     ): ThemeHubResponse
 
+    // TopTalent
+    @GET("getTopTalent")
+    suspend fun getTopTalent(): TopTalentResponse
 }

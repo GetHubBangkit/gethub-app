@@ -13,10 +13,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.entre.gethub.R
 import com.entre.gethub.data.Result
 import com.entre.gethub.data.remote.response.projects.ProjectStatsResponse
+import com.entre.gethub.data.remote.response.TopTalent
 import com.entre.gethub.databinding.FragmentProjectBinding
 import com.entre.gethub.ui.adapter.UserProjectBidAdapter
 import com.entre.gethub.ui.adapter.TopTalentAdapter
-import com.entre.gethub.ui.models.TopTalent
 import com.entre.gethub.ui.project.acceptedbidproject.AcceptedBidProjectActivity
 import com.entre.gethub.ui.project.bidproject.BidProjectStatusActivity
 import com.entre.gethub.ui.project.bidproject.BidProjectStatusDetailActivity
@@ -30,9 +30,7 @@ class ProjectFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val projectViewModel by viewModels<ProjectViewModel> {
-        ViewModelFactory.getInstance(
-            requireContext()
-        )
+        ViewModelFactory.getInstance(requireContext())
     }
 
     override fun onCreateView(
@@ -43,11 +41,10 @@ class ProjectFragment : Fragment() {
         _binding = FragmentProjectBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        setupRecyclerView()
-
         setupClickListener()
 
         getUserProjectStats()
+        getTopTalent()
 
         return root
     }
@@ -90,29 +87,23 @@ class ProjectFragment : Fragment() {
                     is Result.Success -> {
                         showLoadingOnProjectBids(false)
                         with(binding) {
-                            val result = result.data.data
-                            tvPostProject.text = result?.jobPosted.toString()
-                            tvBidProject.text = result?.bidsMade.toString()
-                            tvTerimaProject.text = result?.bidsAccepted.toString()
+                            val resultData = result.data.data
+                            tvPostProject.text = resultData?.jobPosted.toString()
+                            tvBidProject.text = resultData?.bidsMade.toString()
+                            tvTerimaProject.text = resultData?.bidsAccepted.toString()
                         }
-                        if (result.data.data?.bidProjects?.size == 0) {
+                        if (result.data.data?.bidProjects?.isEmpty() == true) {
                             showEmptyOnProjectBids(true, "Anda belum melakukan bidding projek")
                             binding.rvRekomendasiProjectBid.visibility = View.GONE
-                            return@observe
                         } else {
-                            setupRecyclerViewProjectBid(
-                                result.data.data?.bidProjects ?: emptyList()
-                            )
+                            setupRecyclerViewProjectBid(result.data.data?.bidProjects ?: emptyList())
                             binding.rvRekomendasiProjectBid.visibility = View.VISIBLE
-
                         }
                     }
-
                     is Result.Error -> {
                         showLoadingOnProjectBids(false)
                         showToast(result.error)
                     }
-
                     is Result.Empty -> {
                         showLoadingOnProjectBids(false)
                         showEmptyOnProjectBids(true, result.emptyError)
@@ -126,80 +117,55 @@ class ProjectFragment : Fragment() {
         startActivity(Intent(requireContext(), activity::class.java))
     }
 
-    private fun setupRecyclerView() {
-        binding.recyclerViewTop.apply {
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = TopTalentAdapter(createTopTalentList()) { toptalent, position ->
-                Toast.makeText(
-                    this@ProjectFragment.requireContext(), // Gunakan requireContext() untuk mendapatkan Context yang benar
-                    "Clicked on actor: ${toptalent.profilename}",
-                    Toast.LENGTH_SHORT
-                ).show()
+    private fun getTopTalent() {
+        projectViewModel.getTopTalent().observe(viewLifecycleOwner) { result ->
+            when (result) {
+                is Result.Loading -> showLoadingTopTalent(true)
+                is Result.Success -> {
+                    showLoadingTopTalent(false)
+                    result.data?.data?.let { topTalentList ->
+                        setupTopTalentRecyclerView(topTalentList)
+                    }
+                }
+                is Result.Error -> {
+                    showLoadingTopTalent(false)
+                    showToast(result.error)
+                }
+                is Result.Empty -> {
+                    showLoadingTopTalent(false)
+                    showEmptyTopTalent(true, result.emptyError)
+                }
             }
         }
     }
 
-    private fun createTopTalentList(): ArrayList<TopTalent> {
-        return arrayListOf<TopTalent>(
-            TopTalent(
-                "Ajay Devgan",
-//                R.drawable.frame1,
-                R.drawable.profilepic1,
-                "Software Enginer"
-            ),
-            TopTalent(
-                "Ajay Devgan",
-//                R.drawable.frame1,
-                R.drawable.profilepic1,
-                "Software Enginer"
-            ),
-            TopTalent(
-                "Ajay Devgan",
-//                R.drawable.frame1,
-                R.drawable.profilepic1,
-                "Software Enginer"
-            ),
-            TopTalent(
-                "Ajay Devgan",
-//                R.drawable.frame1,
-                R.drawable.profilepic1,
-                "Software Enginer"
-            ),
-            TopTalent(
-                "Ajay Devgan",
-//                R.drawable.frame1,
-                R.drawable.profilepic1,
-                "Software Enginer"
-            ),
-            TopTalent(
-                "Ajay Devgan",
-//                R.drawable.frame1,
-                R.drawable.profilepic1,
-                "Software Enginer"
-            )
-        )
+    private fun setupTopTalentRecyclerView(topTalentList: List<TopTalent>) {
+        binding.recyclerViewTop.apply {
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            adapter = TopTalentAdapter(topTalentList) { topTalent, position ->
+                // Handle click event
+                Toast.makeText(requireContext(), "Clicked on talent: ${topTalent.fullName}", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
-
 
     private fun setupRecyclerViewProjectBid(projectBidList: List<ProjectStatsResponse.BidProjectsItem>) {
         binding.rvRekomendasiProjectBid.apply {
-            layoutManager = LinearLayoutManager(
-                requireContext(),
-                LinearLayoutManager.VERTICAL,
-                false
-            )
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = UserProjectBidAdapter(projectBidList) { projectBid, _ ->
-                val intent = Intent(
-                    requireContext(),
-                    BidProjectStatusDetailActivity::class.java
-                )
-                intent.putExtra(
-                    BidProjectStatusDetailActivity.EXTRA_PROJECT_BID_ID,
-                    projectBid.projectId
-                )
+                val intent = Intent(requireContext(), BidProjectStatusDetailActivity::class.java)
+                intent.putExtra(BidProjectStatusDetailActivity.EXTRA_PROJECT_BID_ID, projectBid.projectId)
                 startActivity(intent)
             }
         }
+    }
+
+    private fun showLoadingTopTalent(isLoading: Boolean) {
+        binding.progressBarOnTopTalent.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    private fun showEmptyTopTalent(isEmpty: Boolean, message: String) {
+        binding.tvEmptyTopTalent.visibility = if (isEmpty) View.VISIBLE else View.GONE
     }
 
     private fun showLoadingOnProjectBids(isLoading: Boolean) {
