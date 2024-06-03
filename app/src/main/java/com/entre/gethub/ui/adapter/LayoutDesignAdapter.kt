@@ -12,8 +12,7 @@ class LayoutDesignAdapter(
     private val listener: (LayoutDesign, Int) -> Unit
 ) : RecyclerView.Adapter<LayoutDesignAdapter.ViewHolder>() {
 
-    private var selectedBayarPosition: Int = RecyclerView.NO_POSITION
-    private var selectedGratisPosition: Int = RecyclerView.NO_POSITION
+    private var selectedPosition: Int = RecyclerView.NO_POSITION
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemHomeKelolamygethubTemalayoutdesignBinding.inflate(
@@ -28,43 +27,21 @@ class LayoutDesignAdapter(
         val currentItem = layoutdesignList[position]
         holder.bindItem(currentItem)
 
-        // Check if the current item is selected for recyclerViewHomeDesignGratis
-        if (selectedGratisPosition == position) {
-            holder.itemView.alpha = 1.0f // Highlight selected item
-        } else if (selectedBayarPosition == position) {
+        if (selectedPosition == position) {
             holder.itemView.alpha = 1.0f // Highlight selected item
         } else {
             holder.itemView.alpha = 0.5f // Dim unselected items
         }
 
         holder.itemView.setOnClickListener {
-            val adapterPosition = holder.adapterPosition
-            if (adapterPosition != RecyclerView.NO_POSITION) {
-                if (selectedGratisPosition != adapterPosition) {
-                    // Clear previous selection and select the current item for recyclerViewHomeDesignGratis
-                    selectedGratisPosition = adapterPosition
-                    // Unselect item for recyclerViewHomeDesignBayar
-                    selectedBayarPosition = RecyclerView.NO_POSITION
-                    notifyDataSetChanged()
-                    listener(currentItem, adapterPosition)
-                } else if (selectedBayarPosition != adapterPosition) {
-                    // Clear previous selection and select the current item for recyclerViewHomeDesignBayar
-                    selectedBayarPosition = adapterPosition
-                    // Unselect item for recyclerViewHomeDesignGratis
-                    selectedGratisPosition = RecyclerView.NO_POSITION
-                    notifyDataSetChanged()
-                    listener(currentItem, adapterPosition)
-                }
+            if (selectedPosition != position) {
+                // Update the selected position and notify data change
+                selectedPosition = position
+                notifyDataSetChanged()
+                listener(currentItem, position)
             }
         }
     }
-
-
-
-
-
-
-
 
     override fun getItemCount(): Int {
         return layoutdesignList.size

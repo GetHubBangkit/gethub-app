@@ -44,7 +44,7 @@ class HomeKelolaMyGethubGantiDesignActivity : AppCompatActivity() {
             adapter = LayoutDesignAdapter(createLayoutDesignGratisList()) { layoutdesign, position ->
                 Toast.makeText(
                     this@HomeKelolaMyGethubGantiDesignActivity,
-                    "Clicked on actor: ${layoutdesign.image}",
+                    "Design Card Web Berhasil Diperbarui",
                     Toast.LENGTH_SHORT
                 ).show()
                 // Call updateThemeHub with the appropriate theme hub value
@@ -70,7 +70,7 @@ class HomeKelolaMyGethubGantiDesignActivity : AppCompatActivity() {
             adapter = LayoutDesignAdapter(createLayoutDesignBayarList()) { layoutdesign, position ->
                 Toast.makeText(
                     this@HomeKelolaMyGethubGantiDesignActivity,
-                    "Clicked on actor: ${layoutdesign.image}",
+                    "Design Card Web Berhasil Diperbarui",
                     Toast.LENGTH_SHORT
                 ).show()
                 // Call updateThemeHub with the appropriate theme hub value
