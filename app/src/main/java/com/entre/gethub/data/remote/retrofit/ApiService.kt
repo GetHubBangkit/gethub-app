@@ -18,6 +18,8 @@ import com.entre.gethub.data.remote.response.products.ProductResponse
 import com.entre.gethub.data.remote.response.profiles.UpdateUserProfileResponse
 import com.entre.gethub.data.remote.response.profiles.UserProfileResponse
 import com.entre.gethub.data.remote.response.projects.AcceptedProjectBidResponse
+import com.entre.gethub.data.remote.response.projects.AddProjectMilestoneResponse
+import com.entre.gethub.data.remote.response.projects.AllProjectMilestoneResponse
 import com.entre.gethub.data.remote.response.projects.MyProjectBidResponse
 import com.entre.gethub.data.remote.response.projects.PostProjectResponse
 import com.entre.gethub.data.remote.response.projects.PostedProjectDetailResponse
@@ -233,6 +235,19 @@ interface ApiService {
 
     @GET("projects/my/selected-bids")
     suspend fun getAcceptedBids(): AcceptedProjectBidResponse
+
+    @FormUrlEncoded
+    @POST("projects/{id}/tasks")
+    suspend fun addMilestone(
+        @Path("id") projectId: String,
+        @Field("task_number") taskNumber: Int,
+        @Field("task_description") taskDescription: String,
+    ): AddProjectMilestoneResponse
+
+    @GET("projects/{id}/tasks")
+    suspend fun getMilestone(
+        @Path("id") projectId: String,
+    ): AllProjectMilestoneResponse
     // Projects
 
     // Verify Email

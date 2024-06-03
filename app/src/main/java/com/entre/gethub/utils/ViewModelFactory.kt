@@ -50,6 +50,8 @@ import com.entre.gethub.ui.project.postedproject.PostedProjectStatusDetailViewMo
 import com.entre.gethub.ui.project.postedproject.PostedProjectStatusViewModel
 import com.entre.gethub.ui.project.postproject.PostProjectActivity
 import com.entre.gethub.ui.project.postproject.PostProjectViewModel
+import com.entre.gethub.ui.project.postproject.milestone.ProjectMilestoneFormViewModel
+import com.entre.gethub.ui.project.postproject.milestone.ProjectMilestoneViewModel
 import com.entre.gethub.ui.splash.SplashViewModel
 import com.entre.gethub.ui.userpublicprofile.UserPublicProfileViewModel
 
@@ -179,6 +181,10 @@ class ViewModelFactory private constructor(
             AcceptedBidProjectViewModel::class.java -> AcceptedBidProjectViewModel(projectRepository) as T
 
             SearchProjectViewModel::class.java -> SearchProjectViewModel(projectRepository) as T
+
+            ProjectMilestoneViewModel::class.java -> ProjectMilestoneViewModel(projectRepository) as T
+
+            ProjectMilestoneFormViewModel::class.java -> ProjectMilestoneFormViewModel(projectRepository) as T
 
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }

@@ -2,6 +2,8 @@ package com.entre.gethub.data.repositories
 
 import com.entre.gethub.data.remote.response.ApiResponse
 import com.entre.gethub.data.remote.response.projects.AcceptedProjectBidResponse
+import com.entre.gethub.data.remote.response.projects.AddProjectMilestoneResponse
+import com.entre.gethub.data.remote.response.projects.AllProjectMilestoneResponse
 import com.entre.gethub.data.remote.response.projects.MyProjectBidResponse
 import com.entre.gethub.data.remote.response.projects.PostProjectResponse
 import com.entre.gethub.data.remote.response.projects.PostedProjectDetailResponse
@@ -76,6 +78,18 @@ class ProjectRepository private constructor(private val apiService: ApiService) 
 
     suspend fun getAcceptedBids(): AcceptedProjectBidResponse {
         return apiService.getAcceptedBids()
+    }
+
+    suspend fun addMilestone(
+        projectId: String,
+        taskNumber: Int,
+        taskDescription: String
+    ): AddProjectMilestoneResponse {
+        return apiService.addMilestone(projectId, taskNumber, taskDescription)
+    }
+
+    suspend fun getMilestone(projectId: String): AllProjectMilestoneResponse {
+        return apiService.getMilestone(projectId)
     }
 
     companion object {
