@@ -2,6 +2,7 @@ package com.entre.gethub.ui.home.projectbids
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
