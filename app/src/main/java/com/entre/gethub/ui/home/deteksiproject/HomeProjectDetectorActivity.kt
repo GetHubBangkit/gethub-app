@@ -154,13 +154,12 @@ class HomeProjectDetectorActivity : AppCompatActivity() {
     }
 
     private fun showImageSourceOptions() {
-        val options = arrayOf("Galeri", "Kamera")
+        val options = arrayOf("Galeri")
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Pilih Sumber Gambar")
         builder.setItems(options) { dialog, which ->
             when (which) {
                 0 -> pickPhoto.launch("image/*")
-                1 -> capturePhoto.launch(null)
             }
             dialog.dismiss()
         }

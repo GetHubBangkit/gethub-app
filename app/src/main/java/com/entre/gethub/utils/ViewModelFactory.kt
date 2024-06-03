@@ -19,6 +19,7 @@ import com.entre.gethub.data.repositories.ProjectRepository
 import com.entre.gethub.data.repositories.ScanCardRepository
 import com.entre.gethub.data.repositories.SponsorRepository
 import com.entre.gethub.data.repositories.UserPublicProfileRepository
+import com.entre.gethub.data.repositories.VisibilityRepository
 import com.entre.gethub.di.Injection
 import com.entre.gethub.ui.akun.AkunViewModel
 import com.entre.gethub.ui.auth.LoginViewModel
@@ -57,6 +58,7 @@ class ViewModelFactory private constructor(
     private val authRepository: AuthRepository,
     private val profileRepository: ProfileRepository,
     private val userPreferences: UserPreferences,
+    private val visibilityRepository: VisibilityRepository,
     private val informationHubRepository: InformationHubRepository,
     private val gethubRepository: GethubRepository,
     private val sponsorRepository: SponsorRepository,
@@ -89,7 +91,7 @@ class ViewModelFactory private constructor(
                 HomeKelolaMyGethubEditTentangSayaViewModel(profileRepository) as T
             }
 
-            AkunViewModel::class.java -> AkunViewModel(profileRepository, userPreferences) as T
+            AkunViewModel::class.java -> AkunViewModel(profileRepository,userPreferences,  visibilityRepository) as T
             GethubViewModel::class.java -> GethubViewModel(
                 gethubRepository,
                 sponsorRepository,
@@ -190,6 +192,7 @@ class ViewModelFactory private constructor(
                 Injection.provideAuthRepository(context),
                 Injection.provideProfileRepository(context),
                 Injection.provideUserPreferences(context),
+                Injection.provideVisibilityRepository(context),
                 Injection.provideInformationHubRepository(context),
                 Injection.provideGethubRepository(context),
                 Injection.provideSponsorRepository(context),
@@ -201,7 +204,8 @@ class ViewModelFactory private constructor(
                 Injection.provideProjectRepository(context),
                 Injection.provideCariTalentRepository(context),
                 Injection.provideUserPublicProfileRepository(context),
-                Injection.provideProjectDetectorRepository(context)
+                Injection.provideProjectDetectorRepository(context),
+
 
             )
     }

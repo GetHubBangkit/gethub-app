@@ -12,6 +12,11 @@ class ProfileRepository private constructor(private val apiService: ApiService) 
         return apiService.getUserProfile()
     }
 
+    suspend fun getVisibility(): Boolean {
+        val response = apiService.getUserProfile()
+        return response.data?.isVisibility ?: false
+    }
+
     suspend fun updateUserProfile(
         updateUserProfileParams: UpdateUserProfileParams
     ): UpdateUserProfileResponse {
