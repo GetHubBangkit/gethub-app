@@ -6,6 +6,7 @@ import com.entre.gethub.data.remote.response.InformationHubResponse
 import com.entre.gethub.data.remote.response.LinkResponse
 import com.entre.gethub.data.remote.response.SearchingPartnerResponse
 import com.entre.gethub.data.remote.response.SponsorResponse
+import com.entre.gethub.data.remote.response.ThemeHubResponse
 import com.entre.gethub.data.remote.response.UploadFileResponse
 import com.entre.gethub.data.remote.response.UserPublicProfileResponse
 import com.entre.gethub.data.remote.response.VisibilityResponse
@@ -283,5 +284,10 @@ interface ApiService {
 //        @Field("is_visibility") isVisibility: Boolean
 //    ): VisibilityResponse
 
+    @FormUrlEncoded
+    @POST("update/theme_hub")
+    suspend fun updateThemeHub(
+        @Field("theme_hub") themeHub: Int
+    ): ThemeHubResponse
 
 }

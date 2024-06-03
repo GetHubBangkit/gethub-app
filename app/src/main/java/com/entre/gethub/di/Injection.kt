@@ -16,6 +16,7 @@ import com.entre.gethub.data.repositories.ProjectDetectorRepository
 import com.entre.gethub.data.repositories.ProjectRepository
 import com.entre.gethub.data.repositories.ScanCardRepository
 import com.entre.gethub.data.repositories.SponsorRepository
+import com.entre.gethub.data.repositories.ThemeHubRepository
 import com.entre.gethub.data.repositories.UserPublicProfileRepository
 import com.entre.gethub.data.repositories.VisibilityRepository
 import kotlinx.coroutines.flow.first
@@ -113,5 +114,10 @@ object Injection {
         val pref = provideUserPreferences(context)
         val token = runBlocking { pref.getToken().first() }
         return VisibilityRepository.getInstance(ApiConfig.getApiService(context, token))
+    }
+    fun provideThemeHubRepository(context: Context): ThemeHubRepository {
+        val pref = provideUserPreferences(context)
+        val token = runBlocking { pref.getToken().first() }
+        return ThemeHubRepository.getInstance(ApiConfig.getApiService(context, token))
     }
 }
