@@ -3,6 +3,7 @@ package com.entre.gethub.di
 import android.content.Context
 import com.entre.gethub.data.preferences.UserPreferences
 import com.entre.gethub.data.remote.retrofit.ApiConfig
+import com.entre.gethub.data.repositories.AnaliticTotalRepository
 import com.entre.gethub.data.repositories.AuthRepository
 import com.entre.gethub.data.repositories.CariTalentRepository
 import com.entre.gethub.data.repositories.CategoryRepository
@@ -125,5 +126,10 @@ object Injection {
         val pref = provideUserPreferences(context)
         val token = runBlocking { pref.getToken().first() }
         return TopTalentRepository.getInstance(ApiConfig.getApiService(context, token))
+    }
+    fun provideAnaliticTotalRepository(context: Context): AnaliticTotalRepository {
+        val pref = provideUserPreferences(context)
+        val token = runBlocking { pref.getToken().first() }
+        return AnaliticTotalRepository.getInstance(ApiConfig.getApiService(context, token))
     }
 }

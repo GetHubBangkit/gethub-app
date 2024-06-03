@@ -1,5 +1,6 @@
 package com.entre.gethub.data.remote.retrofit
 
+import com.entre.gethub.data.remote.response.AnaliticTotalResponse
 import com.entre.gethub.data.remote.response.ApiResponse
 import com.entre.gethub.data.remote.response.CategoriesResponse
 import com.entre.gethub.data.remote.response.InformationHubResponse
@@ -309,4 +310,7 @@ interface ApiService {
     // TopTalent
     @GET("getTopTalent")
     suspend fun getTopTalent(): TopTalentResponse
+
+    @GET("analitic/total")
+    suspend fun getAnaliticTotal(): AnaliticTotalResponse
 }

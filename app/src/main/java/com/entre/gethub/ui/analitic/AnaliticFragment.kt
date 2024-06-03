@@ -1,5 +1,7 @@
 package com.entre.gethub.ui.analitic
 
+import com.entre.gethub.data.Result
+
 import CustomMarker
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,13 +10,16 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
+
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.entre.gethub.ui.models.AnaliticGetHubDilihat
 import com.entre.gethub.R
 
 import com.entre.gethub.databinding.FragmentAnaliticBinding
 import com.entre.gethub.ui.adapter.AnaliticGethubDilihatAdapter
+import com.entre.gethub.ui.project.ProjectViewModel
+import com.entre.gethub.utils.ViewModelFactory
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
@@ -22,6 +27,9 @@ import com.github.mikephil.charting.data.LineDataSet
 
 class AnaliticFragment : Fragment() {
 
+    private val analiticViewModel by viewModels<AnaliticViewModel> {
+        ViewModelFactory.getInstance(requireContext())
+    }
     private var _binding: FragmentAnaliticBinding? = null
     private val binding get() = _binding!!
 
@@ -30,23 +38,57 @@ class AnaliticFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val akunViewModel = ViewModelProvider(this).get(AnaliticViewModel::class.java)
+
         _binding = FragmentAnaliticBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        akunViewModel.text.observe(viewLifecycleOwner) {
-            // textView.text = it
-        }
+
+
         setupRecyclerViewAnaliticGethubDilihat()
 
         setupLineChart() // Memanggil fungsi untuk mengatur grafik garis
 
+        getAnaliticTotal()
         return root
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+
+    private fun getAnaliticTotal() {
+        analiticViewModel.getAnaliticTotal().observe(viewLifecycleOwner, { result ->
+            when (result) {
+                is Result.Empty -> {
+
+                }
+                is Result.Loading -> {
+
+                }
+
+                is Result.Success -> {
+                    // Handle successful result
+                    val analiticTotalResponse = result.data
+                    // Bind the data to views
+                    analiticTotalResponse.data?.let { data ->
+                        binding.jumlahCardviewer.text = data.totalCardViewers.toString()
+                        binding.jumlahWebviewer.text = data.totalWebViewers.toString()
+                        binding.jumlahpartner.text = data.totalPartner.toString()
+                    }
+                }
+
+                is Result.Error -> {
+                    // Handle error
+                    Toast.makeText(requireContext(), result.error, Toast.LENGTH_SHORT).show()
+                }
+
+                else -> {
+
+                }
+            }
+        })
     }
 
     private fun setupRecyclerViewAnaliticGethubDilihat() {
