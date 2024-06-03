@@ -181,7 +181,7 @@ class ViewModelFactory private constructor(
                 projectRepository
             ) as T
             HomeKelolaMyGethubGantiDesignViewModel::class.java -> HomeKelolaMyGethubGantiDesignViewModel(
-                themeHubRepository
+                profileRepository, themeHubRepository
             ) as T
 
             AcceptedBidProjectViewModel::class.java -> AcceptedBidProjectViewModel(projectRepository) as T

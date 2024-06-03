@@ -1,13 +1,16 @@
 package com.entre.gethub.ui.home.mygethub
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.entre.gethub.data.Result
 import com.entre.gethub.databinding.ActivityHomeKelolaMyGetHubGantiDesignBinding
-import com.entre.gethub.di.Injection
 import com.entre.gethub.ui.adapter.LayoutDesignAdapter
 import com.entre.gethub.ui.models.LayoutDesign
 import com.entre.gethub.utils.ViewModelFactory
@@ -26,12 +29,10 @@ class HomeKelolaMyGethubGantiDesignActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this, viewModelFactory).get(HomeKelolaMyGethubGantiDesignViewModel::class.java)
 
         setupViews()
+        getUserProfile()
 
         binding.iconBack.setOnClickListener {
             finish()
-        }
-        binding.btnPriview.setOnClickListener {
-
         }
     }
 
@@ -91,4 +92,37 @@ class HomeKelolaMyGethubGantiDesignActivity : AppCompatActivity() {
             LayoutDesign("https://storage.googleapis.com/gethub_bucket/CARD/card12/card12.png")
         )
     }
+
+    private fun getUserProfile() {
+        viewModel.getUserProfile().observe(this) { result ->
+            when (result) {
+                is Result.Loading -> showLoading(true)
+                is Result.Success -> {
+                    val userProfile = result.data.data
+                    val username = userProfile?.username ?: ""
+                    setupPreviewButton(username)
+                }
+                is Result.Error -> {
+                    // Handle error
+                }
+                else -> {
+                    // Handle other cases
+                }
+            }
+        }
+    }
+
+    private fun setupPreviewButton(username: String) {
+        binding.btnPriview.setOnClickListener {
+            val url = "https://gethub-webporto-kot54pmj3q-et.a.run.app/$username"
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+            startActivity(intent)
+        }
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+
 }
