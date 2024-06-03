@@ -46,6 +46,12 @@ class HomeDetailProjectBidsActivity : AppCompatActivity() {
             finish()
         }
 
+        binding.cvLihatMilestone.setOnClickListener {
+            val intent = Intent(this, HomeMilestoneProjectBidsActivity::class.java).apply {
+                putExtra(HomeMilestoneProjectBidsActivity.EXTRA_PROJECT_ID, projectBidId)
+            }
+            startActivity(intent)
+        }
     }
 
     override fun onDestroy() {
