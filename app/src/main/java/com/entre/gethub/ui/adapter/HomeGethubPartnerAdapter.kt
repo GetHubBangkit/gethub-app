@@ -3,38 +3,46 @@ package com.entre.gethub.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.entre.gethub.ui.models.HomeGethubPartner
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.entre.gethub.R
+import com.entre.gethub.data.remote.response.NewPartnerResponse
 import com.entre.gethub.databinding.ItemHomeGethubparterBinding
 
-
 class HomeGethubPartnerAdapter(
-    private val homehomegethubpartnerList: ArrayList<HomeGethubPartner>,
-    private val listener: (HomeGethubPartner, Int) -> Unit
-) :
-    RecyclerView.Adapter<HomeGethubPartnerAdapter.ViewHolder>() {
+    private val partnerList: List<NewPartnerResponse.Data>,
+    private val listener: (NewPartnerResponse.Data, Int) -> Unit
+) : RecyclerView.Adapter<HomeGethubPartnerAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val v = ItemHomeGethubparterBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(v)
+        val binding = ItemHomeGethubparterBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindItem(homehomegethubpartnerList[position])
-        holder.itemView.setOnClickListener { listener(homehomegethubpartnerList[position], position) }
+        holder.bindItem(partnerList[position])
+        holder.itemView.setOnClickListener { listener(partnerList[position], position) }
     }
 
     override fun getItemCount(): Int {
-        return homehomegethubpartnerList.size
+        return partnerList.size
     }
 
-    class ViewHolder(var ItemHomeGethubpartnerBinding: ItemHomeGethubparterBinding) :
-        RecyclerView.ViewHolder(ItemHomeGethubpartnerBinding.root) {
-        fun bindItem(homehomegethubpartner: HomeGethubPartner) {
+    class ViewHolder(private val binding: ItemHomeGethubparterBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-            ItemHomeGethubpartnerBinding.profilepic1.setImageResource(homehomegethubpartner.profilepic)
-            ItemHomeGethubpartnerBinding.profilename.text = homehomegethubpartner.profilename
-            ItemHomeGethubpartnerBinding.profiledesc.text = homehomegethubpartner.profiledesc
+        fun bindItem(partner: NewPartnerResponse.Data) {
+            // Load image using Glide
+            Glide.with(binding.root)
+                .load(partner.imageUrl)
+                .centerCrop()
+                .placeholder(R.drawable.profilepic1) // Placeholder image
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .into(binding.profilepic1)
 
+            // Set name and profession
+            binding.profilename.text = partner.fullName
+            binding.profiledesc.text = partner.profession
         }
     }
 }

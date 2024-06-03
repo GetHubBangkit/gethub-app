@@ -13,6 +13,7 @@ import com.entre.gethub.data.repositories.CertificationRepository
 import com.entre.gethub.data.repositories.GethubRepository
 import com.entre.gethub.data.repositories.InformationHubRepository
 import com.entre.gethub.data.repositories.LinkRepository
+import com.entre.gethub.data.repositories.NewPartnerRepository
 import com.entre.gethub.data.repositories.ProductRepository
 import com.entre.gethub.data.repositories.ProfileRepository
 import com.entre.gethub.data.repositories.ProjectDetectorRepository
@@ -81,7 +82,8 @@ class ViewModelFactory private constructor(
     private val projectDetectorRepository: ProjectDetectorRepository,
     private val themeHubRepository: ThemeHubRepository,
     private val topTalentRepository: TopTalentRepository,
-    private val analiticTotalRepository: AnaliticTotalRepository
+    private val analiticTotalRepository: AnaliticTotalRepository,
+    private val newPartnerRepository: NewPartnerRepository
 ) : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when (modelClass) {
@@ -92,7 +94,7 @@ class ViewModelFactory private constructor(
             SplashViewModel::class.java -> SplashViewModel(userPreferences) as T
             LoginViewModel::class.java -> LoginViewModel(authRepository, userPreferences) as T
             RegisterViewModel::class.java -> RegisterViewModel(authRepository) as T
-            HomeViewModel::class.java -> HomeViewModel(informationHubRepository) as T
+            HomeViewModel::class.java -> HomeViewModel(informationHubRepository, newPartnerRepository) as T
             CompleteProfileViewModel::class.java -> CompleteProfileViewModel(profileRepository) as T
             CompleteProfileValidationViewModel::class.java -> CompleteProfileValidationViewModel(
                 profileRepository, scanCardRepository
@@ -241,7 +243,8 @@ class ViewModelFactory private constructor(
                 Injection.provideProjectDetectorRepository(context),
                 Injection.provideThemeHubRepository(context),
                 Injection.provideTopTalentRepository(context),
-                Injection.provideAnaliticTotalRepository(context)
+                Injection.provideAnaliticTotalRepository(context),
+                Injection.provideNewPartnerRepository(context)
             )
 
     }

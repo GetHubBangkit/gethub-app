@@ -235,6 +235,35 @@
             app:layout_constraintTop_toBottomOf="@+id/HomeGethubPartner" />
 
 
+        <ProgressBar
+            android:id="@+id/progressBarOnNewGethubPartner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/recyclerViewHomeGethubPartner"
+            app:layout_constraintEnd_toEndOf="@+id/recyclerViewHomeGethubPartner"
+            app:layout_constraintStart_toStartOf="@+id/recyclerViewHomeGethubPartner"
+            app:layout_constraintTop_toTopOf="@+id/recyclerViewHomeGethubPartner"
+
+            tools:visibility="visible" />
+
+
+        <TextView
+            android:id="@+id/tvEmptyNewGethubPartner"
+            style="@style/Poppins.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Gethub Partner kosong"
+            android:textSize="14sp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/recyclerViewHomeGethubPartner"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/recyclerViewHomeGethubPartner"
+            app:layout_constraintVertical_bias="0.52"
+            tools:visibility="visible" />
+
         <LinearLayout
             android:id="@+id/homebiddingdikerjakan"
             android:layout_width="wrap_content"
@@ -318,6 +347,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/homeinformationhub" />
 
+        <ProgressBar
+            android:id="@+id/progressBarOnInformationHub"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/recyclerViewInformationHub"
+            app:layout_constraintEnd_toEndOf="@+id/recyclerViewInformationHub"
+            app:layout_constraintStart_toStartOf="@+id/recyclerViewInformationHub"
+            app:layout_constraintTop_toTopOf="@+id/recyclerViewInformationHub"
+
+            tools:visibility="visible" />
         <include
             android:id="@+id/empty"
             layout="@layout/item_empty_layout"

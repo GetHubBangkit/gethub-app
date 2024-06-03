@@ -18,6 +18,7 @@ import com.entre.gethub.ui.adapter.HomeGethubPartnerAdapter
 import com.entre.gethub.ui.adapter.HomeInformationHubAdapter
 import com.entre.gethub.utils.ViewModelFactory
 import com.entre.gethub.data.Result
+import com.entre.gethub.data.remote.response.NewPartnerResponse
 import com.entre.gethub.ui.home.caritalent.HomeCariTalentActivity
 import com.entre.gethub.ui.home.deteksiproject.HomeProjectDetectorActivity
 import com.entre.gethub.ui.home.mygethub.HomeKelolaMyGethubActivity
@@ -42,6 +43,8 @@ class HomeFragment : Fragment() {
         setupClickListeners()
         setupRecyclerViews()
         getInformationList()
+        observeNewPartner()
+        getNewPartnerList()
 
         return root
     }
@@ -72,7 +75,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupRecyclerViews() {
-        setupRecyclerViewHomeGethubPartner()
         setupRecyclerViewBiddingDikerjakan()
         setupRecyclerViewInformationHub()
     }
@@ -81,17 +83,20 @@ class HomeFragment : Fragment() {
         homeViewModel.informationHubs.observe(viewLifecycleOwner) { result ->
             when (result) {
                 is Result.Success -> {
+                    showLoadingInformationHub(false)
                     val data = result.data
                     binding.empty.llEmpty.visibility = View.GONE
                     (binding.recyclerViewInformationHub.adapter as HomeInformationHubAdapter).updateData(data)
                 }
                 is Result.Error -> {
+                    showLoadingInformationHub(false)
                     Toast.makeText(requireContext(), result.error, Toast.LENGTH_SHORT).show()
                 }
                 is Result.Loading -> {
-                    // Handle loading state
+                    showLoadingInformationHub(true)
                 }
                 is Result.Empty -> {
+                    showLoadingInformationHub(false)
                     binding.empty.apply {
                         llEmpty.visibility = View.VISIBLE
                         tvEmpty.text = result.emptyError
@@ -101,24 +106,41 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun setupRecyclerViewHomeGethubPartner() {
+    private fun observeNewPartner() {
+        homeViewModel.getNewPartner().observe(viewLifecycleOwner) { result ->
+            when (result) {
+                is Result.Success -> {
+                    showLoadingNewGethubPartner(false)
+                    val data = result.data?.data ?: emptyList()
+                    setupRecyclerViewHomeGethubPartner(data)
+                }
+                is Result.Error -> {
+                    showLoadingNewGethubPartner(false)
+                    Toast.makeText(requireContext(), result.error, Toast.LENGTH_SHORT).show()
+                }
+                is Result.Loading -> {
+                    showLoadingNewGethubPartner(true)
+                }
+                is Result.Empty -> {
+                    showLoadingNewGethubPartner(false)
+                    showEmptyNewGethubPartner(true, result.emptyError)
+                }
+            }
+        }
+    }
+    private fun getNewPartnerList() {
+        homeViewModel.getNewPartner()
+    }
+
+    private fun setupRecyclerViewHomeGethubPartner(partnerList: List<NewPartnerResponse.Data>) {
         binding.recyclerViewHomeGethubPartner.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = HomeGethubPartnerAdapter(createHomeGethubPartnerList()) { gethubpartner, position ->
-                Toast.makeText(this@HomeFragment.requireContext(), "Clicked on actor: ${gethubpartner.profilename}", Toast.LENGTH_SHORT).show()
+            adapter = HomeGethubPartnerAdapter(partnerList) { gethubpartner, position ->
+                Toast.makeText(this@HomeFragment.requireContext(), "Clicked on actor: ${gethubpartner.fullName}", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-    private fun createHomeGethubPartnerList(): ArrayList<HomeGethubPartner> {
-        return arrayListOf(
-            HomeGethubPartner("Budi Santoso", R.drawable.profilepic1, "Software Engineer"),
-            HomeGethubPartner("Budi Santoso", R.drawable.profilepic1, "Software Engineer"),
-            HomeGethubPartner("Budi Santoso", R.drawable.profilepic1, "Software Engineer"),
-            HomeGethubPartner("Budi Santoso", R.drawable.profilepic1, "Software Engineer"),
-            HomeGethubPartner("Budi Santoso", R.drawable.profilepic1, "Software Engineer")
-        )
-    }
 
     private fun setupRecyclerViewBiddingDikerjakan() {
         binding.recyclerViewBiddingDikerjakan.apply {
@@ -147,5 +169,16 @@ class HomeFragment : Fragment() {
                 startActivity(intent)
             }
         }
+    }
+
+    private fun showLoadingInformationHub(isLoading: Boolean) {
+        binding.progressBarOnInformationHub.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+    private fun showLoadingNewGethubPartner(isLoading: Boolean) {
+        binding.progressBarOnNewGethubPartner.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    private fun showEmptyNewGethubPartner(isEmpty: Boolean, message: String) {
+        binding.tvEmptyNewGethubPartner.visibility = if (isEmpty) View.VISIBLE else View.GONE
     }
 }
