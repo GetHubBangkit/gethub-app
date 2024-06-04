@@ -6,6 +6,7 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.TextPaint
 import android.text.style.MetricAffectingSpan
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -17,6 +18,7 @@ import com.entre.gethub.R
 import com.entre.gethub.data.Result
 import com.entre.gethub.databinding.ActivityBidProjectStatusDetailBinding
 import com.entre.gethub.ui.adapter.UserProjectBiddingAdapter
+import com.entre.gethub.ui.home.projectbids.HomeDetailProjectBidsActivity
 import com.entre.gethub.ui.models.UserProjectBidding
 import com.entre.gethub.utils.Formatter
 import com.entre.gethub.utils.ViewModelFactory
@@ -59,34 +61,42 @@ class BidProjectStatusDetailActivity : AppCompatActivity() {
                         if (projectBid?.totalBidders!! == 0) {
                             showEmptyOnUserBidding(true, "Belum Ada User Yang Ikut Bidding")
                         } else {
-                            val userProjectBiddingList = projectBid.usersBid.map { usersBidItem ->
+                            val userProjectBiddingList = projectBid.usersBid?.map { usersBidItem ->
                                 UserProjectBidding(
-                                    usersBidItem.fullName!!,
-                                    usersBidItem.photo!!,
-                                    usersBidItem.profession!!
+                                    usersBidItem?.fullName!!,
+                                    usersBidItem?.photo!!,
+                                    usersBidItem?.profession!!
                                 )
                             }
                             setupRecyclerViewUserBidding(userProjectBiddingList!!)
                         }
 
                         with(binding) {
-                            tvDetailProjectTitle.text = projectBid.title
-                            tvDetailProjectDesc.text = projectBid.description
+                            tvDetailProjectTitle.text = projectBid?.title
+                            tvDetailProjectDesc.text = projectBid?.description
                             tvDetailProjectPriceRange.text =
                                 "$minBudget - $maxBudget"
                             tvDetailProjectDateRange.text =
-                                "${projectBid.minDeadline} - ${projectBid.maxDeadline}"
-                            tvDetailProjectDatePost.text = projectBid.createdDate
+                                "${projectBid?.minDeadline} - ${projectBid?.maxDeadline}"
+                            tvDetailProjectDatePost.text = projectBid?.createdDate
                             tvDetailProjectTotalUserBidsOnCard.text =
-                                projectBid.totalBidders.toString()
-                            tvDetailProjectTotalUserBids.text = projectBid.totalBidders.toString()
+                                projectBid?.totalBidders.toString()
+                            tvDetailProjectTotalUserBids.text = projectBid?.totalBidders.toString()
 
-                            showOwnerSentiment(projectBid.ownerProject?.fullName!!, projectBid.ownerProject.sentimentOwnerAnalisis)
-                            tvDetailProjectOwnerName.text = projectBid.ownerProject.fullName
+                            Log.d(
+                                "BidProjectStatusDetailActivity",
+                                "Owner: ${projectBid.ownerProject}"
+                            )
+
+                            showOwnerSentiment(
+                                projectBid?.ownerProject?.fullName!!,
+                                projectBid?.ownerProject?.sentimentOwnerAnalisis ?: "Netral"
+                            )
+                            tvDetailProjectOwnerName.text = projectBid?.ownerProject?.fullName
                             tvDetailProjectOwnerProfession.text =
-                                projectBid.ownerProject.profession
+                                projectBid?.ownerProject?.profession
                             Glide.with(this@BidProjectStatusDetailActivity)
-                                .load(projectBid.ownerProject.photo)
+                                .load(projectBid?.ownerProject?.photo)
                                 .placeholder(R.drawable.profilepic2)
                                 .into(ivDetailProjectOwnerPic)
                         }
@@ -127,7 +137,7 @@ class BidProjectStatusDetailActivity : AppCompatActivity() {
     private fun showOwnerSentiment(projectOwnerName: String, sentiment: String?) {
         val projectOwnerSentiment = binding.tvDetailProjectOwnerSentiment
 
-        var teks: String =
+        var teks =
             "Berdasarkan history review Kusnandar sebagai pemberi project job memiliki penilaian sentimen analisis Netral"
 
         if (sentiment == "Netral") {
@@ -161,6 +171,14 @@ class BidProjectStatusDetailActivity : AppCompatActivity() {
             val endIndexSentiment = startIndexSentiment + sentiment!!.length
 
 
+            // Terapkan jenis font Nunito-Black ke bagian "name"
+            spannableString.setSpan(
+                CustomTypefaceSpan(nunitoBlackTypeface),
+                startIndexName,
+                endIndexName,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+
             // Terapkan jenis font Nunito-Black ke bagian "sentiment"
             spannableString.setSpan(
                 CustomTypefaceSpan(nunitoBlackTypeface),
@@ -173,6 +191,7 @@ class BidProjectStatusDetailActivity : AppCompatActivity() {
             projectOwnerSentiment.text = spannableString
         }
     }
+
     private class CustomTypefaceSpan(private val typeface: Typeface) : MetricAffectingSpan() {
         override fun updateMeasureState(textPaint: TextPaint) {
             textPaint.typeface = typeface

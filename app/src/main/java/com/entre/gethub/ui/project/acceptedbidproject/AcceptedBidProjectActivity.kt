@@ -59,7 +59,7 @@ class AcceptedBidProjectActivity : AppCompatActivity() {
                     is Result.Error -> {
                         showLoading(false)
                         showEmpty(true, result.error)
-                        showToast(result.error)
+//                        showToast(result.error)
                     }
                 }
             }

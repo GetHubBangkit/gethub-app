@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class ProjectDetailResponse(
 
     @field:SerializedName("data")
-    val data: Data? = null,
+    val data: Data,
 
     @field:SerializedName("success")
     val success: Boolean? = null,
@@ -98,7 +98,7 @@ data class ProjectDetailResponse(
         val statusFreelanceTask: String? = null,
 
         @field:SerializedName("owner_project")
-        val ownerProject: OwnerProject? = null,
+        val ownerProject: OwnerProject,
 
         @field:SerializedName("created_date")
         val createdDate: String? = null,

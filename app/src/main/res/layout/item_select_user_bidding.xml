@@ -63,10 +63,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginHorizontal="12dp"
                 android:layout_marginVertical="8dp"
-                android:text="Berdasarkan history review {name} sebagai
-pemberi project job memiliki penilaian sentimen
-analisis {Positive}, ayo ikuti project dan selesaikan
-pekerjaan kamu dan berikan hasil yg maksimal"
+                android:text="Berdasarkan history review {name} sebagai penerima project job memiliki penilaian sentimen analisis {Positive}"
                 android:textColor="@color/black"
                 android:textSize="12sp" />
         </androidx.cardview.widget.CardView>
