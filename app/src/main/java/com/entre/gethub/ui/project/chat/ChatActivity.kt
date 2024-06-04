@@ -1,21 +1,31 @@
 package com.entre.gethub.ui.project.chat
 
+import android.content.Intent
+import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.entre.gethub.R
 import com.entre.gethub.data.Result
 import com.entre.gethub.databinding.ActivityChatBinding
+import com.entre.gethub.ui.models.ImageMessage
 import com.entre.gethub.ui.models.MessageType
 import com.entre.gethub.ui.models.TextMessage
 import com.entre.gethub.utils.FirestoreUtil
+import com.entre.gethub.utils.StorageUtil
 import com.entre.gethub.utils.ViewModelFactory
 import com.google.firebase.firestore.ListenerRegistration
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Section
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
+import java.io.ByteArrayOutputStream
 import java.util.Calendar
 
 class ChatActivity : AppCompatActivity() {
@@ -33,6 +43,7 @@ class ChatActivity : AppCompatActivity() {
     private var ownerPhoto: String = ""
     private var shouldInitRecyclerView = true
     private lateinit var messagesSection: Section
+    private var currentImageUri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -131,6 +142,43 @@ class ChatActivity : AppCompatActivity() {
             updateItem()
 
         binding.rvChat.scrollToPosition(binding.rvChat.adapter!!.itemCount - 1)
+    }
+
+    private val pickImage =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                if (result.data?.data != null) {
+                    currentImageUri = result.data?.data
+
+                    val selectedImageBmp =
+                        MediaStore.Images.Media.getBitmap(contentResolver, currentImageUri)
+                    val outputStream = ByteArrayOutputStream()
+                    selectedImageBmp.compress(Bitmap.CompressFormat.JPEG, 90, outputStream)
+                    val selectedImageBytes = outputStream.toByteArray()
+
+                    StorageUtil.uploadMessageImage(freelancerId, selectedImageBytes) { imagePath ->
+                        val messageToSend = ImageMessage(
+                            imagePath,
+                            Calendar.getInstance().time,
+                            senderId = freelancerId,
+                            MessageType.IMAGE
+                        )
+                        FirestoreUtil.sendMessage(messageToSend, currentChannelId)
+                    }
+                } else {
+                    showToast(getString(R.string.image_unavailable))
+                }
+            }
+        }
+
+    private fun showImageIntent() {
+        val pickPhotoIntent =
+            Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        pickImage.launch(pickPhotoIntent)
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
     companion object {

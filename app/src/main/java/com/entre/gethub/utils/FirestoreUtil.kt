@@ -4,11 +4,12 @@ import android.content.Context
 import android.util.Log
 import com.entre.gethub.data.remote.response.profiles.UserProfileResponse
 import com.entre.gethub.data.remote.response.projects.AcceptedProjectBidResponse
+import com.entre.gethub.ui.adapter.ImageMessageItem
 import com.entre.gethub.ui.adapter.TextMessageItem
+import com.entre.gethub.ui.models.ImageMessage
 import com.entre.gethub.ui.models.Message
 import com.entre.gethub.ui.models.MessageType
 import com.entre.gethub.ui.models.TextMessage
-import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
 import com.xwray.groupie.kotlinandroidextensions.Item
@@ -67,13 +68,14 @@ object FirestoreUtil {
                                 ownerPhoto = ownerPhoto,
                             )
                         )
-//                    else
-//                        items.add(
-//                            ImageMessageItem(
-//                                it.toObject(ImageMessage::class.java)!!,
-//                                context
-//                            )
-//                        )
+                    else
+                        items.add(
+                            ImageMessageItem(
+                                it.toObject(ImageMessage::class.java)!!,
+                                context,
+                                senderId
+                            )
+                        )
                 }
 
                 onListen(items)
