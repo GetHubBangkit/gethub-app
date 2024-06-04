@@ -1,5 +1,6 @@
 package com.entre.gethub.ui.project.acceptedbidproject
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -10,6 +11,7 @@ import com.entre.gethub.data.Result
 import com.entre.gethub.data.remote.response.projects.AcceptedProjectBidResponse
 import com.entre.gethub.databinding.ActivityAcceptedBidProjectBinding
 import com.entre.gethub.ui.adapter.AcceptedBidAdapter
+import com.entre.gethub.ui.project.chat.ChatActivity
 import com.entre.gethub.utils.ViewModelFactory
 
 class AcceptedBidProjectActivity : AppCompatActivity() {
@@ -72,7 +74,10 @@ class AcceptedBidProjectActivity : AppCompatActivity() {
                 false
             )
 
-            adapter = AcceptedBidAdapter(acceptedProjectList)
+            adapter = AcceptedBidAdapter(acceptedProjectList) {
+                val intent = Intent(this@AcceptedBidProjectActivity, ChatActivity::class.java)
+                startActivity(intent)
+            }
         }
     }
 
