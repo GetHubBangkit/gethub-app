@@ -2,16 +2,15 @@ package com.entre.gethub.ui.project.chat
 
 import android.os.Bundle
 import android.util.Log
-import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.entre.gethub.R
+import com.entre.gethub.data.Result
 import com.entre.gethub.databinding.ActivityChatBinding
 import com.entre.gethub.ui.models.MessageType
 import com.entre.gethub.ui.models.TextMessage
 import com.entre.gethub.utils.FirestoreUtil
+import com.entre.gethub.utils.ViewModelFactory
 import com.google.firebase.firestore.ListenerRegistration
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Section
@@ -22,11 +21,16 @@ import java.util.Calendar
 class ChatActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityChatBinding.inflate(layoutInflater) }
+    private val chatViewModel by viewModels<ChatViewModel> { ViewModelFactory.getInstance(this) }
     private lateinit var messagesListenerRegistration: ListenerRegistration
     private lateinit var currentChannelId: String
     private var ownerId: String = ""
     private var freelancerId: String = ""
     private var chatroomId: String = ""
+    private var senderName: String = ""
+    private var senderPhoto: String = ""
+    private var ownerName: String = ""
+    private var ownerPhoto: String = ""
     private var shouldInitRecyclerView = true
     private lateinit var messagesSection: Section
 
@@ -34,39 +38,16 @@ class ChatActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        getUserProfile()
+
         ownerId = intent.getStringExtra(EXTRA_OWNER_ID).toString()
         freelancerId = intent.getStringExtra(EXTRA_FREELANCER_ID).toString()
         chatroomId = intent.getStringExtra(EXTRA_CHANNEL_ID).toString()
+        ownerName = intent.getStringExtra(EXTRA_OWNER_NAME).toString()
+        ownerPhoto = intent.getStringExtra(EXTRA_OWNER_PHOTO).toString()
 
         binding.iconBack.setOnClickListener {
             finish()
-        }
-
-        FirestoreUtil.getOrCreateChannel(
-            ownerUserId = ownerId,
-            freelancerId = freelancerId,
-            chatroomId = chatroomId,
-        ) { channelId ->
-            Log.d("ChatActivity", "Channelid: $channelId")
-            currentChannelId = channelId
-            messagesListenerRegistration =
-                FirestoreUtil.addChatMessageListener(
-                    channelId,
-                    this,
-                    freelancerId,
-                    this::updateRecyclerView
-                )
-
-            binding.cvSendChat.setOnClickListener {
-                val messageToSend = TextMessage(
-                    binding.etMessage.text.toString(),
-                    Calendar.getInstance().time,
-                    freelancerId,
-                    MessageType.TEXT
-                )
-                binding.etMessage.setText("")
-                FirestoreUtil.sendMessage(messageToSend, channelId)
-            }
         }
 
 
@@ -76,6 +57,54 @@ class ChatActivity : AppCompatActivity() {
         super.onDestroy()
         FirestoreUtil.removeListener(messagesListenerRegistration)
         shouldInitRecyclerView = true
+    }
+
+    private fun getUserProfile() {
+        chatViewModel.getUserProfile().observe(this) { result ->
+            if (result != null) {
+                when (result) {
+                    is Result.Success -> {
+                        senderName = result.data.data.fullName.toString()
+                        senderPhoto = result.data.data.photo.toString()
+                        Log.d("ChatActivity", "senderName: $senderName, senderPhoto: $senderPhoto")
+                        FirestoreUtil.getOrCreateChannel(
+                            ownerUserId = ownerId,
+                            freelancerId = freelancerId,
+                            chatroomId = chatroomId,
+                        ) { channelId ->
+                            Log.d("ChatActivity", "Channelid: $channelId")
+                            currentChannelId = channelId
+                            messagesListenerRegistration =
+                                FirestoreUtil.addChatMessageListener(
+                                    channelId = channelId,
+                                    context = this,
+                                    senderId = freelancerId,
+                                    senderName = senderName,
+                                    senderPhoto = senderPhoto,
+                                    ownerName = ownerName,
+                                    ownerPhoto = ownerPhoto,
+                                    this::updateRecyclerView
+                                )
+
+                            binding.cvSendChat.setOnClickListener {
+                                val messageToSend = TextMessage(
+                                    binding.etMessage.text.toString(),
+                                    Calendar.getInstance().time,
+                                    freelancerId,
+                                    MessageType.TEXT
+                                )
+                                binding.etMessage.setText("")
+                                FirestoreUtil.sendMessage(messageToSend, channelId)
+                            }
+                        }
+                    }
+
+                    else -> {
+                        //
+                    }
+                }
+            }
+        }
     }
 
     private fun updateRecyclerView(messages: List<Item>) {
@@ -108,5 +137,7 @@ class ChatActivity : AppCompatActivity() {
         const val EXTRA_OWNER_ID = "extra_owner_id"
         const val EXTRA_FREELANCER_ID = "extra_freelancer_id"
         const val EXTRA_CHANNEL_ID = "extra_channel_id"
+        const val EXTRA_OWNER_NAME = "extra_owner_name"
+        const val EXTRA_OWNER_PHOTO = "extra_owner_photo"
     }
 }

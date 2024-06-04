@@ -3,7 +3,10 @@ package com.entre.gethub.ui.adapter
 import android.content.Context
 import android.view.Gravity
 import android.widget.FrameLayout
+import com.bumptech.glide.Glide
 import com.entre.gethub.R
+import com.entre.gethub.data.remote.response.profiles.UserProfileResponse
+import com.entre.gethub.data.remote.response.projects.AcceptedProjectBidResponse
 import com.entre.gethub.databinding.ItemChatSenderBinding
 import com.entre.gethub.ui.models.TextMessage
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
@@ -11,7 +14,15 @@ import com.xwray.groupie.kotlinandroidextensions.Item
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-class TextMessageItem(val message: TextMessage, val context: Context, val senderId: String) :
+class TextMessageItem(
+    val message: TextMessage,
+    val context: Context,
+    val senderId: String,
+    val senderName: String,
+    val senderPhoto: String,
+    val ownerName: String,
+    val ownerPhoto: String,
+) :
     Item() {
     override fun getLayout(): Int = R.layout.item_chat_sender
 
@@ -45,11 +56,21 @@ class TextMessageItem(val message: TextMessage, val context: Context, val sender
                 setBackgroundResource(R.drawable.sender_chat_background)
                 viewBinding.tvMessage.setTextColor(context.getColor(R.color.white))
                 viewBinding.tvChatDate.setTextColor(context.getColor(R.color.white))
+                Glide.with(viewBinding.root.context)
+                    .load(senderPhoto)
+                    .placeholder(R.drawable.profilepic1)
+                    .into(viewBinding.ivSenderAvatar)
+                viewBinding.tvSenderName.text = senderName
 //                (layoutParams as FrameLayout.LayoutParams).gravity = Gravity.END
             }
         } else {
             viewBinding.messageRoot.apply {
                 setBackgroundResource(R.drawable.receiver_chat_background)
+                Glide.with(viewBinding.root.context)
+                    .load(ownerPhoto)
+                    .placeholder(R.drawable.profilepic1)
+                    .into(viewBinding.ivSenderAvatar)
+                viewBinding.tvSenderName.text = ownerName
 //                (layoutParams as FrameLayout.LayoutParams).gravity = Gravity.START
             }
         }
