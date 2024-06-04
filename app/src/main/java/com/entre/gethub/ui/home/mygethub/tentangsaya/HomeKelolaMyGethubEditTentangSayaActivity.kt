@@ -12,6 +12,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
+import com.bumptech.glide.Glide
 import com.entre.gethub.ui.MainActivity
 import com.entre.gethub.R
 import com.entre.gethub.data.Result
@@ -151,7 +152,7 @@ class HomeKelolaMyGethubEditTentangSayaActivity : AppCompatActivity() {
                 }
             }
 
-            // Keep edAbout outside the scanCardResponse check
+            // Observe the user profile data
             completeProfileViewModel.getUserProfile().observe(this@HomeKelolaMyGethubEditTentangSayaActivity) { result ->
                 if (result != null) {
                     when (result) {
@@ -167,6 +168,13 @@ class HomeKelolaMyGethubEditTentangSayaActivity : AppCompatActivity() {
                             edAddress.setText(userProfile?.address ?: "")
                             edAbout.setText(userProfile?.about ?: "")
 
+                            // Load the profile picture using Glide
+                            userProfile?.photo?.let {
+                                Glide.with(this@HomeKelolaMyGethubEditTentangSayaActivity)
+                                    .load(it)
+                                    .placeholder(R.drawable.profilepic1) // Add a placeholder image
+                                    .into(binding.ivProfilePicture)
+                            }
                         }
                         is Result.Error -> {
                             showLoading(false)
@@ -191,6 +199,7 @@ class HomeKelolaMyGethubEditTentangSayaActivity : AppCompatActivity() {
             }
         }
     }
+
 
     private fun updateUserProfile(updateUserProfileParams: UpdateUserProfileParams) {
         completeProfileViewModel.updateUserProfile(updateUserProfileParams)
@@ -257,6 +266,11 @@ class HomeKelolaMyGethubEditTentangSayaActivity : AppCompatActivity() {
                                 is Result.Success -> {
                                     showLoading(false)
                                     imageUrl = result.data.data
+                                    // Load the new profile picture using Glide
+                                    Glide.with(this@HomeKelolaMyGethubEditTentangSayaActivity)
+                                        .load(imageUrl)
+                                        .placeholder(R.drawable.profilepic1) // Add a placeholder image
+                                        .into(binding.ivProfilePicture)
                                 }
                                 is Result.Error -> {
                                     showLoading(false)
@@ -272,6 +286,7 @@ class HomeKelolaMyGethubEditTentangSayaActivity : AppCompatActivity() {
             }
         }
     }
+
 
     private fun selectImage() {
         val options = arrayOf<CharSequence>(
