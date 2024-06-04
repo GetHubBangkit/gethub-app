@@ -14,6 +14,7 @@ import com.entre.gethub.data.repositories.GethubRepository
 import com.entre.gethub.data.repositories.InformationHubRepository
 import com.entre.gethub.data.repositories.LinkRepository
 import com.entre.gethub.data.repositories.NewPartnerRepository
+import com.entre.gethub.data.repositories.PostCardViewersRepository
 import com.entre.gethub.data.repositories.ProductRepository
 import com.entre.gethub.data.repositories.ProfileRepository
 import com.entre.gethub.data.repositories.ProjectDetectorRepository
@@ -84,12 +85,13 @@ class ViewModelFactory private constructor(
     private val topTalentRepository: TopTalentRepository,
     private val analiticTotalRepository: AnaliticTotalRepository,
     private val newPartnerRepository: NewPartnerRepository,
-    private val cardViewersRepository: CardViewersRepository
+    private val cardViewersRepository: CardViewersRepository,
+    private val postCardViewersRepository: PostCardViewersRepository
 ) : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when (modelClass) {
             UserPublicProfileViewModel::class.java -> UserPublicProfileViewModel(
-                userPublicProfileRepository
+                userPublicProfileRepository, postCardViewersRepository
             ) as T
 
             SplashViewModel::class.java -> SplashViewModel(userPreferences) as T
@@ -256,7 +258,8 @@ class ViewModelFactory private constructor(
                 Injection.provideTopTalentRepository(context),
                 Injection.provideAnaliticTotalRepository(context),
                 Injection.provideNewPartnerRepository(context),
-                Injection.provideCardViewersRepository(context)
+                Injection.provideCardViewersRepository(context),
+                Injection.providePostCardViewersRepository(context)
             )
 
     }

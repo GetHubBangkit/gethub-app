@@ -6,12 +6,17 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.entre.gethub.data.Result
+import com.entre.gethub.data.remote.response.PostCardViewersResponse
 import com.entre.gethub.data.remote.response.UserPublicProfileResponse
 import com.entre.gethub.data.repositories.UserPublicProfileRepository
+import com.entre.gethub.data.repositories.PostCardViewersRepository
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
-class UserPublicProfileViewModel(private val userPublicProfileRepository: UserPublicProfileRepository) : ViewModel() {
+class UserPublicProfileViewModel(
+    private val userPublicProfileRepository: UserPublicProfileRepository,
+    private val postCardViewersRepository: PostCardViewersRepository
+) : ViewModel() {
 
     private val _getLinkResult = MutableLiveData<Result<List<UserPublicProfileResponse.Data.Link>>>()
     val getLinkResult: LiveData<Result<List<UserPublicProfileResponse.Data.Link>>> get() = _getLinkResult
@@ -21,6 +26,9 @@ class UserPublicProfileViewModel(private val userPublicProfileRepository: UserPu
 
     private val _userProfileResult = MutableLiveData<Result<UserPublicProfileResponse>>()
     val userProfileResult: LiveData<Result<UserPublicProfileResponse>> get() = _userProfileResult
+
+    private val _postCardViewersResult = MutableLiveData<Result<PostCardViewersResponse>>()
+    val postCardViewersResult: LiveData<Result<PostCardViewersResponse>> get() = _postCardViewersResult
 
     fun getPublicProfile(username: String): LiveData<Result<UserPublicProfileResponse>> {
         viewModelScope.launch {
@@ -62,8 +70,23 @@ class UserPublicProfileViewModel(private val userPublicProfileRepository: UserPu
         return getProductListResult
     }
 
+    fun postCardViewers(username: String): LiveData<Result<PostCardViewersResponse>> {
+        viewModelScope.launch {
+            _postCardViewersResult.value = Result.Loading
+            try {
+                val response = postCardViewersRepository.postCardViewers(username)
+                _postCardViewersResult.value = Result.Success(response)
+            } catch (e: HttpException) {
+                val errorMessage = e.message()
+                _postCardViewersResult.value = Result.Error(errorMessage ?: "Unknown Error")
+            } catch (e: Exception) {
+                _postCardViewersResult.value = Result.Error(e.message ?: "Error Occurred")
+            }
+        }
+        return postCardViewersResult
+    }
+
     companion object {
         private const val TAG = "UserPublicProfileViewModel"
     }
 }
-
