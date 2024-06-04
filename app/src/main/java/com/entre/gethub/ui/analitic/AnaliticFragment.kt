@@ -55,15 +55,22 @@ class AnaliticFragment : Fragment() {
     }
 
     private fun getAnaliticTotal() {
-        analiticViewModel.getAnaliticTotal().observe(viewLifecycleOwner, { result ->
+        analiticViewModel.getAnaliticTotal().observe(viewLifecycleOwner) { result ->
             when (result) {
                 is Result.Empty -> {
-                    // Handle empty result
+                    showLoadingCardViewer(false)
+                    showLoadingWebViewer(false)
+                    showLoadingPartner(false)
                 }
                 is Result.Loading -> {
-                    // Handle loading state
+                    showLoadingCardViewer(true)
+                    showLoadingWebViewer(true)
+                    showLoadingPartner(true)
                 }
                 is Result.Success -> {
+                    showLoadingCardViewer(false)
+                    showLoadingWebViewer(false)
+                    showLoadingPartner(false)
                     // Handle successful result
                     val analiticTotalResponse = result.data
                     // Bind the data to views
@@ -74,6 +81,9 @@ class AnaliticFragment : Fragment() {
                     }
                 }
                 is Result.Error -> {
+                    showLoadingCardViewer(false)
+                    showLoadingWebViewer(false)
+                    showLoadingPartner(false)
                     // Handle error
                     Toast.makeText(requireContext(), result.error, Toast.LENGTH_SHORT).show()
                 }
@@ -81,19 +91,21 @@ class AnaliticFragment : Fragment() {
                     // Handle other states
                 }
             }
-        })
+        }
     }
 
     private fun getCardViewers() {
-        analiticViewModel.getCardViewers().observe(viewLifecycleOwner, { result ->
+        analiticViewModel.getCardViewers().observe(viewLifecycleOwner) { result ->
             when (result) {
                 is Result.Empty -> {
-                    // Handle empty result
+                    showLoadingGethubKamuDilihat(false)
+                    showEmptyGethubKamuDilihat(true, result.emptyError)
                 }
                 is Result.Loading -> {
-                    // Handle loading state
+                    showLoadingGethubKamuDilihat(true)
                 }
                 is Result.Success -> {
+                    showLoadingGethubKamuDilihat(false)
                     // Handle successful result
                     val cardViewersResponse = result.data
                     // Update RecyclerView with data from API
@@ -104,6 +116,7 @@ class AnaliticFragment : Fragment() {
                     }
                 }
                 is Result.Error -> {
+                    showLoadingGethubKamuDilihat(false)
                     // Handle error
                     Toast.makeText(requireContext(), result.error, Toast.LENGTH_SHORT).show()
                 }
@@ -111,8 +124,9 @@ class AnaliticFragment : Fragment() {
                     // Handle other states
                 }
             }
-        })
+        }
     }
+
 
     private fun setupRecyclerViewAnaliticGethubDilihat() {
         adapter = AnaliticGethubDilihatAdapter(viewersList) { viewer, position ->
@@ -158,5 +172,22 @@ class AnaliticFragment : Fragment() {
 
         val markerView = CustomMarker(requireContext(), R.layout.marker_view)
         binding.lineChart.marker = markerView
+    }
+
+    private fun showLoadingGethubKamuDilihat(isLoading: Boolean) {
+        binding.progressBarOnGethubKamuDilihat.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    private fun showLoadingCardViewer(isLoading: Boolean) {
+        binding.progressBarOnCardViewer.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+    private fun showLoadingWebViewer(isLoading: Boolean) {
+        binding.progressBarOnWebViewer.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+    private fun showLoadingPartner(isLoading: Boolean) {
+        binding.progressBarOnPartner.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+    private fun showEmptyGethubKamuDilihat(isEmpty: Boolean, message: String) {
+        binding.tvEmptyGethubKamuDilihat.visibility = if (isEmpty) View.VISIBLE else View.GONE
     }
 }
