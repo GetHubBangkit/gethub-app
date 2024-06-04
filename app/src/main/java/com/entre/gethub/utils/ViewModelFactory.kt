@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.entre.gethub.data.preferences.UserPreferences
 import com.entre.gethub.data.repositories.AnaliticTotalRepository
 import com.entre.gethub.data.repositories.AuthRepository
+import com.entre.gethub.data.repositories.CardViewersRepository
 import com.entre.gethub.data.repositories.CariTalentRepository
 import com.entre.gethub.data.repositories.CategoryRepository
 import com.entre.gethub.data.repositories.CertificationRepository
@@ -82,7 +83,8 @@ class ViewModelFactory private constructor(
     private val themeHubRepository: ThemeHubRepository,
     private val topTalentRepository: TopTalentRepository,
     private val analiticTotalRepository: AnaliticTotalRepository,
-    private val newPartnerRepository: NewPartnerRepository
+    private val newPartnerRepository: NewPartnerRepository,
+    private val cardViewersRepository: CardViewersRepository
 ) : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when (modelClass) {
@@ -224,7 +226,7 @@ class ViewModelFactory private constructor(
             OwnerSettlementViewModel::class.java -> OwnerSettlementViewModel(projectRepository) as T
 
             AnaliticViewModel::class.java -> AnaliticViewModel(
-                analiticTotalRepository
+                analiticTotalRepository, cardViewersRepository
             ) as T
 
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
@@ -253,7 +255,8 @@ class ViewModelFactory private constructor(
                 Injection.provideThemeHubRepository(context),
                 Injection.provideTopTalentRepository(context),
                 Injection.provideAnaliticTotalRepository(context),
-                Injection.provideNewPartnerRepository(context)
+                Injection.provideNewPartnerRepository(context),
+                Injection.provideCardViewersRepository(context)
             )
 
     }

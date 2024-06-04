@@ -5,6 +5,7 @@ import com.entre.gethub.data.preferences.UserPreferences
 import com.entre.gethub.data.remote.retrofit.ApiConfig
 import com.entre.gethub.data.repositories.AnaliticTotalRepository
 import com.entre.gethub.data.repositories.AuthRepository
+import com.entre.gethub.data.repositories.CardViewersRepository
 import com.entre.gethub.data.repositories.CariTalentRepository
 import com.entre.gethub.data.repositories.CategoryRepository
 import com.entre.gethub.data.repositories.CertificationRepository
@@ -137,5 +138,10 @@ object Injection {
         val pref = provideUserPreferences(context)
         val token = runBlocking { pref.getToken().first() }
         return NewPartnerRepository.getInstance(ApiConfig.getApiService(context, token))
+    }
+    fun provideCardViewersRepository(context: Context): CardViewersRepository {
+        val pref = provideUserPreferences(context)
+        val token = runBlocking { pref.getToken().first() }
+        return CardViewersRepository.getInstance(ApiConfig.getApiService(context, token))
     }
 }

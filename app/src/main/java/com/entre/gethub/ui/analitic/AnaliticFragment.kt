@@ -1,7 +1,5 @@
 package com.entre.gethub.ui.analitic
 
-import com.entre.gethub.data.Result
-
 import CustomMarker
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,14 +9,12 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.entre.gethub.ui.models.AnaliticGetHubDilihat
 import com.entre.gethub.R
-
+import com.entre.gethub.data.Result
+import com.entre.gethub.data.remote.response.CardViewersResponse
 import com.entre.gethub.databinding.FragmentAnaliticBinding
 import com.entre.gethub.ui.adapter.AnaliticGethubDilihatAdapter
-import com.entre.gethub.ui.project.ProjectViewModel
 import com.entre.gethub.utils.ViewModelFactory
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.data.Entry
@@ -33,22 +29,23 @@ class AnaliticFragment : Fragment() {
     private var _binding: FragmentAnaliticBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var adapter: AnaliticGethubDilihatAdapter
+    private val viewersList = mutableListOf<CardViewersResponse.DataItem>()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         _binding = FragmentAnaliticBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-
-
         setupRecyclerViewAnaliticGethubDilihat()
-
         setupLineChart() // Memanggil fungsi untuk mengatur grafik garis
 
         getAnaliticTotal()
+        getCardViewers()
+
         return root
     }
 
@@ -57,18 +54,23 @@ class AnaliticFragment : Fragment() {
         _binding = null
     }
 
-
     private fun getAnaliticTotal() {
-        analiticViewModel.getAnaliticTotal().observe(viewLifecycleOwner, { result ->
+        analiticViewModel.getAnaliticTotal().observe(viewLifecycleOwner) { result ->
             when (result) {
                 is Result.Empty -> {
-
+                    showLoadingCardViewer(false)
+                    showLoadingWebViewer(false)
+                    showLoadingPartner(false)
                 }
                 is Result.Loading -> {
-
+                    showLoadingCardViewer(true)
+                    showLoadingWebViewer(true)
+                    showLoadingPartner(true)
                 }
-
                 is Result.Success -> {
+                    showLoadingCardViewer(false)
+                    showLoadingWebViewer(false)
+                    showLoadingPartner(false)
                     // Handle successful result
                     val analiticTotalResponse = result.data
                     // Bind the data to views
@@ -78,51 +80,68 @@ class AnaliticFragment : Fragment() {
                         binding.jumlahpartner.text = data.totalPartner.toString()
                     }
                 }
-
                 is Result.Error -> {
+                    showLoadingCardViewer(false)
+                    showLoadingWebViewer(false)
+                    showLoadingPartner(false)
                     // Handle error
                     Toast.makeText(requireContext(), result.error, Toast.LENGTH_SHORT).show()
                 }
-
                 else -> {
-
+                    // Handle other states
                 }
-            }
-        })
-    }
-
-    private fun setupRecyclerViewAnaliticGethubDilihat() {
-        binding.recyclerViewGethubDilihat.apply {
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            adapter = AnaliticGethubDilihatAdapter(createAnaliticGetHubDilihatList()) { analiticgethubdilihat, position ->
-                Toast.makeText(
-                    this@AnaliticFragment.requireContext(), // Gunakan requireContext() untuk mendapatkan Context yang benar
-                    "Clicked on actor: ${analiticgethubdilihat.profilename}",
-                    Toast.LENGTH_SHORT
-                ).show()
             }
         }
     }
 
-    private fun createAnaliticGetHubDilihatList(): ArrayList<AnaliticGetHubDilihat> {
-        return arrayListOf<AnaliticGetHubDilihat>(
-            AnaliticGetHubDilihat(
-                "Budi Santoso",
-                R.drawable.profilepic1,
-                "Software Enginer"
-            ),
-            AnaliticGetHubDilihat(
-                "Budi Santoso",
-                R.drawable.profilepic1,
-                "Software Enginer"
-            ),
-            AnaliticGetHubDilihat(
-                "Budi Santoso",
-                R.drawable.profilepic1,
-                "Software Enginer"
-            )
-        )
+    private fun getCardViewers() {
+        analiticViewModel.getCardViewers().observe(viewLifecycleOwner) { result ->
+            when (result) {
+                is Result.Empty -> {
+                    showLoadingGethubKamuDilihat(false)
+                    showEmptyGethubKamuDilihat(true, result.emptyError)
+                }
+                is Result.Loading -> {
+                    showLoadingGethubKamuDilihat(true)
+                }
+                is Result.Success -> {
+                    showLoadingGethubKamuDilihat(false)
+                    // Handle successful result
+                    val cardViewersResponse = result.data
+                    // Update RecyclerView with data from API
+                    cardViewersResponse.data?.let { dataItems ->
+                        viewersList.clear()
+                        viewersList.addAll(dataItems)
+                        adapter.notifyDataSetChanged()
+                    }
+                }
+                is Result.Error -> {
+                    showLoadingGethubKamuDilihat(false)
+                    // Handle error
+                    Toast.makeText(requireContext(), result.error, Toast.LENGTH_SHORT).show()
+                }
+                else -> {
+                    // Handle other states
+                }
+            }
+        }
     }
+
+
+    private fun setupRecyclerViewAnaliticGethubDilihat() {
+        adapter = AnaliticGethubDilihatAdapter(viewersList) { viewer, position ->
+            Toast.makeText(
+                this@AnaliticFragment.requireContext(),
+                "Clicked on viewer: ${viewer.fullName}",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+        binding.recyclerViewGethubDilihat.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            adapter = this@AnaliticFragment.adapter
+        }
+    }
+
     private fun setupLineChart() {
         val entries = ArrayList<Entry>()
         entries.add(Entry(1f, 10f))
@@ -133,20 +152,17 @@ class AnaliticFragment : Fragment() {
         entries.add(Entry(6f, 5f))
         entries.add(Entry(7f, 3f))
 
-
-
-
         val vl = LineDataSet(entries, "Views")
         vl.setDrawValues(false)
         vl.setDrawFilled(true)
         vl.lineWidth = 3f
         vl.fillColor = ContextCompat.getColor(requireContext(), R.color.teal)
-        vl.fillAlpha = 255 // Mengatur alpha ke 255 (tidak memerlukan resource color)
+        vl.fillAlpha = 255
 
         binding.lineChart.xAxis.labelRotationAngle = 0f
         binding.lineChart.data = LineData(vl)
         binding.lineChart.axisRight.isEnabled = false
-        binding.lineChart.xAxis.axisMaximum = 7f // Mengatur maksimum sumbu x ke 8
+        binding.lineChart.xAxis.axisMaximum = 7f
 
         binding.lineChart.setTouchEnabled(true)
         binding.lineChart.setPinchZoom(true)
@@ -158,4 +174,20 @@ class AnaliticFragment : Fragment() {
         binding.lineChart.marker = markerView
     }
 
+    private fun showLoadingGethubKamuDilihat(isLoading: Boolean) {
+        binding.progressBarOnGethubKamuDilihat.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    private fun showLoadingCardViewer(isLoading: Boolean) {
+        binding.progressBarOnCardViewer.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+    private fun showLoadingWebViewer(isLoading: Boolean) {
+        binding.progressBarOnWebViewer.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+    private fun showLoadingPartner(isLoading: Boolean) {
+        binding.progressBarOnPartner.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+    private fun showEmptyGethubKamuDilihat(isEmpty: Boolean, message: String) {
+        binding.tvEmptyGethubKamuDilihat.visibility = if (isEmpty) View.VISIBLE else View.GONE
+    }
 }
