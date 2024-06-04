@@ -17,21 +17,6 @@ data class PostedProjectDetailResponse(
     val message: String? = null
 ) {
 
-    data class OwnerProject(
-
-        @field:SerializedName("profession")
-        val profession: String? = null,
-
-        @field:SerializedName("full_name")
-        val fullName: String? = null,
-
-        @field:SerializedName("photo")
-        val photo: String? = null,
-
-        @field:SerializedName("username")
-        val username: String? = null
-    )
-
     data class UsersBidItem(
 
         @field:SerializedName("profession")
@@ -39,6 +24,12 @@ data class PostedProjectDetailResponse(
 
         @field:SerializedName("full_name")
         val fullName: String? = null,
+
+        @field:SerializedName("sentiment_owner_analisis")
+        val sentimentOwnerAnalisis: Any? = null,
+
+        @field:SerializedName("sentiment_freelance_analisis")
+        val sentimentFreelanceAnalisis: String? = null,
 
         @field:SerializedName("is_selected")
         val isSelected: Boolean? = null,
@@ -59,10 +50,16 @@ data class PostedProjectDetailResponse(
         val username: String? = null
     )
 
+    data class Category(
+
+        @field:SerializedName("name")
+        val name: String? = null
+    )
+
     data class Data(
 
         @field:SerializedName("fee_freelance_transaction_value")
-        val feeFreelanceTransactionValue: Any? = null,
+        val feeFreelanceTransactionValue: Int? = null,
 
         @field:SerializedName("owner_id")
         val ownerId: String? = null,
@@ -71,7 +68,7 @@ data class PostedProjectDetailResponse(
         val description: String? = null,
 
         @field:SerializedName("fee_owner_transaction_persen")
-        val feeOwnerTransactionPersen: Any? = null,
+        val feeOwnerTransactionPersen: Int? = null,
 
         @field:SerializedName("max_budget")
         val maxBudget: Int? = null,
@@ -95,7 +92,7 @@ data class PostedProjectDetailResponse(
         val statusPayment: String? = null,
 
         @field:SerializedName("fee_owner_transaction_value")
-        val feeOwnerTransactionValue: Any? = null,
+        val feeOwnerTransactionValue: Int? = null,
 
         @field:SerializedName("status_project")
         val statusProject: String? = null,
@@ -104,7 +101,7 @@ data class PostedProjectDetailResponse(
         val categoryId: String? = null,
 
         @field:SerializedName("fee_freelance_transaction_persen")
-        val feeFreelanceTransactionPersen: Any? = null,
+        val feeFreelanceTransactionPersen: Int? = null,
 
         @field:SerializedName("id")
         val id: String? = null,
@@ -143,10 +140,24 @@ data class PostedProjectDetailResponse(
         val category: Category? = null
     )
 
-    data class Category(
+    data class OwnerProject(
 
-        @field:SerializedName("name")
-        val name: String? = null
+        @field:SerializedName("profession")
+        val profession: String? = null,
+
+        @field:SerializedName("full_name")
+        val fullName: String? = null,
+
+        @field:SerializedName("sentiment_owner_analisis")
+        val sentimentOwnerAnalisis: Any? = null,
+
+        @field:SerializedName("sentiment_freelance_analisis")
+        val sentimentFreelanceAnalisis: String? = null,
+
+        @field:SerializedName("photo")
+        val photo: String? = null,
+
+        @field:SerializedName("username")
+        val username: String? = null
     )
-
 }

@@ -7,13 +7,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.entre.gethub.data.Result
 import com.entre.gethub.data.remote.response.ApiResponse
-import com.entre.gethub.data.remote.response.LinkResponse
 import com.entre.gethub.data.remote.response.ThemeHubResponse
 import com.entre.gethub.data.remote.response.profiles.UserProfileResponse
-import com.entre.gethub.data.repositories.CariTalentRepository
 import com.entre.gethub.data.repositories.ProfileRepository
 import com.entre.gethub.data.repositories.ThemeHubRepository
-import com.entre.gethub.di.Injection // Import your Injection class
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
 import retrofit2.HttpException

@@ -107,7 +107,7 @@ data class ProjectDetailResponse(
         val category: Category? = null,
 
         @field:SerializedName("project_tasks")
-        val projectTasks: List<Any?>? = null
+        val projectTasks: List<Any>
     )
 
     data class OwnerProject(
