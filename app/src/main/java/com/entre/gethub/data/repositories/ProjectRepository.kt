@@ -5,6 +5,7 @@ import com.entre.gethub.data.remote.response.projects.AcceptedProjectBidResponse
 import com.entre.gethub.data.remote.response.projects.AddProjectMilestoneResponse
 import com.entre.gethub.data.remote.response.projects.AllProjectMilestoneResponse
 import com.entre.gethub.data.remote.response.projects.MyProjectBidResponse
+import com.entre.gethub.data.remote.response.projects.PaymentResponse
 import com.entre.gethub.data.remote.response.projects.PostProjectResponse
 import com.entre.gethub.data.remote.response.projects.PostedProjectDetailResponse
 import com.entre.gethub.data.remote.response.projects.PostedProjectResponse
@@ -95,6 +96,10 @@ class ProjectRepository private constructor(private val apiService: ApiService) 
 
     suspend fun getSettlement(projectId: String): SettlementResponse {
         return apiService.getSettlements(projectId)
+    }
+
+    suspend fun generatePaymentToken(projectId: String): PaymentResponse {
+        return apiService.generatePaymentToken(projectId)
     }
 
     companion object {

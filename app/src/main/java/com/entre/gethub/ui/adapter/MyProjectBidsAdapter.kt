@@ -51,7 +51,7 @@ class MyProjectBidsAdapter(
                     .placeholder(R.drawable.profilepic2)
                     .into(ivProjectOwnerPic)
                 tvProjectOwnerName.text = userBid.project.ownerProject?.fullName
-                tvProjectOwnerProfession.text = userBid.project.ownerProject?.fullName
+                tvProjectOwnerProfession.text = userBid.project.ownerProject?.profession
 
                 // Project Data
                 tvProjectTitle.text = userBid.project.title

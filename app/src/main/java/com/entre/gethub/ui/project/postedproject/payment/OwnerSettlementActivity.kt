@@ -34,8 +34,7 @@ class OwnerSettlementActivity : AppCompatActivity() {
         getSettlement(projectId)
 
         binding.btnPay.setOnClickListener {
-            val intent = Intent(this, OwnerPaymentWebViewActivity::class.java)
-            startActivity(intent)
+            generatePaymentToken(projectId)
         }
     }
 
@@ -56,6 +55,35 @@ class OwnerSettlementActivity : AppCompatActivity() {
                             tvServices.text = serviceFee
                             tvTotal.text = total
                         }
+                    }
+
+                    is Result.Error -> {
+                        showLoading(false)
+                        showToast(result.error)
+                    }
+
+                    else -> {
+                        //
+                    }
+                }
+            }
+        }
+    }
+
+    private fun generatePaymentToken(projectId: String) {
+        ownerSettlementViewModel.generatePaymentToken(projectId).observe(this) { result ->
+            if (result != null) {
+                when (result) {
+                    is Result.Loading -> showLoading(true)
+                    is Result.Success -> {
+                        showLoading(false)
+                        val intent = Intent(this, OwnerPaymentWebViewActivity::class.java).apply {
+                            putExtra(
+                                OwnerPaymentWebViewActivity.EXTRA_REDIRECT_URL,
+                                result.data.data.redirectUrl
+                            )
+                        }
+                        startActivity(intent)
                     }
 
                     is Result.Error -> {

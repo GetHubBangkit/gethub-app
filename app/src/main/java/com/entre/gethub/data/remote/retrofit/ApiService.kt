@@ -25,6 +25,7 @@ import com.entre.gethub.data.remote.response.projects.AcceptedProjectBidResponse
 import com.entre.gethub.data.remote.response.projects.AddProjectMilestoneResponse
 import com.entre.gethub.data.remote.response.projects.AllProjectMilestoneResponse
 import com.entre.gethub.data.remote.response.projects.MyProjectBidResponse
+import com.entre.gethub.data.remote.response.projects.PaymentResponse
 import com.entre.gethub.data.remote.response.projects.PostProjectResponse
 import com.entre.gethub.data.remote.response.projects.PostedProjectDetailResponse
 import com.entre.gethub.data.remote.response.projects.PostedProjectResponse
@@ -258,6 +259,11 @@ interface ApiService {
     suspend fun getSettlements(
         @Path("id") projectId: String,
     ): SettlementResponse
+
+    @POST("projects/{id}/payments")
+    suspend fun generatePaymentToken(
+        @Path("id") projectId: String,
+    ): PaymentResponse
     // Projects
 
     // Verify Email

@@ -16,15 +16,17 @@ import com.entre.gethub.databinding.ActivityOwnerPaymentWebViewBinding
 class OwnerPaymentWebViewActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityOwnerPaymentWebViewBinding.inflate(layoutInflater) }
+    private var redirectUrl: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        setupView()
+        redirectUrl = intent.getStringExtra(EXTRA_REDIRECT_URL).toString()
+        setupView(redirectUrl)
     }
 
     @SuppressLint("SetJavaScriptEnabled")
-    private fun setupView() {
+    private fun setupView(redirectUrl: String) {
         with(binding) {
             wvPayment.apply {
                 settings.javaScriptEnabled = true
@@ -39,12 +41,16 @@ class OwnerPaymentWebViewActivity : AppCompatActivity() {
                         showLoading(false)
                     }
                 }
-                loadUrl("https://google.com")
+                loadUrl(redirectUrl)
             }
         }
     }
 
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    companion object {
+        const val EXTRA_REDIRECT_URL = "extra_redirect_url"
     }
 }

@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.entre.gethub.data.preferences.UserPreferences
-import com.entre.gethub.data.remote.retrofit.ApiMLService
 import com.entre.gethub.data.repositories.AnaliticTotalRepository
 import com.entre.gethub.data.repositories.AuthRepository
 import com.entre.gethub.data.repositories.CariTalentRepository
@@ -57,7 +56,6 @@ import com.entre.gethub.ui.project.bidproject.BidProjectStatusViewModel
 import com.entre.gethub.ui.project.postedproject.PostedProjectStatusDetailViewModel
 import com.entre.gethub.ui.project.postedproject.PostedProjectStatusViewModel
 import com.entre.gethub.ui.project.postedproject.payment.OwnerSettlementViewModel
-import com.entre.gethub.ui.project.postproject.PostProjectActivity
 import com.entre.gethub.ui.project.postproject.PostProjectViewModel
 import com.entre.gethub.ui.project.postproject.milestone.ProjectMilestoneFormViewModel
 import com.entre.gethub.ui.project.postproject.milestone.ProjectMilestoneViewModel
