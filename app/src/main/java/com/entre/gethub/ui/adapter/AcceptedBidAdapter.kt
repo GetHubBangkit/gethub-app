@@ -11,7 +11,7 @@ import com.entre.gethub.utils.Formatter
 
 class AcceptedBidAdapter(
     private val acceptedProjectList: List<AcceptedProjectBidResponse.DataItem>,
-    private val chatButtonListener: () -> Unit,
+    private val chatButtonListener: (project: AcceptedProjectBidResponse.DataItem) -> Unit,
 ) : RecyclerView.Adapter<AcceptedBidAdapter.ViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -26,7 +26,8 @@ class AcceptedBidAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindItem(acceptedProjectList[position], chatButtonListener)
+        holder.bindItem(
+            acceptedProjectList[position], chatButtonListener)
     }
 
     override fun getItemCount(): Int = acceptedProjectList.size
@@ -36,7 +37,7 @@ class AcceptedBidAdapter(
 
         fun bindItem(
             projectBid: AcceptedProjectBidResponse.DataItem,
-            chatButtonListener: () -> Unit
+            chatButtonListener: (project: AcceptedProjectBidResponse.DataItem) -> Unit
         ) {
             with(binding) {
                 val acceptedBudget = Formatter.formatRupiah(projectBid.budgetBid ?: 0)
@@ -55,7 +56,7 @@ class AcceptedBidAdapter(
                 tvProjectAmount.text = acceptedBudget
 
                 cvChat.setOnClickListener {
-                    chatButtonListener
+                    chatButtonListener(projectBid)
                 }
             }
         }

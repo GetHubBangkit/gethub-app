@@ -74,10 +74,18 @@ class AcceptedBidProjectActivity : AppCompatActivity() {
                 false
             )
 
-            adapter = AcceptedBidAdapter(acceptedProjectList) {
-                val intent = Intent(this@AcceptedBidProjectActivity, ChatActivity::class.java)
-                startActivity(intent)
-            }
+            adapter = AcceptedBidAdapter(acceptedProjectList, chatButtonListener = { data ->
+                run {
+                    val intent =
+                        Intent(this@AcceptedBidProjectActivity, ChatActivity::class.java).apply {
+                            putExtra(ChatActivity.EXTRA_OWNER_ID, data.project.ownerId)
+                            putExtra(ChatActivity.EXTRA_FREELANCER_ID, data.userId)
+                            putExtra(ChatActivity.EXTRA_CHANNEL_ID, data.project.chatroomId)
+                        }
+                    startActivity(intent)
+                }
+
+            })
         }
     }
 
