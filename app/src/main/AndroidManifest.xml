@@ -26,6 +26,12 @@
         android:theme="@style/Theme.GetHub"
         tools:targetApi="31">
         <activity
+            android:name=".ui.project.postedproject.payment.OwnerPaymentWebViewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.project.postedproject.payment.OwnerSettlementActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.project.chat.ChatActivity"
             android:exported="false" />
         <activity

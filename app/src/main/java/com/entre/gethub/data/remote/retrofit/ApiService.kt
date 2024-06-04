@@ -25,6 +25,7 @@ import com.entre.gethub.data.remote.response.projects.AcceptedProjectBidResponse
 import com.entre.gethub.data.remote.response.projects.AddProjectMilestoneResponse
 import com.entre.gethub.data.remote.response.projects.AllProjectMilestoneResponse
 import com.entre.gethub.data.remote.response.projects.MyProjectBidResponse
+import com.entre.gethub.data.remote.response.projects.PaymentResponse
 import com.entre.gethub.data.remote.response.projects.PostProjectResponse
 import com.entre.gethub.data.remote.response.projects.PostedProjectDetailResponse
 import com.entre.gethub.data.remote.response.projects.PostedProjectResponse
@@ -32,6 +33,7 @@ import com.entre.gethub.data.remote.response.projects.ProjectDetailResponse
 import com.entre.gethub.data.remote.response.projects.ProjectResponse
 import com.entre.gethub.data.remote.response.projects.ProjectStatsResponse
 import com.entre.gethub.data.remote.response.projects.SearchProjectResponse
+import com.entre.gethub.data.remote.response.projects.SettlementResponse
 import okhttp3.MultipartBody
 import retrofit2.http.DELETE
 import retrofit2.http.Field
@@ -252,6 +254,16 @@ interface ApiService {
     suspend fun getMilestone(
         @Path("id") projectId: String,
     ): AllProjectMilestoneResponse
+
+    @GET("projects/{id}/settlements")
+    suspend fun getSettlements(
+        @Path("id") projectId: String,
+    ): SettlementResponse
+
+    @POST("projects/{id}/payments")
+    suspend fun generatePaymentToken(
+        @Path("id") projectId: String,
+    ): PaymentResponse
     // Projects
 
     // Verify Email

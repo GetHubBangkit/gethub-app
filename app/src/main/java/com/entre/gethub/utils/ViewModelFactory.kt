@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.entre.gethub.data.preferences.UserPreferences
-import com.entre.gethub.data.remote.retrofit.ApiMLService
 import com.entre.gethub.data.repositories.AnaliticTotalRepository
 import com.entre.gethub.data.repositories.AuthRepository
 import com.entre.gethub.data.repositories.CariTalentRepository
@@ -56,7 +55,7 @@ import com.entre.gethub.ui.project.bidproject.BidProjectStatusDetailViewModel
 import com.entre.gethub.ui.project.bidproject.BidProjectStatusViewModel
 import com.entre.gethub.ui.project.postedproject.PostedProjectStatusDetailViewModel
 import com.entre.gethub.ui.project.postedproject.PostedProjectStatusViewModel
-import com.entre.gethub.ui.project.postproject.PostProjectActivity
+import com.entre.gethub.ui.project.postedproject.payment.OwnerSettlementViewModel
 import com.entre.gethub.ui.project.postproject.PostProjectViewModel
 import com.entre.gethub.ui.project.postproject.milestone.ProjectMilestoneFormViewModel
 import com.entre.gethub.ui.project.postproject.milestone.ProjectMilestoneViewModel
@@ -94,7 +93,11 @@ class ViewModelFactory private constructor(
             SplashViewModel::class.java -> SplashViewModel(userPreferences) as T
             LoginViewModel::class.java -> LoginViewModel(authRepository, userPreferences) as T
             RegisterViewModel::class.java -> RegisterViewModel(authRepository) as T
-            HomeViewModel::class.java -> HomeViewModel(informationHubRepository, newPartnerRepository) as T
+            HomeViewModel::class.java -> HomeViewModel(
+                informationHubRepository,
+                newPartnerRepository
+            ) as T
+
             CompleteProfileViewModel::class.java -> CompleteProfileViewModel(profileRepository) as T
             CompleteProfileValidationViewModel::class.java -> CompleteProfileValidationViewModel(
                 profileRepository, scanCardRepository
@@ -182,7 +185,10 @@ class ViewModelFactory private constructor(
                 projectRepository
             ) as T
 
-            ProjectViewModel::class.java -> ProjectViewModel(projectRepository, topTalentRepository) as T
+            ProjectViewModel::class.java -> ProjectViewModel(
+                projectRepository,
+                topTalentRepository
+            ) as T
 
             PostProjectViewModel::class.java -> PostProjectViewModel(
                 categoryRepository,
@@ -196,6 +202,7 @@ class ViewModelFactory private constructor(
             PostedProjectStatusDetailViewModel::class.java -> PostedProjectStatusDetailViewModel(
                 projectRepository
             ) as T
+
             HomeKelolaMyGethubGantiDesignViewModel::class.java -> HomeKelolaMyGethubGantiDesignViewModel(
                 profileRepository, themeHubRepository
             ) as T
@@ -213,6 +220,8 @@ class ViewModelFactory private constructor(
             HomeMilestoneProjectBidsViewModel::class.java -> HomeMilestoneProjectBidsViewModel(
                 projectRepository
             ) as T
+
+            OwnerSettlementViewModel::class.java -> OwnerSettlementViewModel(projectRepository) as T
 
             AnaliticViewModel::class.java -> AnaliticViewModel(
                 analiticTotalRepository

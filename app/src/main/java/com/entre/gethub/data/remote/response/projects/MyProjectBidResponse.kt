@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class MyProjectBidResponse(
 
     @field:SerializedName("data")
-    val data: Data? = null,
+    val data: Data,
 
     @field:SerializedName("success")
     val success: Boolean? = null,
@@ -17,7 +17,40 @@ data class MyProjectBidResponse(
     val message: String? = null
 ) {
 
+    data class UsersBidItem(
+
+        @field:SerializedName("createdAt")
+        val createdAt: String? = null,
+
+        @field:SerializedName("project_id")
+        val projectId: String? = null,
+
+        @field:SerializedName("user_id")
+        val userId: String? = null,
+
+        @field:SerializedName("is_selected")
+        val isSelected: Boolean? = null,
+
+        @field:SerializedName("budget_bid")
+        val budgetBid: Int? = null,
+
+        @field:SerializedName("project")
+        val project: Project? = null,
+
+        @field:SerializedName("id")
+        val id: String? = null,
+
+        @field:SerializedName("message")
+        val message: String? = null,
+
+        @field:SerializedName("updatedAt")
+        val updatedAt: String? = null
+    )
+
     data class OwnerProject(
+
+        @field:SerializedName("profession")
+        val profession: String? = null,
 
         @field:SerializedName("full_name")
         val fullName: String? = null,
@@ -32,10 +65,22 @@ data class MyProjectBidResponse(
         val username: String? = null
     )
 
+    data class ProjectTasksItem(
+
+        @field:SerializedName("task_description")
+        val taskDescription: String? = null,
+
+        @field:SerializedName("task_status")
+        val taskStatus: String? = null,
+
+        @field:SerializedName("task_number")
+        val taskNumber: Int? = null
+    )
+
     data class Project(
 
         @field:SerializedName("fee_freelance_transaction_value")
-        val feeFreelanceTransactionValue: Any? = null,
+        val feeFreelanceTransactionValue: Int? = null,
 
         @field:SerializedName("owner_id")
         val ownerId: String? = null,
@@ -44,13 +89,13 @@ data class MyProjectBidResponse(
         val description: String? = null,
 
         @field:SerializedName("fee_owner_transaction_persen")
-        val feeOwnerTransactionPersen: Any? = null,
+        val feeOwnerTransactionPersen: Int? = null,
 
         @field:SerializedName("max_budget")
         val maxBudget: Int? = null,
 
         @field:SerializedName("users_bid")
-        val usersBid: List<UsersBidItem?>? = null,
+        val usersBid: List<UsersBidItem>,
 
         @field:SerializedName("title")
         val title: String? = null,
@@ -68,7 +113,7 @@ data class MyProjectBidResponse(
         val statusPayment: String? = null,
 
         @field:SerializedName("fee_owner_transaction_value")
-        val feeOwnerTransactionValue: Any? = null,
+        val feeOwnerTransactionValue: Int? = null,
 
         @field:SerializedName("status_project")
         val statusProject: String? = null,
@@ -77,7 +122,7 @@ data class MyProjectBidResponse(
         val categoryId: String? = null,
 
         @field:SerializedName("fee_freelance_transaction_persen")
-        val feeFreelanceTransactionPersen: Any? = null,
+        val feeFreelanceTransactionPersen: Int? = null,
 
         @field:SerializedName("id")
         val id: String? = null,
@@ -113,7 +158,7 @@ data class MyProjectBidResponse(
         val createdDate: String? = null,
 
         @field:SerializedName("project_tasks")
-        val projectTasks: List<Any?>? = null
+        val projectTasks: List<ProjectTasksItem?>? = null
     )
 
     data class Data(
@@ -124,35 +169,5 @@ data class MyProjectBidResponse(
         @field:SerializedName("total_users_bids")
         val totalUsersBids: Int? = null
     )
-
-    data class UsersBidItem(
-
-        @field:SerializedName("createdAt")
-        val createdAt: String? = null,
-
-        @field:SerializedName("project_id")
-        val projectId: String? = null,
-
-        @field:SerializedName("user_id")
-        val userId: String? = null,
-
-        @field:SerializedName("is_selected")
-        val isSelected: Boolean? = null,
-
-        @field:SerializedName("budget_bid")
-        val budgetBid: Int? = null,
-
-        @field:SerializedName("project")
-        val project: Project? = null,
-
-        @field:SerializedName("id")
-        val id: String? = null,
-
-        @field:SerializedName("message")
-        val message: String? = null,
-
-        @field:SerializedName("updatedAt")
-        val updatedAt: String? = null
-    )
-
 }
+
