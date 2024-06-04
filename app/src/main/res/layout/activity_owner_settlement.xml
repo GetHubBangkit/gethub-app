@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.project.postedproject.payment.OwnerPaymentActivity">
+    tools:context=".ui.project.postedproject.payment.OwnerSettlementActivity">
 
     <ImageView
         android:id="@+id/frame"
@@ -92,6 +92,7 @@
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/tvDeposit"
                     style="@style/Nunito.Bold"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -117,6 +118,7 @@
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/tvServices"
                     style="@style/Nunito.Bold"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -142,6 +144,7 @@
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/tvTotal"
                     style="@style/Nunito.Bold"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -167,5 +170,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cvInvoice" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:elevation="10dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/cvInvoice"
+        app:layout_constraintEnd_toEndOf="@id/cvInvoice"
+        app:layout_constraintStart_toStartOf="@id/cvInvoice"
+        app:layout_constraintTop_toTopOf="@id/cvInvoice"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

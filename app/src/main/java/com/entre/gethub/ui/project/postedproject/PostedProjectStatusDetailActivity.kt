@@ -1,6 +1,7 @@
 package com.entre.gethub.ui.project.postedproject
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -13,6 +14,7 @@ import com.entre.gethub.data.Result
 import com.entre.gethub.data.remote.response.projects.PostedProjectDetailResponse
 import com.entre.gethub.databinding.ActivityPostedProjectStatusDetailBinding
 import com.entre.gethub.ui.adapter.SelectUserBiddingAdapter
+import com.entre.gethub.ui.project.postedproject.payment.OwnerSettlementActivity
 import com.entre.gethub.utils.Formatter
 import com.entre.gethub.utils.ViewModelFactory
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -25,16 +27,15 @@ class PostedProjectStatusDetailActivity : AppCompatActivity() {
             this
         )
     }
-    private var projectIdOnResume: String = ""
+    private var projectId: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        val projectId = intent.getStringExtra(EXTRA_PROJECT_ID)
+        projectId = intent.getStringExtra(EXTRA_PROJECT_ID).toString()
 
         projectId?.let {
-            projectIdOnResume = it
             getPostedProjectDetail(it)
         }
 
@@ -125,7 +126,10 @@ class PostedProjectStatusDetailActivity : AppCompatActivity() {
                         is Result.Loading -> showLoading(true)
                         is Result.Success -> {
                             showLoading(false)
-                            getPostedProjectDetail(projectId)
+                            val intent = Intent(this, OwnerSettlementActivity::class.java).apply {
+                                putExtra(OwnerSettlementActivity.EXTRA_PROJECT_ID, projectId)
+                            }
+                            startActivity(intent)
                         }
 
                         is Result.Error -> {

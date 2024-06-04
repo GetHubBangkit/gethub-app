@@ -12,6 +12,7 @@ import com.entre.gethub.data.remote.response.projects.ProjectDetailResponse
 import com.entre.gethub.data.remote.response.projects.ProjectResponse
 import com.entre.gethub.data.remote.response.projects.ProjectStatsResponse
 import com.entre.gethub.data.remote.response.projects.SearchProjectResponse
+import com.entre.gethub.data.remote.response.projects.SettlementResponse
 import com.entre.gethub.data.remote.retrofit.ApiService
 
 class ProjectRepository private constructor(private val apiService: ApiService) {
@@ -90,6 +91,10 @@ class ProjectRepository private constructor(private val apiService: ApiService) 
 
     suspend fun getMilestone(projectId: String): AllProjectMilestoneResponse {
         return apiService.getMilestone(projectId)
+    }
+
+    suspend fun getSettlement(projectId: String): SettlementResponse {
+        return apiService.getSettlements(projectId)
     }
 
     companion object {

@@ -1,5 +1,6 @@
 package com.entre.gethub.ui.project.postproject.milestone
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -13,6 +14,7 @@ import com.entre.gethub.databinding.ActivityProjectMilestoneBinding
 import com.entre.gethub.ui.adapter.ProjectMilestoneAdapter
 import com.entre.gethub.ui.project.postedproject.PostedProjectStatusActivity
 import com.entre.gethub.utils.ViewModelFactory
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class ProjectMilestoneActivity : AppCompatActivity() {
 
@@ -41,6 +43,15 @@ class ProjectMilestoneActivity : AppCompatActivity() {
         }
 
         binding.btnSimpan.setOnClickListener {
+            if (milestoneListLength == 0) {
+                showDialog(
+                    this,
+                    "Belum menambahkan milestone",
+                    "Anda harus menambahkan project milestone untuk melanjutkan pembuatan project"
+                )
+                return@setOnClickListener
+            }
+
             val intent = Intent(this, PostedProjectStatusActivity::class.java).apply {
                 putExtra(PostedProjectStatusActivity.EXTRA_ID_FROM_POST_PROJECT_ACTIVITY, 100)
             }
@@ -90,6 +101,20 @@ class ProjectMilestoneActivity : AppCompatActivity() {
             )
             adapter = ProjectMilestoneAdapter(projectMilestoneList)
         }
+    }
+
+    private fun showDialog(
+        context: Context,
+        title: String,
+        message: String,
+    ) {
+        MaterialAlertDialogBuilder(context)
+            .setTitle(title)
+            .setMessage(message)
+            .setPositiveButton("OK") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
     }
 
     private fun showToast(message: String) {

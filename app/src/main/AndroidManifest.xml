@@ -29,7 +29,7 @@
             android:name=".ui.project.postedproject.payment.OwnerPaymentWebViewActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.project.postedproject.payment.OwnerPaymentActivity"
+            android:name=".ui.project.postedproject.payment.OwnerSettlementActivity"
             android:exported="false" />
         <activity
             android:name=".ui.project.chat.ChatActivity"

@@ -32,6 +32,7 @@ import com.entre.gethub.data.remote.response.projects.ProjectDetailResponse
 import com.entre.gethub.data.remote.response.projects.ProjectResponse
 import com.entre.gethub.data.remote.response.projects.ProjectStatsResponse
 import com.entre.gethub.data.remote.response.projects.SearchProjectResponse
+import com.entre.gethub.data.remote.response.projects.SettlementResponse
 import okhttp3.MultipartBody
 import retrofit2.http.DELETE
 import retrofit2.http.Field
@@ -252,6 +253,11 @@ interface ApiService {
     suspend fun getMilestone(
         @Path("id") projectId: String,
     ): AllProjectMilestoneResponse
+
+    @GET("projects/{id}/settlements")
+    suspend fun getSettlements(
+        @Path("id") projectId: String,
+    ): SettlementResponse
     // Projects
 
     // Verify Email
