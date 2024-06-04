@@ -2,6 +2,7 @@ package com.entre.gethub.data.remote.retrofit
 
 import com.entre.gethub.data.remote.response.AnaliticTotalResponse
 import com.entre.gethub.data.remote.response.ApiResponse
+import com.entre.gethub.data.remote.response.CardViewersResponse
 import com.entre.gethub.data.remote.response.CategoriesResponse
 import com.entre.gethub.data.remote.response.InformationHubResponse
 import com.entre.gethub.data.remote.response.LinkResponse
@@ -317,4 +318,7 @@ interface ApiService {
 
     @GET("new_partner")
     suspend fun getNewPartner(): NewPartnerResponse
+
+    @GET("card_viewers")
+    suspend fun getCardViewers(): CardViewersResponse
 }
