@@ -7,6 +7,7 @@ import com.entre.gethub.data.remote.response.CategoriesResponse
 import com.entre.gethub.data.remote.response.InformationHubResponse
 import com.entre.gethub.data.remote.response.LinkResponse
 import com.entre.gethub.data.remote.response.NewPartnerResponse
+import com.entre.gethub.data.remote.response.PostCardViewersResponse
 import com.entre.gethub.data.remote.response.SearchingPartnerResponse
 import com.entre.gethub.data.remote.response.SponsorResponse
 import com.entre.gethub.data.remote.response.ThemeHubResponse
@@ -321,4 +322,11 @@ interface ApiService {
 
     @GET("card_viewers")
     suspend fun getCardViewers(): CardViewersResponse
+
+    // POST Card Viewer
+    @FormUrlEncoded
+    @POST("post/card_viewers")
+    suspend fun postCardViewers(
+        @Field("username") username: String
+    ): PostCardViewersResponse
 }
