@@ -92,7 +92,7 @@ class HomeKelolaMyGethubEditTentangSayaActivity : AppCompatActivity() {
                     website,
                     alamat,
                     about,
-                    imageUrl
+                    imageUrl // Use existing imageUrl if no new image is uploaded
                 )
 
                 updateUserProfile(updateUserProfileParams)
@@ -170,6 +170,7 @@ class HomeKelolaMyGethubEditTentangSayaActivity : AppCompatActivity() {
 
                             // Load the profile picture using Glide
                             userProfile?.photo?.let {
+                                imageUrl = it // Capture the existing imageUrl
                                 Glide.with(this@HomeKelolaMyGethubEditTentangSayaActivity)
                                     .load(it)
                                     .placeholder(R.drawable.profilepic1) // Add a placeholder image
