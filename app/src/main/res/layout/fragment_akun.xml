@@ -70,11 +70,10 @@
         android:layout_width="319dp"
         android:layout_height="62dp"
         android:src="@drawable/frame1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/llPremium"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.436" />
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <ImageView
         android:id="@+id/topup"
@@ -120,33 +119,36 @@
         app:layout_constraintTop_toTopOf="@+id/frame"
         app:layout_constraintVertical_bias="1.0" />
 
-    <TextView
-        android:id="@+id/expired"
-        style="@style/Nunito"
+    <LinearLayout
+        android:id="@+id/llPremium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/nunito_semibold"
-        android:text="Expired 20-05-2024"
-        android:textColor="@android:color/black"
-        android:textSize="10sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="6dp"
+        android:gravity="center"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.613"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.372" />
+        app:layout_constraintTop_toBottomOf="@id/tvUserProfession">
 
-    <ImageView
-        android:id="@+id/premium"
-        android:layout_width="72dp"
-        android:layout_height="19dp"
-        android:src="@drawable/premium"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.306"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.371" />
+        <ImageView
+            android:id="@+id/premium"
+            android:layout_width="72dp"
+            android:layout_height="19dp"
+            android:src="@drawable/premium" />
+
+        <TextView
+            android:id="@+id/expired"
+            style="@style/Nunito"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:fontFamily="@font/nunito_semibold"
+            android:text="Expired 20-05-2024"
+            android:textColor="@android:color/black"
+            android:textSize="10sp" />
+
+    </LinearLayout>
+
 
     <ImageView
         android:id="@+id/frame2"
