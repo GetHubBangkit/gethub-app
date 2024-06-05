@@ -80,7 +80,7 @@ class ProjectMilestoneActivity : AppCompatActivity() {
 
                     is Result.Error -> {
                         showLoading(false)
-                        showToast(result.error)
+//                        showToast(result.error)
                     }
 
                     is Result.Empty -> {

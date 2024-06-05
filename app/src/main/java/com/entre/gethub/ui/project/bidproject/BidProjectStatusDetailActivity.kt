@@ -6,6 +6,7 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.TextPaint
 import android.text.style.MetricAffectingSpan
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -17,6 +18,7 @@ import com.entre.gethub.R
 import com.entre.gethub.data.Result
 import com.entre.gethub.databinding.ActivityBidProjectStatusDetailBinding
 import com.entre.gethub.ui.adapter.UserProjectBiddingAdapter
+import com.entre.gethub.ui.home.projectbids.HomeDetailProjectBidsActivity
 import com.entre.gethub.ui.models.UserProjectBidding
 import com.entre.gethub.utils.Formatter
 import com.entre.gethub.utils.ViewModelFactory
@@ -81,7 +83,15 @@ class BidProjectStatusDetailActivity : AppCompatActivity() {
                                 projectBid?.totalBidders.toString()
                             tvDetailProjectTotalUserBids.text = projectBid?.totalBidders.toString()
 
-                            showOwnerSentiment(projectBid?.ownerProject?.fullName!!)
+                            Log.d(
+                                "BidProjectStatusDetailActivity",
+                                "Owner: ${projectBid.ownerProject}"
+                            )
+
+                            showOwnerSentiment(
+                                projectBid?.ownerProject?.fullName!!,
+                                projectBid?.ownerProject?.sentimentOwnerAnalisis ?: "Netral"
+                            )
                             tvDetailProjectOwnerName.text = projectBid?.ownerProject?.fullName
                             tvDetailProjectOwnerProfession.text =
                                 projectBid?.ownerProject?.profession
@@ -124,23 +134,25 @@ class BidProjectStatusDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun showOwnerSentiment(projectOwnerName: String) {
+    private fun showOwnerSentiment(projectOwnerName: String, sentiment: String?) {
         val projectOwnerSentiment = binding.tvDetailProjectOwnerSentiment
 
-        // Variabel untuk diisi sentimen analisis
-        val sentiment = "Positive" // Ganti dengan nilai yang sesuai
+        var teks =
+            "Berdasarkan history review Kusnandar sebagai pemberi project job memiliki penilaian sentimen analisis Netral"
 
         if (sentiment == "Netral") {
             binding.cvSentiment.setCardBackgroundColor(getColor(R.color.color_sentiment_neutral))
-        } else if (sentiment == "Positive") {
+            teks =
+                "Berdasarkan history review $projectOwnerName sebagai pemberi project job memiliki penilaian sentimen analisis $sentiment"
+        } else if (sentiment == "Positif") {
             binding.cvSentiment.setCardBackgroundColor(getColor(R.color.color_sentiment_positive))
+            teks =
+                "Berdasarkan history review $projectOwnerName sebagai pemberi project job memiliki penilaian sentimen analisis $sentiment. Ayo ikuti project dan selesaikan pekerjaan kamu dan berikan hasil yang maksimal"
         } else {
             binding.cvSentiment.setCardBackgroundColor(getColor(R.color.color_sentiment_negative))
+            teks =
+                "Berdasarkan history review $projectOwnerName sebagai pemberi project job memiliki penilaian sentimen analisis $sentiment, berhati-hatilah dan jangan pernah memberikan informasi pribadi apapun"
         }
-
-        // Buat teks untuk ditampilkan
-        val teks =
-            "Berdasarkan history review $projectOwnerName sebagai pemberi project job memiliki penilaian sentimen analisis $sentiment, ayo ikuti project dan selesaikan pekerjaan kamu dan berikan hasil yg maksimal"
 
         // Set teks ke TextView
         projectOwnerSentiment.text = teks
@@ -155,8 +167,9 @@ class BidProjectStatusDetailActivity : AppCompatActivity() {
             // Temukan indeks teks "name" dan "sentiment" dalam teks
             val startIndexName = teks.indexOf(projectOwnerName)
             val endIndexName = startIndexName + projectOwnerName.length
-            val startIndexSentiment = teks.indexOf(sentiment)
-            val endIndexSentiment = startIndexSentiment + sentiment.length
+            val startIndexSentiment = teks.indexOf(sentiment.toString())
+            val endIndexSentiment = startIndexSentiment + sentiment!!.length
+
 
             // Terapkan jenis font Nunito-Black ke bagian "name"
             spannableString.setSpan(

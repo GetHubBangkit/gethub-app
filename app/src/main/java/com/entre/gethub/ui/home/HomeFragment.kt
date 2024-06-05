@@ -90,7 +90,7 @@ class HomeFragment : Fragment() {
                 }
                 is Result.Error -> {
                     showLoadingInformationHub(false)
-                    Toast.makeText(requireContext(), result.error, Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(requireContext(), result.error, Toast.LENGTH_SHORT).show()
                 }
                 is Result.Loading -> {
                     showLoadingInformationHub(true)
@@ -116,7 +116,7 @@ class HomeFragment : Fragment() {
                 }
                 is Result.Error -> {
                     showLoadingNewGethubPartner(false)
-                    Toast.makeText(requireContext(), result.error, Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(requireContext(), result.error, Toast.LENGTH_SHORT).show()
                 }
                 is Result.Loading -> {
                     showLoadingNewGethubPartner(true)

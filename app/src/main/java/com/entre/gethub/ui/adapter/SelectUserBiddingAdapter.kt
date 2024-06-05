@@ -72,15 +72,12 @@ class SelectUserBiddingAdapter(
                 }
 
 
-                showUserSentiment(userBidding.fullName.toString())
+                showUserSentiment(userBidding.fullName.toString(), sentiment = userBidding.sentimentFreelanceAnalisis.toString())
             }
         }
 
-        private fun showUserSentiment(projectUserName: String) {
+        private fun showUserSentiment(projectUserName: String, sentiment: String) {
             val projectOwnerSentiment = binding.tvDetailProjectOwnerSentiment
-
-            // Variabel untuk diisi sentimen analisis
-            val sentiment = "Positive" // Ganti dengan nilai yang sesuai
 
             if (sentiment == "Netral") {
                 binding.cvSentiment.setCardBackgroundColor(
@@ -89,7 +86,7 @@ class SelectUserBiddingAdapter(
                         R.color.color_sentiment_neutral
                     )
                 )
-            } else if (sentiment == "Positive") {
+            } else if (sentiment == "Positif") {
                 binding.cvSentiment.setCardBackgroundColor(
                     getColor(
                         binding.root.context,
@@ -107,7 +104,7 @@ class SelectUserBiddingAdapter(
 
             // Buat teks untuk ditampilkan
             val teks =
-                "Berdasarkan history review $projectUserName sebagai pemberi project job memiliki penilaian sentimen analisis $sentiment, ayo ikuti project dan selesaikan pekerjaan kamu dan berikan hasil yg maksimal"
+                "Berdasarkan history review $projectUserName sebagai penerima project job memiliki penilaian sentimen analisis $sentiment"
 
             // Set teks ke TextView
             projectOwnerSentiment.text = teks

@@ -59,7 +59,7 @@ class AcceptedBidProjectActivity : AppCompatActivity() {
                     is Result.Error -> {
                         showLoading(false)
                         showEmpty(true, result.error)
-                        showToast(result.error)
+//                        showToast(result.error)
                     }
                 }
             }
@@ -74,10 +74,20 @@ class AcceptedBidProjectActivity : AppCompatActivity() {
                 false
             )
 
-            adapter = AcceptedBidAdapter(acceptedProjectList) {
-                val intent = Intent(this@AcceptedBidProjectActivity, ChatActivity::class.java)
-                startActivity(intent)
-            }
+            adapter = AcceptedBidAdapter(acceptedProjectList, chatButtonListener = { data ->
+                run {
+                    val intent =
+                        Intent(this@AcceptedBidProjectActivity, ChatActivity::class.java).apply {
+                            putExtra(ChatActivity.EXTRA_OWNER_ID, data.project.ownerId)
+                            putExtra(ChatActivity.EXTRA_FREELANCER_ID, data.userId)
+                            putExtra(ChatActivity.EXTRA_CHANNEL_ID, data.project.chatroomId)
+                            putExtra(ChatActivity.EXTRA_OWNER_NAME, data.project.ownerProject?.fullName)
+                            putExtra(ChatActivity.EXTRA_OWNER_PHOTO, data.project.ownerProject?.photo)
+                        }
+                    startActivity(intent)
+                }
+
+            })
         }
     }
 

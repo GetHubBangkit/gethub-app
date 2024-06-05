@@ -22,28 +22,31 @@ class OwnerPaymentWebViewActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         redirectUrl = intent.getStringExtra(EXTRA_REDIRECT_URL).toString()
-        setupView(redirectUrl)
+        setupWebView(redirectUrl)
+
+        binding.iconBack.setOnClickListener {
+            finish()
+        }
     }
 
     @SuppressLint("SetJavaScriptEnabled")
-    private fun setupView(redirectUrl: String) {
-        with(binding) {
-            wvPayment.apply {
-                settings.javaScriptEnabled = true
-                webViewClient = object : WebViewClient() {
-                    override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
-                        super.onPageStarted(view, url, favicon)
-                        showLoading(true)
-                    }
-
-                    override fun onPageFinished(view: WebView?, url: String?) {
-                        super.onPageFinished(view, url)
-                        showLoading(false)
-                    }
+    private fun setupWebView(redirectUrl: String) {
+        binding.wvPayment.apply {
+            settings.javaScriptEnabled = true
+            webViewClient = object : WebViewClient() {
+                override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+                    super.onPageStarted(view, url, favicon)
+                    showLoading(true)
                 }
-                loadUrl(redirectUrl)
+
+                override fun onPageFinished(view: WebView?, url: String?) {
+                    super.onPageFinished(view, url)
+                    showLoading(false)
+                }
             }
+            loadUrl(redirectUrl)
         }
+
     }
 
     private fun showLoading(isLoading: Boolean) {

@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
     id("kotlin-parcelize")
     id("com.google.devtools.ksp")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -106,5 +107,11 @@ dependencies {
 
     // scan QR
     implementation ("com.journeyapps:zxing-android-embedded:4.3.0")
+
+    // Firebase
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.firestore.ktx)
+    implementation("com.google.firebase:firebase-storage")
+    implementation(libs.firebase.ui.storage)
 
 }

@@ -102,7 +102,7 @@ class ProjectFragment : Fragment() {
                     }
                     is Result.Error -> {
                         showLoadingOnProjectBids(false)
-                        showToast(result.error)
+//                        showToast(result.error)
                     }
                     is Result.Empty -> {
                         showLoadingOnProjectBids(false)
@@ -129,7 +129,7 @@ class ProjectFragment : Fragment() {
                 }
                 is Result.Error -> {
                     showLoadingTopTalent(false)
-                    showToast(result.error)
+//                    showToast(result.error)
                 }
                 is Result.Empty -> {
                     showLoadingTopTalent(false)

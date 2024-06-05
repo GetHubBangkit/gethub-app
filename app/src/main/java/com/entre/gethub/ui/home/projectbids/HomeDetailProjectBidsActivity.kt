@@ -166,17 +166,22 @@ class HomeDetailProjectBidsActivity : AppCompatActivity() {
     private fun showOwnerSentiment(projectOwnerName: String, sentiment: String?) {
         val projectOwnerSentiment = binding.tvDetailProjectOwnerSentiment
 
+        var teks: String =
+            "Berdasarkan history review Kusnandar sebagai pemberi project job memiliki penilaian sentimen analisis Netral"
+
         if (sentiment == "Netral") {
             binding.cvSentiment.setCardBackgroundColor(getColor(R.color.color_sentiment_neutral))
+            teks =
+                "Berdasarkan history review $projectOwnerName sebagai pemberi project job memiliki penilaian sentimen analisis $sentiment"
         } else if (sentiment == "Positif") {
             binding.cvSentiment.setCardBackgroundColor(getColor(R.color.color_sentiment_positive))
+            teks =
+                "Berdasarkan history review $projectOwnerName sebagai pemberi project job memiliki penilaian sentimen analisis $sentiment. Ayo ikuti project dan selesaikan pekerjaan kamu dan berikan hasil yang maksimal"
         } else {
             binding.cvSentiment.setCardBackgroundColor(getColor(R.color.color_sentiment_negative))
+            teks =
+                "Berdasarkan history review $projectOwnerName sebagai pemberi project job memiliki penilaian sentimen analisis $sentiment, berhati-hatilah dan jangan pernah memberikan informasi pribadi apapun"
         }
-
-        // Buat teks untuk ditampilkan
-        val teks =
-            "Berdasarkan history review $projectOwnerName sebagai pemberi project job memiliki penilaian sentimen analisis $sentiment, ayo ikuti project dan selesaikan pekerjaan kamu dan berikan hasil yg maksimal"
 
         // Set teks ke TextView
         projectOwnerSentiment.text = teks

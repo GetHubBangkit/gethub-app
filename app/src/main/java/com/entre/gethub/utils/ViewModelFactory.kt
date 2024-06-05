@@ -55,6 +55,7 @@ import com.entre.gethub.ui.project.ProjectViewModel
 import com.entre.gethub.ui.project.acceptedbidproject.AcceptedBidProjectViewModel
 import com.entre.gethub.ui.project.bidproject.BidProjectStatusDetailViewModel
 import com.entre.gethub.ui.project.bidproject.BidProjectStatusViewModel
+import com.entre.gethub.ui.project.chat.ChatViewModel
 import com.entre.gethub.ui.project.postedproject.PostedProjectStatusDetailViewModel
 import com.entre.gethub.ui.project.postedproject.PostedProjectStatusViewModel
 import com.entre.gethub.ui.project.postedproject.payment.OwnerSettlementViewModel
@@ -230,6 +231,8 @@ class ViewModelFactory private constructor(
             AnaliticViewModel::class.java -> AnaliticViewModel(
                 analiticTotalRepository, cardViewersRepository
             ) as T
+
+            ChatViewModel::class.java -> ChatViewModel(profileRepository) as T
 
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }

@@ -28,6 +28,7 @@ class PostedProjectStatusDetailActivity : AppCompatActivity() {
         )
     }
     private var projectId: String = ""
+    private var projectIdOnResume: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,12 +37,18 @@ class PostedProjectStatusDetailActivity : AppCompatActivity() {
         projectId = intent.getStringExtra(EXTRA_PROJECT_ID).toString()
 
         projectId?.let {
+            projectIdOnResume = it
             getPostedProjectDetail(it)
         }
 
         binding.iconBack.setOnClickListener {
             finish()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getPostedProjectDetail(projectIdOnResume)
     }
 
     private fun getPostedProjectDetail(id: String) {
