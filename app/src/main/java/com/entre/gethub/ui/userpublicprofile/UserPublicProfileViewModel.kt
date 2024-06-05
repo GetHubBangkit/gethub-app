@@ -24,6 +24,9 @@ class UserPublicProfileViewModel(
     private val _getProductListResult = MutableLiveData<Result<List<UserPublicProfileResponse.Data.Product>>>()
     val getProductListResult: LiveData<Result<List<UserPublicProfileResponse.Data.Product>>> get() = _getProductListResult
 
+    private val _getCertificationsListResult = MutableLiveData<Result<List<UserPublicProfileResponse.Data.Certifications>>>()
+    val getCertificationsListResult: LiveData<Result<List<UserPublicProfileResponse.Data.Certifications>>> get() = _getCertificationsListResult
+
     private val _userProfileResult = MutableLiveData<Result<UserPublicProfileResponse>>()
     val userProfileResult: LiveData<Result<UserPublicProfileResponse>> get() = _userProfileResult
 
@@ -68,6 +71,18 @@ class UserPublicProfileViewModel(
             }
         }
         return getProductListResult
+    }
+
+    fun getCertifications(username: String): LiveData<Result<List<UserPublicProfileResponse.Data.Certifications>>> {
+        viewModelScope.launch {
+            try {
+                val certification = userPublicProfileRepository.getCertifications(username)
+                _getCertificationsListResult.value = Result.Success(certification)
+            } catch (e: Exception) {
+                _getCertificationsListResult.value = Result.Error(e.message ?: "Error Occurred")
+            }
+        }
+        return getCertificationsListResult
     }
 
     fun postCardViewers(username: String): LiveData<Result<PostCardViewersResponse>> {

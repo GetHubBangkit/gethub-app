@@ -18,6 +18,8 @@ import com.entre.gethub.ui.MainActivity
 import com.entre.gethub.ui.adapter.HomeGethubLinkPublicUserAdapter
 import com.entre.gethub.ui.adapter.HomeProdukJasaAdapter
 import com.entre.gethub.ui.adapter.HomeProdukJasaPublicUserAdapter
+import com.entre.gethub.ui.adapter.HomeSertifikasiAdapter
+import com.entre.gethub.ui.adapter.HomeSertifikasiPublicUserAdapter
 import com.entre.gethub.ui.models.GethubLink
 import com.entre.gethub.utils.ViewModelFactory
 import com.entre.gethub.utils.generateQR
@@ -43,6 +45,7 @@ class UserPublicProfileActivity : AppCompatActivity() {
         setupPublicProfile(username)
         getLinks(username)
         getProductList(username)
+        getCertificationList(username)
         postCardViewers(username) // Call postCardViewers when the activity is created
     }
 
@@ -60,13 +63,8 @@ class UserPublicProfileActivity : AppCompatActivity() {
                             cardBaseItem.apply {
                                 tvGethubName.text = it.fullName
                                 tvGethubProfession.text = it.profession
-                                tvGethubEmail.text = it.email
-                                tvGethubAddress.text = it.address
-                                tvGethubPhone.text = it.phone
-                                tvGethubWebsite.text = it.web
                             }
                         }
-                        generateQRCode(it.qrCode ?: "")
                     }
                 }
                 is Result.Error -> {
@@ -81,9 +79,7 @@ class UserPublicProfileActivity : AppCompatActivity() {
         })
     }
 
-    private fun generateQRCode(content: String) {
-        generateQR(binding.cardBaseItem.qrCode, content)
-    }
+
 
     private fun getLinks(username: String) {
         userPublicProfileViewModel.getLinks(username).observe(this, Observer { result ->
@@ -129,6 +125,31 @@ class UserPublicProfileActivity : AppCompatActivity() {
                         llEmpty.visibility = View.VISIBLE
                         tvEmpty.text = result.emptyError
                     }
+                }
+                is Result.Error -> {
+                    showLoadingOnProduct(false)
+                    showToast(result.error)
+                }
+                else -> {
+                    showLoadingOnProduct(false)
+                    showToast("Terjadi kesalahan")
+                }
+            }
+        }
+    }
+
+    private fun getCertificationList(username: String) {
+        userPublicProfileViewModel.getCertifications(username).observe(this) { result ->
+            when (result) {
+                is Result.Loading -> showLoadingOnCertification(true)
+                is Result.Success -> {
+                    showLoadingOnCertification(false)
+                    result.data?.let { certifications ->
+                        setupRecyclerViewHomeCertfication(certifications)
+                    }
+                }
+                is Result.Empty -> {
+                    showLoadingOnCertification(false)
                 }
                 is Result.Error -> {
                     showLoadingOnProduct(false)
@@ -202,14 +223,31 @@ class UserPublicProfileActivity : AppCompatActivity() {
         }
     }
 
+    private fun setupRecyclerViewHomeCertfication(certifications: List<UserPublicProfileResponse.Data.Certifications>) {
+        val adapter = HomeSertifikasiPublicUserAdapter(certifications.toMutableList()) { sertifikasi, position ->
+            // Handle product click
+        }
+        binding.rvCertification.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            this.adapter = adapter
+        }
+    }
+
     private fun showLoadingOnProduct(isLoading: Boolean) {
         binding.progressBarOnProductList.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    private fun showLoadingOnCertification(isLoading: Boolean) {
+        binding.progressBaronCertification.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     private fun showLoadingOnLink(isLoading: Boolean) {
         binding.progressBarLink.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
+    private fun showEmptyOnCertification(isLoading: Boolean) {
+        binding.tvEmptyCertification.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
     private fun showEmptyErrorOnLink(isError: Boolean, message: String) {
         binding.tvEmptyLink.text = message
         binding.tvEmptyLink.visibility = if (isError) View.VISIBLE else View.GONE
