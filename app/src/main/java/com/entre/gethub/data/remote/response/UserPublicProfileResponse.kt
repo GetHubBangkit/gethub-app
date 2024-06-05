@@ -93,8 +93,15 @@ data class UserPublicProfileResponse(
         @field:SerializedName("products")
         val products: List<Product>? = null,
 
+        @field:SerializedName("certifications")
+        val certifications: List<Certifications>? = null,
+
         @field:SerializedName("backgroundCard")
-        val backgroundCard: BackgroundCard? = null
+        val backgroundCard: BackgroundCard? = null,
+
+        @field:SerializedName("projects")
+        val projects: List<Projects>? = null
+
     ) {
         data class Link(
 
@@ -144,6 +151,33 @@ data class UserPublicProfileResponse(
             val updatedAt: String? = null
         )
 
+        data class Certifications(
+
+            @field:SerializedName("id")
+            val id: String? = null,
+
+            @field:SerializedName("title")
+            val title: String? = null,
+
+            @field:SerializedName("category_id")
+            val category_id: String? = null,
+
+            @field:SerializedName("user_id")
+            val user_id: String? = null,
+
+            @field:SerializedName("image")
+            val image: String? = null,
+
+            @field:SerializedName("createdAt")
+            val createdAt: String? = null,
+
+            @field:SerializedName("updatedAt")
+            val updatedAt: String? = null,
+
+            @field:SerializedName("category_name")
+             val category_name: String? = null
+        )
+
         data class BackgroundCard(
 
             @field:SerializedName("bg")
@@ -154,6 +188,15 @@ data class UserPublicProfileResponse(
 
             @field:SerializedName("card")
             val card: String? = null
+        )
+        data class Projects(
+
+            @field:SerializedName("title")
+            val title: String? = null,
+
+            @field:SerializedName("sentiment")
+            val sentiment: String? = null,
+
         )
     }
 }

@@ -16,7 +16,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:src="@drawable/rectangle"
-            app:layout_constraintDimensionRatio="H,2:1"
+            app:layout_constraintDimensionRatio="H,4:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -70,9 +70,9 @@
 
         <include
             android:id="@+id/cardBaseItem"
-            layout="@layout/card_base_item"
+            layout="@layout/card_base_public_item"
             android:layout_width="372dp"
-            android:layout_height="195dp"
+            android:layout_height="81dp"
             android:layout_marginTop="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -80,7 +80,7 @@
 
         <ImageView
             android:id="@+id/icon_gethublink"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:src="@drawable/icon_kelola"
@@ -91,7 +91,7 @@
 
         <LinearLayout
             android:id="@+id/GethubLink"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -158,7 +158,7 @@
             android:id="@+id/icon_produkjasa"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="20dp"
             android:src="@drawable/icon_kelola"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.052"
@@ -173,7 +173,7 @@
             android:text="Produk / Jasa"
             android:textColor="@color/blue"
             android:textSize="20sp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="20dp"
             app:fontFamily="@font/poppins_bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.047"
@@ -194,7 +194,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/produkjasa"
-            tools:listitem="@layout/item_home_kelolamygethub_produkjasa" />
+            tools:listitem="@layout/item_home_kelolamygethub_produkjasa_public_user" />
 
         <ProgressBar
             android:id="@+id/progressBarOnProductList"
@@ -218,84 +218,144 @@
             app:layout_constraintStart_toStartOf="@id/rvProducts"
             app:layout_constraintTop_toTopOf="@id/rvProducts" />
 
-<!--        <ImageView-->
-<!--            android:id="@+id/icon_certiciation"-->
-<!--            android:layout_width="30dp"-->
-<!--            android:layout_height="30dp"-->
-<!--            android:layout_marginTop="16dp"-->
-<!--            android:src="@drawable/icon_kelola"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintHorizontal_bias="0.052"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/rvProducts" />-->
+        <ImageView
+            android:id="@+id/icon_certiciation"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/icon_kelola"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.052"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rvProducts" />
 
-<!--        <TextView-->
-<!--            android:id="@+id/Certification"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="30dp"-->
-<!--            android:layout_marginTop="16dp"-->
-<!--            android:fontFamily="@font/poppins_bold"-->
-<!--            android:text="Sertifikasi"-->
-<!--            android:textColor="@color/blue"-->
-<!--            android:textSize="20sp"-->
-<!--            app:fontFamily="@font/poppins_bold"-->
+        <TextView
+            android:id="@+id/Certification"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/poppins_bold"
+            android:text="Sertifikasi"
+            android:textColor="@color/blue"
+            android:textSize="20sp"
+            app:fontFamily="@font/poppins_bold"
 
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintHorizontal_bias="0.047"-->
-<!--            app:layout_constraintStart_toEndOf="@+id/icon_produkjasa"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/rvProducts"-->
-<!--           />-->
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.047"
+            app:layout_constraintStart_toEndOf="@+id/icon_produkjasa"
+            app:layout_constraintTop_toBottomOf="@+id/rvProducts"
+           />
 
-<!--        <androidx.recyclerview.widget.RecyclerView-->
-<!--            android:id="@+id/rvCertification"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_marginTop="20dp"-->
-<!--            android:layout_height="240dp"-->
-<!--            android:orientation="horizontal"-->
-<!--            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
-<!--            app:layout_constraintHorizontal_bias="0.0"-->
-<!--            app:layout_constraintLeft_toLeftOf="parent"-->
-<!--            app:layout_constraintRight_toRightOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/Certification"-->
-<!--            tools:listitem="@layout/item_home_kelolamygethub_sertifikasi" />-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvCertification"
+            android:layout_width="match_parent"
+            android:layout_height="233dp"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Certification"
+            tools:listitem="@layout/item_home_kelolamygethub_sertifikasi_public_user" />
 
-<!--        <ProgressBar-->
-<!--            android:id="@+id/progressBarCertification"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:visibility="gone"-->
-<!--            app:layout_constraintBottom_toBottomOf="@id/rvCertification"-->
-<!--            app:layout_constraintEnd_toEndOf="@id/rvCertification"-->
-<!--            app:layout_constraintStart_toStartOf="@id/rvCertification"-->
-<!--            app:layout_constraintTop_toTopOf="@id/rvCertification"-->
-<!--            tools:visibility="visible" />-->
+        <ProgressBar
+            android:id="@+id/progressBaronCertification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
 
-<!--        <TextView-->
-<!--            android:id="@+id/tvEmptyCertification"-->
-<!--            style="@style/Poppins.Bold"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="Sertifikasi masih kosong"-->
-<!--            android:textSize="14sp"-->
-<!--            android:visibility="gone"-->
-<!--            app:layout_constraintBottom_toBottomOf="@id/rvCertification"-->
-<!--            app:layout_constraintEnd_toEndOf="@id/rvCertification"-->
-<!--            app:layout_constraintStart_toStartOf="@id/rvCertification"-->
-<!--            app:layout_constraintTop_toTopOf="@id/rvCertification"-->
-<!--            tools:visibility="visible" />-->
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/rvCertification"
+            app:layout_constraintEnd_toEndOf="@+id/rvCertification"
 
-<!--        <ImageView-->
-<!--            android:id="@+id/editSertifikasi"-->
-<!--            android:layout_width="26dp"-->
-<!--            android:layout_height="26dp"-->
-<!--            android:layout_marginTop="20dp"-->
-<!--            android:src="@drawable/kelola_edit"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintHorizontal_bias="0.89"-->
-<!--            app:layout_constraintStart_toEndOf="@+id/Certification"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/rvProducts" />-->
+            app:layout_constraintStart_toStartOf="@+id/rvCertification"
+            app:layout_constraintTop_toTopOf="@+id/rvCertification"
 
-<!--       -->
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/tvEmptyCertification"
+            style="@style/Poppins.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sertifikasi masih kosong"
+            android:textSize="14sp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/rvCertification"
+            app:layout_constraintEnd_toEndOf="@+id/rvCertification"
+            app:layout_constraintStart_toStartOf="@+id/rvCertification"
+            app:layout_constraintTop_toTopOf="@+id/rvCertification"
+
+            tools:visibility="visible" />
+
+
+        <ImageView
+            android:id="@+id/ivProjectBidsDiselesaikan"
+            android:layout_marginTop="20dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/publicproject"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.052"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rvCertification" />
+
+        <TextView
+            android:id="@+id/tvDiselesaikan"
+            android:layout_marginTop="20dp"
+            style="@style/Nunito.ExtraBold"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="Project Bids yg telah diselesaikan"
+            android:textColor="@color/greydark"
+            android:textSize="16sp"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.099"
+            app:layout_constraintStart_toEndOf="@+id/icon_produkjasa"
+            app:layout_constraintTop_toBottomOf="@+id/rvCertification" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvProjectDiselesaikan"
+            android:layout_width="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_height="100dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvDiselesaikan"
+            tools:listitem="@layout/item_public_projectdiselesaikan" />
+
+        <ProgressBar
+            android:id="@+id/progressBarProjectDiselesaikan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/rvProjectDiselesaikan"
+            app:layout_constraintEnd_toEndOf="@+id/rvProjectDiselesaikan"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="@+id/rvProjectDiselesaikan"
+            app:layout_constraintTop_toTopOf="@+id/rvProjectDiselesaikan"
+            app:layout_constraintVertical_bias="0.0"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/tvEmptyProjectDiselesaikan"
+            style="@style/Poppins.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Project Diselesaikan masih kosong"
+            android:textSize="14sp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/rvProjectDiselesaikan"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/rvProjectDiselesaikan"
+            app:layout_constraintTop_toTopOf="@+id/rvProjectDiselesaikan"
+            app:layout_constraintVertical_bias="0.25"
+            tools:visibility="visible" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

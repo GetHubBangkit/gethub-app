@@ -21,6 +21,16 @@ class UserPublicProfileRepository(private val apiService: ApiService) {
         return userProfileResponse.data?.products ?: emptyList()
     }
 
+    suspend fun getCertifications(username: String): List<UserPublicProfileResponse.Data.Certifications> {
+        val userProfileResponse = apiService.getPublicProfile(username)
+        return userProfileResponse.data?.certifications ?: emptyList()
+    }
+    suspend fun getProjects(username: String): List<UserPublicProfileResponse.Data.Projects> {
+        val userProfileResponse = apiService.getPublicProfile(username)
+        return userProfileResponse.data?.projects ?: emptyList()
+    }
+
+
 
     companion object {
         fun getInstance(apiService: ApiService): UserPublicProfileRepository {
