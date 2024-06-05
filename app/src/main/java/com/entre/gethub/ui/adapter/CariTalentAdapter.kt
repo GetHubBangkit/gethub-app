@@ -16,6 +16,12 @@ class CariTalentAdapter(
         notifyDataSetChanged()
     }
 
+    // Add this method to clear all items
+    fun clearAll() {
+        cariTalentList.clear()
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemHomeCariTalentBinding.inflate(inflater, parent, false)
