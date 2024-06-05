@@ -200,7 +200,7 @@ dan kerjakan dengan maksimal"
                     style="@style/Nunito"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Fee Biaya Aplikasi adalah 10% dari total Nilai Bid
+                    android:text="Fee Biaya Aplikasi adalah 8% dari total Nilai Bid
 yg kamu tawarkan, kamu dapat melakukan settlement
 pembayaran ke rekening kamu setelah pekerjaan
 selesai"

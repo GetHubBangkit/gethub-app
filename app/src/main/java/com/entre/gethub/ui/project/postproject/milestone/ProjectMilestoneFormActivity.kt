@@ -69,7 +69,11 @@ class ProjectMilestoneFormActivity : AppCompatActivity() {
             .observe(this) { result ->
                 if (result != null) {
                     when (result) {
-                        is Result.Loading -> showLoading(true)
+                        is Result.Loading -> {
+                            showLoading(true)
+                            binding.btnSimpan.isEnabled = false
+                        }
+
                         is Result.Success -> {
                             showLoading(false)
                             finish()

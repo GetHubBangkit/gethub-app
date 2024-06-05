@@ -28,12 +28,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="52dp"
-            android:text="Butuh Konten Kreator"
+            android:layout_marginEnd="20dp"
+            android:text=""
             android:textColor="@android:color/white"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@id/icon_back"
             app:layout_constraintStart_toEndOf="@+id/icon_back"
-            app:layout_constraintTop_toTopOf="@id/icon_back" />
+            app:layout_constraintTop_toTopOf="@id/icon_back"
+            tools:text="Butuh konten kreator" />
 
         <ImageView
             android:id="@+id/icon_back"
@@ -65,15 +67,13 @@
                     style="@style/Nunito"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Sedang Mencari Konten Kreator untuk
-pembuatan konten makanan dan untuk
-promosi warung rumah makanan yg baru
-buka di butuhkan segera"
+                    android:text=""
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Butuh konten kreator" />
 
                 <ImageView
                     android:id="@+id/icon_money"
@@ -90,12 +90,13 @@ buka di butuhkan segera"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="Rp 3,000,000 - 4,500,000"
+                    android:text=""
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="@id/icon_money"
                     app:layout_constraintStart_toEndOf="@id/icon_money"
-                    app:layout_constraintTop_toTopOf="@id/icon_money" />
+                    app:layout_constraintTop_toTopOf="@id/icon_money"
+                    tools:text="Rp300.000 - Rp400.000" />
 
                 <ImageView
                     android:id="@+id/icon_date"
@@ -112,12 +113,13 @@ buka di butuhkan segera"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="2 Mei 2024 - 12 Mei 2024"
+                    android:text=""
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="@id/icon_date"
                     app:layout_constraintStart_toEndOf="@id/icon_date"
-                    app:layout_constraintTop_toTopOf="@id/icon_date" />
+                    app:layout_constraintTop_toTopOf="@id/icon_date"
+                    tools:text="2 Mei 2024 - 1 Juni 2024" />
 
                 <TextView
                     android:id="@+id/tvDetailProjectPostedBy"
@@ -157,26 +159,30 @@ buka di butuhkan segera"
                 <TextView
                     android:id="@+id/tvDetailProjectOwnerName"
                     style="@style/Nunito.Bold"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginBottom="16dp"
-                    android:text="Ajay Devgan"
+                    android:text=""
+                    tools:text="Ajay Devgan"
                     android:textColor="@android:color/black"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="@id/ivDetailProjectOwnerPic"
+                    app:layout_constraintEnd_toStartOf="@id/tvDetailProjectDatePost"
                     app:layout_constraintStart_toEndOf="@id/ivDetailProjectOwnerPic"
                     app:layout_constraintTop_toTopOf="@id/ivDetailProjectOwnerPic" />
 
                 <TextView
                     android:id="@+id/tvDetailProjectOwnerProfession"
                     style="@style/Nunito.SemiBold"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="14dp"
                     android:layout_marginStart="8dp"
-                    android:text="Software Enginer"
+                    android:text=""
+                    tools:text="Software Enginer"
                     android:textColor="@android:color/black"
                     android:textSize="10sp"
+                    app:layout_constraintEnd_toStartOf="@id/tvDetailProjectDatePost"
                     app:layout_constraintStart_toEndOf="@id/ivDetailProjectOwnerPic"
                     app:layout_constraintTop_toBottomOf="@id/tvDetailProjectOwnerName" />
 
@@ -187,7 +193,8 @@ buka di butuhkan segera"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/nunito_extrabold"
-                    android:text="1 Mei 2024"
+                    android:text=""
+                    tools:text="1 Mei 2024"
                     android:textSize="12sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tvDetailProjectPadaTanggal" />
@@ -210,7 +217,8 @@ buka di butuhkan segera"
                     style="@style/Nunito.ExtraBold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2 Orang"
+                    android:text=""
+                    tools:text="0 Orang"
                     android:textColor="@color/black"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="@id/TotalUserBidding"
@@ -287,7 +295,8 @@ pekerjaan kamu dan berikan hasil yg maksimal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
-            android:text="5 Orang"
+            android:text=""
+            tools:text="0 Orang"
             android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@id/DaftarUserBidding"

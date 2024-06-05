@@ -24,6 +24,7 @@ import com.entre.gethub.data.repositories.ThemeHubRepository
 import com.entre.gethub.data.repositories.TopTalentRepository
 import com.entre.gethub.data.repositories.UserPublicProfileRepository
 import com.entre.gethub.data.repositories.VisibilityRepository
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 
@@ -103,7 +104,6 @@ object Injection {
         val token = runBlocking { pref.getToken().first() }
         return ProjectDetectorRepository.getInstance(ApiConfig.getApiMLService(context, token))
     }
-
 
     fun provideCariTalentRepository(context: Context): CariTalentRepository {
         val pref = provideUserPreferences(context)

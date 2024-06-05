@@ -36,6 +36,10 @@ class OwnerSettlementActivity : AppCompatActivity() {
         binding.btnPay.setOnClickListener {
             generatePaymentToken(projectId)
         }
+
+        binding.iconBack.setOnClickListener {
+            finish()
+        }
     }
 
     private fun getSettlement(projectId: String) {

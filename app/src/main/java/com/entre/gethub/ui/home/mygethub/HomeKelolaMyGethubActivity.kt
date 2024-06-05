@@ -101,7 +101,7 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
                     }
                     is Result.Error -> {
                         showLoadingOnAbout(false)
-                        showToast(result.error)
+//                        showToast(result.error)
                     }
                     else -> {
                         showLoadingOnAbout(false)
@@ -130,7 +130,7 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
                     }
                     is Result.Error -> {
                         showLoadingOnProduct(false)
-                        showToast(result.error)
+//                        showToast(result.error)
                     }
                     is Result.Empty -> {
                         showLoadingOnProduct(false)
@@ -157,7 +157,7 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
                         categories = result.data.data
                     }
                     is Result.Error -> {
-                        showToast(result.error)
+//                        showToast(result.error)
                     }
                     else -> {
                         showToast("Terjadi kesalahan")
@@ -178,7 +178,7 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
                     }
                     is Result.Error -> {
                         showLoadingOnCertification(false)
-                        showToast(result.error)
+//                        showToast(result.error)
                     }
                     is Result.Empty -> {
                         showLoadingOnCertification(false)
@@ -360,11 +360,11 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
 
                 }
                 is Result.Error -> {
-                    Toast.makeText(
-                        this,
-                        "${result.error}",
-                        Toast.LENGTH_SHORT
-                    ).show()
+//                    Toast.makeText(
+//                        this,
+//                        "${result.error}",
+//                        Toast.LENGTH_SHORT
+//                    ).show()
                     showEmptyErrorOnLink(true, result.error)
                 }
                 is Result.Empty -> {
