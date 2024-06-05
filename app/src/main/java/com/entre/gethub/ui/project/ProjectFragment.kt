@@ -10,17 +10,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.entre.gethub.R
 import com.entre.gethub.data.Result
 import com.entre.gethub.data.remote.response.projects.ProjectStatsResponse
 import com.entre.gethub.data.remote.response.TopTalent
 import com.entre.gethub.databinding.FragmentProjectBinding
 import com.entre.gethub.ui.adapter.UserProjectBidAdapter
 import com.entre.gethub.ui.adapter.TopTalentAdapter
-import com.entre.gethub.ui.project.acceptedbidproject.AcceptedBidProjectActivity
-import com.entre.gethub.ui.project.bidproject.BidProjectStatusActivity
-import com.entre.gethub.ui.project.bidproject.BidProjectStatusDetailActivity
-import com.entre.gethub.ui.project.postedproject.PostedProjectStatusActivity
+import com.entre.gethub.ui.project.freelanceracceptedproject.AcceptedBidProjectActivity
+import com.entre.gethub.ui.project.freelancerbidproject.BidProjectStatusActivity
+import com.entre.gethub.ui.project.freelancerbidproject.BidProjectStatusDetailActivity
+import com.entre.gethub.ui.project.ownerpostedproject.PostedProjectStatusActivity
 import com.entre.gethub.ui.project.postproject.PostProjectActivity
 import com.entre.gethub.utils.ViewModelFactory
 

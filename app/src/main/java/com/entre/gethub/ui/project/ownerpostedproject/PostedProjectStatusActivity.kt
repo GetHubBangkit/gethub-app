@@ -1,4 +1,4 @@
-package com.entre.gethub.ui.project.postedproject
+package com.entre.gethub.ui.project.ownerpostedproject
 
 import android.content.Intent
 import android.os.Bundle

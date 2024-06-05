@@ -22,9 +22,9 @@
             android:layout_height="wrap_content"
             android:text="UI/UX Designer"
             android:textSize="12sp"
+            app:layout_constraintEnd_toStartOf="@id/tvProjectAmountRange"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/tvProjectAmountRange"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvProjectAmountRange"
@@ -120,11 +120,11 @@ Coffee Shop"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.imageview.ShapeableImageView
-                android:scaleType="centerCrop"
                 android:id="@+id/ivUserProfile"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_marginTop="10dp"
+                android:scaleType="centerCrop"
                 android:src="@drawable/profilepic1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvSelectedUser"
@@ -133,22 +133,24 @@ Coffee Shop"
             <TextView
                 android:id="@+id/tvUserName"
                 style="@style/Nunito.Bold"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:text="Tono Jaya"
                 android:textSize="12sp"
+                app:layout_constraintEnd_toStartOf="@id/btnToChat"
                 app:layout_constraintStart_toEndOf="@id/ivUserProfile"
                 app:layout_constraintTop_toTopOf="@id/ivUserProfile" />
 
             <TextView
                 android:id="@+id/tvUserJobName"
                 style="@style/Nunito"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:text="Freelancer"
                 android:textSize="10sp"
+                app:layout_constraintEnd_toStartOf="@id/btnToChat"
                 app:layout_constraintStart_toEndOf="@id/ivUserProfile"
                 app:layout_constraintTop_toBottomOf="@id/tvUserName" />
 

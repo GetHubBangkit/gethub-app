@@ -1,4 +1,4 @@
-package com.entre.gethub.ui.project.bidproject
+package com.entre.gethub.ui.project.freelancerbidproject
 
 import android.graphics.Typeface
 import android.os.Bundle
@@ -18,7 +18,6 @@ import com.entre.gethub.R
 import com.entre.gethub.data.Result
 import com.entre.gethub.databinding.ActivityBidProjectStatusDetailBinding
 import com.entre.gethub.ui.adapter.UserProjectBiddingAdapter
-import com.entre.gethub.ui.home.projectbids.HomeDetailProjectBidsActivity
 import com.entre.gethub.ui.models.UserProjectBidding
 import com.entre.gethub.utils.Formatter
 import com.entre.gethub.utils.ViewModelFactory

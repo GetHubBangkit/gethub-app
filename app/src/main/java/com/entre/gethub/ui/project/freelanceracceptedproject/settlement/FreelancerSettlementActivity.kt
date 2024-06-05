@@ -1,4 +1,4 @@
-package com.entre.gethub.ui.project.acceptedbidproject.settlement
+package com.entre.gethub.ui.project.freelanceracceptedproject.settlement
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
