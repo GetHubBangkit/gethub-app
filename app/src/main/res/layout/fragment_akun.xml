@@ -104,7 +104,7 @@
         android:layout_width="319dp"
         android:layout_height="280dp"
         android:layout_marginTop="9dp"
-        android:layout_marginBottom="108dp"
+        android:layout_marginBottom="118dp"
         android:src="@drawable/frame1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -34,7 +34,7 @@ class HomeGethubPartnerAdapter(
         fun bindItem(partner: NewPartnerResponse.Data) {
             // Load image using Glide
             Glide.with(binding.root)
-                .load(partner.imageUrl)
+                .load(partner.photo)
                 .centerCrop()
                 .placeholder(R.drawable.profilepic1) // Placeholder image
                 .transition(DrawableTransitionOptions.withCrossFade())
