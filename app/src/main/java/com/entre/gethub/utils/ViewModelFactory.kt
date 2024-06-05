@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.entre.gethub.data.preferences.UserPreferences
 import com.entre.gethub.data.repositories.AnaliticTotalRepository
 import com.entre.gethub.data.repositories.AuthRepository
+import com.entre.gethub.data.repositories.CardViewersRepository
 import com.entre.gethub.data.repositories.CariTalentRepository
 import com.entre.gethub.data.repositories.CategoryRepository
 import com.entre.gethub.data.repositories.CertificationRepository
@@ -13,6 +14,7 @@ import com.entre.gethub.data.repositories.GethubRepository
 import com.entre.gethub.data.repositories.InformationHubRepository
 import com.entre.gethub.data.repositories.LinkRepository
 import com.entre.gethub.data.repositories.NewPartnerRepository
+import com.entre.gethub.data.repositories.PostCardViewersRepository
 import com.entre.gethub.data.repositories.ProductRepository
 import com.entre.gethub.data.repositories.ProfileRepository
 import com.entre.gethub.data.repositories.ProjectDetectorRepository
@@ -83,12 +85,14 @@ class ViewModelFactory private constructor(
     private val themeHubRepository: ThemeHubRepository,
     private val topTalentRepository: TopTalentRepository,
     private val analiticTotalRepository: AnaliticTotalRepository,
-    private val newPartnerRepository: NewPartnerRepository
+    private val newPartnerRepository: NewPartnerRepository,
+    private val cardViewersRepository: CardViewersRepository,
+    private val postCardViewersRepository: PostCardViewersRepository
 ) : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when (modelClass) {
             UserPublicProfileViewModel::class.java -> UserPublicProfileViewModel(
-                userPublicProfileRepository
+                userPublicProfileRepository, postCardViewersRepository
             ) as T
 
             SplashViewModel::class.java -> SplashViewModel(userPreferences) as T
@@ -225,7 +229,7 @@ class ViewModelFactory private constructor(
             OwnerSettlementViewModel::class.java -> OwnerSettlementViewModel(projectRepository) as T
 
             AnaliticViewModel::class.java -> AnaliticViewModel(
-                analiticTotalRepository
+                analiticTotalRepository, cardViewersRepository
             ) as T
 
             ChatViewModel::class.java -> ChatViewModel(profileRepository) as T
@@ -256,7 +260,9 @@ class ViewModelFactory private constructor(
                 Injection.provideThemeHubRepository(context),
                 Injection.provideTopTalentRepository(context),
                 Injection.provideAnaliticTotalRepository(context),
-                Injection.provideNewPartnerRepository(context)
+                Injection.provideNewPartnerRepository(context),
+                Injection.provideCardViewersRepository(context),
+                Injection.providePostCardViewersRepository(context)
             )
 
     }

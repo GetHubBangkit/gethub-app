@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.entre.gethub.R
 import com.entre.gethub.data.Result
+import com.entre.gethub.data.remote.response.PostCardViewersResponse
 import com.entre.gethub.data.remote.response.UserPublicProfileResponse
 import com.entre.gethub.databinding.ActivityUserPublicProfileBinding
 import com.entre.gethub.ui.MainActivity
@@ -38,16 +39,14 @@ class UserPublicProfileActivity : AppCompatActivity() {
         val viewModelFactory = ViewModelFactory.getInstance(applicationContext)
         userPublicProfileViewModel = ViewModelProvider(this, viewModelFactory).get(UserPublicProfileViewModel::class.java)
 
-        setupPublicProfile()
-
         val username = intent.getStringExtra("username") ?: ""
+        setupPublicProfile(username)
         getLinks(username)
         getProductList(username)
+        postCardViewers(username) // Call postCardViewers when the activity is created
     }
 
-    private fun setupPublicProfile() {
-        val username = intent.getStringExtra("username") ?: ""
-
+    private fun setupPublicProfile(username: String) {
         userPublicProfileViewModel.getPublicProfile(username).observe(this, Observer { userProfileResult ->
             when (userProfileResult) {
                 is Result.Loading -> {
@@ -97,16 +96,18 @@ class UserPublicProfileActivity : AppCompatActivity() {
                     showEmptyErrorOnLink(true, result.emptyError)
                 }
                 is Result.Success -> {
-                    // Update the RecyclerView with new data
+                    showLoadingOnLink(false)
                     result.data?.let { links ->
                         setupRecyclerViewHomeGethubLink(links)
                     }
                 }
                 is Result.Error -> {
+                    showLoadingOnLink(false)
                     Toast.makeText(this, "${result.error}", Toast.LENGTH_SHORT).show()
                 }
                 else -> {
-                    // Handle other possible states
+                    showLoadingOnLink(false)
+                    Toast.makeText(this, "An error occurred", Toast.LENGTH_SHORT).show()
                 }
             }
         })
@@ -141,6 +142,24 @@ class UserPublicProfileActivity : AppCompatActivity() {
         }
     }
 
+    private fun postCardViewers(username: String) {
+        userPublicProfileViewModel.postCardViewers(username).observe(this) { result ->
+            when (result) {
+                is Result.Loading -> {
+                    // Handle loading state if needed
+                }
+                is Result.Success -> {
+                    showToast("Card viewers has been recorded successfully")
+                }
+                is Result.Error -> {
+                    showToast(result.error)
+                }
+                else -> {
+                    showToast("An error occurred")
+                }
+            }
+        }
+    }
 
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
@@ -169,13 +188,13 @@ class UserPublicProfileActivity : AppCompatActivity() {
         )
         binding.recyclerViewHomeGethubLink.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                this.adapter = adapter
+            this.adapter = adapter
         }
     }
 
     private fun setupRecyclerViewHomeProdukJasa(products: List<UserPublicProfileResponse.Data.Product>) {
         val adapter = HomeProdukJasaPublicUserAdapter(products.toMutableList()) { produkjasa, position ->
-
+            // Handle product click
         }
         binding.rvProducts.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -183,24 +202,16 @@ class UserPublicProfileActivity : AppCompatActivity() {
         }
     }
 
-
     private fun showLoadingOnProduct(isLoading: Boolean) {
         binding.progressBarOnProductList.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
-
 
     private fun showLoadingOnLink(isLoading: Boolean) {
         binding.progressBarLink.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
-
-
     private fun showEmptyErrorOnLink(isError: Boolean, message: String) {
         binding.tvEmptyLink.text = message
         binding.tvEmptyLink.visibility = if (isError) View.VISIBLE else View.GONE
     }
-
-
-
-
 }

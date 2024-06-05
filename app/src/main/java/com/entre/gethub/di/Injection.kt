@@ -5,6 +5,7 @@ import com.entre.gethub.data.preferences.UserPreferences
 import com.entre.gethub.data.remote.retrofit.ApiConfig
 import com.entre.gethub.data.repositories.AnaliticTotalRepository
 import com.entre.gethub.data.repositories.AuthRepository
+import com.entre.gethub.data.repositories.CardViewersRepository
 import com.entre.gethub.data.repositories.CariTalentRepository
 import com.entre.gethub.data.repositories.CategoryRepository
 import com.entre.gethub.data.repositories.CertificationRepository
@@ -12,6 +13,7 @@ import com.entre.gethub.data.repositories.GethubRepository
 import com.entre.gethub.data.repositories.InformationHubRepository
 import com.entre.gethub.data.repositories.LinkRepository
 import com.entre.gethub.data.repositories.NewPartnerRepository
+import com.entre.gethub.data.repositories.PostCardViewersRepository
 import com.entre.gethub.data.repositories.ProductRepository
 import com.entre.gethub.data.repositories.ProfileRepository
 import com.entre.gethub.data.repositories.ProjectDetectorRepository
@@ -137,5 +139,15 @@ object Injection {
         val pref = provideUserPreferences(context)
         val token = runBlocking { pref.getToken().first() }
         return NewPartnerRepository.getInstance(ApiConfig.getApiService(context, token))
+    }
+    fun provideCardViewersRepository(context: Context): CardViewersRepository {
+        val pref = provideUserPreferences(context)
+        val token = runBlocking { pref.getToken().first() }
+        return CardViewersRepository.getInstance(ApiConfig.getApiService(context, token))
+    }
+    fun providePostCardViewersRepository(context: Context): PostCardViewersRepository {
+        val pref = provideUserPreferences(context)
+        val token = runBlocking { pref.getToken().first() }
+        return PostCardViewersRepository.getInstance(ApiConfig.getApiService(context, token))
     }
 }
