@@ -94,7 +94,11 @@ data class UserPublicProfileResponse(
         val products: List<Product>? = null,
 
         @field:SerializedName("backgroundCard")
-        val backgroundCard: BackgroundCard? = null
+        val backgroundCard: BackgroundCard? = null,
+
+        @field:SerializedName("projects")
+        val projects: List<Projects>? = null
+
     ) {
         data class Link(
 
@@ -154,6 +158,15 @@ data class UserPublicProfileResponse(
 
             @field:SerializedName("card")
             val card: String? = null
+        )
+        data class Projects(
+
+            @field:SerializedName("title")
+            val title: String? = null,
+
+            @field:SerializedName("sentiment")
+            val sentiment: String? = null,
+
         )
     }
 }

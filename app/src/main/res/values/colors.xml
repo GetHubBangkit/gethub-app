@@ -167,6 +167,7 @@
     <color name="blackgethub">#020A2E</color>
     <color name="textproject">#3F3F3F</color>
     <color name="blue">#0D6375</color>
+    <color name="greydark">#3F3F3F</color>
     <color name="colorOnSurface">#2D264B</color>
     <color name="bottom_navigation_icon_active">#FFFFFFFF</color>
     <color name="bottom_navigation_icon_inactive">#2D264B</color>
