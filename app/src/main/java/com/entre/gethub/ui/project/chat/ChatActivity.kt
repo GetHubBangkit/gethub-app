@@ -61,6 +61,10 @@ class ChatActivity : AppCompatActivity() {
             finish()
         }
 
+        binding.cvOpenGallery.setOnClickListener {
+            showImageIntent()
+        }
+
 
     }
 

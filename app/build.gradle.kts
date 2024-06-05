@@ -112,5 +112,6 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.firestore.ktx)
     implementation("com.google.firebase:firebase-storage")
+    implementation(libs.firebase.ui.storage)
 
 }
