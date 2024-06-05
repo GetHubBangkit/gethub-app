@@ -18,6 +18,7 @@ import com.entre.gethub.ui.MainActivity
 import com.entre.gethub.ui.adapter.HomeGethubLinkPublicUserAdapter
 import com.entre.gethub.ui.adapter.HomeProdukJasaAdapter
 import com.entre.gethub.ui.adapter.HomeProdukJasaPublicUserAdapter
+import com.entre.gethub.ui.adapter.HomeProjectsPublicUserAdapter
 import com.entre.gethub.ui.adapter.HomeSertifikasiAdapter
 import com.entre.gethub.ui.adapter.HomeSertifikasiPublicUserAdapter
 import com.entre.gethub.ui.models.GethubLink
@@ -46,6 +47,7 @@ class UserPublicProfileActivity : AppCompatActivity() {
         getLinks(username)
         getProductList(username)
         getCertificationList(username)
+        getProjectsList(username)
         postCardViewers(username) // Call postCardViewers when the activity is created
     }
 
@@ -163,6 +165,31 @@ class UserPublicProfileActivity : AppCompatActivity() {
         }
     }
 
+    private fun getProjectsList(username: String) {
+        userPublicProfileViewModel.getProjects(username).observe(this) { result ->
+            when (result) {
+                is Result.Loading -> showLoadingOnCertification(true)
+                is Result.Success -> {
+                    showLoadingOnCertification(false)
+                    result.data?.let { projects ->
+                        setupRecyclerViewHomeProjects(projects)
+                    }
+                }
+                is Result.Empty -> {
+                    showLoadingOnProjects(false)
+                }
+                is Result.Error -> {
+                    showLoadingOnProduct(false)
+                    showToast(result.error)
+                }
+                else -> {
+                    showLoadingOnProduct(false)
+                    showToast("Terjadi kesalahan")
+                }
+            }
+        }
+    }
+
     private fun postCardViewers(username: String) {
         userPublicProfileViewModel.postCardViewers(username).observe(this) { result ->
             when (result) {
@@ -223,6 +250,16 @@ class UserPublicProfileActivity : AppCompatActivity() {
         }
     }
 
+    private fun setupRecyclerViewHomeProjects(projects: List<UserPublicProfileResponse.Data.Projects>) {
+        val adapter = HomeProjectsPublicUserAdapter(projects.toMutableList()) { projects , position ->
+            // Handle product click
+        }
+        binding.rvProjectDiselesaikan.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            this.adapter = adapter
+        }
+    }
+
     private fun setupRecyclerViewHomeCertfication(certifications: List<UserPublicProfileResponse.Data.Certifications>) {
         val adapter = HomeSertifikasiPublicUserAdapter(certifications.toMutableList()) { sertifikasi, position ->
             // Handle product click
@@ -235,6 +272,10 @@ class UserPublicProfileActivity : AppCompatActivity() {
 
     private fun showLoadingOnProduct(isLoading: Boolean) {
         binding.progressBarOnProductList.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    private fun showLoadingOnProjects(isLoading: Boolean) {
+        binding.progressBarProjectDiselesaikan.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     private fun showLoadingOnCertification(isLoading: Boolean) {

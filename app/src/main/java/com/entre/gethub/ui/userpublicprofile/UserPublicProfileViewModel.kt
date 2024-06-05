@@ -27,11 +27,15 @@ class UserPublicProfileViewModel(
     private val _getCertificationsListResult = MutableLiveData<Result<List<UserPublicProfileResponse.Data.Certifications>>>()
     val getCertificationsListResult: LiveData<Result<List<UserPublicProfileResponse.Data.Certifications>>> get() = _getCertificationsListResult
 
+    private val _getProjectsListResult = MutableLiveData<Result<List<UserPublicProfileResponse.Data.Projects>>>()
+    val getProjectsListResult: LiveData<Result<List<UserPublicProfileResponse.Data.Projects>>> get() = _getProjectsListResult
+
     private val _userProfileResult = MutableLiveData<Result<UserPublicProfileResponse>>()
     val userProfileResult: LiveData<Result<UserPublicProfileResponse>> get() = _userProfileResult
 
     private val _postCardViewersResult = MutableLiveData<Result<PostCardViewersResponse>>()
     val postCardViewersResult: LiveData<Result<PostCardViewersResponse>> get() = _postCardViewersResult
+
 
     fun getPublicProfile(username: String): LiveData<Result<UserPublicProfileResponse>> {
         viewModelScope.launch {
@@ -83,6 +87,18 @@ class UserPublicProfileViewModel(
             }
         }
         return getCertificationsListResult
+    }
+
+    fun getProjects(username: String): LiveData<Result<List<UserPublicProfileResponse.Data.Projects>>> {
+        viewModelScope.launch {
+            try {
+                val projects = userPublicProfileRepository.getProjects(username)
+                _getProjectsListResult.value = Result.Success(projects)
+            } catch (e: Exception) {
+                _getProjectsListResult.value = Result.Error(e.message ?: "Error Occurred")
+            }
+        }
+        return getProjectsListResult
     }
 
     fun postCardViewers(username: String): LiveData<Result<PostCardViewersResponse>> {
