@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.project.acceptedbidproject.AcceptedBidProjectActivity">
+    tools:context=".ui.project.freelanceracceptedproject.AcceptedBidProjectActivity">
 
     <View
         android:id="@+id/frame"

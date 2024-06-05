@@ -1,4 +1,4 @@
-package com.entre.gethub.ui.project.bidproject
+package com.entre.gethub.ui.project.freelancerbidproject
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData

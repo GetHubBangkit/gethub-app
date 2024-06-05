@@ -1,4 +1,4 @@
-package com.entre.gethub.ui.project.postedproject
+package com.entre.gethub.ui.project.ownerpostedproject
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData

@@ -13,14 +13,11 @@ import androidx.core.widget.doOnTextChanged
 import com.entre.gethub.R
 import com.entre.gethub.data.Result
 import com.entre.gethub.databinding.ActivityPostProjectBinding
-import com.entre.gethub.ui.MainActivity
 import com.entre.gethub.ui.adapter.CategoryAdapter
-import com.entre.gethub.ui.project.postedproject.PostedProjectStatusActivity
 import com.entre.gethub.ui.project.postproject.milestone.ProjectMilestoneActivity
 import com.entre.gethub.utils.ViewModelFactory
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.util.Calendar
-import kotlin.math.min
 
 class PostProjectActivity : AppCompatActivity() {
 

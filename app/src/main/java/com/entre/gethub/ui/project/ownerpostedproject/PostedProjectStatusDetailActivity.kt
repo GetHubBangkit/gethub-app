@@ -1,4 +1,4 @@
-package com.entre.gethub.ui.project.postedproject
+package com.entre.gethub.ui.project.ownerpostedproject
 
 import android.content.Context
 import android.content.Intent
@@ -14,7 +14,7 @@ import com.entre.gethub.data.Result
 import com.entre.gethub.data.remote.response.projects.PostedProjectDetailResponse
 import com.entre.gethub.databinding.ActivityPostedProjectStatusDetailBinding
 import com.entre.gethub.ui.adapter.SelectUserBiddingAdapter
-import com.entre.gethub.ui.project.postedproject.payment.OwnerSettlementActivity
+import com.entre.gethub.ui.project.ownerpostedproject.payment.OwnerSettlementActivity
 import com.entre.gethub.utils.Formatter
 import com.entre.gethub.utils.ViewModelFactory
 import com.google.android.material.dialog.MaterialAlertDialogBuilder

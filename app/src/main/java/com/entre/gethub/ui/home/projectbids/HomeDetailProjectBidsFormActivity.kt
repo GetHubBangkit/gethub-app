@@ -11,7 +11,7 @@ import androidx.core.widget.doOnTextChanged
 import com.entre.gethub.R
 import com.entre.gethub.data.Result
 import com.entre.gethub.databinding.ItemDetailProjectbidsFormBinding
-import com.entre.gethub.ui.project.bidproject.BidProjectStatusActivity
+import com.entre.gethub.ui.project.freelancerbidproject.BidProjectStatusActivity
 import com.entre.gethub.utils.Formatter
 import com.entre.gethub.utils.ViewModelFactory
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
