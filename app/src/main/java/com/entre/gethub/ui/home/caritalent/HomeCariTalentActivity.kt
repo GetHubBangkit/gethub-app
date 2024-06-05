@@ -56,6 +56,7 @@ class HomeCariTalentActivity : AppCompatActivity() {
         viewModel.getAllTalents().observe(this, Observer { response ->
             Log.d("HomeCariTalentActivity", "Observed Response: $response")
             if (response != null && response.data != null && response.data.isNotEmpty()) {
+                cariTalentAdapter.clearAll() // Clear existing data
                 cariTalentAdapter.addAll(response.data)
             } else {
                 Toast.makeText(this@HomeCariTalentActivity, "No talents found", Toast.LENGTH_SHORT).show()
@@ -69,6 +70,7 @@ class HomeCariTalentActivity : AppCompatActivity() {
             viewModel.searchCariTalent(profession).observe(this, Observer { response ->
                 Log.d("HomeCariTalentActivity", "Observed Response: $response")
                 if (response != null && response.data != null && response.data.isNotEmpty()) {
+                    cariTalentAdapter.clearAll() // Clear existing data
                     cariTalentAdapter.addAll(response.data)
                 } else {
                     Toast.makeText(this@HomeCariTalentActivity, "No talents found", Toast.LENGTH_SHORT).show()
@@ -84,4 +86,6 @@ class HomeCariTalentActivity : AppCompatActivity() {
         intent.putExtra("username", username)
         startActivity(intent)
     }
+
+
 }

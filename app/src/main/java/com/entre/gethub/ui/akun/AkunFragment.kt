@@ -10,16 +10,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.entre.gethub.R
 import com.entre.gethub.data.Result
-import com.entre.gethub.ui.auth.LoginActivity
 import com.entre.gethub.databinding.FragmentAkunBinding
+import com.entre.gethub.ui.auth.LoginActivity
 import com.entre.gethub.utils.ViewModelFactory
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-
 
 class AkunFragment : Fragment() {
 
@@ -37,7 +35,6 @@ class AkunFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         _binding = FragmentAkunBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
@@ -66,48 +63,72 @@ class AkunFragment : Fragment() {
     }
 
     private fun setupVisibilitySwitch() {
-//        binding.switchVisibilty.setOnCheckedChangeListener { _, isChecked ->
-//            akunViewModel.setVisibility(isChecked)
-//        }
-
-        akunViewModel.getVisibility().observe(viewLifecycleOwner) { isVisible ->
-            binding.switchVisibilty.isChecked = isVisible
-        }
-    }
-
-    private fun getUserData() {
-        akunViewModel.getUserProfile().observe(viewLifecycleOwner) { result ->
-            if (result != null) {
+        binding.switchVisibilty.setOnCheckedChangeListener { _, isChecked ->
+            akunViewModel.setVisibility(isChecked).observe(viewLifecycleOwner) { result ->
                 when (result) {
-                    is Result.Loading -> showLoading(true)
                     is Result.Success -> {
-                        val user = result.data.data
-                        showLoading(false)
-                        println("Photo URL: ${user?.photo}")
-                        with(binding) {
-                            Glide.with(requireContext())
-                                .load(user?.photo)
-                                .placeholder(R.drawable.profilepic1)
-                                .into(ivUserProfilePicture)
-                            tvUserFullname.text = user?.fullName
-                            tvUserProfession.text = user?.profession
-                        }
+                        showToast("Visibility updated successfully")
                     }
-
                     is Result.Error -> {
-                        showLoading(false)
                         showToast(result.error)
                     }
-
+                    is Result.Loading -> {
+                        showLoading(true)
+                    }
                     else -> {
                         showLoading(false)
-                        showToast(getString(R.string.something_went_wrong))
                     }
+                }
+            }
+        }
+
+        akunViewModel.getVisibility().observe(viewLifecycleOwner) { result ->
+            when (result) {
+                is Result.Success -> {
+                    binding.switchVisibilty.isChecked = result.data
+                }
+                is Result.Error -> {
+                    showToast(result.error)
+                }
+                is Result.Loading -> {
+                    showLoading(true)
+                }
+                else -> {
+                    showLoading(false)
                 }
             }
         }
     }
 
+
+    private fun getUserData() {
+        akunViewModel.getUserProfile().observe(viewLifecycleOwner) { result ->
+            when (result) {
+                is Result.Loading -> showLoading(true)
+                is Result.Success -> {
+                    val user = result.data.data
+                    showLoading(false)
+                    println("Photo URL: ${user?.photo}")
+                    with(binding) {
+                        Glide.with(requireContext())
+                            .load(user?.photo)
+                            .placeholder(R.drawable.profilepic1)
+                            .into(ivUserProfilePicture)
+                        tvUserFullname.text = user?.fullName
+                        tvUserProfession.text = user?.profession
+                    }
+                }
+                is Result.Error -> {
+                    showLoading(false)
+                    showToast(result.error)
+                }
+                else -> {
+                    showLoading(false)
+                    showToast(getString(R.string.something_went_wrong))
+                }
+            }
+        }
+    }
 
     private fun initViewModel() {
         val factory = ViewModelFactory.getInstance(requireContext())
@@ -158,5 +179,4 @@ class AkunFragment : Fragment() {
     companion object {
         const val TAG = "AkunFragment"
     }
-
 }

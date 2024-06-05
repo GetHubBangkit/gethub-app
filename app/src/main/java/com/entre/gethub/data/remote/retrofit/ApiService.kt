@@ -14,6 +14,7 @@ import com.entre.gethub.data.remote.response.ThemeHubResponse
 import com.entre.gethub.data.remote.response.TopTalentResponse
 import com.entre.gethub.data.remote.response.UploadFileResponse
 import com.entre.gethub.data.remote.response.UserPublicProfileResponse
+import com.entre.gethub.data.remote.response.VisibilityResponse
 import com.entre.gethub.data.remote.response.auth.LoginResponse
 import com.entre.gethub.data.remote.response.certifications.CertificationListResponse
 import com.entre.gethub.data.remote.response.certifications.CertificationResponse
@@ -309,11 +310,11 @@ interface ApiService {
         @Query("username") username: String
     ): UserPublicProfileResponse
 
-//    @FormUrlEncoded
-//    @POST("update/visibility")
-//    suspend fun updatePostVisibility(
-//        @Field("is_visibility") isVisibility: Boolean
-//    ): VisibilityResponse
+    @FormUrlEncoded
+    @POST("update/visibility")
+    suspend fun updatePostVisibility(
+        @Field("is_visibility") isVisibility: Boolean
+    ): VisibilityResponse
 
     @FormUrlEncoded
     @POST("update/theme_hub")
