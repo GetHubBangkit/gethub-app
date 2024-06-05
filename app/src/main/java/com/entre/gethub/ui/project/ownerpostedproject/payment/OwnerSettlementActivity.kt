@@ -1,15 +1,11 @@
-package com.entre.gethub.ui.project.postedproject.payment
+package com.entre.gethub.ui.project.ownerpostedproject.payment
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.entre.gethub.R
 import com.entre.gethub.data.Result
 import com.entre.gethub.databinding.ActivityOwnerSettlementBinding
 import com.entre.gethub.utils.Formatter

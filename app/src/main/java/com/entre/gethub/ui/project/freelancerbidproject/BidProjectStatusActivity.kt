@@ -1,4 +1,4 @@
-package com.entre.gethub.ui.project.bidproject
+package com.entre.gethub.ui.project.freelancerbidproject
 
 import android.content.Intent
 import android.os.Bundle

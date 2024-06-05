@@ -12,7 +12,7 @@ import com.entre.gethub.data.Result
 import com.entre.gethub.data.remote.response.projects.AllProjectMilestoneResponse
 import com.entre.gethub.databinding.ActivityProjectMilestoneBinding
 import com.entre.gethub.ui.adapter.ProjectMilestoneAdapter
-import com.entre.gethub.ui.project.postedproject.PostedProjectStatusActivity
+import com.entre.gethub.ui.project.ownerpostedproject.PostedProjectStatusActivity
 import com.entre.gethub.utils.ViewModelFactory
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 

@@ -1,4 +1,4 @@
-package com.entre.gethub.ui.project.postedproject.payment
+package com.entre.gethub.ui.project.ownerpostedproject.payment
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
