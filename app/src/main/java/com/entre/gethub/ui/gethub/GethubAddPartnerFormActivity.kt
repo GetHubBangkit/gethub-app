@@ -16,6 +16,7 @@ import com.entre.gethub.data.remote.params.AddPartnerParams
 import com.entre.gethub.databinding.ActivityGethubAddPartnerFormBinding
 import com.entre.gethub.utils.ViewModelFactory
 import com.entre.gethub.utils.uriToFile
+import com.entre.gethub.data.remote.response.ml.ScanCardResponse
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class GethubAddPartnerFormActivity : AppCompatActivity() {
@@ -23,6 +24,7 @@ class GethubAddPartnerFormActivity : AppCompatActivity() {
     private lateinit var getHubPartnerFormViewModel: GethubAddPartnerFormViewModel
     private var currentImageUri: Uri? = null
     private var imageUrl: String? = null
+    private var scanCardResponse: ScanCardResponse? = null
 
     private val takePicture =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -53,6 +55,10 @@ class GethubAddPartnerFormActivity : AppCompatActivity() {
         if (qrCode != null) {
             addPartnerUsingQRCode(qrCode)
         }
+
+        // Get the Scan Card result from the intent
+        scanCardResponse = intent.getParcelableExtra(GethubAddPartnerFormActivity.SCAN_CARD_RESULT_EXTRA)
+        processScanCardResult(scanCardResponse)
 
         with(binding) {
             tvUploadPhoto.setOnClickListener {
@@ -219,5 +225,33 @@ class GethubAddPartnerFormActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun processScanCardResult(scanCardResponse: ScanCardResponse?) {
+        if (scanCardResponse != null) {
+            // Proses hasil scan kartu di sini
+            // Misalnya, menampilkan data hasil scan ke dalam UI
+            val scannedName = scanCardResponse.data?.name
+            val scannedProfession = scanCardResponse.data?.profession
+            val scannedAddress = scanCardResponse.data?.address
+            val scannedPhone = scanCardResponse.data?.phone
+            val scannedWeb = scanCardResponse.data?.web
+            val scannedEmail = scanCardResponse.data?.email
+
+            binding.nameTextField.editText?.setText(scannedName)
+            binding.profesiTextField.editText?.setText(scannedProfession)
+            binding.alamatTextField.editText?.setText(scannedAddress)
+            binding.phoneTextField.editText?.setText(scannedPhone)
+            binding.websiteTextField.editText?.setText(scannedWeb)
+            binding.emailTextField.editText?.setText(scannedEmail)
+
+            // Lakukan hal-hal lain yang diperlukan dengan data hasil scan
+        } else {
+            showToast("Gagal memproses hasil scan")
+        }
+    }
+
+    companion object {
+        const val SCAN_CARD_RESULT_EXTRA = "scan_card_result_extra"
     }
 }

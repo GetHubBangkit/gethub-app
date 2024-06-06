@@ -85,7 +85,7 @@
         app:layout_constraintVertical_bias="0.202" />
 
     <ImageView
-        android:id="@+id/scan"
+        android:id="@+id/ivScan"
         android:layout_width="156dp"
         android:layout_height="167dp"
         android:layout_marginTop="15dp"
@@ -116,7 +116,7 @@
         android:src="@drawable/pvalidscanqr"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scan" />
+        app:layout_constraintTop_toBottomOf="@+id/ivScan" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
