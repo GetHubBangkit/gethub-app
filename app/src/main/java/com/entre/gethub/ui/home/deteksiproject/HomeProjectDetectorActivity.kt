@@ -126,6 +126,10 @@ class HomeProjectDetectorActivity : AppCompatActivity() {
         }
     }
 
+    override fun onBackPressed() {
+        startActivity(Intent(this, MainActivity::class.java))
+        finish()
+    }
     private fun handleScanResult(result: Result<ProjectDetectorResponse>) {
         when (result) {
             is Result.Success -> {
