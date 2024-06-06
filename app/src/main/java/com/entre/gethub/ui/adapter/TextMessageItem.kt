@@ -2,6 +2,7 @@ package com.entre.gethub.ui.adapter
 
 import android.content.Context
 import android.view.Gravity
+import android.view.View
 import android.widget.FrameLayout
 import com.bumptech.glide.Glide
 import com.entre.gethub.R
@@ -52,26 +53,38 @@ class TextMessageItem(
 
     private fun setMessageRootGravity(viewBinding: ItemChatSenderBinding) {
         if (message.senderId == senderId) {
-            viewBinding.messageRoot.apply {
-                setBackgroundResource(R.drawable.sender_chat_background)
-                viewBinding.tvMessage.setTextColor(context.getColor(R.color.white))
-                viewBinding.tvChatDate.setTextColor(context.getColor(R.color.white))
-                Glide.with(viewBinding.root.context)
+            with(viewBinding) {
+                ivSenderAvatar.visibility = View.VISIBLE
+                ivReceiverAvatar.visibility = View.GONE
+                tvSenderName.visibility = View.VISIBLE
+                chatBg.setBackgroundResource(R.drawable.sender_chat_background)
+                tvMessage.setTextColor(context.getColor(R.color.white))
+                tvChatDate.setTextColor(context.getColor(R.color.white))
+                tvSenderName.text = senderName
+                Glide.with(root.context)
                     .load(senderPhoto)
                     .placeholder(R.drawable.profilepic1)
-                    .into(viewBinding.ivSenderAvatar)
-                viewBinding.tvSenderName.text = senderName
-//                (layoutParams as FrameLayout.LayoutParams).gravity = Gravity.END
+                    .into(ivSenderAvatar)
+            }
+            viewBinding.messageRoot.apply {
+                (layoutParams as FrameLayout.LayoutParams).gravity = Gravity.END
             }
         } else {
-            viewBinding.messageRoot.apply {
-                setBackgroundResource(R.drawable.receiver_chat_background)
-                Glide.with(viewBinding.root.context)
+            with(viewBinding) {
+                ivReceiverAvatar.visibility = View.VISIBLE
+                ivSenderAvatar.visibility = View.GONE
+                tvSenderName.visibility = View.VISIBLE
+                chatBg.setBackgroundResource(R.drawable.receiver_chat_background)
+                tvMessage.setTextColor(context.getColor(R.color.black))
+                tvChatDate.setTextColor(context.getColor(R.color.black))
+                Glide.with(root.context)
                     .load(ownerPhoto)
                     .placeholder(R.drawable.profilepic1)
-                    .into(viewBinding.ivSenderAvatar)
+                    .into(ivSenderAvatar)
                 viewBinding.tvSenderName.text = ownerName
-//                (layoutParams as FrameLayout.LayoutParams).gravity = Gravity.START
+            }
+            viewBinding.messageRoot.apply {
+                (layoutParams as FrameLayout.LayoutParams).gravity = Gravity.START
             }
         }
     }

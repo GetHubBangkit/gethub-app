@@ -138,7 +138,7 @@ Coffee Shop"
                 android:layout_marginStart="4dp"
                 android:text="Tono Jaya"
                 android:textSize="12sp"
-                app:layout_constraintEnd_toStartOf="@id/btnToChat"
+                app:layout_constraintEnd_toStartOf="@id/cvChat"
                 app:layout_constraintStart_toEndOf="@id/ivUserProfile"
                 app:layout_constraintTop_toTopOf="@id/ivUserProfile" />
 
@@ -150,23 +150,33 @@ Coffee Shop"
                 android:layout_marginStart="4dp"
                 android:text="Freelancer"
                 android:textSize="10sp"
-                app:layout_constraintEnd_toStartOf="@id/btnToChat"
+                app:layout_constraintEnd_toStartOf="@id/cvChat"
                 app:layout_constraintStart_toEndOf="@id/ivUserProfile"
                 app:layout_constraintTop_toBottomOf="@id/tvUserName" />
 
-            <Button
-                android:id="@+id/btnToChat"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvChat"
                 android:layout_width="82dp"
                 android:layout_height="21dp"
-                android:background="@drawable/chat_button_bg"
-                android:text="Chat"
-                android:textAllCaps="false"
-                android:textAppearance="@style/Nunito.Bold"
-                android:textColor="@color/white"
-                android:textSize="12sp"
+                android:layout_marginStart="14dp"
+                app:cardBackgroundColor="@color/color_project_bid_status"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0dp"
                 app:layout_constraintBottom_toBottomOf="@id/ivUserProfile"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/ivUserProfile" />
+                app:layout_constraintTop_toTopOf="@id/ivUserProfile">
+
+                <TextView
+                    android:id="@+id/tvDetailProjectStatus"
+                    style="@style/Nunito.ExtraBold"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="Chat"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+
+            </androidx.cardview.widget.CardView>
 
             <TextView
                 android:id="@+id/tvPenawaranDiterima"
