@@ -102,6 +102,10 @@ class ProjectRepository private constructor(private val apiService: ApiService) 
         return apiService.generatePaymentToken(projectId)
     }
 
+    suspend fun finishProject(projectId: String): ApiResponse {
+        return apiService.finishProject(projectId)
+    }
+
     companion object {
         fun getInstance(apiService: ApiService): ProjectRepository = ProjectRepository(apiService)
     }

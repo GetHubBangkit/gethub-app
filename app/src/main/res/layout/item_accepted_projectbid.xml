@@ -166,12 +166,14 @@
 
 
         <Button
+            android:id="@+id/btnFinishProject"
             style="@style/CustomButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:layout_marginTop="8dp"
             android:text="Pekerjaan Sudah Selesai"
+            android:textSize="14sp"
             app:layout_constraintTop_toBottomOf="@id/clProjectUserSelected" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
