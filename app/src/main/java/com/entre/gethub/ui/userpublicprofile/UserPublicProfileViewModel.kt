@@ -55,9 +55,14 @@ class UserPublicProfileViewModel(
 
     fun getLinks(username: String): LiveData<Result<List<UserPublicProfileResponse.Data.Link>>> {
         viewModelScope.launch {
+            _getLinkResult.value = Result.Loading
             try {
                 val links = userPublicProfileRepository.getLinks(username)
-                _getLinkResult.value = Result.Success(links)
+                if (links.isEmpty()) {
+                    _getLinkResult.value = Result.Empty("Link masih kosong")
+                } else {
+                    _getLinkResult.value = Result.Success(links)
+                }
             } catch (e: Exception) {
                 _getLinkResult.value = Result.Error(e.message ?: "Error Occurred")
             }
@@ -67,9 +72,14 @@ class UserPublicProfileViewModel(
 
     fun getProducts(username: String): LiveData<Result<List<UserPublicProfileResponse.Data.Product>>> {
         viewModelScope.launch {
+            _getProductListResult.value = Result.Loading
             try {
                 val products = userPublicProfileRepository.getProducts(username)
-                _getProductListResult.value = Result.Success(products)
+                if (products.isEmpty()) {
+                    _getProductListResult.value = Result.Empty("Produk masih kosong")
+                } else {
+                    _getProductListResult.value = Result.Success(products)
+                }
             } catch (e: Exception) {
                 _getProductListResult.value = Result.Error(e.message ?: "Error Occurred")
             }
@@ -79,9 +89,14 @@ class UserPublicProfileViewModel(
 
     fun getCertifications(username: String): LiveData<Result<List<UserPublicProfileResponse.Data.Certifications>>> {
         viewModelScope.launch {
+            _getCertificationsListResult.value = Result.Loading
             try {
-                val certification = userPublicProfileRepository.getCertifications(username)
-                _getCertificationsListResult.value = Result.Success(certification)
+                val certifications = userPublicProfileRepository.getCertifications(username)
+                if (certifications.isEmpty()) {
+                    _getCertificationsListResult.value = Result.Empty("Sertifikasi masih kosong.")
+                } else {
+                    _getCertificationsListResult.value = Result.Success(certifications)
+                }
             } catch (e: Exception) {
                 _getCertificationsListResult.value = Result.Error(e.message ?: "Error Occurred")
             }
@@ -91,9 +106,14 @@ class UserPublicProfileViewModel(
 
     fun getProjects(username: String): LiveData<Result<List<UserPublicProfileResponse.Data.Projects>>> {
         viewModelScope.launch {
+            _getProjectsListResult.value = Result.Loading
             try {
                 val projects = userPublicProfileRepository.getProjects(username)
-                _getProjectsListResult.value = Result.Success(projects)
+                if (projects.isEmpty()) {
+                    _getProjectsListResult.value = Result.Empty("Project Diselesaikan masih kosong")
+                } else {
+                    _getProjectsListResult.value = Result.Success(projects)
+                }
             } catch (e: Exception) {
                 _getProjectsListResult.value = Result.Error(e.message ?: "Error Occurred")
             }

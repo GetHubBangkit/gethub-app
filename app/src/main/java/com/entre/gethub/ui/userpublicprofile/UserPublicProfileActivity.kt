@@ -152,6 +152,7 @@ class UserPublicProfileActivity : AppCompatActivity() {
                 }
                 is Result.Empty -> {
                     showLoadingOnCertification(false)
+                    showEmptyOnCertification(true, result.emptyError)
                 }
                 is Result.Error -> {
                     showLoadingOnProduct(false)
@@ -286,11 +287,11 @@ class UserPublicProfileActivity : AppCompatActivity() {
         binding.progressBarLink.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
-    private fun showEmptyOnCertification(isLoading: Boolean) {
-        binding.tvEmptyCertification.visibility = if (isLoading) View.VISIBLE else View.GONE
+    private fun showEmptyOnCertification(isEmpty: Boolean, message: String) {
+        binding.tvEmptyCertification.visibility = if (isEmpty) View.VISIBLE else View.GONE
     }
-    private fun showEmptyErrorOnLink(isError: Boolean, message: String) {
+    private fun showEmptyErrorOnLink(isEmpty: Boolean, message: String) {
         binding.tvEmptyLink.text = message
-        binding.tvEmptyLink.visibility = if (isError) View.VISIBLE else View.GONE
+        binding.tvEmptyLink.visibility = if (isEmpty) View.VISIBLE else View.GONE
     }
 }

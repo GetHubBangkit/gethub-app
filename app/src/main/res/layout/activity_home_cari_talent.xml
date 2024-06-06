@@ -149,9 +149,11 @@
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/rvHomeCariTalent"
         app:layout_constraintEnd_toEndOf="@+id/rvHomeCariTalent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="@+id/rvHomeCariTalent"
-        app:layout_constraintTop_toTopOf="@+id/rvHomeCariTalent"
 
+        app:layout_constraintTop_toTopOf="@+id/rvHomeCariTalent"
+        app:layout_constraintVertical_bias="0.815"
         tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
