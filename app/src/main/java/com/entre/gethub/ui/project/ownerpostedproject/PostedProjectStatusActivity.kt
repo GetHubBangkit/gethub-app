@@ -57,6 +57,7 @@ class PostedProjectStatusActivity : AppCompatActivity() {
                 false
             )
             adapter = PostedProjectAdapter(
+                this@PostedProjectStatusActivity,
                 postedProjectList,
                 listener = { project, _ ->
                     val intent = Intent(
