@@ -1,5 +1,6 @@
 package com.entre.gethub.ui.project.freelanceracceptedproject
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -14,6 +15,7 @@ import com.entre.gethub.ui.adapter.AcceptedBidAdapter
 import com.entre.gethub.ui.home.projectbids.HomeMilestoneProjectBidsActivity
 import com.entre.gethub.ui.project.chat.ChatActivity
 import com.entre.gethub.utils.ViewModelFactory
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class AcceptedBidProjectActivity : AppCompatActivity() {
 
@@ -76,42 +78,84 @@ class AcceptedBidProjectActivity : AppCompatActivity() {
             )
 
             adapter = AcceptedBidAdapter(acceptedProjectList, chatButtonListener = { data ->
-                run {
-                    val intent =
-                        Intent(
-                            this@AcceptedBidProjectActivity,
-                            ChatActivity::class.java
-                        ).apply {
-                            putExtra(ChatActivity.EXTRA_RECEIVER_ID, data.project.ownerId)
-                            putExtra(ChatActivity.EXTRA_SENDER_ID, data.userId)
-                            putExtra(ChatActivity.EXTRA_CHANNEL_ID, data.project.chatroomId)
-                            putExtra(
-                                ChatActivity.EXTRA_RECEIVER_NAME,
-                                data.project.ownerProject?.fullName
-                            )
-                            putExtra(
-                                ChatActivity.EXTRA_RECEIVER_PHOTO,
-                                data.project.ownerProject?.photo
-                            )
-                        }
-                    startActivity(intent)
-                }
+                val intent =
+                    Intent(
+                        this@AcceptedBidProjectActivity,
+                        ChatActivity::class.java
+                    ).apply {
+                        putExtra(ChatActivity.EXTRA_RECEIVER_ID, data.project.ownerId)
+                        putExtra(ChatActivity.EXTRA_SENDER_ID, data.userId)
+                        putExtra(ChatActivity.EXTRA_CHANNEL_ID, data.project.chatroomId)
+                        putExtra(
+                            ChatActivity.EXTRA_RECEIVER_NAME,
+                            data.project.ownerProject?.fullName
+                        )
+                        putExtra(
+                            ChatActivity.EXTRA_RECEIVER_PHOTO,
+                            data.project.ownerProject?.photo
+                        )
+                    }
+                startActivity(intent)
 
             },
                 seeDetailListener = { projectId ->
-                    run {
-                        val intent = Intent(
-                            this@AcceptedBidProjectActivity,
-                            HomeMilestoneProjectBidsActivity::class.java
-                        ).apply {
-                            putExtra(HomeMilestoneProjectBidsActivity.EXTRA_PROJECT_ID, projectId)
-                        }
-                        startActivity(intent)
+                    val intent = Intent(
+                        this@AcceptedBidProjectActivity,
+                        HomeMilestoneProjectBidsActivity::class.java
+                    ).apply {
+                        putExtra(HomeMilestoneProjectBidsActivity.EXTRA_PROJECT_ID, projectId)
                     }
+                    startActivity(intent)
 
+                },
+                finishProjectListener = { projectId ->
+                    showDialog(
+                        this@AcceptedBidProjectActivity,
+                        "Tandai pekerjaan selesai",
+                        "Apakah Anda yakin bahwa pekerjaan telah selesai?",
+                        projectId
+                    )
                 }
             )
         }
+
+    }
+
+    private fun showDialog(context: Context, title: String, message: String, projectId: String) {
+        MaterialAlertDialogBuilder(context)
+            .setTitle(title)
+            .setMessage(message)
+            .setPositiveButton("Yakin") { _, _ ->
+                acceptedBidProjectViewModel.finishProject(projectId)
+                    .observe(this@AcceptedBidProjectActivity) { result ->
+                        if (result != null) {
+                            when (result) {
+                                is Result.Loading -> showLoading(true)
+                                is Result.Success -> {
+                                    showLoading(false)
+                                    showToast(result.data.message.toString())
+                                    getAccepted()
+                                }
+
+                                is Result.Error -> {
+                                    showLoading(false)
+                                    showToast(result.error)
+                                }
+
+                                else -> {
+                                    //
+                                }
+                            }
+                        }
+                    }
+            }
+            .setNegativeButton("Batal") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .setOnDismissListener {
+                it.dismiss()
+            }
+            .show()
     }
 
     private fun showLoading(isLoading: Boolean) {

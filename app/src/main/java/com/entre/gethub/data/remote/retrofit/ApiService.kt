@@ -267,6 +267,11 @@ interface ApiService {
     suspend fun generatePaymentToken(
         @Path("id") projectId: String,
     ): PaymentResponse
+
+    @POST("projects/{id}/finish")
+    suspend fun finishProject(
+        @Path("id") projectId: String,
+    ): ApiResponse
     // Projects
 
     // Verify Email

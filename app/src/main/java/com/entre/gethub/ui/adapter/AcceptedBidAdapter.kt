@@ -13,6 +13,7 @@ class AcceptedBidAdapter(
     private val acceptedProjectList: List<AcceptedProjectBidResponse.DataItem>,
     private val chatButtonListener: (project: AcceptedProjectBidResponse.DataItem) -> Unit,
     private val seeDetailListener: (projectId: String) -> Unit,
+    private val finishProjectListener: (projectId: String) -> Unit,
 ) : RecyclerView.Adapter<AcceptedBidAdapter.ViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -28,7 +29,10 @@ class AcceptedBidAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bindItem(
-            acceptedProjectList[position], chatButtonListener, seeDetailListener
+            acceptedProjectList[position],
+            chatButtonListener,
+            seeDetailListener,
+            finishProjectListener,
         )
     }
 
@@ -41,6 +45,7 @@ class AcceptedBidAdapter(
             projectBid: AcceptedProjectBidResponse.DataItem,
             chatButtonListener: (project: AcceptedProjectBidResponse.DataItem) -> Unit,
             seeDetailListener: (projectId: String) -> Unit,
+            finishProjectListener: (projectId: String) -> Unit,
         ) {
             with(binding) {
                 val acceptedBudget = Formatter.formatRupiah(projectBid.budgetBid ?: 0)
@@ -64,6 +69,15 @@ class AcceptedBidAdapter(
 
                 tvSeeDetail.setOnClickListener {
                     seeDetailListener(projectBid.projectId.toString())
+                }
+
+                if (projectBid.project.statusProject == "FINISHED") {
+                    btnFinishProject.text = "Lakukan Settlement Pembayaran"
+                } else {
+                    btnFinishProject.text = "Tandai Pekerjaan Selesai"
+                    btnFinishProject.setOnClickListener {
+                        finishProjectListener(projectBid.projectId.toString())
+                    }
                 }
             }
         }
