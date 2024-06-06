@@ -11,6 +11,7 @@ import com.entre.gethub.data.Result
 import com.entre.gethub.data.remote.response.projects.AcceptedProjectBidResponse
 import com.entre.gethub.databinding.ActivityAcceptedBidProjectBinding
 import com.entre.gethub.ui.adapter.AcceptedBidAdapter
+import com.entre.gethub.ui.home.projectbids.HomeMilestoneProjectBidsActivity
 import com.entre.gethub.ui.project.chat.ChatActivity
 import com.entre.gethub.utils.ViewModelFactory
 
@@ -77,17 +78,39 @@ class AcceptedBidProjectActivity : AppCompatActivity() {
             adapter = AcceptedBidAdapter(acceptedProjectList, chatButtonListener = { data ->
                 run {
                     val intent =
-                        Intent(this@AcceptedBidProjectActivity, ChatActivity::class.java).apply {
+                        Intent(
+                            this@AcceptedBidProjectActivity,
+                            ChatActivity::class.java
+                        ).apply {
                             putExtra(ChatActivity.EXTRA_RECEIVER_ID, data.project.ownerId)
                             putExtra(ChatActivity.EXTRA_SENDER_ID, data.userId)
                             putExtra(ChatActivity.EXTRA_CHANNEL_ID, data.project.chatroomId)
-                            putExtra(ChatActivity.EXTRA_RECEIVER_NAME, data.project.ownerProject?.fullName)
-                            putExtra(ChatActivity.EXTRA_RECEIVER_PHOTO, data.project.ownerProject?.photo)
+                            putExtra(
+                                ChatActivity.EXTRA_RECEIVER_NAME,
+                                data.project.ownerProject?.fullName
+                            )
+                            putExtra(
+                                ChatActivity.EXTRA_RECEIVER_PHOTO,
+                                data.project.ownerProject?.photo
+                            )
                         }
                     startActivity(intent)
                 }
 
-            })
+            },
+                seeDetailListener = { projectId ->
+                    run {
+                        val intent = Intent(
+                            this@AcceptedBidProjectActivity,
+                            HomeMilestoneProjectBidsActivity::class.java
+                        ).apply {
+                            putExtra(HomeMilestoneProjectBidsActivity.EXTRA_PROJECT_ID, projectId)
+                        }
+                        startActivity(intent)
+                    }
+
+                }
+            )
         }
     }
 
