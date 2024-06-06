@@ -33,6 +33,7 @@ import com.entre.gethub.ui.auth.RegisterViewModel
 import com.entre.gethub.ui.completeprofile.CompleteProfileValidationViewModel
 import com.entre.gethub.ui.completeprofile.CompleteProfileViewModel
 import com.entre.gethub.ui.gethub.GethubAddPartnerFormViewModel
+import com.entre.gethub.ui.gethub.GethubAddPartnerViewModel
 import com.entre.gethub.ui.gethub.GethubPartnerListViewModel
 import com.entre.gethub.ui.gethub.GethubViewModel
 import com.entre.gethub.ui.home.HomeViewModel
@@ -162,6 +163,10 @@ class ViewModelFactory private constructor(
 
             GethubPartnerListViewModel::class.java -> GethubPartnerListViewModel(
                 gethubRepository
+            ) as T
+
+            GethubAddPartnerViewModel::class.java -> GethubAddPartnerViewModel(
+                gethubRepository, scanCardRepository
             ) as T
 
             GethubAddPartnerFormViewModel::class.java -> GethubAddPartnerFormViewModel(

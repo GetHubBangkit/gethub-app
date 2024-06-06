@@ -3,11 +3,14 @@ package com.entre.gethub.ui.home.caritalent
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.entre.gethub.data.Result
+import com.entre.gethub.data.remote.response.ml.CariTalentResponse
 import com.entre.gethub.databinding.ActivityHomeCariTalentBinding
 import com.entre.gethub.ui.adapter.CariTalentAdapter
 import com.entre.gethub.ui.userpublicprofile.UserPublicProfileActivity
@@ -53,31 +56,51 @@ class HomeCariTalentActivity : AppCompatActivity() {
     }
 
     private fun fetchAllTalents() {
-        viewModel.getAllTalents().observe(this, Observer { response ->
-            Log.d("HomeCariTalentActivity", "Observed Response: $response")
-            if (response != null && response.data != null && response.data.isNotEmpty()) {
-                cariTalentAdapter.clearAll() // Clear existing data
-                cariTalentAdapter.addAll(response.data)
-            } else {
-                Toast.makeText(this@HomeCariTalentActivity, "No talents found", Toast.LENGTH_SHORT).show()
-            }
+        viewModel.allTalentsResult.observe(this, Observer { result ->
+            handleResult(result)
         })
+        viewModel.getAllTalents()
     }
 
     private fun searchCariTalent() {
         val profession = binding.professionTextField.editText?.text.toString()
         if (profession.isNotBlank()) {
-            viewModel.searchCariTalent(profession).observe(this, Observer { response ->
-                Log.d("HomeCariTalentActivity", "Observed Response: $response")
-                if (response != null && response.data != null && response.data.isNotEmpty()) {
-                    cariTalentAdapter.clearAll() // Clear existing data
-                    cariTalentAdapter.addAll(response.data)
-                } else {
-                    Toast.makeText(this@HomeCariTalentActivity, "No talents found", Toast.LENGTH_SHORT).show()
-                }
+            viewModel.searchCariTalent(profession).observe(this, Observer { result ->
+                handleResult(result)
             })
         } else {
             Toast.makeText(this, "Please enter a profession", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun handleResult(result: Result<CariTalentResponse>) {
+        when (result) {
+            is Result.Empty -> {
+                showLoadingTalent(false)
+                Toast.makeText(this, "No talents found", Toast.LENGTH_SHORT).show()
+            }
+            is Result.Loading -> {
+                showLoadingTalent(true)
+                Log.d("HomeCariTalentActivity", "Loading...")
+            }
+            is Result.Success -> {
+                showLoadingTalent(false)
+                Log.d("HomeCariTalentActivity", "Success: ${result.data}")
+                result.data.data?.let {
+                    if (it.isNotEmpty()) {
+                        cariTalentAdapter.clearAll() // Clear the current list
+                        cariTalentAdapter.addAll(it) // Add the new data
+                    } else {
+                        Toast.makeText(this, "No talents found", Toast.LENGTH_SHORT).show()
+                    }
+                } ?: run {
+                    Toast.makeText(this, "No talents found", Toast.LENGTH_SHORT).show()
+                }
+            }
+            is Result.Error -> {
+                showLoadingTalent(false)
+                Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -87,5 +110,7 @@ class HomeCariTalentActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-
+    private fun showLoadingTalent(isLoading: Boolean) {
+        binding.progressBarOnTalent.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
 }

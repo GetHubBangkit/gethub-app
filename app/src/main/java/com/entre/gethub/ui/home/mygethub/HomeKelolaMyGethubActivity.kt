@@ -84,6 +84,11 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
         getCertificationList()
     }
 
+    override fun onBackPressed() {
+        startActivity(Intent(this, MainActivity::class.java))
+        finish()
+    }
+
     private fun getUserData() {
         homeKelolaMyGetHubViewModel.getUserProfile().observe(this) { result ->
             if (result != null) {

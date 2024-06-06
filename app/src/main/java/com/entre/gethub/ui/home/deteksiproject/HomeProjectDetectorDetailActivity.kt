@@ -49,6 +49,10 @@ class HomeProjectDetectorDetailActivity : AppCompatActivity() {
         result?.data?.totals?.let { showTotals(it) }
     }
 
+    override fun onBackPressed() {
+        startActivity(Intent(this, HomeProjectDetectorActivity::class.java))
+        finish()
+    }
     private fun showTotals(totals: ProjectDetectorResponse.Totals) {
         binding.apply {
             tvFraudTotalJumlah.text = totals.totalFraud.toString()
