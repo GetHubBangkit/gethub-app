@@ -1,13 +1,10 @@
 package com.entre.gethub.ui.adapter
 
 import android.content.Context
-import android.view.Gravity
 import android.view.View
-import android.widget.FrameLayout
-import com.bumptech.glide.Glide
+import android.widget.TextView
 import com.entre.gethub.R
-import com.entre.gethub.data.remote.response.profiles.UserProfileResponse
-import com.entre.gethub.data.remote.response.projects.AcceptedProjectBidResponse
+import com.entre.gethub.databinding.ItemChatReceiverBinding
 import com.entre.gethub.databinding.ItemChatSenderBinding
 import com.entre.gethub.ui.models.TextMessage
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
@@ -21,11 +18,44 @@ class TextMessageItem(
     val senderId: String,
     val senderName: String,
     val senderPhoto: String,
-    val ownerName: String,
-    val ownerPhoto: String,
-) :
-    Item() {
-    override fun getLayout(): Int = R.layout.item_chat_sender
+    val receiverName: String,
+    val receiverPhoto: String,
+) : Item() {
+
+    private val isSender = message.senderId == senderId
+
+    override fun getLayout(): Int {
+        return if (isSender) {
+            R.layout.item_chat_sender
+        } else {
+            R.layout.item_chat_receiver
+        }
+    }
+
+    override fun bind(viewHolder: GroupieViewHolder, position: Int) {
+        if (isSender) {
+            val viewBinding = ItemChatSenderBinding.bind(viewHolder.itemView)
+            viewBinding.tvMessage.text = message.text
+            setTimeText(viewBinding.tvChatDate)
+            viewBinding.tvSenderName.text = senderName
+            viewBinding.tvMessage.setTextColor(context.getColor(R.color.white))
+            viewBinding.tvChatDate.setTextColor(context.getColor(R.color.white))
+//            Glide.with(context).load(senderPhoto).placeholder(R.drawable.profilepic1).into(viewBinding.ivSenderAvatar)
+        } else {
+            val viewBinding = ItemChatReceiverBinding.bind(viewHolder.itemView)
+            viewBinding.tvMessage.text = message.text
+            setTimeText(viewBinding.tvChatDate)
+            viewBinding.tvSenderName.text = receiverName
+            viewBinding.tvMessage.setTextColor(context.getColor(R.color.black))
+            viewBinding.tvChatDate.setTextColor(context.getColor(R.color.black))
+//            Glide.with(context).load(receiverPhoto).placeholder(R.drawable.profilepic1).into(viewBinding.ivReceiverAvatar)
+        }
+    }
+
+    private fun setTimeText(textView: TextView) {
+        val dateFormat = SimpleDateFormat("HH:mm dd MMM yy", Locale("id", "ID"))
+        textView.text = dateFormat.format(message.time)
+    }
 
     override fun isSameAs(other: com.xwray.groupie.Item<*>): Boolean {
         if (other !is TextMessageItem) return false
@@ -33,60 +63,8 @@ class TextMessageItem(
         return true
     }
 
-    override fun bind(viewHolder: GroupieViewHolder, position: Int) {
-        viewHolder.itemView.apply {
-            val viewBinding = ItemChatSenderBinding.bind(this)
-            viewBinding.tvMessage.text = message.text
-            setTimeText(viewBinding)
-            setMessageRootGravity(viewBinding)
-        }
-    }
-
     override fun equals(other: Any?): Boolean {
         return isSameAs(other as TextMessageItem)
-    }
-
-    private fun setTimeText(viewBinding: ItemChatSenderBinding) {
-        val dateFormat = SimpleDateFormat("HH:mm dd MMM yy", Locale("id", "ID"))
-        viewBinding.tvChatDate.text = dateFormat.format(message.time)
-    }
-
-    private fun setMessageRootGravity(viewBinding: ItemChatSenderBinding) {
-        if (message.senderId == senderId) {
-            with(viewBinding) {
-                ivSenderAvatar.visibility = View.VISIBLE
-                ivReceiverAvatar.visibility = View.GONE
-                tvSenderName.visibility = View.VISIBLE
-                chatBg.setBackgroundResource(R.drawable.sender_chat_background)
-                tvMessage.setTextColor(context.getColor(R.color.white))
-                tvChatDate.setTextColor(context.getColor(R.color.white))
-                tvSenderName.text = senderName
-                Glide.with(root.context)
-                    .load(senderPhoto)
-                    .placeholder(R.drawable.profilepic1)
-                    .into(ivSenderAvatar)
-            }
-            viewBinding.messageRoot.apply {
-                (layoutParams as FrameLayout.LayoutParams).gravity = Gravity.END
-            }
-        } else {
-            with(viewBinding) {
-                ivReceiverAvatar.visibility = View.VISIBLE
-                ivSenderAvatar.visibility = View.GONE
-                tvSenderName.visibility = View.VISIBLE
-                chatBg.setBackgroundResource(R.drawable.receiver_chat_background)
-                tvMessage.setTextColor(context.getColor(R.color.black))
-                tvChatDate.setTextColor(context.getColor(R.color.black))
-                Glide.with(root.context)
-                    .load(ownerPhoto)
-                    .placeholder(R.drawable.profilepic1)
-                    .into(ivSenderAvatar)
-                viewBinding.tvSenderName.text = ownerName
-            }
-            viewBinding.messageRoot.apply {
-                (layoutParams as FrameLayout.LayoutParams).gravity = Gravity.START
-            }
-        }
     }
 
     override fun hashCode(): Int {
