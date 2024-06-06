@@ -12,6 +12,7 @@ import com.entre.gethub.data.remote.response.projects.PostedProjectResponse
 import com.entre.gethub.data.remote.response.projects.ProjectDetailResponse
 import com.entre.gethub.data.remote.response.projects.ProjectResponse
 import com.entre.gethub.data.remote.response.projects.ProjectStatsResponse
+import com.entre.gethub.data.remote.response.projects.ReviewResponse
 import com.entre.gethub.data.remote.response.projects.SearchProjectResponse
 import com.entre.gethub.data.remote.response.projects.SettlementResponse
 import com.entre.gethub.data.remote.retrofit.ApiService
@@ -104,6 +105,15 @@ class ProjectRepository private constructor(private val apiService: ApiService) 
 
     suspend fun finishProject(projectId: String): ApiResponse {
         return apiService.finishProject(projectId)
+    }
+
+    suspend fun createReview(
+        projectId: String,
+        targetUserId: String,
+        message: String,
+        reviewType: String
+    ): ReviewResponse {
+        return apiService.createReview(projectId, targetUserId, message, reviewType)
     }
 
     companion object {

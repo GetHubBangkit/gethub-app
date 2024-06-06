@@ -59,6 +59,7 @@ import com.entre.gethub.ui.project.chat.ChatViewModel
 import com.entre.gethub.ui.project.ownerpostedproject.PostedProjectStatusDetailViewModel
 import com.entre.gethub.ui.project.ownerpostedproject.PostedProjectStatusViewModel
 import com.entre.gethub.ui.project.ownerpostedproject.payment.OwnerSettlementViewModel
+import com.entre.gethub.ui.project.ownerpostedproject.review.FreelancerReviewViewModel
 import com.entre.gethub.ui.project.postproject.PostProjectViewModel
 import com.entre.gethub.ui.project.postproject.milestone.ProjectMilestoneFormViewModel
 import com.entre.gethub.ui.project.postproject.milestone.ProjectMilestoneViewModel
@@ -227,6 +228,8 @@ class ViewModelFactory private constructor(
             ) as T
 
             OwnerSettlementViewModel::class.java -> OwnerSettlementViewModel(projectRepository) as T
+
+            FreelancerReviewViewModel::class.java -> FreelancerReviewViewModel(projectRepository) as T
 
             AnaliticViewModel::class.java -> AnaliticViewModel(
                 analiticTotalRepository, cardViewersRepository

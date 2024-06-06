@@ -16,6 +16,7 @@ class PostedProjectAdapter(
     private val postedProjectList: List<PostedProjectResponse.ProjectsItem>,
     private val listener: (PostedProjectResponse.ProjectsItem, Int) -> Unit,
     private val chatButtonListener: (project: PostedProjectResponse.ProjectsItem) -> Unit,
+    private val reviewButtonListener: (project: PostedProjectResponse.ProjectsItem) -> Unit,
 ) : RecyclerView.Adapter<PostedProjectAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -25,7 +26,7 @@ class PostedProjectAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindItem(postedProjectList[position], chatButtonListener)
+        holder.bindItem(postedProjectList[position], chatButtonListener, reviewButtonListener)
         holder.itemView.setOnClickListener { listener(postedProjectList[position], position) }
     }
 
@@ -36,7 +37,8 @@ class PostedProjectAdapter(
 
         fun bindItem(
             project: PostedProjectResponse.ProjectsItem,
-            chatButtonListener: (project: PostedProjectResponse.ProjectsItem) -> Unit
+            chatButtonListener: (project: PostedProjectResponse.ProjectsItem) -> Unit,
+            reviewButtonListener: (project: PostedProjectResponse.ProjectsItem) -> Unit,
         ) {
             val minBudget = Formatter.formatRupiah(project.minBudget ?: 0)
             val maxBudget = Formatter.formatRupiah(project.maxBudget ?: 0)
@@ -51,8 +53,6 @@ class PostedProjectAdapter(
                 when (project.statusProject) {
                     "CLOSE", "FINISHED" -> {
                         clProjectUserSelected.visibility = View.VISIBLE
-                        val acceptedBudget =
-                            Formatter.formatRupiah(project.selectedUserBid.budgetBid ?: 0)
 
                         loadUserDetails(project)
 
@@ -63,6 +63,9 @@ class PostedProjectAdapter(
                             btnReview.visibility = View.VISIBLE
                             tvProjectStatus.text = "Selesai Dikerjakan"
                             tvProjectStatus.setTextColor(context.getColor(R.color.color_project_bid_status))
+                            btnReview.setOnClickListener {
+                                reviewButtonListener(project)
+                            }
                         }
                     }
 

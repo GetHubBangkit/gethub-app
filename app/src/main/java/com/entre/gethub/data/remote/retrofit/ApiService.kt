@@ -35,6 +35,7 @@ import com.entre.gethub.data.remote.response.projects.PostedProjectResponse
 import com.entre.gethub.data.remote.response.projects.ProjectDetailResponse
 import com.entre.gethub.data.remote.response.projects.ProjectResponse
 import com.entre.gethub.data.remote.response.projects.ProjectStatsResponse
+import com.entre.gethub.data.remote.response.projects.ReviewResponse
 import com.entre.gethub.data.remote.response.projects.SearchProjectResponse
 import com.entre.gethub.data.remote.response.projects.SettlementResponse
 import okhttp3.MultipartBody
@@ -272,6 +273,15 @@ interface ApiService {
     suspend fun finishProject(
         @Path("id") projectId: String,
     ): ApiResponse
+
+    @FormUrlEncoded
+    @POST("project-reviews")
+    suspend fun createReview(
+        @Field("project_id") projectId: String,
+        @Field("target_user_id") targetUserId: String,
+        @Field("message") message: String,
+        @Field("review_type") reviewType: String,
+    ): ReviewResponse
     // Projects
 
     // Verify Email
