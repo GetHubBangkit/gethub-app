@@ -64,8 +64,8 @@ object FirestoreUtil {
                                 senderId = senderId,
                                 senderName = senderName,
                                 senderPhoto = senderPhoto,
-                                ownerName = ownerName,
-                                ownerPhoto = ownerPhoto,
+                                receiverName = ownerName,
+                                receiverPhoto = ownerPhoto,
                             )
                         )
                     else
