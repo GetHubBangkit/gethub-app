@@ -61,6 +61,7 @@ class ImageMessageItem(val message: ImageMessage, val context: Context, val send
         } else {
             viewBinding.messageRoot.apply {
                 setBackgroundResource(R.drawable.receiver_chat_background)
+                viewBinding.tvTime.setTextColor(context.getColor(R.color.black))
                 (layoutParams as FrameLayout.LayoutParams).gravity = Gravity.START
             }
         }

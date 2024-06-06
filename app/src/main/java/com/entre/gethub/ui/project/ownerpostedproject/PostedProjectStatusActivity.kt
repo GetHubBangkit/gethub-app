@@ -12,6 +12,7 @@ import com.entre.gethub.data.remote.response.projects.PostedProjectResponse
 import com.entre.gethub.databinding.ActivityPostedProjectStatusBinding
 import com.entre.gethub.ui.MainActivity
 import com.entre.gethub.ui.adapter.PostedProjectAdapter
+import com.entre.gethub.ui.project.chat.ChatActivity
 import com.entre.gethub.utils.ViewModelFactory
 
 class PostedProjectStatusActivity : AppCompatActivity() {
@@ -55,14 +56,27 @@ class PostedProjectStatusActivity : AppCompatActivity() {
                 LinearLayoutManager.VERTICAL,
                 false
             )
-            adapter = PostedProjectAdapter(postedProjectList) { project, _ ->
-                val intent = Intent(
-                    this@PostedProjectStatusActivity,
-                    PostedProjectStatusDetailActivity::class.java
-                );
-                intent.putExtra(PostedProjectStatusDetailActivity.EXTRA_PROJECT_ID, project.id)
-                startActivity(intent)
-            }
+            adapter = PostedProjectAdapter(
+                postedProjectList,
+                listener = { project, _ ->
+                    val intent = Intent(
+                        this@PostedProjectStatusActivity,
+                        PostedProjectStatusDetailActivity::class.java
+                    );
+                    intent.putExtra(PostedProjectStatusDetailActivity.EXTRA_PROJECT_ID, project.id)
+                    startActivity(intent)
+                },
+                chatButtonListener = { project ->
+                    val intent = Intent(this@PostedProjectStatusActivity, ChatActivity::class.java).apply {
+                        putExtra(ChatActivity.EXTRA_RECEIVER_ID, project.selectedUserBid.userId)
+                        putExtra(ChatActivity.EXTRA_SENDER_ID, project.ownerId)
+                        putExtra(ChatActivity.EXTRA_CHANNEL_ID, project.chatroomId)
+                        putExtra(ChatActivity.EXTRA_RECEIVER_NAME, project.selectedUserBid.usersBid?.fullName)
+                        putExtra(ChatActivity.EXTRA_RECEIVER_PHOTO, project.selectedUserBid.usersBid?.photo)
+                    }
+                    startActivity(intent)
+                },
+            )
         }
     }
 
