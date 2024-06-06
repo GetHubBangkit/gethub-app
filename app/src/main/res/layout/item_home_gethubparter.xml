@@ -13,6 +13,7 @@
         android:background="?android:attr/selectableItemBackground">
 
         <ImageView
+            android:layout_marginTop="8dp"
             android:id="@+id/profilepic1"
             android:layout_width="39dp"
             android:layout_height="39dp"

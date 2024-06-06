@@ -120,13 +120,6 @@ class HomeKelolaMyGethubEditTentangSayaActivity : AppCompatActivity() {
                 }
             }
 
-            edWebsite.doOnTextChanged { text, _, _, _ ->
-                if (text.toString().isEmpty()) {
-                    edWebsite.error = getString(R.string.website_field_couldn_be_empty)
-                } else {
-                    edWebsite.error = null
-                }
-            }
 
             edPhone.doOnTextChanged { text, _, _, _ ->
                 if (text.toString().isEmpty()) {
