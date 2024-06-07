@@ -11,6 +11,7 @@ import com.entre.gethub.data.repositories.CariTalentRepository
 import com.entre.gethub.data.repositories.CategoryRepository
 import com.entre.gethub.data.repositories.CertificationRepository
 import com.entre.gethub.data.repositories.GethubRepository
+import com.entre.gethub.data.repositories.GraphDataRepository
 import com.entre.gethub.data.repositories.InformationHubRepository
 import com.entre.gethub.data.repositories.LinkRepository
 import com.entre.gethub.data.repositories.NewPartnerRepository
@@ -88,7 +89,8 @@ class ViewModelFactory private constructor(
     private val analiticTotalRepository: AnaliticTotalRepository,
     private val newPartnerRepository: NewPartnerRepository,
     private val cardViewersRepository: CardViewersRepository,
-    private val postCardViewersRepository: PostCardViewersRepository
+    private val postCardViewersRepository: PostCardViewersRepository,
+    private val graphDataRepository: GraphDataRepository
 ) : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when (modelClass) {
@@ -234,7 +236,7 @@ class ViewModelFactory private constructor(
             OwnerSettlementViewModel::class.java -> OwnerSettlementViewModel(projectRepository) as T
 
             AnaliticViewModel::class.java -> AnaliticViewModel(
-                analiticTotalRepository, cardViewersRepository
+                analiticTotalRepository, cardViewersRepository, graphDataRepository
             ) as T
 
             ChatViewModel::class.java -> ChatViewModel(profileRepository) as T
@@ -267,7 +269,8 @@ class ViewModelFactory private constructor(
                 Injection.provideAnaliticTotalRepository(context),
                 Injection.provideNewPartnerRepository(context),
                 Injection.provideCardViewersRepository(context),
-                Injection.providePostCardViewersRepository(context)
+                Injection.providePostCardViewersRepository(context),
+                Injection.provideGraphDataRepository(context)
             )
 
     }
