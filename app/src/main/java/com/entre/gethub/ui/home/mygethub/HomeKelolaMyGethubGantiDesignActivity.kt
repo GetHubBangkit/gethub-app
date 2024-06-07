@@ -1,7 +1,6 @@
 package com.entre.gethub.ui.home.mygethub
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -17,6 +16,8 @@ class HomeKelolaMyGethubGantiDesignActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeKelolaMyGetHubGantiDesignBinding
     private lateinit var viewModel: HomeKelolaMyGethubGantiDesignViewModel
+
+    private var isPremiumUser: Boolean = false // Add a flag for premium status
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,13 +70,21 @@ class HomeKelolaMyGethubGantiDesignActivity : AppCompatActivity() {
         binding.recyclerViewHomeDesignBayar.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = LayoutDesignAdapter(createLayoutDesignBayarList()) { layoutdesign, position ->
-                Toast.makeText(
-                    this@HomeKelolaMyGethubGantiDesignActivity,
-                    "Design Card Web Berhasil Diperbarui",
-                    Toast.LENGTH_SHORT
-                ).show()
-                // Call updateThemeHub with the appropriate theme hub value
-                viewModel.updateThemeHub(position + 7)
+                if (isPremiumUser) {
+                    Toast.makeText(
+                        this@HomeKelolaMyGethubGantiDesignActivity,
+                        "Design Card Web Berhasil Diperbarui",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    // Call updateThemeHub with the appropriate theme hub value
+                    viewModel.updateThemeHub(position + 7)
+                } else {
+                    Toast.makeText(
+                        this@HomeKelolaMyGethubGantiDesignActivity,
+                        "Anda Belum Premium, Silahkan melakukan pembelian Premium",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
         }
     }
@@ -95,12 +104,12 @@ class HomeKelolaMyGethubGantiDesignActivity : AppCompatActivity() {
         viewModel.getUserProfile().observe(this) { result ->
             when (result) {
                 is Result.Loading -> {
-
-
+                    // Handle loading state
                 }
                 is Result.Success -> {
                     val userProfile = result.data.data
                     val username = userProfile?.username ?: ""
+                    isPremiumUser = userProfile?.isPremium == true // Check if the user is premium
                     setupPreviewButton(username)
                 }
                 is Result.Error -> {
@@ -121,15 +130,4 @@ class HomeKelolaMyGethubGantiDesignActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
-
-//    private fun setupPreviewButton(username: String) {
-//        binding.btnPriview.setOnClickListener {
-//            val url = "https://gethub-webporto-kot54pmj3q-et.a.run.app/$username"
-//            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-//            startActivity(intent)
-//        }
-//    }
-
 }
-
-
