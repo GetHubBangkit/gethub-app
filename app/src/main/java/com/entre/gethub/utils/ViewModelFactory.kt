@@ -98,21 +98,26 @@ class ViewModelFactory private constructor(
             ) as T
 
             SplashViewModel::class.java -> SplashViewModel(userPreferences) as T
+
             LoginViewModel::class.java -> LoginViewModel(authRepository, userPreferences) as T
+
             RegisterViewModel::class.java -> RegisterViewModel(authRepository) as T
+
             HomeViewModel::class.java -> HomeViewModel(
                 informationHubRepository,
-                newPartnerRepository
+                newPartnerRepository,
+                projectRepository
             ) as T
 
             CompleteProfileViewModel::class.java -> CompleteProfileViewModel(profileRepository) as T
+
             CompleteProfileValidationViewModel::class.java -> CompleteProfileValidationViewModel(
                 profileRepository, scanCardRepository
             ) as T
 
-            HomeKelolaMyGethubEditTentangSayaViewModel::class.java -> {
+            HomeKelolaMyGethubEditTentangSayaViewModel::class.java ->
                 HomeKelolaMyGethubEditTentangSayaViewModel(profileRepository) as T
-            }
+
 
             AkunViewModel::class.java -> AkunViewModel(
                 profileRepository,
