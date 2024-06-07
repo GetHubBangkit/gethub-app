@@ -14,6 +14,7 @@ import com.entre.gethub.databinding.ActivityAcceptedBidProjectBinding
 import com.entre.gethub.ui.adapter.AcceptedBidAdapter
 import com.entre.gethub.ui.home.projectbids.HomeMilestoneProjectBidsActivity
 import com.entre.gethub.ui.project.chat.ChatActivity
+import com.entre.gethub.ui.project.freelanceracceptedproject.settlement.FreelancerSettlementActivity
 import com.entre.gethub.utils.ViewModelFactory
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
@@ -115,6 +116,15 @@ class AcceptedBidProjectActivity : AppCompatActivity() {
                         "Apakah Anda yakin bahwa pekerjaan telah selesai?",
                         projectId
                     )
+                },
+                createSettlementListener = { project ->
+                    val intent = Intent(this@AcceptedBidProjectActivity, FreelancerSettlementActivity::class.java).apply {
+                        putExtra(FreelancerSettlementActivity.EXTRA_PROJECT_ID, project.projectId)
+                        putExtra(FreelancerSettlementActivity.EXTRA_PROJECT_TITLE, project.project.title)
+                        putExtra(FreelancerSettlementActivity.EXTRA_PROJECT_DEADLINE, project.project.deadlineDuration)
+                    }
+
+                    startActivity(intent)
                 }
             )
         }

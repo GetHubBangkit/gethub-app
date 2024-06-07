@@ -27,7 +27,9 @@ import com.entre.gethub.data.remote.response.profiles.UpdateUserProfileResponse
 import com.entre.gethub.data.remote.response.profiles.UserProfileResponse
 import com.entre.gethub.data.remote.response.projects.AcceptedProjectBidResponse
 import com.entre.gethub.data.remote.response.projects.AddProjectMilestoneResponse
+import com.entre.gethub.data.remote.response.projects.AllBanksResponse
 import com.entre.gethub.data.remote.response.projects.AllProjectMilestoneResponse
+import com.entre.gethub.data.remote.response.projects.FreelancerSettlementResponse
 import com.entre.gethub.data.remote.response.projects.MyProjectBidResponse
 import com.entre.gethub.data.remote.response.projects.PaymentResponse
 import com.entre.gethub.data.remote.response.projects.PostProjectResponse
@@ -38,7 +40,7 @@ import com.entre.gethub.data.remote.response.projects.ProjectResponse
 import com.entre.gethub.data.remote.response.projects.ProjectStatsResponse
 import com.entre.gethub.data.remote.response.projects.ReviewResponse
 import com.entre.gethub.data.remote.response.projects.SearchProjectResponse
-import com.entre.gethub.data.remote.response.projects.SettlementResponse
+import com.entre.gethub.data.remote.response.projects.OwnerSettlementResponse
 import okhttp3.MultipartBody
 import retrofit2.http.DELETE
 import retrofit2.http.Field
@@ -269,7 +271,7 @@ interface ApiService {
     @GET("projects/{id}/payments")
     suspend fun getSettlementOwner(
         @Path("id") projectId: String,
-    ): SettlementResponse
+    ): OwnerSettlementResponse
 
     @FormUrlEncoded
     @POST("projects/{id}/payments")
@@ -295,7 +297,15 @@ interface ApiService {
     @GET("projects/{id}/settlements")
     suspend fun getSettlementFreelancer(
         @Path("id") projectId: String,
-    )
+    ): FreelancerSettlementResponse
+
+    @POST("projects/{id}/settlements")
+    suspend fun createSettlementFreelancer(
+        @Path("id") projectId: String,
+    ): PaymentResponse
+
+    @GET("payments/banks")
+    suspend fun getBanks(): AllBanksResponse
     // Projects
 
     // Verify Email
@@ -336,7 +346,7 @@ interface ApiService {
 
     // Premium
     @POST("user/premium")
-    suspend fun premium():PremiumResponse
+    suspend fun premium(): PremiumResponse
     // Premium
 
     @GET("public/profile")

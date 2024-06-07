@@ -7,17 +7,17 @@ import androidx.lifecycle.viewModelScope
 import com.entre.gethub.data.Result
 import com.entre.gethub.data.remote.response.ApiResponse
 import com.entre.gethub.data.remote.response.projects.PaymentResponse
-import com.entre.gethub.data.remote.response.projects.SettlementResponse
+import com.entre.gethub.data.remote.response.projects.OwnerSettlementResponse
 import com.entre.gethub.data.repositories.ProjectRepository
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
 class OwnerSettlementViewModel(private val projectRepository: ProjectRepository) : ViewModel() {
-    private val getSettlementResult = MediatorLiveData<Result<SettlementResponse>>()
+    private val getSettlementResult = MediatorLiveData<Result<OwnerSettlementResponse>>()
     private val generatePaymentTokenResult = MediatorLiveData<Result<PaymentResponse>>()
 
-    fun getSettlement(projectId: String): LiveData<Result<SettlementResponse>> {
+    fun getSettlement(projectId: String): LiveData<Result<OwnerSettlementResponse>> {
         viewModelScope.launch {
             getSettlementResult.value = Result.Loading
             try {
