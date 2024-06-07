@@ -43,7 +43,7 @@ class HomeKelolaMyGethubGantiDesignActivity : AppCompatActivity() {
     private fun setupRecyclerViewHomeLayoutDesignGratis() {
         binding.recyclerViewHomeDesignGratis.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = LayoutDesignAdapter(createLayoutDesignGratisList()) { layoutdesign, position ->
+            adapter = LayoutDesignAdapter(createLayoutDesignGratisList(), true) { layoutdesign, position ->
                 Toast.makeText(
                     this@HomeKelolaMyGethubGantiDesignActivity,
                     "Design Card Web Berhasil Diperbarui",
@@ -69,7 +69,7 @@ class HomeKelolaMyGethubGantiDesignActivity : AppCompatActivity() {
     private fun setupRecyclerViewHomeLayoutDesignBayar() {
         binding.recyclerViewHomeDesignBayar.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = LayoutDesignAdapter(createLayoutDesignBayarList()) { layoutdesign, position ->
+            adapter = LayoutDesignAdapter(createLayoutDesignBayarList(), isPremiumUser) { layoutdesign, position ->
                 if (isPremiumUser) {
                     Toast.makeText(
                         this@HomeKelolaMyGethubGantiDesignActivity,
