@@ -1,6 +1,7 @@
 package com.entre.gethub.ui.home.mygethub
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -120,6 +121,15 @@ class HomeKelolaMyGethubGantiDesignActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
+//    private fun setupPreviewButton(username: String) {
+//        binding.btnPriview.setOnClickListener {
+//            val url = "https://gethub-webporto-kot54pmj3q-et.a.run.app/$username"
+//            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+//            startActivity(intent)
+//        }
+//    }
+
 }
 
 
