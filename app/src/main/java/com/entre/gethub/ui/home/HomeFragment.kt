@@ -156,8 +156,7 @@ class HomeFragment : Fragment() {
         homeViewModel.getAcceptedBid().observe(viewLifecycleOwner) { result ->
             if (result != null) {
                 when (result) {
-                    is Result.Loading ->
-                        showLoadingOnBiddingDikerjakan(true)
+                    is Result.Loading -> showLoadingOnBiddingDikerjakan(true)
 
                     is Result.Success -> {
                         showLoadingOnBiddingDikerjakan(false)
@@ -173,9 +172,11 @@ class HomeFragment : Fragment() {
                         showEmptyOnBiddingDikerjakan(true)
                     }
 
-                    else -> {
-                        //
+                    is Result.Error -> {
+                        showLoadingOnBiddingDikerjakan(false)
+                        showEmptyOnBiddingDikerjakan(true)
                     }
+
                 }
             }
         }

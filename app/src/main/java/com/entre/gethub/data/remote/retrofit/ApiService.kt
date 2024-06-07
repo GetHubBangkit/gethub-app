@@ -260,17 +260,25 @@ interface ApiService {
         @Path("id") projectId: String,
     ): AllProjectMilestoneResponse
 
-    @GET("projects/{id}/settlements")
+    @DELETE("projects/{projectId}/tasks/{taskId}")
+    suspend fun deleteMilestoneById(
+        @Path("projectId") projectId: String,
+        @Path("taskId") taskId: String,
+    ): ApiResponse
+
+    @GET("projects/{id}/payments")
     suspend fun getSettlementOwner(
         @Path("id") projectId: String,
     ): SettlementResponse
 
+    @FormUrlEncoded
     @POST("projects/{id}/payments")
     suspend fun generatePaymentToken(
         @Path("id") projectId: String,
+        @Field("freelancer_id") freelancerId: String,
     ): PaymentResponse
 
-    @POST("projects/{id}/finish")
+    @PUT("projects/{id}/status")
     suspend fun finishProject(
         @Path("id") projectId: String,
     ): ApiResponse

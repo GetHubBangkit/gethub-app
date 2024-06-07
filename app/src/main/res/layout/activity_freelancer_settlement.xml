@@ -270,6 +270,38 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
+                    android:id="@+id/tvOtherBankAccount"
+                    style="@style/Nunito.ExtraBold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Rekening Bank (Lainnya)"
+                    android:textSize="14sp"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/bankAccountTextField"
+                    style="@style/AuthTextInputLayoutComplete"
+                    android:layout_width="match_parent"
+                    android:layout_height="37dp"
+                    android:layout_marginTop="5dp"
+                    android:minHeight="47dp"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="37dp"
+                        android:hint="Masukkan nomor rekening"
+                        android:imeOptions="actionNext"
+                        android:inputType="number"
+                        android:paddingTop="1dp"
+                        android:paddingBottom="1dp"
+                        android:textSize="14sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
                     style="@style/Nunito.ExtraBold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

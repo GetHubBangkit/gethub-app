@@ -21,7 +21,7 @@ class OwnerSettlementViewModel(private val projectRepository: ProjectRepository)
         viewModelScope.launch {
             getSettlementResult.value = Result.Loading
             try {
-                val response = projectRepository.getSettlement(projectId)
+                val response = projectRepository.getSettlementOwner(projectId)
 
                 if (response.success == true) {
                     getSettlementResult.value = Result.Success(response)
@@ -38,11 +38,14 @@ class OwnerSettlementViewModel(private val projectRepository: ProjectRepository)
         return getSettlementResult
     }
 
-    fun generatePaymentToken(projectId: String): LiveData<Result<PaymentResponse>> {
+    fun generatePaymentToken(
+        projectId: String,
+        freelancerId: String
+    ): LiveData<Result<PaymentResponse>> {
         viewModelScope.launch {
             generatePaymentTokenResult.value = Result.Loading
             try {
-                val response = projectRepository.generatePaymentToken(projectId)
+                val response = projectRepository.generatePaymentToken(projectId, freelancerId)
 
                 if (response.success == true) {
                     generatePaymentTokenResult.value = Result.Success(response)

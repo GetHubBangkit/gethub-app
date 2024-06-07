@@ -29,7 +29,7 @@ class HomeProjectMilestoneAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bindItem(milestone: AllProjectMilestoneResponse.DataItem) {
             with(binding) {
-                tvMilestoneNumber.text = "MILESTONE ${milestone.taskNumber}"
+                tvMilestoneNumber.text = "MILESTONE ${bindingAdapterPosition + 1}"
                 tvMilestoneDesc.text = milestone.taskDescription.toString()
                 ivMilestoneDelete.visibility = View.GONE
             }
