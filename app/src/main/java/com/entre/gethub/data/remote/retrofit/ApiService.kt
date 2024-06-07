@@ -20,6 +20,7 @@ import com.entre.gethub.data.remote.response.certifications.CertificationListRes
 import com.entre.gethub.data.remote.response.certifications.CertificationResponse
 import com.entre.gethub.data.remote.response.partners.AddPartnerResponse
 import com.entre.gethub.data.remote.response.partners.GetHubPartnerListResponse
+import com.entre.gethub.data.remote.response.premium.PremiumResponse
 import com.entre.gethub.data.remote.response.products.ProductListResponse
 import com.entre.gethub.data.remote.response.products.ProductResponse
 import com.entre.gethub.data.remote.response.profiles.UpdateUserProfileResponse
@@ -260,7 +261,7 @@ interface ApiService {
     ): AllProjectMilestoneResponse
 
     @GET("projects/{id}/settlements")
-    suspend fun getSettlements(
+    suspend fun getSettlementOwner(
         @Path("id") projectId: String,
     ): SettlementResponse
 
@@ -282,6 +283,11 @@ interface ApiService {
         @Field("message") message: String,
         @Field("review_type") reviewType: String,
     ): ReviewResponse
+
+    @GET("projects/{id}/settlements")
+    suspend fun getSettlementFreelancer(
+        @Path("id") projectId: String,
+    )
     // Projects
 
     // Verify Email
@@ -319,6 +325,11 @@ interface ApiService {
         @Path("id") id: String,
     ): ApiResponse
     // Products
+
+    // Premium
+    @POST("user/premium")
+    suspend fun premium():PremiumResponse
+    // Premium
 
     @GET("public/profile")
     suspend fun getPublicProfile(

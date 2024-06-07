@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide
 import com.entre.gethub.R
 import com.entre.gethub.data.Result
 import com.entre.gethub.databinding.FragmentAkunBinding
+import com.entre.gethub.ui.akun.membership.MembershipActivity
 import com.entre.gethub.ui.auth.LoginActivity
 import com.entre.gethub.utils.ViewModelFactory
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -56,6 +57,10 @@ class AkunFragment : Fragment() {
 
     private fun setupView() {
         with(binding) {
+            framePremium.setOnClickListener {
+                startActivity(Intent(requireContext(), MembershipActivity::class.java))
+            }
+
             framesettingkeluar.setOnClickListener {
                 showDialog(requireContext(), "Keluar", "Apakah Anda yakin ingin keluar?")
             }
@@ -69,12 +74,15 @@ class AkunFragment : Fragment() {
                     is Result.Success -> {
                         showToast("Visibility updated successfully")
                     }
+
                     is Result.Error -> {
                         showToast(result.error)
                     }
+
                     is Result.Loading -> {
                         showLoading(true)
                     }
+
                     else -> {
                         showLoading(false)
                     }
@@ -87,12 +95,15 @@ class AkunFragment : Fragment() {
                 is Result.Success -> {
                     binding.switchVisibilty.isChecked = result.data
                 }
+
                 is Result.Error -> {
                     showToast(result.error)
                 }
+
                 is Result.Loading -> {
                     showLoading(true)
                 }
+
                 else -> {
                     showLoading(false)
                 }
@@ -118,10 +129,12 @@ class AkunFragment : Fragment() {
                         tvUserProfession.text = user?.profession
                     }
                 }
+
                 is Result.Error -> {
                     showLoading(false)
                     showToast(result.error)
                 }
+
                 else -> {
                     showLoading(false)
                     showToast(getString(R.string.something_went_wrong))

@@ -1,21 +1,60 @@
 package com.entre.gethub.ui.akun.membership
 
+import android.annotation.SuppressLint
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.view.View
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.entre.gethub.R
+import com.entre.gethub.databinding.ActivityMembershipPaymentBinding
+import com.entre.gethub.ui.project.ownerpostedproject.payment.OwnerPaymentWebViewActivity
 
 class MembershipPaymentActivity : AppCompatActivity() {
+
+    private val binding by lazy { ActivityMembershipPaymentBinding.inflate(layoutInflater) }
+    private var redirectUrl: String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_membership_payment)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+        setContentView(binding.root)
+        redirectUrl = intent.getStringExtra(OwnerPaymentWebViewActivity.EXTRA_REDIRECT_URL).toString()
+        setupWebView(redirectUrl)
+
+        binding.iconBack.setOnClickListener {
+            finish()
         }
+    }
+
+    @SuppressLint("SetJavaScriptEnabled")
+    private fun setupWebView(redirectUrl: String) {
+        binding.wvPayment.apply {
+            settings.javaScriptEnabled = true
+            webViewClient = object : WebViewClient() {
+                override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+                    super.onPageStarted(view, url, favicon)
+                    showLoading(true)
+                }
+
+                override fun onPageFinished(view: WebView?, url: String?) {
+                    super.onPageFinished(view, url)
+                    showLoading(false)
+                }
+            }
+            loadUrl(redirectUrl)
+        }
+
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    companion object {
+        const val EXTRA_REDIRECT_URL = "extra_redirect_url"
     }
 }
