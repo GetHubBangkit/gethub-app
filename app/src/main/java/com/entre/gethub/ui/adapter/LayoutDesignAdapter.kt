@@ -9,6 +9,7 @@ import com.entre.gethub.ui.models.LayoutDesign
 
 class LayoutDesignAdapter(
     private val layoutdesignList: ArrayList<LayoutDesign>,
+    private val isPremiumUser: Boolean,
     private val listener: (LayoutDesign, Int) -> Unit
 ) : RecyclerView.Adapter<LayoutDesignAdapter.ViewHolder>() {
 
@@ -27,18 +28,20 @@ class LayoutDesignAdapter(
         val currentItem = layoutdesignList[position]
         holder.bindItem(currentItem)
 
-        if (selectedPosition == position) {
+        // Highlight only if the selected position is this one and it's allowed to highlight
+        if (selectedPosition == position && (isPremiumUser || position < 6)) {
             holder.itemView.alpha = 1.0f // Highlight selected item
         } else {
             holder.itemView.alpha = 0.5f // Dim unselected items
         }
 
         holder.itemView.setOnClickListener {
-            if (selectedPosition != position) {
-                // Update the selected position and notify data change
+            if (isPremiumUser || position < 6) { // Allow selection for free designs or if user is premium
                 selectedPosition = position
                 notifyDataSetChanged()
                 listener(currentItem, position)
+            } else {
+                listener(currentItem, position) // Notify listener for non-premium user trying to select a premium design
             }
         }
     }

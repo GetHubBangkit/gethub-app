@@ -81,7 +81,11 @@ class AnaliticFragment : Fragment() {
     private fun getCardViewers() {
         analiticViewModel.getCardViewers().observe(viewLifecycleOwner) { result ->
             when (result) {
+                is Result.Loading -> {
+                    showLoadingOnCardView(true)
+                }
                 is Result.Success -> {
+                    showLoadingOnCardView(false)
                     val cardViewersResponse = result.data
                     cardViewersResponse.data?.let { dataItems ->
                         viewersList.clear()
@@ -90,7 +94,12 @@ class AnaliticFragment : Fragment() {
                     }
                 }
                 is Result.Error -> {
+                    showLoadingOnCardView(false)
                     Toast.makeText(requireContext(), result.error, Toast.LENGTH_SHORT).show()
+                }
+                is Result.Empty -> {
+                    showLoadingOnCardView(false)
+                    showEmptyErrorOnCardView(true, result.emptyError)
                 }
                 else -> {}
             }
@@ -160,5 +169,13 @@ class AnaliticFragment : Fragment() {
 
     private fun setupLineChart() {
         // Setup line chart
+    }
+
+    private fun showLoadingOnCardView(isLoading: Boolean) {
+        binding.progressBarOnCardViewer.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+    private fun showEmptyErrorOnCardView(isError: Boolean, message: String) {
+        binding.tvEmptyGethubKamuDilihat.text = message
+        binding.tvEmptyGethubKamuDilihat.visibility = if (isError) View.VISIBLE else View.GONE
     }
 }

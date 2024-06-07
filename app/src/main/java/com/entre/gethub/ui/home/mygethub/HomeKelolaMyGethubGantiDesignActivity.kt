@@ -17,6 +17,8 @@ class HomeKelolaMyGethubGantiDesignActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeKelolaMyGetHubGantiDesignBinding
     private lateinit var viewModel: HomeKelolaMyGethubGantiDesignViewModel
 
+    private var isPremiumUser: Boolean = false // Add a flag for premium status
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeKelolaMyGetHubGantiDesignBinding.inflate(layoutInflater)
@@ -41,7 +43,7 @@ class HomeKelolaMyGethubGantiDesignActivity : AppCompatActivity() {
     private fun setupRecyclerViewHomeLayoutDesignGratis() {
         binding.recyclerViewHomeDesignGratis.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = LayoutDesignAdapter(createLayoutDesignGratisList()) { layoutdesign, position ->
+            adapter = LayoutDesignAdapter(createLayoutDesignGratisList(), true) { layoutdesign, position ->
                 Toast.makeText(
                     this@HomeKelolaMyGethubGantiDesignActivity,
                     "Design Card Web Berhasil Diperbarui",
@@ -67,14 +69,22 @@ class HomeKelolaMyGethubGantiDesignActivity : AppCompatActivity() {
     private fun setupRecyclerViewHomeLayoutDesignBayar() {
         binding.recyclerViewHomeDesignBayar.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = LayoutDesignAdapter(createLayoutDesignBayarList()) { layoutdesign, position ->
-                Toast.makeText(
-                    this@HomeKelolaMyGethubGantiDesignActivity,
-                    "Design Card Web Berhasil Diperbarui",
-                    Toast.LENGTH_SHORT
-                ).show()
-                // Call updateThemeHub with the appropriate theme hub value
-                viewModel.updateThemeHub(position + 7)
+            adapter = LayoutDesignAdapter(createLayoutDesignBayarList(), isPremiumUser) { layoutdesign, position ->
+                if (isPremiumUser) {
+                    Toast.makeText(
+                        this@HomeKelolaMyGethubGantiDesignActivity,
+                        "Design Card Web Berhasil Diperbarui",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    // Call updateThemeHub with the appropriate theme hub value
+                    viewModel.updateThemeHub(position + 7)
+                } else {
+                    Toast.makeText(
+                        this@HomeKelolaMyGethubGantiDesignActivity,
+                        "Anda Belum Premium, Silahkan melakukan pembelian Premium",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
         }
     }
@@ -94,12 +104,12 @@ class HomeKelolaMyGethubGantiDesignActivity : AppCompatActivity() {
         viewModel.getUserProfile().observe(this) { result ->
             when (result) {
                 is Result.Loading -> {
-
-
+                    // Handle loading state
                 }
                 is Result.Success -> {
                     val userProfile = result.data.data
                     val username = userProfile?.username ?: ""
+                    isPremiumUser = userProfile?.isPremium == true // Check if the user is premium
                     setupPreviewButton(username)
                 }
                 is Result.Error -> {
@@ -121,5 +131,3 @@ class HomeKelolaMyGethubGantiDesignActivity : AppCompatActivity() {
         }
     }
 }
-
-
