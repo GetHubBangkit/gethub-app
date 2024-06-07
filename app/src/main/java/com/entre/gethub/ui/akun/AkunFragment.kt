@@ -100,7 +100,6 @@ class AkunFragment : Fragment() {
         }
     }
 
-
     private fun getUserData() {
         akunViewModel.getUserProfile().observe(viewLifecycleOwner) { result ->
             when (result) {
