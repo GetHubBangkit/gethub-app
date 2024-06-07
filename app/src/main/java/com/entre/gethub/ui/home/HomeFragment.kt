@@ -2,6 +2,7 @@ package com.entre.gethub.ui.home
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,8 +10,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.entre.gethub.ui.models.BiddingDikerjakan
-import com.entre.gethub.ui.models.HomeGethubPartner
 import com.entre.gethub.R
 import com.entre.gethub.databinding.FragmentHomeBinding
 import com.entre.gethub.ui.adapter.HomeBiddingDikerjakanAdapter
@@ -19,6 +18,7 @@ import com.entre.gethub.ui.adapter.HomeInformationHubAdapter
 import com.entre.gethub.utils.ViewModelFactory
 import com.entre.gethub.data.Result
 import com.entre.gethub.data.remote.response.NewPartnerResponse
+import com.entre.gethub.data.remote.response.projects.AcceptedProjectBidResponse
 import com.entre.gethub.ui.home.caritalent.HomeCariTalentActivity
 import com.entre.gethub.ui.home.deteksiproject.HomeProjectDetectorActivity
 import com.entre.gethub.ui.home.mygethub.HomeKelolaMyGethubActivity
@@ -45,6 +45,7 @@ class HomeFragment : Fragment() {
         getInformationList()
         observeNewPartner()
         getNewPartnerList()
+        getOnWorkingProjectBids()
 
         return root
     }
@@ -75,7 +76,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupRecyclerViews() {
-        setupRecyclerViewBiddingDikerjakan()
         setupRecyclerViewInformationHub()
     }
 
@@ -86,14 +86,19 @@ class HomeFragment : Fragment() {
                     showLoadingInformationHub(false)
                     val data = result.data
                     binding.empty.llEmpty.visibility = View.GONE
-                    (binding.recyclerViewInformationHub.adapter as HomeInformationHubAdapter).updateData(data)
+                    (binding.recyclerViewInformationHub.adapter as HomeInformationHubAdapter).updateData(
+                        data
+                    )
                 }
+
                 is Result.Error -> {
                     showLoadingInformationHub(false)
                 }
+
                 is Result.Loading -> {
                     showLoadingInformationHub(true)
                 }
+
                 is Result.Empty -> {
                     showLoadingInformationHub(false)
                     binding.empty.apply {
@@ -113,19 +118,23 @@ class HomeFragment : Fragment() {
                     val data = result.data?.data ?: emptyList()
                     setupRecyclerViewHomeGethubPartner(data)
                 }
+
                 is Result.Error -> {
                     showLoadingNewGethubPartner(false)
                 }
+
                 is Result.Loading -> {
                     showLoadingNewGethubPartner(true)
                 }
+
                 is Result.Empty -> {
                     showLoadingNewGethubPartner(false)
-                    showEmptyNewGethubPartner(true, result.emptyError)
+                    showEmptyNewGethubPartner(true)
                 }
             }
         }
     }
+
     private fun getNewPartnerList() {
         homeViewModel.getNewPartner()
     }
@@ -134,27 +143,50 @@ class HomeFragment : Fragment() {
         binding.recyclerViewHomeGethubPartner.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = HomeGethubPartnerAdapter(partnerList) { gethubpartner, position ->
-                Toast.makeText(this@HomeFragment.requireContext(), "Clicked on actor: ${gethubpartner.fullName}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this@HomeFragment.requireContext(),
+                    "Clicked on actor: ${gethubpartner.fullName}",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+    }
+
+    private fun getOnWorkingProjectBids() {
+        homeViewModel.getAcceptedBid().observe(viewLifecycleOwner) { result ->
+            if (result != null) {
+                when (result) {
+                    is Result.Loading ->
+                        showLoadingOnBiddingDikerjakan(true)
+
+                    is Result.Success -> {
+                        showLoadingOnBiddingDikerjakan(false)
+                        val onWorkingProjectList =
+                            result.data.data.filter { dataItem -> dataItem.project.statusProject == "CLOSE" }
+                        Log.d("HomeFragment", "OnWorkingProjectBids: $onWorkingProjectList")
+
+                        setupRecyclerViewBiddingDikerjakan(onWorkingProjectList)
+                    }
+
+                    is Result.Empty -> {
+                        showLoadingOnBiddingDikerjakan(false)
+                        showEmptyOnBiddingDikerjakan(true)
+                    }
+
+                    else -> {
+                        //
+                    }
+                }
             }
         }
     }
 
 
-    private fun setupRecyclerViewBiddingDikerjakan() {
+    private fun setupRecyclerViewBiddingDikerjakan(onWorkingProjectList: List<AcceptedProjectBidResponse.DataItem>) {
         binding.recyclerViewBiddingDikerjakan.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = HomeBiddingDikerjakanAdapter(createBiddingDikerjakanList()) { biddingdikerjakan, position ->
-                Toast.makeText(this@HomeFragment.requireContext(), "Clicked on actor: ${biddingdikerjakan.profilename}", Toast.LENGTH_SHORT).show()
-            }
+            adapter = HomeBiddingDikerjakanAdapter(onWorkingProjectList)
         }
-    }
-
-    private fun createBiddingDikerjakanList(): ArrayList<BiddingDikerjakan> {
-        return arrayListOf(
-            BiddingDikerjakan("Ajay Devgan", R.drawable.profilepic1, "Software Engineer", "UI UX Designer", "Rp 3,000,000 - 4,500,000", "Deadline: 10 Days"),
-            BiddingDikerjakan("Ajay Devgan", R.drawable.profilepic1, "Software Engineer", "UI UX Designer", "Rp 3,000,000 - 4,500,000", "Deadline: 10 Days"),
-            BiddingDikerjakan("Ajay Devgan", R.drawable.profilepic1, "Software Engineer", "UI UX Designer", "Rp 3,000,000 - 4,500,000", "Deadline: 10 Days")
-        )
     }
 
     private fun setupRecyclerViewInformationHub() {
@@ -172,11 +204,22 @@ class HomeFragment : Fragment() {
     private fun showLoadingInformationHub(isLoading: Boolean) {
         binding.progressBarOnInformationHub.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
+
     private fun showLoadingNewGethubPartner(isLoading: Boolean) {
-        binding.progressBarOnNewGethubPartner.visibility = if (isLoading) View.VISIBLE else View.GONE
+        binding.progressBarOnNewGethubPartner.visibility =
+            if (isLoading) View.VISIBLE else View.GONE
     }
 
-    private fun showEmptyNewGethubPartner(isEmpty: Boolean, message: String) {
+    private fun showEmptyNewGethubPartner(isEmpty: Boolean) {
         binding.tvEmptyNewGethubPartner.visibility = if (isEmpty) View.VISIBLE else View.GONE
+    }
+
+    private fun showLoadingOnBiddingDikerjakan(isLoading: Boolean) {
+        binding.progressBarOnBiddingDikerjakan.visibility =
+            if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    private fun showEmptyOnBiddingDikerjakan(isEmpty: Boolean) {
+        binding.tvEmptyOnBiddingDikerjakan.visibility = if (isEmpty) View.VISIBLE else View.GONE
     }
 }

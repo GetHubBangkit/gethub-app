@@ -14,7 +14,7 @@
         android:background="?android:attr/selectableItemBackground">
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/profilepic2"
+            android:id="@+id/ivOwnerPic"
             android:layout_width="28dp"
             android:layout_height="28dp"
             android:scaleType="centerCrop"
@@ -24,7 +24,7 @@
             app:shapeAppearance="@style/circle" />
 
         <TextView
-            android:id="@+id/tvFreelancerName"
+            android:id="@+id/tvOwnerName"
             style="@style/Nunito.Bold"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -35,11 +35,11 @@
             android:textColor="@android:color/black"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/profilepic2"
-            app:layout_constraintTop_toTopOf="@id/profilepic2" />
+            app:layout_constraintStart_toEndOf="@id/ivOwnerPic"
+            app:layout_constraintTop_toTopOf="@id/ivOwnerPic" />
 
         <TextView
-            android:id="@+id/tvFreelancerProfession"
+            android:id="@+id/tvOwnerProfession"
             style="@style/Nunito"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -51,8 +51,8 @@
             android:textColor="@android:color/black"
             android:textSize="10sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/profilepic2"
-            app:layout_constraintTop_toBottomOf="@id/tvFreelancerName" />
+            app:layout_constraintStart_toEndOf="@id/ivOwnerPic"
+            app:layout_constraintTop_toBottomOf="@id/tvOwnerName" />
 
         <TextView
             android:id="@+id/tvProjectTitle"
@@ -68,7 +68,7 @@
             android:textSize="10sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvFreelancerProfession" />
+            app:layout_constraintTop_toBottomOf="@id/tvOwnerProfession" />
 
         <TextView
             android:id="@+id/tvProjectBudget"
