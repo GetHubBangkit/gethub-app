@@ -13,6 +13,7 @@ import com.entre.gethub.databinding.ActivityPostedProjectStatusBinding
 import com.entre.gethub.ui.MainActivity
 import com.entre.gethub.ui.adapter.PostedProjectAdapter
 import com.entre.gethub.ui.project.chat.ChatActivity
+import com.entre.gethub.ui.project.ownerpostedproject.review.FreelancerReviewActivity
 import com.entre.gethub.utils.ViewModelFactory
 
 class PostedProjectStatusActivity : AppCompatActivity() {
@@ -57,6 +58,7 @@ class PostedProjectStatusActivity : AppCompatActivity() {
                 false
             )
             adapter = PostedProjectAdapter(
+                this@PostedProjectStatusActivity,
                 postedProjectList,
                 listener = { project, _ ->
                     val intent = Intent(
@@ -67,15 +69,47 @@ class PostedProjectStatusActivity : AppCompatActivity() {
                     startActivity(intent)
                 },
                 chatButtonListener = { project ->
-                    val intent = Intent(this@PostedProjectStatusActivity, ChatActivity::class.java).apply {
-                        putExtra(ChatActivity.EXTRA_RECEIVER_ID, project.selectedUserBid.userId)
-                        putExtra(ChatActivity.EXTRA_SENDER_ID, project.ownerId)
-                        putExtra(ChatActivity.EXTRA_CHANNEL_ID, project.chatroomId)
-                        putExtra(ChatActivity.EXTRA_RECEIVER_NAME, project.selectedUserBid.usersBid?.fullName)
-                        putExtra(ChatActivity.EXTRA_RECEIVER_PHOTO, project.selectedUserBid.usersBid?.photo)
-                    }
+                    val intent =
+                        Intent(this@PostedProjectStatusActivity, ChatActivity::class.java).apply {
+                            putExtra(ChatActivity.EXTRA_RECEIVER_ID, project.selectedUserBid.userId)
+                            putExtra(ChatActivity.EXTRA_SENDER_ID, project.ownerId)
+                            putExtra(ChatActivity.EXTRA_CHANNEL_ID, project.chatroomId)
+                            putExtra(
+                                ChatActivity.EXTRA_RECEIVER_NAME,
+                                project.selectedUserBid.usersBid?.fullName
+                            )
+                            putExtra(
+                                ChatActivity.EXTRA_RECEIVER_PHOTO,
+                                project.selectedUserBid.usersBid?.photo
+                            )
+                        }
                     startActivity(intent)
                 },
+                reviewButtonListener = { project ->
+                    val intent = Intent(
+                        this@PostedProjectStatusActivity,
+                        FreelancerReviewActivity::class.java
+                    ).apply {
+                        putExtra(FreelancerReviewActivity.EXTRA_PROJECT_ID, project.id)
+                        putExtra(
+                            FreelancerReviewActivity.EXTRA_FREELANCER_ID,
+                            project.selectedUserBid.userId
+                        )
+                        putExtra(
+                            FreelancerReviewActivity.EXTRA_FREELANCER_NAME,
+                            project.selectedUserBid.usersBid?.fullName
+                        )
+                        putExtra(
+                            FreelancerReviewActivity.EXTRA_FREELANCER_PROFESSION,
+                            project.selectedUserBid.usersBid?.profession
+                        )
+                        putExtra(
+                            FreelancerReviewActivity.EXTRA_FREELANCER_PHOTO,
+                            project.selectedUserBid.usersBid?.photo
+                        )
+                    }
+                    startActivity(intent)
+                }
             )
         }
     }
