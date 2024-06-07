@@ -1,6 +1,6 @@
 package com.entre.gethub.ui.analitic
 
-import CustomMarker
+import com.entre.gethub.ui.analitic.CustomMarker
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -132,7 +132,7 @@ class AnaliticFragment : Fragment() {
                     binding.lineChart.setNoDataText("Tidak Ada Data")
                     binding.lineChart.animateX(1800, Easing.EaseInExpo)
 
-                    val markerView = CustomMarker(requireContext(), R.layout.marker_view)
+                    val markerView = CustomMarker(requireContext(), R.layout.marker_view, dates)
                     binding.lineChart.marker = markerView
                 }
                 is Result.Error -> {
