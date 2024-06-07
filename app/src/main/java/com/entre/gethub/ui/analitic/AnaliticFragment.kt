@@ -19,9 +19,11 @@ import com.entre.gethub.databinding.FragmentAnaliticBinding
 import com.entre.gethub.ui.adapter.AnaliticGethubDilihatAdapter
 import com.entre.gethub.utils.ViewModelFactory
 import com.github.mikephil.charting.animation.Easing
+import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 
 class AnaliticFragment : Fragment() {
 
@@ -101,8 +103,11 @@ class AnaliticFragment : Fragment() {
                 is Result.Success -> {
                     val graphDataResponse = result.data
                     val entries = ArrayList<Entry>()
+                    val dates = ArrayList<String>() // Menyimpan tanggal
+
                     graphDataResponse.data?.forEachIndexed { index, data ->
                         entries.add(Entry(index.toFloat() + 1, data.totalViews.toFloat()))
+                        dates.add(data.date) // Menambahkan tanggal ke dalam list
                     }
 
                     val vl = LineDataSet(entries, "Views")
@@ -115,7 +120,11 @@ class AnaliticFragment : Fragment() {
                     binding.lineChart.xAxis.labelRotationAngle = 0f
                     binding.lineChart.data = LineData(vl)
                     binding.lineChart.axisRight.isEnabled = false
-                    binding.lineChart.xAxis.axisMaximum = graphDataResponse.data?.size?.toFloat() ?: 1f
+                    binding.lineChart.xAxis.valueFormatter = IndexAxisValueFormatter(dates) // Mengatur formatter dengan tanggal
+                    binding.lineChart.xAxis.position = XAxis.XAxisPosition.TOP
+
+                    // Mengatur sumbu Y agar menampilkan angka bulat saja
+                    binding.lineChart.axisLeft.valueFormatter = IntValueFormatter()
 
                     binding.lineChart.setTouchEnabled(true)
                     binding.lineChart.setPinchZoom(true)
@@ -133,6 +142,7 @@ class AnaliticFragment : Fragment() {
             }
         }
     }
+
 
     private fun setupRecyclerViewAnaliticGethubDilihat() {
         adapter = AnaliticGethubDilihatAdapter(viewersList) { viewer, position ->
