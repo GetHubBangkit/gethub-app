@@ -124,8 +124,18 @@ class ProjectRepository private constructor(private val apiService: ApiService) 
         return apiService.getBanks()
     }
 
-    suspend fun createSettlementFreelancer(projectId: String): PaymentResponse {
-        return apiService.createSettlementFreelancer(projectId)
+    suspend fun createSettlementFreelancer(
+        projectId: String,
+        rekeningAccount: String,
+        rekeningBank: String,
+        rekeningNumber: String
+    ): PaymentResponse {
+        return apiService.createSettlementFreelancer(
+            projectId,
+            rekeningAccount,
+            rekeningBank,
+            rekeningNumber
+        )
     }
 
     suspend fun createReview(

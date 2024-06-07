@@ -1,5 +1,6 @@
 package com.entre.gethub.ui.project.freelanceracceptedproject.settlement
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -9,11 +10,13 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.widget.doOnTextChanged
 import com.entre.gethub.R
 import com.entre.gethub.data.Result
 import com.entre.gethub.databinding.ActivityFreelancerSettlementBinding
 import com.entre.gethub.ui.adapter.BankAdapter
 import com.entre.gethub.ui.adapter.CategoryAdapter
+import com.entre.gethub.ui.project.freelanceracceptedproject.AcceptedBidProjectActivity
 import com.entre.gethub.utils.Formatter
 import com.entre.gethub.utils.ViewModelFactory
 
@@ -40,17 +43,61 @@ class FreelancerSettlementActivity : AppCompatActivity() {
             projectDeadline = getStringExtra(EXTRA_PROJECT_DEADLINE).toString()
         }
 
-        setupProjectData()
+        setupView()
 
         getFreelancerSettlement()
 
         getBanks()
+
+        binding.iconBack.setOnClickListener {
+            finish()
+        }
     }
 
-    private fun setupProjectData() {
+    private fun setupView() {
         with(binding) {
             tvProjectTitle.text = projectTitle
             tvProjectDeadline.text = "Deadline: $projectDeadline Hari"
+
+            val edRekeningNumber = accountNumberTextField.editText
+            val edRekeningAccount = accountOwnerTextField.editText
+
+            edRekeningNumber?.doOnTextChanged { text, _, _, _ ->
+                if (text.toString().isEmpty()) {
+                    edRekeningNumber.setError(getString(R.string.field_couldnt_be_empty))
+                } else {
+                    edRekeningNumber.error = null
+                }
+            }
+
+            edRekeningAccount?.doOnTextChanged { text, _, _, _ ->
+                if (text.toString().isEmpty()) {
+                    edRekeningAccount.setError(getString(R.string.field_couldnt_be_empty))
+                } else {
+                    edRekeningAccount.error = null
+                }
+            }
+
+            btnPay.setOnClickListener {
+                if (edRekeningNumber?.text.toString()
+                        .isEmpty() || edRekeningAccount?.text.toString()
+                        .isEmpty() || selectedBankName.isEmpty()
+                ) {
+                    Toast.makeText(
+                        this@FreelancerSettlementActivity,
+                        getString(R.string.field_couldnt_be_empty),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    return@setOnClickListener
+                }
+
+                createSettlementFreelancer(
+                    projectId = projectId,
+                    rekeningAccount = edRekeningAccount?.text.toString(),
+                    rekeningBank = selectedBankName,
+                    rekeningNumber = edRekeningNumber?.text.toString()
+                )
+            }
         }
     }
 
@@ -117,6 +164,51 @@ class FreelancerSettlementActivity : AppCompatActivity() {
 
                     is Result.Error -> {
                         Toast.makeText(this, result.error, Toast.LENGTH_SHORT).show()
+                    }
+
+                    else -> {}
+                }
+            }
+        }
+    }
+
+    private fun createSettlementFreelancer(
+        projectId: String,
+        rekeningAccount: String,
+        rekeningBank: String,
+        rekeningNumber: String
+    ) {
+        freelancerSettlementViewModel.createSettlementFreelancer(
+            projectId,
+            rekeningAccount,
+            rekeningBank,
+            rekeningNumber
+        ).observe(this) { result ->
+            if (result != null) {
+                when (result) {
+                    is Result.Loading -> showLoading(true)
+                    is Result.Success -> {
+                        showLoading(false)
+                        val intent = Intent(
+                            this@FreelancerSettlementActivity,
+                            AcceptedBidProjectActivity::class.java
+                        ).apply {
+                            putExtra(
+                                AcceptedBidProjectActivity.EXTRA_CODE_FROM_FREELANCER_SETTLEMENT,
+                                108
+                            )
+                        }
+                        startActivity(intent)
+                        finish()
+                    }
+
+                    is Result.Error -> {
+                        showLoading(false)
+                        Toast.makeText(
+                            this@FreelancerSettlementActivity,
+                            result.error,
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
 
                     else -> {}

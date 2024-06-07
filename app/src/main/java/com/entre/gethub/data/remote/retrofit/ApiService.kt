@@ -299,9 +299,13 @@ interface ApiService {
         @Path("id") projectId: String,
     ): FreelancerSettlementResponse
 
+    @FormUrlEncoded
     @POST("projects/{id}/settlements")
     suspend fun createSettlementFreelancer(
         @Path("id") projectId: String,
+        @Field("rekening_account") rekeningAccount: String,
+        @Field("rekening_bank") rekeningBank: String,
+        @Field("rekening_number") rekeningNumber: String,
     ): PaymentResponse
 
     @GET("payments/banks")

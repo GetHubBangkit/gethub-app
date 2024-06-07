@@ -1,6 +1,7 @@
 package com.entre.gethub.ui.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -15,17 +16,16 @@ class AcceptedBidAdapter(
     private val seeDetailListener: (projectId: String) -> Unit,
     private val finishProjectListener: (projectId: String) -> Unit,
     private val createSettlementListener: (project: AcceptedProjectBidResponse.DataItem) -> Unit,
+    private val reviewProjectOwnerListener: (project: AcceptedProjectBidResponse.DataItem) -> Unit,
 ) : RecyclerView.Adapter<AcceptedBidAdapter.ViewHolder>() {
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): ViewHolder {
-        val v = ItemAcceptedProjectbidBinding.inflate(
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val binding = ItemAcceptedProjectbidBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
         )
-        return ViewHolder(v)
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -34,7 +34,8 @@ class AcceptedBidAdapter(
             chatButtonListener,
             seeDetailListener,
             finishProjectListener,
-            createSettlementListener
+            createSettlementListener,
+            reviewProjectOwnerListener
         )
     }
 
@@ -48,18 +49,21 @@ class AcceptedBidAdapter(
             chatButtonListener: (project: AcceptedProjectBidResponse.DataItem) -> Unit,
             seeDetailListener: (projectId: String) -> Unit,
             finishProjectListener: (projectId: String) -> Unit,
-            createSettlementListener: (project: AcceptedProjectBidResponse.DataItem) -> Unit
+            createSettlementListener: (project: AcceptedProjectBidResponse.DataItem) -> Unit,
+            reviewProjectOwnerListener: (project: AcceptedProjectBidResponse.DataItem) -> Unit,
         ) {
             with(binding) {
                 val acceptedBudget = Formatter.formatRupiah(projectBid.budgetBid ?: 0)
 
                 // Project Owner
-                Glide.with(itemView.context)
-                    .load(projectBid.project.ownerProject?.photo)
-                    .placeholder(R.drawable.profilepic2)
-                    .into(ivUserProfile)
-                tvUserName.text = projectBid.project.ownerProject?.fullName
-                tvUserJobName.text = projectBid.project.ownerProject?.fullName
+                projectBid.project.ownerProject?.let { owner ->
+                    Glide.with(itemView.context)
+                        .load(owner.photo)
+                        .placeholder(R.drawable.profilepic2)
+                        .into(ivUserProfile)
+                    tvUserName.text = owner.fullName
+                    tvUserJobName.text = owner.fullName
+                }
 
                 // Project Data
                 tvProjectTitle.text = projectBid.project.title
@@ -74,20 +78,30 @@ class AcceptedBidAdapter(
                     seeDetailListener(projectBid.projectId.toString())
                 }
 
-                if (projectBid.project.statusProject == "FINISHED") {
-                    btnFinishProject.text = "Lakukan Settlement Pembayaran"
-                    btnFinishProject.setOnClickListener {
-                        createSettlementListener(projectBid)
+                when (projectBid.project.statusProject) {
+                    "FINISHED" -> {
+                        btnFinishProject.text = "Lakukan Settlement Pembayaran"
+                        btnFinishProject.setOnClickListener {
+                            createSettlementListener(projectBid)
+                        }
+
+                        if (projectBid.project.statusPayment == "SETTLEMENT") {
+                            btnFinishProject.visibility = View.GONE
+                            btnReviewProjectOwner.visibility = View.VISIBLE
+                            btnReviewProjectOwner.setOnClickListener {
+                                reviewProjectOwnerListener(projectBid)
+                            }
+                        }
                     }
-                } else {
-                    btnFinishProject.text = "Tandai Pekerjaan Selesai"
-                    btnFinishProject.setOnClickListener {
-                        finishProjectListener(projectBid.projectId.toString())
+
+                    else -> {
+                        btnFinishProject.text = "Tandai Pekerjaan Selesai"
+                        btnFinishProject.setOnClickListener {
+                            finishProjectListener(projectBid.projectId.toString())
+                        }
                     }
                 }
             }
         }
-
     }
-
 }
