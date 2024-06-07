@@ -15,6 +15,7 @@ import com.entre.gethub.data.repositories.InformationHubRepository
 import com.entre.gethub.data.repositories.LinkRepository
 import com.entre.gethub.data.repositories.NewPartnerRepository
 import com.entre.gethub.data.repositories.PostCardViewersRepository
+import com.entre.gethub.data.repositories.PremiumRepository
 import com.entre.gethub.data.repositories.ProductRepository
 import com.entre.gethub.data.repositories.ProfileRepository
 import com.entre.gethub.data.repositories.ProjectDetectorRepository
@@ -110,47 +111,61 @@ object Injection {
         val token = runBlocking { pref.getToken().first() }
         return CariTalentRepository.getInstance(ApiConfig.getApiMLService(context, token))
     }
+
     fun provideUserPublicProfileRepository(context: Context): UserPublicProfileRepository {
         val pref = provideUserPreferences(context)
         val token = runBlocking { pref.getToken().first() }
         return UserPublicProfileRepository.getInstance(ApiConfig.getApiService(context, token))
     }
+
     fun provideVisibilityRepository(context: Context): VisibilityRepository {
         val pref = provideUserPreferences(context)
         val token = runBlocking { pref.getToken().first() }
         return VisibilityRepository.getInstance(ApiConfig.getApiService(context, token))
     }
+
     fun provideThemeHubRepository(context: Context): ThemeHubRepository {
         val pref = provideUserPreferences(context)
         val token = runBlocking { pref.getToken().first() }
         return ThemeHubRepository.getInstance(ApiConfig.getApiService(context, token))
     }
+
     fun provideTopTalentRepository(context: Context): TopTalentRepository {
         val pref = provideUserPreferences(context)
         val token = runBlocking { pref.getToken().first() }
         return TopTalentRepository.getInstance(ApiConfig.getApiService(context, token))
     }
+
     fun provideAnaliticTotalRepository(context: Context): AnaliticTotalRepository {
         val pref = provideUserPreferences(context)
         val token = runBlocking { pref.getToken().first() }
         return AnaliticTotalRepository.getInstance(ApiConfig.getApiService(context, token))
     }
+
     fun provideNewPartnerRepository(context: Context): NewPartnerRepository {
         val pref = provideUserPreferences(context)
         val token = runBlocking { pref.getToken().first() }
         return NewPartnerRepository.getInstance(ApiConfig.getApiService(context, token))
     }
+
     fun provideCardViewersRepository(context: Context): CardViewersRepository {
         val pref = provideUserPreferences(context)
         val token = runBlocking { pref.getToken().first() }
         return CardViewersRepository.getInstance(ApiConfig.getApiService(context, token))
     }
+
     fun providePostCardViewersRepository(context: Context): PostCardViewersRepository {
         val pref = provideUserPreferences(context)
         val token = runBlocking { pref.getToken().first() }
         return PostCardViewersRepository.getInstance(ApiConfig.getApiService(context, token))
     }
 
+    fun providePremiumRepository(context: Context): PremiumRepository {
+        val pref = provideUserPreferences(context)
+        val token = runBlocking { pref.getToken().first() }
+        return PremiumRepository.getInstance(ApiConfig.getApiService(context, token))   
+    }
+    
     fun provideGraphDataRepository(context: Context): GraphDataRepository {
         val pref = provideUserPreferences(context)
         val token = runBlocking { pref.getToken().first() }

@@ -16,6 +16,7 @@ import com.entre.gethub.data.repositories.InformationHubRepository
 import com.entre.gethub.data.repositories.LinkRepository
 import com.entre.gethub.data.repositories.NewPartnerRepository
 import com.entre.gethub.data.repositories.PostCardViewersRepository
+import com.entre.gethub.data.repositories.PremiumRepository
 import com.entre.gethub.data.repositories.ProductRepository
 import com.entre.gethub.data.repositories.ProfileRepository
 import com.entre.gethub.data.repositories.ProjectDetectorRepository
@@ -28,6 +29,7 @@ import com.entre.gethub.data.repositories.UserPublicProfileRepository
 import com.entre.gethub.data.repositories.VisibilityRepository
 import com.entre.gethub.di.Injection
 import com.entre.gethub.ui.akun.AkunViewModel
+import com.entre.gethub.ui.akun.membership.MembershipViewModel
 import com.entre.gethub.ui.analitic.AnaliticViewModel
 import com.entre.gethub.ui.auth.LoginViewModel
 import com.entre.gethub.ui.auth.RegisterViewModel
@@ -58,6 +60,8 @@ import com.entre.gethub.ui.project.freelanceracceptedproject.AcceptedBidProjectV
 import com.entre.gethub.ui.project.freelancerbidproject.BidProjectStatusDetailViewModel
 import com.entre.gethub.ui.project.freelancerbidproject.BidProjectStatusViewModel
 import com.entre.gethub.ui.project.chat.ChatViewModel
+import com.entre.gethub.ui.project.freelanceracceptedproject.review.OwnerReviewViewModel
+import com.entre.gethub.ui.project.freelanceracceptedproject.settlement.FreelancerSettlementViewModel
 import com.entre.gethub.ui.project.ownerpostedproject.PostedProjectStatusDetailViewModel
 import com.entre.gethub.ui.project.ownerpostedproject.PostedProjectStatusViewModel
 import com.entre.gethub.ui.project.ownerpostedproject.payment.OwnerSettlementViewModel
@@ -91,6 +95,7 @@ class ViewModelFactory private constructor(
     private val newPartnerRepository: NewPartnerRepository,
     private val cardViewersRepository: CardViewersRepository,
     private val postCardViewersRepository: PostCardViewersRepository,
+    private val premiumRepository: PremiumRepository,
     private val graphDataRepository: GraphDataRepository
 ) : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -249,6 +254,14 @@ class ViewModelFactory private constructor(
 
             ChatViewModel::class.java -> ChatViewModel(profileRepository) as T
 
+            MembershipViewModel::class.java -> MembershipViewModel(premiumRepository) as T
+
+            FreelancerSettlementViewModel::class.java -> FreelancerSettlementViewModel(
+                projectRepository
+            ) as T
+
+            OwnerReviewViewModel::class.java -> OwnerReviewViewModel(projectRepository) as T
+
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }
     }
@@ -278,6 +291,7 @@ class ViewModelFactory private constructor(
                 Injection.provideNewPartnerRepository(context),
                 Injection.provideCardViewersRepository(context),
                 Injection.providePostCardViewersRepository(context),
+                Injection.providePremiumRepository(context),
                 Injection.provideGraphDataRepository(context)
             )
 

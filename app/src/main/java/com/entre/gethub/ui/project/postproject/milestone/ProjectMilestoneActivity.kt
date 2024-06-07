@@ -74,18 +74,21 @@ class ProjectMilestoneActivity : AppCompatActivity() {
                     is Result.Success -> {
                         showLoading(false)
                         showEmpty(false, "")
+                        binding.rvMilestone.visibility = View.VISIBLE
+                        binding.btnSimpan.visibility = View.VISIBLE
                         milestoneListLength = result.data.data.size
                         setupMilestoneRecyclerView(result.data.data.sortedBy { it.taskNumber })
                     }
 
                     is Result.Error -> {
                         showLoading(false)
-//                        showToast(result.error)
                     }
 
                     is Result.Empty -> {
                         showLoading(false)
                         showEmpty(true, result.emptyError)
+                        binding.rvMilestone.visibility = View.GONE
+                        binding.btnSimpan.visibility = View.GONE
                     }
                 }
             }
@@ -99,8 +102,56 @@ class ProjectMilestoneActivity : AppCompatActivity() {
                 LinearLayoutManager.VERTICAL,
                 false
             )
-            adapter = ProjectMilestoneAdapter(projectMilestoneList)
+            adapter = ProjectMilestoneAdapter(
+                projectMilestoneList,
+                deleteMilestoneListener = { dataItem ->
+                    showDialogOnDeleteMilestone(
+                        this@ProjectMilestoneActivity,
+                        "Hapus milestone",
+                        "Apakah Anda yakin ingin menghapus Milestone ${dataItem.taskNumber}?",
+                        dataItem
+                    )
+                })
         }
+    }
+
+    private fun showDialogOnDeleteMilestone(
+        context: Context,
+        title: String,
+        message: String,
+        dataItem: AllProjectMilestoneResponse.DataItem
+    ) {
+        MaterialAlertDialogBuilder(context)
+            .setTitle(title)
+            .setMessage(message)
+            .setPositiveButton("Yakin") { dialog, _ ->
+                projectMilestoneViewModel.deleteMilestoneById(
+                    projectId = projectId,
+                    taskId = dataItem.id.toString(),
+                ).observe(this@ProjectMilestoneActivity) { result ->
+                    if (result != null) {
+                        when (result) {
+                            is Result.Loading -> showLoading(true)
+                            is Result.Success -> {
+                                showLoading(false)
+                                getProjectMilestone(projectId)
+                            }
+                            is Result.Error -> {
+                                showLoading(false)
+                                showToast(result.error)
+                            }
+                            else -> {
+                                //
+                            }
+                        }
+                    }
+                }
+                dialog.dismiss()
+            }
+            .setNegativeButton("Batal") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
     }
 
     private fun showDialog(

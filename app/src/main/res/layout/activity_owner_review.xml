@@ -108,7 +108,7 @@
                 android:textSize="14sp" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/descriptionTextField"
+                android:id="@+id/messageTextField"
                 style="@style/AuthTextInputLayoutComplete"
                 android:layout_width="match_parent"
                 android:layout_height="114dp"
@@ -131,7 +131,7 @@
     </androidx.cardview.widget.CardView>
 
     <Button
-        android:id="@+id/btnPay"
+        android:id="@+id/btnSend"
         style="@style/CustomButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

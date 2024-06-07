@@ -21,13 +21,16 @@ import com.entre.gethub.data.remote.response.certifications.CertificationListRes
 import com.entre.gethub.data.remote.response.certifications.CertificationResponse
 import com.entre.gethub.data.remote.response.partners.AddPartnerResponse
 import com.entre.gethub.data.remote.response.partners.GetHubPartnerListResponse
+import com.entre.gethub.data.remote.response.premium.PremiumResponse
 import com.entre.gethub.data.remote.response.products.ProductListResponse
 import com.entre.gethub.data.remote.response.products.ProductResponse
 import com.entre.gethub.data.remote.response.profiles.UpdateUserProfileResponse
 import com.entre.gethub.data.remote.response.profiles.UserProfileResponse
 import com.entre.gethub.data.remote.response.projects.AcceptedProjectBidResponse
 import com.entre.gethub.data.remote.response.projects.AddProjectMilestoneResponse
+import com.entre.gethub.data.remote.response.projects.AllBanksResponse
 import com.entre.gethub.data.remote.response.projects.AllProjectMilestoneResponse
+import com.entre.gethub.data.remote.response.projects.FreelancerSettlementResponse
 import com.entre.gethub.data.remote.response.projects.MyProjectBidResponse
 import com.entre.gethub.data.remote.response.projects.PaymentResponse
 import com.entre.gethub.data.remote.response.projects.PostProjectResponse
@@ -38,7 +41,7 @@ import com.entre.gethub.data.remote.response.projects.ProjectResponse
 import com.entre.gethub.data.remote.response.projects.ProjectStatsResponse
 import com.entre.gethub.data.remote.response.projects.ReviewResponse
 import com.entre.gethub.data.remote.response.projects.SearchProjectResponse
-import com.entre.gethub.data.remote.response.projects.SettlementResponse
+import com.entre.gethub.data.remote.response.projects.OwnerSettlementResponse
 import okhttp3.MultipartBody
 import retrofit2.http.DELETE
 import retrofit2.http.Field
@@ -260,17 +263,25 @@ interface ApiService {
         @Path("id") projectId: String,
     ): AllProjectMilestoneResponse
 
-    @GET("projects/{id}/settlements")
-    suspend fun getSettlements(
-        @Path("id") projectId: String,
-    ): SettlementResponse
+    @DELETE("projects/{projectId}/tasks/{taskId}")
+    suspend fun deleteMilestoneById(
+        @Path("projectId") projectId: String,
+        @Path("taskId") taskId: String,
+    ): ApiResponse
 
+    @GET("projects/{id}/payments")
+    suspend fun getSettlementOwner(
+        @Path("id") projectId: String,
+    ): OwnerSettlementResponse
+
+    @FormUrlEncoded
     @POST("projects/{id}/payments")
     suspend fun generatePaymentToken(
         @Path("id") projectId: String,
+        @Field("freelancer_id") freelancerId: String,
     ): PaymentResponse
 
-    @POST("projects/{id}/finish")
+    @PUT("projects/{id}/status")
     suspend fun finishProject(
         @Path("id") projectId: String,
     ): ApiResponse
@@ -283,6 +294,23 @@ interface ApiService {
         @Field("message") message: String,
         @Field("review_type") reviewType: String,
     ): ReviewResponse
+
+    @GET("projects/{id}/settlements")
+    suspend fun getSettlementFreelancer(
+        @Path("id") projectId: String,
+    ): FreelancerSettlementResponse
+
+    @FormUrlEncoded
+    @POST("projects/{id}/settlements")
+    suspend fun createSettlementFreelancer(
+        @Path("id") projectId: String,
+        @Field("rekening_account") rekeningAccount: String,
+        @Field("rekening_bank") rekeningBank: String,
+        @Field("rekening_number") rekeningNumber: String,
+    ): PaymentResponse
+
+    @GET("payments/banks")
+    suspend fun getBanks(): AllBanksResponse
     // Projects
 
     // Verify Email
@@ -320,6 +348,11 @@ interface ApiService {
         @Path("id") id: String,
     ): ApiResponse
     // Products
+
+    // Premium
+    @POST("user/premium")
+    suspend fun premium(): PremiumResponse
+    // Premium
 
     @GET("public/profile")
     suspend fun getPublicProfile(

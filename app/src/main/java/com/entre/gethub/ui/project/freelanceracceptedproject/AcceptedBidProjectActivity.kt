@@ -11,9 +11,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.entre.gethub.data.Result
 import com.entre.gethub.data.remote.response.projects.AcceptedProjectBidResponse
 import com.entre.gethub.databinding.ActivityAcceptedBidProjectBinding
+import com.entre.gethub.ui.MainActivity
 import com.entre.gethub.ui.adapter.AcceptedBidAdapter
 import com.entre.gethub.ui.home.projectbids.HomeMilestoneProjectBidsActivity
 import com.entre.gethub.ui.project.chat.ChatActivity
+import com.entre.gethub.ui.project.freelanceracceptedproject.review.OwnerReviewActivity
+import com.entre.gethub.ui.project.freelanceracceptedproject.settlement.FreelancerSettlementActivity
 import com.entre.gethub.utils.ViewModelFactory
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
@@ -30,7 +33,16 @@ class AcceptedBidProjectActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        val codeFromFreelancerSettlementActivity = intent.getIntExtra(
+            EXTRA_CODE_FROM_FREELANCER_SETTLEMENT, 0
+        )
+
         binding.iconBack.setOnClickListener {
+            if (codeFromFreelancerSettlementActivity == 108) {
+                startActivity(Intent(this@AcceptedBidProjectActivity, MainActivity::class.java))
+                finish()
+                return@setOnClickListener
+            }
             finish()
         }
 
@@ -115,6 +127,34 @@ class AcceptedBidProjectActivity : AppCompatActivity() {
                         "Apakah Anda yakin bahwa pekerjaan telah selesai?",
                         projectId
                     )
+                },
+                createSettlementListener = { project ->
+                    val intent = Intent(
+                        this@AcceptedBidProjectActivity,
+                        FreelancerSettlementActivity::class.java
+                    ).apply {
+                        putExtra(FreelancerSettlementActivity.EXTRA_PROJECT_ID, project.projectId)
+                        putExtra(
+                            FreelancerSettlementActivity.EXTRA_PROJECT_TITLE,
+                            project.project.title
+                        )
+                        putExtra(
+                            FreelancerSettlementActivity.EXTRA_PROJECT_DEADLINE,
+                            project.project.deadlineDuration
+                        )
+                    }
+
+                    startActivity(intent)
+                },
+                reviewProjectOwnerListener = { project ->
+                    val intent = Intent(this@AcceptedBidProjectActivity, OwnerReviewActivity::class.java).apply {
+                        putExtra(OwnerReviewActivity.EXTRA_PROJECT_ID, project.projectId)
+                        putExtra(OwnerReviewActivity.EXTRA_OWNER_ID, project.project.ownerId)
+                        putExtra(OwnerReviewActivity.EXTRA_OWNER_NAME, project.project.ownerProject?.fullName)
+                        putExtra(OwnerReviewActivity.EXTRA_OWNER_PROFESSION, project.project.ownerProject?.profession)
+                        putExtra(OwnerReviewActivity.EXTRA_OWNER_PHOTO, project.project.ownerProject?.photo)
+                    }
+                    startActivity(intent)
                 }
             )
         }
@@ -169,5 +209,9 @@ class AcceptedBidProjectActivity : AppCompatActivity() {
 
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    companion object {
+        const val EXTRA_CODE_FROM_FREELANCER_SETTLEMENT = "extra_code_from_freelancer_settlement"
     }
 }
