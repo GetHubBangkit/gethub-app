@@ -67,9 +67,11 @@ class AkunFragment : Fragment() {
             akunViewModel.setVisibility(isChecked).observe(viewLifecycleOwner) { result ->
                 when (result) {
                     is Result.Success -> {
+                        showLoading(false)
                         showToast("Visibility updated successfully")
                     }
                     is Result.Error -> {
+                        showLoading(false)
                         showToast(result.error)
                     }
                     is Result.Loading -> {
@@ -85,9 +87,11 @@ class AkunFragment : Fragment() {
         akunViewModel.getVisibility().observe(viewLifecycleOwner) { result ->
             when (result) {
                 is Result.Success -> {
+                    showLoading(false)
                     binding.switchVisibilty.isChecked = result.data
                 }
                 is Result.Error -> {
+                    showLoading(false)
                     showToast(result.error)
                 }
                 is Result.Loading -> {
