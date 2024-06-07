@@ -9,8 +9,10 @@ import com.entre.gethub.data.remote.response.AnaliticTotalResponse
 import com.entre.gethub.data.remote.response.ApiResponse
 import com.entre.gethub.data.repositories.AnaliticTotalRepository
 import com.entre.gethub.data.remote.response.CardViewersResponse
+import com.entre.gethub.data.remote.response.GraphDataResponse
 import com.entre.gethub.data.remote.response.profiles.UserProfileResponse
 import com.entre.gethub.data.repositories.CardViewersRepository
+import com.entre.gethub.data.repositories.GraphDataRepository
 import com.entre.gethub.data.repositories.ProfileRepository
 import com.entre.gethub.data.repositories.VisibilityRepository
 import com.google.gson.Gson
@@ -19,10 +21,12 @@ import retrofit2.HttpException
 
 class AnaliticViewModel(
     private val analiticTotalRepository: AnaliticTotalRepository,
-    private val cardViewersRepository: CardViewersRepository
+    private val cardViewersRepository: CardViewersRepository,
+    private val graphDataRepository: GraphDataRepository
 ) : ViewModel() {
     private val getAnaliticTotalResult = MediatorLiveData<Result<AnaliticTotalResponse>>()
     private val getcardViewersTotalResult = MediatorLiveData<Result<CardViewersResponse>>()
+    private val getGraphDataResult = MediatorLiveData<Result<GraphDataResponse>>()
 
     fun getAnaliticTotal(): LiveData<Result<AnaliticTotalResponse>> {
         viewModelScope.launch {
@@ -64,5 +68,26 @@ class AnaliticViewModel(
             }
         }
         return getcardViewersTotalResult
+    }
+
+    fun getGraphData(): LiveData<Result<GraphDataResponse>> {
+        viewModelScope.launch {
+            getGraphDataResult.value = Result.Loading
+            try {
+                val response = graphDataRepository.getGraphData()
+                if (response.success == true) {
+                    getGraphDataResult.value = Result.Success(response)
+                }
+            } catch (e: HttpException) {
+                val jsonString = e.response()?.errorBody()?.string()
+                val errorBody = Gson().fromJson(jsonString, ApiResponse::class.java)
+                val errorMessage = errorBody.message
+                getGraphDataResult.value = Result.Error(errorMessage!!)
+            } catch (e: Exception) {
+                e.printStackTrace()
+                getGraphDataResult.value = Result.Error(e.message.toString())
+            }
+        }
+        return getGraphDataResult
     }
 }
