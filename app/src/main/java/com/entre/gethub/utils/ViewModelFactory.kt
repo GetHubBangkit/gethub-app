@@ -59,6 +59,7 @@ import com.entre.gethub.ui.project.freelanceracceptedproject.AcceptedBidProjectV
 import com.entre.gethub.ui.project.freelancerbidproject.BidProjectStatusDetailViewModel
 import com.entre.gethub.ui.project.freelancerbidproject.BidProjectStatusViewModel
 import com.entre.gethub.ui.project.chat.ChatViewModel
+import com.entre.gethub.ui.project.freelanceracceptedproject.review.OwnerReviewViewModel
 import com.entre.gethub.ui.project.freelanceracceptedproject.settlement.FreelancerSettlementViewModel
 import com.entre.gethub.ui.project.ownerpostedproject.PostedProjectStatusDetailViewModel
 import com.entre.gethub.ui.project.ownerpostedproject.PostedProjectStatusViewModel
@@ -256,6 +257,8 @@ class ViewModelFactory private constructor(
             FreelancerSettlementViewModel::class.java -> FreelancerSettlementViewModel(
                 projectRepository
             ) as T
+
+            OwnerReviewViewModel::class.java -> OwnerReviewViewModel(projectRepository) as T
 
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }

@@ -48,7 +48,9 @@ class FreelancerReviewActivity : AppCompatActivity() {
             photo = freelancerPhoto
         )
 
-        reviewFreelancer()
+        binding.btnSend.setOnClickListener {
+            reviewFreelancer()
+        }
 
         binding.iconBack.setOnClickListener {
             finish()
