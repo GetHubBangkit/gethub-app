@@ -10,6 +10,7 @@ import com.entre.gethub.data.repositories.CariTalentRepository
 import com.entre.gethub.data.repositories.CategoryRepository
 import com.entre.gethub.data.repositories.CertificationRepository
 import com.entre.gethub.data.repositories.GethubRepository
+import com.entre.gethub.data.repositories.GraphDataRepository
 import com.entre.gethub.data.repositories.InformationHubRepository
 import com.entre.gethub.data.repositories.LinkRepository
 import com.entre.gethub.data.repositories.NewPartnerRepository
@@ -24,7 +25,6 @@ import com.entre.gethub.data.repositories.ThemeHubRepository
 import com.entre.gethub.data.repositories.TopTalentRepository
 import com.entre.gethub.data.repositories.UserPublicProfileRepository
 import com.entre.gethub.data.repositories.VisibilityRepository
-import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 
@@ -149,5 +149,11 @@ object Injection {
         val pref = provideUserPreferences(context)
         val token = runBlocking { pref.getToken().first() }
         return PostCardViewersRepository.getInstance(ApiConfig.getApiService(context, token))
+    }
+
+    fun provideGraphDataRepository(context: Context): GraphDataRepository {
+        val pref = provideUserPreferences(context)
+        val token = runBlocking { pref.getToken().first() }
+        return GraphDataRepository.getInstance(ApiConfig.getApiService(context, token))
     }
 }
