@@ -98,21 +98,21 @@ class GethubPartnerListActivity : AppCompatActivity() {
                 val gethubPartnerList = gethubPartnerListResponse.data
                 showLoading(false)
                 setupRecyclerGethubPartnerList(gethubPartnerList)
-                toggleEmptyView(gethubPartnerList.isEmpty())
+//                toggleEmptyView(gethubPartnerList.isEmpty())
             }
             is Result.Error -> {
                 showLoading(false)
                 showToast(result.error)
-                toggleEmptyView(true)
+//                toggleEmptyView(true)
             }
             is Result.Empty -> {
                 showLoading(false)
-                toggleEmptyView(true, result.emptyError)
+//                toggleEmptyView(true, result.emptyError)
             }
             else -> {
                 showLoading(false)
                 showToast("Terjadi kesalahan")
-                toggleEmptyView(true)
+//                toggleEmptyView(true)
             }
         }
     }
@@ -125,21 +125,21 @@ class GethubPartnerListActivity : AppCompatActivity() {
                 val searchingPartnerList = searchingPartnerResponse.data.partners
                 showLoading(false)
                 setupRecyclerGethubPartnerSearchList(searchingPartnerList)
-                toggleEmptyView(searchingPartnerList.isEmpty())
+//                toggleEmptyView(searchingPartnerList.isEmpty())
             }
             is Result.Error -> {
                 showLoading(false)
                 showToast(result.error)
-                toggleEmptyView(true)
+//                toggleEmptyView(true)
             }
             is Result.Empty -> {
                 showLoading(false)
-                toggleEmptyView(true, result.emptyError)
+//                toggleEmptyView(true, result.emptyError)
             }
             else -> {
                 showLoading(false)
                 showToast("Terjadi kesalahan")
-                toggleEmptyView(true)
+//                toggleEmptyView(true)
             }
         }
     }
@@ -152,10 +152,10 @@ class GethubPartnerListActivity : AppCompatActivity() {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
-    private fun toggleEmptyView(isEmpty: Boolean, emptyMessage: String = "List Partner Masih Kosong") {
-        binding.empty.apply {
-            llEmpty.visibility = if (isEmpty) View.VISIBLE else View.GONE
-            tvEmpty.text = emptyMessage
-        }
-    }
+//    private fun toggleEmptyView(isEmpty: Boolean, emptyMessage: String = "List Partner Masih Kosong") {
+//        binding.empty.apply {
+//            llEmpty.visibility = if (isEmpty) View.VISIBLE else View.GONE
+//            tvEmpty.text = emptyMessage
+//        }
+//    }
 }
