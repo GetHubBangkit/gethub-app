@@ -4,6 +4,7 @@ import com.entre.gethub.data.remote.response.AnaliticTotalResponse
 import com.entre.gethub.data.remote.response.ApiResponse
 import com.entre.gethub.data.remote.response.CardViewersResponse
 import com.entre.gethub.data.remote.response.CategoriesResponse
+import com.entre.gethub.data.remote.response.GraphDataResponse
 import com.entre.gethub.data.remote.response.InformationHubResponse
 import com.entre.gethub.data.remote.response.LinkResponse
 import com.entre.gethub.data.remote.response.NewPartnerResponse
@@ -389,4 +390,8 @@ interface ApiService {
     suspend fun postCardViewers(
         @Field("username") username: String
     ): PostCardViewersResponse
+
+//    Graph Data Analitic
+    @GET("graph_data")
+    suspend fun getGraphData(): GraphDataResponse
 }

@@ -38,30 +38,30 @@ class RegisterActivity : AppCompatActivity() {
         with(binding) {
             nameTextField.editText?.doOnTextChanged { text, _, _, _ ->
                 if (text!!.isEmpty()) {
-                    nameTextField.editText?.error = getString(R.string.field_couldnt_be_empty)
+                    nameTextField.error = getString(R.string.field_couldnt_be_empty)
                 } else {
-                    nameTextField.editText?.error = null
+                    nameTextField.error = null
                 }
             }
 
             emailTextField.editText?.doOnTextChanged { text, _, _, _ ->
                 if (text!!.isEmpty()) {
-                    emailTextField.editText?.error = getString(R.string.field_couldnt_be_empty)
+                    emailTextField.error = getString(R.string.field_couldnt_be_empty)
                 } else if (!text.contains("@")) {
-                    emailTextField.editText?.error = getString(R.string.please_input_a_valid_email)
+                    emailTextField.error = getString(R.string.please_input_a_valid_email)
                 } else {
-                    emailTextField.editText?.error = null
+                    emailTextField.error = null
                 }
             }
 
             passwordTextField.editText?.doOnTextChanged { text, _, _, _ ->
                 if (text!!.isEmpty()) {
-                    passwordTextField.editText?.error = getString(R.string.field_couldnt_be_empty)
+                    passwordTextField.error = getString(R.string.field_couldnt_be_empty)
                 } else if (text.length < 8) {
-                    passwordTextField.editText?.error =
+                    passwordTextField.error =
                         getString(R.string.password_should_not_less_than_8)
                 } else {
-                    passwordTextField.editText?.error = null
+                    passwordTextField.error = null
                 }
             }
 
@@ -106,11 +106,6 @@ class RegisterActivity : AppCompatActivity() {
                             "Registrasi Berhasil",
                             "Silahkan cek email Anda untuk verifikasi"
                         )
-                        with(binding) {
-                            nameTextField.editText?.text?.clear()
-                            emailTextField.editText?.text?.clear()
-                            passwordTextField.editText?.text?.clear()
-                        }
                     }
 
                     is Result.Error -> {
@@ -126,6 +121,7 @@ class RegisterActivity : AppCompatActivity() {
             }
         }
     }
+
 
     private fun showDialog(context: Context, title: String, message: String) {
         MaterialAlertDialogBuilder(context)

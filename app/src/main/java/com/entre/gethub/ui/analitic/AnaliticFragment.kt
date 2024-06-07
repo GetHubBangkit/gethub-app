@@ -1,6 +1,6 @@
 package com.entre.gethub.ui.analitic
 
-import CustomMarker
+import com.entre.gethub.ui.analitic.CustomMarker
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,17 +9,21 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.entre.gethub.R
 import com.entre.gethub.data.Result
 import com.entre.gethub.data.remote.response.CardViewersResponse
+import com.entre.gethub.data.remote.response.GraphDataResponse
 import com.entre.gethub.databinding.FragmentAnaliticBinding
 import com.entre.gethub.ui.adapter.AnaliticGethubDilihatAdapter
 import com.entre.gethub.utils.ViewModelFactory
 import com.github.mikephil.charting.animation.Easing
+import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 
 class AnaliticFragment : Fragment() {
 
@@ -41,10 +45,11 @@ class AnaliticFragment : Fragment() {
         val root: View = binding.root
 
         setupRecyclerViewAnaliticGethubDilihat()
-        setupLineChart() // Memanggil fungsi untuk mengatur grafik garis
+        setupLineChart()
 
         getAnaliticTotal()
         getCardViewers()
+        getGraphData()
 
         return root
     }
@@ -57,23 +62,8 @@ class AnaliticFragment : Fragment() {
     private fun getAnaliticTotal() {
         analiticViewModel.getAnaliticTotal().observe(viewLifecycleOwner) { result ->
             when (result) {
-                is Result.Empty -> {
-                    showLoadingCardViewer(false)
-                    showLoadingWebViewer(false)
-                    showLoadingPartner(false)
-                }
-                is Result.Loading -> {
-                    showLoadingCardViewer(true)
-                    showLoadingWebViewer(true)
-                    showLoadingPartner(true)
-                }
                 is Result.Success -> {
-                    showLoadingCardViewer(false)
-                    showLoadingWebViewer(false)
-                    showLoadingPartner(false)
-                    // Handle successful result
                     val analiticTotalResponse = result.data
-                    // Bind the data to views
                     analiticTotalResponse.data?.let { data ->
                         binding.jumlahCardviewer.text = data.totalCardViewers.toString()
                         binding.jumlahWebviewer.text = data.totalWebViewers.toString()
@@ -81,15 +71,9 @@ class AnaliticFragment : Fragment() {
                     }
                 }
                 is Result.Error -> {
-                    showLoadingCardViewer(false)
-                    showLoadingWebViewer(false)
-                    showLoadingPartner(false)
-                    // Handle error
                     Toast.makeText(requireContext(), result.error, Toast.LENGTH_SHORT).show()
                 }
-                else -> {
-                    // Handle other states
-                }
+                else -> {}
             }
         }
     }
@@ -97,18 +81,12 @@ class AnaliticFragment : Fragment() {
     private fun getCardViewers() {
         analiticViewModel.getCardViewers().observe(viewLifecycleOwner) { result ->
             when (result) {
-                is Result.Empty -> {
-                    showLoadingGethubKamuDilihat(false)
-                    showEmptyGethubKamuDilihat(true, result.emptyError)
-                }
                 is Result.Loading -> {
-                    showLoadingGethubKamuDilihat(true)
+                    showLoadingOnCardView(true)
                 }
                 is Result.Success -> {
-                    showLoadingGethubKamuDilihat(false)
-                    // Handle successful result
+                    showLoadingOnCardView(false)
                     val cardViewersResponse = result.data
-                    // Update RecyclerView with data from API
                     cardViewersResponse.data?.let { dataItems ->
                         viewersList.clear()
                         viewersList.addAll(dataItems)
@@ -116,13 +94,60 @@ class AnaliticFragment : Fragment() {
                     }
                 }
                 is Result.Error -> {
-                    showLoadingGethubKamuDilihat(false)
-                    // Handle error
+                    showLoadingOnCardView(false)
                     Toast.makeText(requireContext(), result.error, Toast.LENGTH_SHORT).show()
                 }
-                else -> {
-                    // Handle other states
+                is Result.Empty -> {
+                    showLoadingOnCardView(false)
+                    showEmptyErrorOnCardView(true, result.emptyError)
                 }
+                else -> {}
+            }
+        }
+    }
+
+    private fun getGraphData() {
+        analiticViewModel.getGraphData().observe(viewLifecycleOwner) { result ->
+            when (result) {
+                is Result.Success -> {
+                    val graphDataResponse = result.data
+                    val entries = ArrayList<Entry>()
+                    val dates = ArrayList<String>() // Menyimpan tanggal
+
+                    graphDataResponse.data?.forEachIndexed { index, data ->
+                        entries.add(Entry(index.toFloat() + 1, data.totalViews.toFloat()))
+                        dates.add(data.date) // Menambahkan tanggal ke dalam list
+                    }
+
+                    val vl = LineDataSet(entries, "Views")
+                    vl.setDrawValues(false)
+                    vl.setDrawFilled(true)
+                    vl.lineWidth = 3f
+                    vl.fillColor = ContextCompat.getColor(requireContext(), R.color.teal)
+                    vl.fillAlpha = 255
+
+                    binding.lineChart.xAxis.labelRotationAngle = 0f
+                    binding.lineChart.data = LineData(vl)
+                    binding.lineChart.axisRight.isEnabled = false
+                    binding.lineChart.xAxis.valueFormatter = IndexAxisValueFormatter(dates) // Mengatur formatter dengan tanggal
+                    binding.lineChart.xAxis.position = XAxis.XAxisPosition.TOP
+
+                    // Mengatur sumbu Y agar menampilkan angka bulat saja
+                    binding.lineChart.axisLeft.valueFormatter = IntValueFormatter()
+
+                    binding.lineChart.setTouchEnabled(true)
+                    binding.lineChart.setPinchZoom(true)
+                    binding.lineChart.description.text = "Days"
+                    binding.lineChart.setNoDataText("Tidak Ada Data")
+                    binding.lineChart.animateX(1800, Easing.EaseInExpo)
+
+                    val markerView = CustomMarker(requireContext(), R.layout.marker_view, dates)
+                    binding.lineChart.marker = markerView
+                }
+                is Result.Error -> {
+                    Toast.makeText(requireContext(), result.error, Toast.LENGTH_SHORT).show()
+                }
+                else -> {}
             }
         }
     }
@@ -143,51 +168,14 @@ class AnaliticFragment : Fragment() {
     }
 
     private fun setupLineChart() {
-        val entries = ArrayList<Entry>()
-        entries.add(Entry(1f, 10f))
-        entries.add(Entry(2f, 2f))
-        entries.add(Entry(3f, 7f))
-        entries.add(Entry(4f, 20f))
-        entries.add(Entry(5f, 16f))
-        entries.add(Entry(6f, 5f))
-        entries.add(Entry(7f, 3f))
-
-        val vl = LineDataSet(entries, "Views")
-        vl.setDrawValues(false)
-        vl.setDrawFilled(true)
-        vl.lineWidth = 3f
-        vl.fillColor = ContextCompat.getColor(requireContext(), R.color.teal)
-        vl.fillAlpha = 255
-
-        binding.lineChart.xAxis.labelRotationAngle = 0f
-        binding.lineChart.data = LineData(vl)
-        binding.lineChart.axisRight.isEnabled = false
-        binding.lineChart.xAxis.axisMaximum = 7f
-
-        binding.lineChart.setTouchEnabled(true)
-        binding.lineChart.setPinchZoom(true)
-        binding.lineChart.description.text = "Days"
-        binding.lineChart.setNoDataText("Tidak Ada Data")
-        binding.lineChart.animateX(1800, Easing.EaseInExpo)
-
-        val markerView = CustomMarker(requireContext(), R.layout.marker_view)
-        binding.lineChart.marker = markerView
+        // Setup line chart
     }
 
-    private fun showLoadingGethubKamuDilihat(isLoading: Boolean) {
-        binding.progressBarOnGethubKamuDilihat.visibility = if (isLoading) View.VISIBLE else View.GONE
-    }
-
-    private fun showLoadingCardViewer(isLoading: Boolean) {
+    private fun showLoadingOnCardView(isLoading: Boolean) {
         binding.progressBarOnCardViewer.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
-    private fun showLoadingWebViewer(isLoading: Boolean) {
-        binding.progressBarOnWebViewer.visibility = if (isLoading) View.VISIBLE else View.GONE
-    }
-    private fun showLoadingPartner(isLoading: Boolean) {
-        binding.progressBarOnPartner.visibility = if (isLoading) View.VISIBLE else View.GONE
-    }
-    private fun showEmptyGethubKamuDilihat(isEmpty: Boolean, message: String) {
-        binding.tvEmptyGethubKamuDilihat.visibility = if (isEmpty) View.VISIBLE else View.GONE
+    private fun showEmptyErrorOnCardView(isError: Boolean, message: String) {
+        binding.tvEmptyGethubKamuDilihat.text = message
+        binding.tvEmptyGethubKamuDilihat.visibility = if (isError) View.VISIBLE else View.GONE
     }
 }

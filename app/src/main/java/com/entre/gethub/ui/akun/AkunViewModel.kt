@@ -88,9 +88,6 @@ class AkunViewModel(
         return setVisibilityResult
     }
 
-
-
-
     fun logout() {
         viewModelScope.launch {
             userPreferences.apply {
