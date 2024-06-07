@@ -95,12 +95,19 @@ class ProjectRepository private constructor(private val apiService: ApiService) 
         return apiService.getMilestone(projectId)
     }
 
-    suspend fun getSettlement(projectId: String): SettlementResponse {
-        return apiService.getSettlements(projectId)
+    suspend fun deleteMilestoneById(
+        projectId: String,
+        taskId: String,
+    ): ApiResponse {
+        return apiService.deleteMilestoneById(projectId, taskId)
     }
 
-    suspend fun generatePaymentToken(projectId: String): PaymentResponse {
-        return apiService.generatePaymentToken(projectId)
+    suspend fun getSettlementOwner(projectId: String): SettlementResponse {
+        return apiService.getSettlementOwner(projectId)
+    }
+
+    suspend fun generatePaymentToken(projectId: String, freelancerId: String): PaymentResponse {
+        return apiService.generatePaymentToken(projectId, freelancerId)
     }
 
     suspend fun finishProject(projectId: String): ApiResponse {
