@@ -2,6 +2,7 @@ package com.entre.gethub.data.remote.retrofit
 
 import com.entre.gethub.data.remote.response.CategoriesResponse
 import com.entre.gethub.data.remote.response.LinkResponse
+import com.entre.gethub.data.remote.response.ReysEventResponse
 import com.entre.gethub.data.remote.response.ml.CariTalentResponse
 import com.entre.gethub.data.remote.response.ml.ProjectDetectorResponse
 import com.entre.gethub.data.remote.response.ml.ScanCardResponse
@@ -38,4 +39,9 @@ interface ApiMLService {
         @Part imageFile: MultipartBody.Part
     ): ProjectDetectorResponse
 
+    // Reys Event
+    @GET("events")
+    suspend fun getReysEvent(
+        @Query("profession") profession: String
+    ): ReysEventResponse
 }

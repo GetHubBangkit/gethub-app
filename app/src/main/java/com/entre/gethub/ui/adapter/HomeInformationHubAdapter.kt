@@ -1,20 +1,19 @@
 package com.entre.gethub.ui.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.entre.gethub.data.remote.response.InformationHubResponse
+import com.entre.gethub.data.remote.response.ReysEventResponse
 import com.entre.gethub.databinding.ItemHomeInformationHubBinding
 
 class HomeInformationHubAdapter(
-    private var data: List<InformationHubResponse.Data>,
-    private val clickListener: (InformationHubResponse.Data, Int) -> Unit
+    private var data: List<ReysEventResponse.EventData>,
+    private val clickListener: (ReysEventResponse.EventData, Int) -> Unit
 ) : RecyclerView.Adapter<HomeInformationHubAdapter.ViewHolder>() {
 
     // Function to update the dataset
-    fun updateData(newData: List<InformationHubResponse.Data>) {
+    fun updateData(newData: List<ReysEventResponse.EventData>) {
         data = newData
         notifyDataSetChanged()
     }
@@ -25,24 +24,24 @@ class HomeInformationHubAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val informationHub = data[position]
-        holder.bind(informationHub, clickListener)
+        val eventData = data[position]
+        holder.bind(eventData, clickListener)
     }
 
     override fun getItemCount(): Int = data.size
 
     class ViewHolder(private val binding: ItemHomeInformationHubBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(informationHub: InformationHubResponse.Data, clickListener: (InformationHubResponse.Data, Int) -> Unit) {
+        fun bind(eventData: ReysEventResponse.EventData, clickListener: (ReysEventResponse.EventData, Int) -> Unit) {
             // Bind data to views here
             Glide.with(binding.ivimage.context)
-                .load(informationHub.imageUrl)
+                .load(eventData.imageUrl)
                 .into(binding.ivimage)
-            binding.tvtitle.text = informationHub.title
-            binding.tvInputKategori.text = informationHub.category
+            binding.tvtitle.text = eventData.title
+            binding.tvInputKategori.text = eventData.category
 
             // Set click listener
-            binding.root.setOnClickListener { clickListener(informationHub, adapterPosition) }
+            binding.root.setOnClickListener { clickListener(eventData, adapterPosition) }
         }
     }
 }

@@ -19,6 +19,7 @@ import com.entre.gethub.data.repositories.ProductRepository
 import com.entre.gethub.data.repositories.ProfileRepository
 import com.entre.gethub.data.repositories.ProjectDetectorRepository
 import com.entre.gethub.data.repositories.ProjectRepository
+import com.entre.gethub.data.repositories.ReysEventRepository
 import com.entre.gethub.data.repositories.ScanCardRepository
 import com.entre.gethub.data.repositories.SponsorRepository
 import com.entre.gethub.data.repositories.ThemeHubRepository
@@ -155,5 +156,10 @@ object Injection {
         val pref = provideUserPreferences(context)
         val token = runBlocking { pref.getToken().first() }
         return GraphDataRepository.getInstance(ApiConfig.getApiService(context, token))
+    }
+    fun provideReysEventRepository(context: Context): ReysEventRepository {
+        val pref = provideUserPreferences(context)
+        val token = runBlocking { pref.getToken().first() }
+        return ReysEventRepository.getInstance(ApiConfig.getApiMLService(context, token))
     }
 }
