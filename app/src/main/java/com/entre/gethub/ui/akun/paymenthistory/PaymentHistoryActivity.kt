@@ -1,5 +1,6 @@
 package com.entre.gethub.ui.akun.paymenthistory
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.enableEdgeToEdge
@@ -12,6 +13,7 @@ import com.entre.gethub.R
 import com.entre.gethub.data.Result
 import com.entre.gethub.data.remote.response.premium.PaymentHistoryResponse
 import com.entre.gethub.databinding.ActivityPaymentHistoryBinding
+import com.entre.gethub.ui.MainActivity
 import com.entre.gethub.ui.adapter.PaymentHistoryAdapter
 import com.entre.gethub.utils.ViewModelFactory
 
@@ -28,9 +30,17 @@ class PaymentHistoryActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        val codeFromOtherActivity = intent.getIntExtra(EXTRA_CODE_FROM_OTHER_ACTIVITY, 0)
+
         getPaymentHistory()
 
         binding.iconBack.setOnClickListener {
+            if (codeFromOtherActivity == 76) {
+                val intent = Intent(this@PaymentHistoryActivity, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+                return@setOnClickListener
+            }
             finish()
         }
     }
@@ -77,5 +87,9 @@ class PaymentHistoryActivity : AppCompatActivity() {
     private fun showError(isError: Boolean, message: String) {
         binding.empty.llEmpty.visibility = if (isError) View.VISIBLE else View.GONE
         binding.empty.tvEmpty.text = message
+    }
+
+    companion object {
+        const val EXTRA_CODE_FROM_OTHER_ACTIVITY = "extra_code_from_other_activity"
     }
 }

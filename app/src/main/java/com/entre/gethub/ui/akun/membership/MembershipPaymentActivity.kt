@@ -1,17 +1,17 @@
 package com.entre.gethub.ui.akun.membership
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.entre.gethub.R
 import com.entre.gethub.databinding.ActivityMembershipPaymentBinding
+import com.entre.gethub.ui.akun.paymenthistory.PaymentHistoryActivity
 import com.entre.gethub.ui.project.ownerpostedproject.payment.OwnerPaymentWebViewActivity
 
 class MembershipPaymentActivity : AppCompatActivity() {
@@ -22,7 +22,8 @@ class MembershipPaymentActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        redirectUrl = intent.getStringExtra(OwnerPaymentWebViewActivity.EXTRA_REDIRECT_URL).toString()
+        redirectUrl =
+            intent.getStringExtra(OwnerPaymentWebViewActivity.EXTRA_REDIRECT_URL).toString()
         setupWebView(redirectUrl)
 
         binding.iconBack.setOnClickListener {
@@ -43,11 +44,24 @@ class MembershipPaymentActivity : AppCompatActivity() {
                 override fun onPageFinished(view: WebView?, url: String?) {
                     super.onPageFinished(view, url)
                     showLoading(false)
+
+                    // Check if URL starts with "http://"
+                    url?.let {
+                        if (it.startsWith("http://")) {
+                            val intent = Intent(
+                                this@MembershipPaymentActivity,
+                                PaymentHistoryActivity::class.java
+                            ).apply {
+                                putExtra(PaymentHistoryActivity.EXTRA_CODE_FROM_OTHER_ACTIVITY, 76)
+                            }
+                            startActivity(intent)
+                            finish()
+                        }
+                    }
                 }
             }
             loadUrl(redirectUrl)
         }
-
     }
 
     private fun showLoading(isLoading: Boolean) {

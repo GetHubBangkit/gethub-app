@@ -35,3 +35,4 @@ class PaymentHistoryAdapter(private val paymentHistoryList: List<PaymentHistoryR
             }
         }
     }
+}
