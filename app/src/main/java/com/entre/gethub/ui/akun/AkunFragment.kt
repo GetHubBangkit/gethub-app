@@ -136,6 +136,7 @@ class AkunFragment : Fragment() {
                         tvUserProfession.text = user?.profession
                         if (user.isPremium == true) {
                             binding.llPremium.visibility = View.VISIBLE
+                            tvExpiredDate.text = "Expired ${user.premiumExpiredDate}"
                         }
                     }
                 }
