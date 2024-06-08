@@ -14,6 +14,7 @@ import com.entre.gethub.data.repositories.GraphDataRepository
 import com.entre.gethub.data.repositories.InformationHubRepository
 import com.entre.gethub.data.repositories.LinkRepository
 import com.entre.gethub.data.repositories.NewPartnerRepository
+import com.entre.gethub.data.repositories.PaymentHistoryRepository
 import com.entre.gethub.data.repositories.PostCardViewersRepository
 import com.entre.gethub.data.repositories.PremiumRepository
 import com.entre.gethub.data.repositories.ProductRepository
@@ -170,5 +171,11 @@ object Injection {
         val pref = provideUserPreferences(context)
         val token = runBlocking { pref.getToken().first() }
         return GraphDataRepository.getInstance(ApiConfig.getApiService(context, token))
+    }
+
+    fun providePaymentHistoryRepository(context: Context): PaymentHistoryRepository {
+        val pref = provideUserPreferences(context)
+        val token = runBlocking { pref.getToken().first() }
+        return PaymentHistoryRepository.getInstance(ApiConfig.getApiService(context, token))
     }
 }

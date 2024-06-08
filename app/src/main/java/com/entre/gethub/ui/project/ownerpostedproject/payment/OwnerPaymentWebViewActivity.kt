@@ -1,6 +1,7 @@
 package com.entre.gethub.ui.project.ownerpostedproject.payment
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.View
@@ -8,6 +9,7 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
 import com.entre.gethub.databinding.ActivityOwnerPaymentWebViewBinding
+import com.entre.gethub.ui.akun.paymenthistory.PaymentHistoryActivity
 
 class OwnerPaymentWebViewActivity : AppCompatActivity() {
 
@@ -38,6 +40,19 @@ class OwnerPaymentWebViewActivity : AppCompatActivity() {
                 override fun onPageFinished(view: WebView?, url: String?) {
                     super.onPageFinished(view, url)
                     showLoading(false)
+
+                    url?.let {
+                        if (it.startsWith("http://")) {
+                            val intent = Intent(
+                                this@OwnerPaymentWebViewActivity,
+                                PaymentHistoryActivity::class.java
+                            ).apply {
+                                putExtra(PaymentHistoryActivity.EXTRA_CODE_FROM_OTHER_ACTIVITY, 76)
+                            }
+                            startActivity(intent)
+                            finish()
+                        }
+                    }
                 }
             }
             loadUrl(redirectUrl)

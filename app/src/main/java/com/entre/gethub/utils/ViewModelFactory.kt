@@ -15,6 +15,7 @@ import com.entre.gethub.data.repositories.GraphDataRepository
 import com.entre.gethub.data.repositories.InformationHubRepository
 import com.entre.gethub.data.repositories.LinkRepository
 import com.entre.gethub.data.repositories.NewPartnerRepository
+import com.entre.gethub.data.repositories.PaymentHistoryRepository
 import com.entre.gethub.data.repositories.PostCardViewersRepository
 import com.entre.gethub.data.repositories.PremiumRepository
 import com.entre.gethub.data.repositories.ProductRepository
@@ -30,6 +31,7 @@ import com.entre.gethub.data.repositories.VisibilityRepository
 import com.entre.gethub.di.Injection
 import com.entre.gethub.ui.akun.AkunViewModel
 import com.entre.gethub.ui.akun.membership.MembershipViewModel
+import com.entre.gethub.ui.akun.paymenthistory.PaymentHistoryViewModel
 import com.entre.gethub.ui.analitic.AnaliticViewModel
 import com.entre.gethub.ui.auth.LoginViewModel
 import com.entre.gethub.ui.auth.RegisterViewModel
@@ -96,7 +98,8 @@ class ViewModelFactory private constructor(
     private val cardViewersRepository: CardViewersRepository,
     private val postCardViewersRepository: PostCardViewersRepository,
     private val premiumRepository: PremiumRepository,
-    private val graphDataRepository: GraphDataRepository
+    private val graphDataRepository: GraphDataRepository,
+    private val paymentHistoryRepository: PaymentHistoryRepository,
 ) : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when (modelClass) {
@@ -262,6 +265,8 @@ class ViewModelFactory private constructor(
 
             OwnerReviewViewModel::class.java -> OwnerReviewViewModel(projectRepository) as T
 
+            PaymentHistoryViewModel::class.java -> PaymentHistoryViewModel(paymentHistoryRepository) as T
+
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }
     }
@@ -292,7 +297,8 @@ class ViewModelFactory private constructor(
                 Injection.provideCardViewersRepository(context),
                 Injection.providePostCardViewersRepository(context),
                 Injection.providePremiumRepository(context),
-                Injection.provideGraphDataRepository(context)
+                Injection.provideGraphDataRepository(context),
+                Injection.providePaymentHistoryRepository(context),
             )
 
     }
