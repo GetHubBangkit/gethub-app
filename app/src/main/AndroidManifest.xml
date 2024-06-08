@@ -26,6 +26,15 @@
         android:theme="@style/Theme.GetHub"
         tools:targetApi="31">
         <activity
+            android:name=".ui.akun.membership.MembershipPaymentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.akun.membership.MembershipActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.akun.paymenthistory.PaymentHistoryActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.project.freelanceracceptedproject.review.OwnerReviewActivity"
             android:exported="false" />
         <activity

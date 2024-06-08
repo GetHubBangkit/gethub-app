@@ -116,10 +116,10 @@
         layout="@layout/item_empty_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@id/rvMilestone"
-        app:layout_constraintEnd_toEndOf="@id/rvMilestone"
-        app:layout_constraintStart_toStartOf="@id/rvMilestone"
-        app:layout_constraintTop_toTopOf="@id/rvMilestone" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cvAddMilestone" />
 
     <ProgressBar
         android:id="@+id/progressBar"

@@ -2,7 +2,7 @@ package com.entre.gethub.data.remote.response.projects
 
 import com.google.gson.annotations.SerializedName
 
-data class SettlementResponse(
+data class OwnerSettlementResponse(
 
     @field:SerializedName("data")
     val data: Data? = null,

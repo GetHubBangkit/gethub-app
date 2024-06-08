@@ -3,7 +3,9 @@ package com.entre.gethub.data.repositories
 import com.entre.gethub.data.remote.response.ApiResponse
 import com.entre.gethub.data.remote.response.projects.AcceptedProjectBidResponse
 import com.entre.gethub.data.remote.response.projects.AddProjectMilestoneResponse
+import com.entre.gethub.data.remote.response.projects.AllBanksResponse
 import com.entre.gethub.data.remote.response.projects.AllProjectMilestoneResponse
+import com.entre.gethub.data.remote.response.projects.FreelancerSettlementResponse
 import com.entre.gethub.data.remote.response.projects.MyProjectBidResponse
 import com.entre.gethub.data.remote.response.projects.PaymentResponse
 import com.entre.gethub.data.remote.response.projects.PostProjectResponse
@@ -12,8 +14,9 @@ import com.entre.gethub.data.remote.response.projects.PostedProjectResponse
 import com.entre.gethub.data.remote.response.projects.ProjectDetailResponse
 import com.entre.gethub.data.remote.response.projects.ProjectResponse
 import com.entre.gethub.data.remote.response.projects.ProjectStatsResponse
+import com.entre.gethub.data.remote.response.projects.ReviewResponse
 import com.entre.gethub.data.remote.response.projects.SearchProjectResponse
-import com.entre.gethub.data.remote.response.projects.SettlementResponse
+import com.entre.gethub.data.remote.response.projects.OwnerSettlementResponse
 import com.entre.gethub.data.remote.retrofit.ApiService
 
 class ProjectRepository private constructor(private val apiService: ApiService) {
@@ -94,12 +97,54 @@ class ProjectRepository private constructor(private val apiService: ApiService) 
         return apiService.getMilestone(projectId)
     }
 
-    suspend fun getSettlement(projectId: String): SettlementResponse {
-        return apiService.getSettlements(projectId)
+    suspend fun deleteMilestoneById(
+        projectId: String,
+        taskId: String,
+    ): ApiResponse {
+        return apiService.deleteMilestoneById(projectId, taskId)
     }
 
-    suspend fun generatePaymentToken(projectId: String): PaymentResponse {
-        return apiService.generatePaymentToken(projectId)
+    suspend fun getSettlementOwner(projectId: String): OwnerSettlementResponse {
+        return apiService.getSettlementOwner(projectId)
+    }
+
+    suspend fun generatePaymentToken(projectId: String, freelancerId: String): PaymentResponse {
+        return apiService.generatePaymentToken(projectId, freelancerId)
+    }
+
+    suspend fun finishProject(projectId: String): ApiResponse {
+        return apiService.finishProject(projectId)
+    }
+
+    suspend fun getSettlementFreelancer(projectId: String): FreelancerSettlementResponse {
+        return apiService.getSettlementFreelancer(projectId)
+    }
+
+    suspend fun getBanks(): AllBanksResponse {
+        return apiService.getBanks()
+    }
+
+    suspend fun createSettlementFreelancer(
+        projectId: String,
+        rekeningAccount: String,
+        rekeningBank: String,
+        rekeningNumber: String
+    ): PaymentResponse {
+        return apiService.createSettlementFreelancer(
+            projectId,
+            rekeningAccount,
+            rekeningBank,
+            rekeningNumber
+        )
+    }
+
+    suspend fun createReview(
+        projectId: String,
+        targetUserId: String,
+        message: String,
+        reviewType: String
+    ): ReviewResponse {
+        return apiService.createReview(projectId, targetUserId, message, reviewType)
     }
 
     companion object {

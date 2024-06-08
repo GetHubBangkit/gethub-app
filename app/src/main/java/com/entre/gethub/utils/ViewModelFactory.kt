@@ -15,7 +15,9 @@ import com.entre.gethub.data.repositories.GraphDataRepository
 import com.entre.gethub.data.repositories.InformationHubRepository
 import com.entre.gethub.data.repositories.LinkRepository
 import com.entre.gethub.data.repositories.NewPartnerRepository
+import com.entre.gethub.data.repositories.PaymentHistoryRepository
 import com.entre.gethub.data.repositories.PostCardViewersRepository
+import com.entre.gethub.data.repositories.PremiumRepository
 import com.entre.gethub.data.repositories.ProductRepository
 import com.entre.gethub.data.repositories.ProfileRepository
 import com.entre.gethub.data.repositories.ProjectDetectorRepository
@@ -29,6 +31,8 @@ import com.entre.gethub.data.repositories.UserPublicProfileRepository
 import com.entre.gethub.data.repositories.VisibilityRepository
 import com.entre.gethub.di.Injection
 import com.entre.gethub.ui.akun.AkunViewModel
+import com.entre.gethub.ui.akun.membership.MembershipViewModel
+import com.entre.gethub.ui.akun.paymenthistory.PaymentHistoryViewModel
 import com.entre.gethub.ui.analitic.AnaliticViewModel
 import com.entre.gethub.ui.auth.LoginViewModel
 import com.entre.gethub.ui.auth.RegisterViewModel
@@ -59,9 +63,12 @@ import com.entre.gethub.ui.project.freelanceracceptedproject.AcceptedBidProjectV
 import com.entre.gethub.ui.project.freelancerbidproject.BidProjectStatusDetailViewModel
 import com.entre.gethub.ui.project.freelancerbidproject.BidProjectStatusViewModel
 import com.entre.gethub.ui.project.chat.ChatViewModel
+import com.entre.gethub.ui.project.freelanceracceptedproject.review.OwnerReviewViewModel
+import com.entre.gethub.ui.project.freelanceracceptedproject.settlement.FreelancerSettlementViewModel
 import com.entre.gethub.ui.project.ownerpostedproject.PostedProjectStatusDetailViewModel
 import com.entre.gethub.ui.project.ownerpostedproject.PostedProjectStatusViewModel
 import com.entre.gethub.ui.project.ownerpostedproject.payment.OwnerSettlementViewModel
+import com.entre.gethub.ui.project.ownerpostedproject.review.FreelancerReviewViewModel
 import com.entre.gethub.ui.project.postproject.PostProjectViewModel
 import com.entre.gethub.ui.project.postproject.milestone.ProjectMilestoneFormViewModel
 import com.entre.gethub.ui.project.postproject.milestone.ProjectMilestoneViewModel
@@ -91,8 +98,11 @@ class ViewModelFactory private constructor(
     private val newPartnerRepository: NewPartnerRepository,
     private val cardViewersRepository: CardViewersRepository,
     private val postCardViewersRepository: PostCardViewersRepository,
+    private val getReysEventRepository: ReysEventRepository,
     private val graphDataRepository: GraphDataRepository,
-    private val getReysEventRepository: ReysEventRepository
+    private val premiumRepository: PremiumRepository,
+    private val paymentHistoryRepository: PaymentHistoryRepository,
+
 ) : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when (modelClass) {
@@ -100,24 +110,36 @@ class ViewModelFactory private constructor(
                 userPublicProfileRepository, postCardViewersRepository
             ) as T
 
+
             SplashViewModel::class.java -> SplashViewModel(userPreferences, profileRepository) as T
+
+            SplashViewModel::class.java -> SplashViewModel(userPreferences, profileRepository) as T
+
+
             LoginViewModel::class.java -> LoginViewModel(authRepository, userPreferences) as T
+
             RegisterViewModel::class.java -> RegisterViewModel(authRepository) as T
+
             HomeViewModel::class.java -> HomeViewModel(
                 profileRepository,
                 informationHubRepository,
                 newPartnerRepository,
-                getReysEventRepository
+
+                getReysEventRepository,
+
+                projectRepository
+
             ) as T
 
             CompleteProfileViewModel::class.java -> CompleteProfileViewModel(profileRepository) as T
+
             CompleteProfileValidationViewModel::class.java -> CompleteProfileValidationViewModel(
                 profileRepository, scanCardRepository
             ) as T
 
-            HomeKelolaMyGethubEditTentangSayaViewModel::class.java -> {
+            HomeKelolaMyGethubEditTentangSayaViewModel::class.java ->
                 HomeKelolaMyGethubEditTentangSayaViewModel(profileRepository) as T
-            }
+
 
             AkunViewModel::class.java -> AkunViewModel(
                 profileRepository,
@@ -239,11 +261,23 @@ class ViewModelFactory private constructor(
 
             OwnerSettlementViewModel::class.java -> OwnerSettlementViewModel(projectRepository) as T
 
+            FreelancerReviewViewModel::class.java -> FreelancerReviewViewModel(projectRepository) as T
+
             AnaliticViewModel::class.java -> AnaliticViewModel(
                 analiticTotalRepository, cardViewersRepository, graphDataRepository
             ) as T
 
             ChatViewModel::class.java -> ChatViewModel(profileRepository) as T
+
+            MembershipViewModel::class.java -> MembershipViewModel(premiumRepository) as T
+
+            FreelancerSettlementViewModel::class.java -> FreelancerSettlementViewModel(
+                projectRepository
+            ) as T
+
+            OwnerReviewViewModel::class.java -> OwnerReviewViewModel(projectRepository) as T
+
+            PaymentHistoryViewModel::class.java -> PaymentHistoryViewModel(paymentHistoryRepository) as T
 
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }
@@ -274,8 +308,11 @@ class ViewModelFactory private constructor(
                 Injection.provideNewPartnerRepository(context),
                 Injection.provideCardViewersRepository(context),
                 Injection.providePostCardViewersRepository(context),
+                Injection.provideReysEventRepository(context),
                 Injection.provideGraphDataRepository(context),
-                Injection.provideReysEventRepository(context)
+                Injection.providePremiumRepository(context),
+                Injection.providePaymentHistoryRepository(context)
+
             )
 
     }

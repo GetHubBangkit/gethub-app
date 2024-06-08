@@ -140,6 +140,18 @@
                 app:layout_constraintTop_toBottomOf="@id/tvUserJobName" />
 
             <TextView
+                android:id="@+id/tvSeeDetail"
+                style="@style/Nunito.Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Lihat Detail"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toTopOf="@id/tvProjectDeadline"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tvProjectTitle" />
+
+            <TextView
                 android:id="@+id/tvProjectDeadline"
                 style="@style/Nunito.SemiBold"
                 android:layout_width="wrap_content"
@@ -154,12 +166,26 @@
 
 
         <Button
+            android:id="@+id/btnFinishProject"
             style="@style/CustomButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:layout_marginTop="8dp"
             android:text="Pekerjaan Sudah Selesai"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@id/clProjectUserSelected" />
+
+        <Button
+            android:id="@+id/btnReviewProjectOwner"
+            style="@style/CustomButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="8dp"
+            android:text="Review Project Owner"
+            android:visibility="gone"
+            android:textSize="14sp"
             app:layout_constraintTop_toBottomOf="@id/clProjectUserSelected" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

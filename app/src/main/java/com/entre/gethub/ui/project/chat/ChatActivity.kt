@@ -51,11 +51,11 @@ class ChatActivity : AppCompatActivity() {
 
         getUserProfile()
 
-        ownerId = intent.getStringExtra(EXTRA_OWNER_ID).toString()
-        freelancerId = intent.getStringExtra(EXTRA_FREELANCER_ID).toString()
+        ownerId = intent.getStringExtra(EXTRA_RECEIVER_ID).toString()
+        freelancerId = intent.getStringExtra(EXTRA_SENDER_ID).toString()
         chatroomId = intent.getStringExtra(EXTRA_CHANNEL_ID).toString()
-        ownerName = intent.getStringExtra(EXTRA_OWNER_NAME).toString()
-        ownerPhoto = intent.getStringExtra(EXTRA_OWNER_PHOTO).toString()
+        ownerName = intent.getStringExtra(EXTRA_RECEIVER_NAME).toString()
+        ownerPhoto = intent.getStringExtra(EXTRA_RECEIVER_PHOTO).toString()
 
         binding.iconBack.setOnClickListener {
             finish()
@@ -186,10 +186,10 @@ class ChatActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val EXTRA_OWNER_ID = "extra_owner_id"
-        const val EXTRA_FREELANCER_ID = "extra_freelancer_id"
+        const val EXTRA_RECEIVER_ID = "extra_receiver_id"
+        const val EXTRA_SENDER_ID = "extra_sender_id"
         const val EXTRA_CHANNEL_ID = "extra_channel_id"
-        const val EXTRA_OWNER_NAME = "extra_owner_name"
-        const val EXTRA_OWNER_PHOTO = "extra_owner_photo"
+        const val EXTRA_RECEIVER_NAME = "extra_receiver_name"
+        const val EXTRA_RECEIVER_PHOTO = "extra_receiver_photo"
     }
 }

@@ -3,41 +3,55 @@ package com.entre.gethub.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.entre.gethub.ui.models.BiddingDikerjakan
+import com.bumptech.glide.Glide
+import com.entre.gethub.R
+import com.entre.gethub.data.remote.response.projects.AcceptedProjectBidResponse
 import com.entre.gethub.databinding.ItemHomeBiddingdikerjakanBinding
+import com.entre.gethub.utils.Formatter
 
 
 class HomeBiddingDikerjakanAdapter(
-    private val biddingdikerjakanList: ArrayList<BiddingDikerjakan>,
-    private val listener: (BiddingDikerjakan, Int) -> Unit
+    private val onWorkingProjectList: List<AcceptedProjectBidResponse.DataItem>,
 ) :
     RecyclerView.Adapter<HomeBiddingDikerjakanAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val v = ItemHomeBiddingdikerjakanBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val v = ItemHomeBiddingdikerjakanBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
         return ViewHolder(v)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindItem(biddingdikerjakanList[position])
-        holder.itemView.setOnClickListener { listener(biddingdikerjakanList[position], position) }
+        holder.bindItem(onWorkingProjectList[position])
     }
 
     override fun getItemCount(): Int {
-        return biddingdikerjakanList.size
+        return onWorkingProjectList.size
     }
 
-    class ViewHolder(var ItemHomeBiddingdikerjakanBinding: ItemHomeBiddingdikerjakanBinding) :
-        RecyclerView.ViewHolder(ItemHomeBiddingdikerjakanBinding.root) {
-        fun bindItem(biddingdikerjakan: BiddingDikerjakan) {
-//            ItemHomeBiddingdikerjakanBinding.frame1.setImageResource(biddingdikerjakan.image)
-            ItemHomeBiddingdikerjakanBinding.profilepic2.setImageResource(biddingdikerjakan.profilepic)
-            ItemHomeBiddingdikerjakanBinding.rekomendasiprofilename.text = biddingdikerjakan.profilename
-            ItemHomeBiddingdikerjakanBinding.rekomendasiprofiledesc.text = biddingdikerjakan.profiledesc
-            ItemHomeBiddingdikerjakanBinding.rekrutproject.text = biddingdikerjakan.projecttitle
-            ItemHomeBiddingdikerjakanBinding.rekrutprice.text = biddingdikerjakan.projectprice
-            ItemHomeBiddingdikerjakanBinding.rekrutprojectdeadline.text = biddingdikerjakan.deadline
+    class ViewHolder(var binding: ItemHomeBiddingdikerjakanBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bindItem(data: AcceptedProjectBidResponse.DataItem) {
+            val project = data.project
+            val minBudget = Formatter.formatRupiah(project.minBudget ?: 0)
+            val maxBudget = Formatter.formatRupiah(project.maxBudget ?: 0)
 
+            with(binding) {
+                Glide.with(root.context)
+                    .load(project.ownerProject?.photo.toString())
+                    .placeholder(R.drawable.profilepic1)
+                    .into(ivOwnerPic)
+                tvOwnerName.text = project.ownerProject?.fullName
+                tvOwnerProfession.text = project.ownerProject?.profession
+
+                tvProjectTitle.text = project.title
+                tvProjectDeadline.text = project.description
+                tvProjectBudget.text = "$minBudget - $maxBudget"
+                tvProjectDeadline.text = "Deadline: ${project.deadlineDuration} Hari"
+            }
         }
     }
 }

@@ -14,6 +14,7 @@ import retrofit2.HttpException
 
 class ProjectMilestoneViewModel(private val projectRepository: ProjectRepository) : ViewModel() {
     private val getProjectMilestoneResult = MediatorLiveData<Result<AllProjectMilestoneResponse>>()
+    private val deleteProjectMilestoneResult = MediatorLiveData<Result<ApiResponse>>()
 
     fun getMilestone(projectId: String): LiveData<Result<AllProjectMilestoneResponse>> {
         viewModelScope.launch {
@@ -37,6 +38,26 @@ class ProjectMilestoneViewModel(private val projectRepository: ProjectRepository
             }
         }
         return getProjectMilestoneResult
+    }
+
+    fun deleteMilestoneById(projectId: String, taskId: String): LiveData<Result<ApiResponse>> {
+        viewModelScope.launch {
+            deleteProjectMilestoneResult.value = Result.Loading
+            try {
+                val response = projectRepository.deleteMilestoneById(projectId, taskId)
+                if (response.success == true) {
+                    deleteProjectMilestoneResult.value = Result.Success(response)
+                }
+            } catch (e: HttpException) {
+                val jsonString = e.response()?.errorBody()?.string()
+                val errorBody = Gson().fromJson(jsonString, ApiResponse::class.java)
+                val errorMessage = errorBody.message
+                deleteProjectMilestoneResult.value = Result.Error(errorMessage!!)
+            } catch (e: Exception) {
+                deleteProjectMilestoneResult.value = Result.Error(e.toString())
+            }
+        }
+        return deleteProjectMilestoneResult
     }
 
 }

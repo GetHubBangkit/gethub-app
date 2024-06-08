@@ -135,6 +135,7 @@ class PostedProjectStatusDetailActivity : AppCompatActivity() {
                             showLoading(false)
                             val intent = Intent(this, OwnerSettlementActivity::class.java).apply {
                                 putExtra(OwnerSettlementActivity.EXTRA_PROJECT_ID, projectId)
+                                putExtra(OwnerSettlementActivity.EXTRA_FREELANCER_ID, freelancerId)
                             }
                             startActivity(intent)
                         }

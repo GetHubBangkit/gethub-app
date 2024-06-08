@@ -65,9 +65,6 @@
         app:layout_constraintTop_toBottomOf="@id/tvUserFullname"
         tools:text="Software Enginer" />
 
-
-
-
     <LinearLayout
         android:id="@+id/llPremium"
         android:layout_width="wrap_content"
@@ -75,6 +72,8 @@
         android:layout_marginTop="6dp"
         android:gravity="center"
         android:orientation="horizontal"
+        android:visibility="invisible"
+        tools:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvUserProfession">
@@ -86,7 +85,7 @@
             android:src="@drawable/premium" />
 
         <TextView
-            android:id="@+id/expired"
+            android:id="@+id/tvExpiredDate"
             style="@style/Nunito"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -103,13 +102,13 @@
         android:id="@+id/frame2"
         android:layout_width="319dp"
         android:layout_height="280dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="30dp"
         android:src="@drawable/frame1"
-
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/llPremium"
-        app:layout_constraintVertical_bias="0.512" />
+        app:layout_constraintVertical_bias="0.0" />
+
 
     <ImageView
         android:id="@+id/framesetting4"
@@ -119,8 +118,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/frame2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/framesetting3"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@id/framePaymentHistory"
+        app:layout_constraintVertical_bias="0.166" />
 
     <TextView
         android:id="@+id/pusatpengaduan"
@@ -139,7 +138,7 @@
         app:layout_constraintVertical_bias="0.454" />
 
     <ImageView
-        android:id="@+id/framesetting3"
+        android:id="@+id/framePaymentHistory"
         android:layout_width="301dp"
         android:layout_height="43dp"
         android:src="@drawable/framesetting"
@@ -147,7 +146,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.509"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/framesetting2"
+        app:layout_constraintTop_toBottomOf="@id/framePremium"
         app:layout_constraintVertical_bias="0.031" />
 
     <ImageView
@@ -160,7 +159,7 @@
         app:layout_constraintHorizontal_bias="0.509"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/framesetting4"
-        app:layout_constraintVertical_bias="0.551" />
+        app:layout_constraintVertical_bias="0.481" />
 
     <TextView
         android:id="@+id/tvLogout"
@@ -187,11 +186,11 @@
         android:textColor="@android:color/black"
         android:textSize="14sp"
         app:fontFamily="@font/nunito_semibold"
-        app:layout_constraintBottom_toBottomOf="@+id/framesetting3"
-        app:layout_constraintEnd_toEndOf="@+id/framesetting3"
+        app:layout_constraintBottom_toBottomOf="@id/framePaymentHistory"
+        app:layout_constraintEnd_toEndOf="@id/framePaymentHistory"
         app:layout_constraintHorizontal_bias="0.103"
-        app:layout_constraintStart_toStartOf="@+id/framesetting3"
-        app:layout_constraintTop_toTopOf="@+id/framesetting3"
+        app:layout_constraintStart_toStartOf="@id/framePaymentHistory"
+        app:layout_constraintTop_toTopOf="@id/framePaymentHistory"
         app:layout_constraintVertical_bias="0.59" />
 
     <TextView
@@ -203,14 +202,14 @@
         android:textColor="@android:color/black"
         android:textSize="14sp"
         app:fontFamily="@font/nunito_semibold"
-        app:layout_constraintBottom_toBottomOf="@+id/framesetting2"
-        app:layout_constraintEnd_toEndOf="@+id/framesetting2"
+        app:layout_constraintBottom_toBottomOf="@id/framePremium"
+        app:layout_constraintEnd_toEndOf="@id/framePremium"
         app:layout_constraintHorizontal_bias="0.105"
-        app:layout_constraintStart_toStartOf="@+id/framesetting2"
-        app:layout_constraintTop_toTopOf="@+id/framesetting2" />
+        app:layout_constraintStart_toStartOf="@id/framePremium"
+        app:layout_constraintTop_toTopOf="@id/framePremium" />
 
     <ImageView
-        android:id="@+id/framesetting2"
+        android:id="@+id/framePremium"
         android:layout_width="301dp"
         android:layout_height="43dp"
         android:src="@drawable/framesetting"

@@ -20,17 +20,19 @@ class OwnerSettlementActivity : AppCompatActivity() {
         )
     }
     private var projectId: String = ""
+    private var freelancerId: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
         projectId = intent.getStringExtra(EXTRA_PROJECT_ID).toString()
+        freelancerId = intent.getStringExtra(EXTRA_FREELANCER_ID).toString()
 
         getSettlement(projectId)
 
         binding.btnPay.setOnClickListener {
-            generatePaymentToken(projectId)
+            generatePaymentToken(projectId, freelancerId)
         }
 
         binding.iconBack.setOnClickListener {
@@ -70,8 +72,8 @@ class OwnerSettlementActivity : AppCompatActivity() {
         }
     }
 
-    private fun generatePaymentToken(projectId: String) {
-        ownerSettlementViewModel.generatePaymentToken(projectId).observe(this) { result ->
+    private fun generatePaymentToken(projectId: String, freelancerId: String) {
+        ownerSettlementViewModel.generatePaymentToken(projectId, freelancerId).observe(this) { result ->
             if (result != null) {
                 when (result) {
                     is Result.Loading -> showLoading(true)
@@ -109,5 +111,6 @@ class OwnerSettlementActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_PROJECT_ID = "extra_project_id"
+        const val EXTRA_FREELANCER_ID = "extra_freelancer_id"
     }
 }

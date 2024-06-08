@@ -8,6 +8,7 @@ import com.entre.gethub.databinding.ItemProjectMilestoneBinding
 
 class ProjectMilestoneAdapter(
     private val projectMilestoneList: List<AllProjectMilestoneResponse.DataItem>,
+    private val deleteMilestoneListener: (AllProjectMilestoneResponse.DataItem) -> Unit,
 ) : RecyclerView.Adapter<ProjectMilestoneAdapter.ViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -19,17 +20,26 @@ class ProjectMilestoneAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindItem(projectMilestoneList[position])
+        holder.bindItem(projectMilestoneList[position], deleteMilestoneListener)
     }
 
     override fun getItemCount(): Int = projectMilestoneList.size
 
-    class ViewHolder(private val binding: ItemProjectMilestoneBinding) :
+    class ViewHolder(
+        private val binding: ItemProjectMilestoneBinding,
+    ) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bindItem(milestone: AllProjectMilestoneResponse.DataItem) {
+        fun bindItem(
+            milestone: AllProjectMilestoneResponse.DataItem,
+            deleteMilestoneListener: (AllProjectMilestoneResponse.DataItem) -> Unit,
+        ) {
             with(binding) {
-                tvMilestoneNumber.text = "MILESTONE ${milestone.taskNumber}"
+                tvMilestoneNumber.text = "MILESTONE ${bindingAdapterPosition + 1}"
                 tvMilestoneDesc.text = milestone.taskDescription.toString()
+
+                ivMilestoneDelete.setOnClickListener {
+                    deleteMilestoneListener(milestone)
+                }
             }
         }
     }
