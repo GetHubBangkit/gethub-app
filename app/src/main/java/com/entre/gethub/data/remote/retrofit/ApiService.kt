@@ -21,6 +21,7 @@ import com.entre.gethub.data.remote.response.certifications.CertificationListRes
 import com.entre.gethub.data.remote.response.certifications.CertificationResponse
 import com.entre.gethub.data.remote.response.partners.AddPartnerResponse
 import com.entre.gethub.data.remote.response.partners.GetHubPartnerListResponse
+import com.entre.gethub.data.remote.response.premium.PaymentHistoryResponse
 import com.entre.gethub.data.remote.response.premium.PremiumResponse
 import com.entre.gethub.data.remote.response.products.ProductListResponse
 import com.entre.gethub.data.remote.response.products.ProductResponse
@@ -353,6 +354,11 @@ interface ApiService {
     @POST("user/premium")
     suspend fun premium(): PremiumResponse
     // Premium
+
+    // Payment History
+    @GET("user/invoice-payments")
+    suspend fun getPaymentHistory(): PaymentHistoryResponse
+    // Payment History
 
     @GET("public/profile")
     suspend fun getPublicProfile(

@@ -72,6 +72,8 @@
         android:layout_marginTop="6dp"
         android:gravity="center"
         android:orientation="horizontal"
+        android:visibility="invisible"
+        tools:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvUserProfession">
@@ -116,7 +118,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/framesetting3"
+        app:layout_constraintTop_toBottomOf="@id/framePaymentHistory"
         app:layout_constraintVertical_bias="0.052" />
 
     <TextView
@@ -136,7 +138,7 @@
         app:layout_constraintVertical_bias="0.454" />
 
     <ImageView
-        android:id="@+id/framesetting3"
+        android:id="@+id/framePaymentHistory"
         android:layout_width="301dp"
         android:layout_height="43dp"
         android:src="@drawable/framesetting"
@@ -183,11 +185,11 @@
         android:textColor="@android:color/black"
         android:textSize="14sp"
         app:fontFamily="@font/nunito_semibold"
-        app:layout_constraintBottom_toBottomOf="@+id/framesetting3"
-        app:layout_constraintEnd_toEndOf="@+id/framesetting3"
+        app:layout_constraintBottom_toBottomOf="@id/framePaymentHistory"
+        app:layout_constraintEnd_toEndOf="@id/framePaymentHistory"
         app:layout_constraintHorizontal_bias="0.103"
-        app:layout_constraintStart_toStartOf="@+id/framesetting3"
-        app:layout_constraintTop_toTopOf="@+id/framesetting3"
+        app:layout_constraintStart_toStartOf="@id/framePaymentHistory"
+        app:layout_constraintTop_toTopOf="@id/framePaymentHistory"
         app:layout_constraintVertical_bias="0.59" />
 
     <TextView

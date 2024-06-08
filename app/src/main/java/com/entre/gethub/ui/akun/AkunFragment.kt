@@ -16,6 +16,7 @@ import com.entre.gethub.R
 import com.entre.gethub.data.Result
 import com.entre.gethub.databinding.FragmentAkunBinding
 import com.entre.gethub.ui.akun.membership.MembershipActivity
+import com.entre.gethub.ui.akun.paymenthistory.PaymentHistoryActivity
 import com.entre.gethub.ui.auth.LoginActivity
 import com.entre.gethub.utils.ViewModelFactory
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -63,6 +64,10 @@ class AkunFragment : Fragment() {
 
             framesettingkeluar.setOnClickListener {
                 showDialog(requireContext(), "Keluar", "Apakah Anda yakin ingin keluar?")
+            }
+
+            framePaymentHistory.setOnClickListener {
+                startActivity(Intent(requireContext(), PaymentHistoryActivity::class.java))
             }
         }
     }
@@ -122,7 +127,6 @@ class AkunFragment : Fragment() {
                 is Result.Success -> {
                     val user = result.data.data
                     showLoading(false)
-                    println("Photo URL: ${user?.photo}")
                     with(binding) {
                         Glide.with(requireContext())
                             .load(user?.photo)
@@ -130,6 +134,9 @@ class AkunFragment : Fragment() {
                             .into(ivUserProfilePicture)
                         tvUserFullname.text = user?.fullName
                         tvUserProfession.text = user?.profession
+                        if (user.isPremium == true) {
+                            binding.llPremium.visibility = View.VISIBLE
+                        }
                     }
                 }
 
