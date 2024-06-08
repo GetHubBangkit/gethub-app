@@ -3,6 +3,7 @@ package com.entre.gethub.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.entre.gethub.databinding.ItemHomeKelolamygethubLinkPublicUserBinding
 import com.entre.gethub.ui.models.GethubLink
 
@@ -35,7 +36,9 @@ class HomeGethubLinkPublicUserAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bindItem(gethublink: GethubLink) {
-            binding.image.setImageResource(gethublink.image)
+            Glide.with(binding.root.context)
+                .load(gethublink.image)
+                .into(binding.image)
 
             // Set up click listener for the link
             binding.root.setOnClickListener {
