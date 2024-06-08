@@ -100,7 +100,7 @@ class ViewModelFactory private constructor(
                 userPublicProfileRepository, postCardViewersRepository
             ) as T
 
-            SplashViewModel::class.java -> SplashViewModel(userPreferences) as T
+            SplashViewModel::class.java -> SplashViewModel(userPreferences, profileRepository) as T
             LoginViewModel::class.java -> LoginViewModel(authRepository, userPreferences) as T
             RegisterViewModel::class.java -> RegisterViewModel(authRepository) as T
             HomeViewModel::class.java -> HomeViewModel(
