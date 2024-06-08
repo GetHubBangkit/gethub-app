@@ -27,6 +27,7 @@ class PaymentHistoryAdapter(private val paymentHistoryList: List<PaymentHistoryR
 
         fun bindItem(paymentHistory: PaymentHistoryResponse.DataItem) {
             with(binding) {
+                tvInvoiceNumber.text = paymentHistory.id
                 tvInvoiceDate.text = "Tanggal Dibuat: ${paymentHistory.transactionDate}"
                 tvInvoiceStatus.text = "Status: ${paymentHistory.status}"
                 tvInvoiceAmount.text = "Total: ${

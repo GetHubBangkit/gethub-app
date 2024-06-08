@@ -85,7 +85,7 @@
             android:src="@drawable/premium" />
 
         <TextView
-            android:id="@+id/expired"
+            android:id="@+id/tvExpiredDate"
             style="@style/Nunito"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

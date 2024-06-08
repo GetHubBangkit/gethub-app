@@ -18,6 +18,8 @@ data class UserProfileResponse(
 ) {
 
     data class Data(
+        @field:SerializedName("premium_expired_date")
+        val premiumExpiredDate: String? = null,
 
         @field:SerializedName("sentiment_freelance_score")
         val sentimentFreelanceScore: Int? = null,

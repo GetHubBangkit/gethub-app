@@ -18,6 +18,9 @@ data class PaymentHistoryResponse(
 ) {
     data class DataItem(
 
+        @field:SerializedName("id")
+        val id: String? = null,
+
         @field:SerializedName("transaction_date")
         val transactionDate: String? = null,
 
