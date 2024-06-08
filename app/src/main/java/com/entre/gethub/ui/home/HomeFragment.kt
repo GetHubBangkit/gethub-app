@@ -15,7 +15,6 @@ import com.entre.gethub.databinding.FragmentHomeBinding
 import com.entre.gethub.ui.adapter.HomeBiddingDikerjakanAdapter
 import com.entre.gethub.ui.adapter.HomeGethubPartnerAdapter
 import com.entre.gethub.ui.adapter.HomeInformationHubAdapter
-import com.entre.gethub.utils.ViewModelFactory
 import com.entre.gethub.data.Result
 import com.entre.gethub.data.remote.response.NewPartnerResponse
 import com.entre.gethub.data.remote.response.projects.AcceptedProjectBidResponse
@@ -23,6 +22,7 @@ import com.entre.gethub.ui.home.caritalent.HomeCariTalentActivity
 import com.entre.gethub.ui.home.deteksiproject.HomeProjectDetectorActivity
 import com.entre.gethub.ui.home.mygethub.HomeKelolaMyGethubActivity
 import com.entre.gethub.ui.home.projectbids.HomeCariProjectBidsActivity
+import com.entre.gethub.utils.ViewModelFactory
 
 class HomeFragment : Fragment() {
 
@@ -45,7 +45,7 @@ class HomeFragment : Fragment() {
         getInformationList()
         observeNewPartner()
         getNewPartnerList()
-        getOnWorkingProjectBids()
+        getUserProfile()
 
         return root
     }
@@ -77,22 +77,68 @@ class HomeFragment : Fragment() {
 
     private fun setupRecyclerViews() {
         setupRecyclerViewInformationHub()
+        getOnWorkingProjectBids()
+    }
+
+    private fun getUserProfile() {
+        homeViewModel.getUserProfile().observe(viewLifecycleOwner) { result ->
+            when (result) {
+                is Result.Loading -> {
+                    // Handle loading state
+                }
+                is Result.Success -> {
+                    val userProfile = result.data.data
+                    val profession = userProfile?.profession ?: ""
+                    if (profession.isNotEmpty()) {
+                        getReysEvent(profession)
+                    }
+                }
+                is Result.Error -> {
+                    // Handle error
+                }
+                else -> {
+                    // Handle other cases
+                }
+            }
+        }
+    }
+
+    private fun getReysEvent(profession: String) {
+        homeViewModel.getReysEvent(profession).observe(viewLifecycleOwner) { result ->
+            when (result) {
+                is Result.Loading -> {
+                    showLoadingInformationHub(true)
+                }
+                is Result.Success -> {
+                    val eventData = result.data.data ?: emptyList()
+                    (binding.recyclerViewInformationHub.adapter as HomeInformationHubAdapter).updateData(eventData)
+                }
+                is Result.Error -> {
+                    Toast.makeText(requireContext(), result.error, Toast.LENGTH_SHORT).show()
+                }
+                is Result.Empty -> {
+                    binding.empty.apply {
+                        llEmpty.visibility = View.VISIBLE
+                        tvEmpty.text = result.emptyError
+                    }
+                }
+            }
+        }
     }
 
     private fun getInformationList() {
-        homeViewModel.informationHubs.observe(viewLifecycleOwner) { result ->
+        homeViewModel.getReysEventResult.observe(viewLifecycleOwner) { result ->
             when (result) {
                 is Result.Success -> {
                     showLoadingInformationHub(false)
-                    val data = result.data
+                    val eventData = result.data.data ?: emptyList()
                     binding.empty.llEmpty.visibility = View.GONE
-                    (binding.recyclerViewInformationHub.adapter as HomeInformationHubAdapter).updateData(
-                        data
-                    )
+                    (binding.recyclerViewInformationHub.adapter as HomeInformationHubAdapter).updateData(eventData)
                 }
 
                 is Result.Error -> {
                     showLoadingInformationHub(false)
+                    Toast.makeText(requireContext(), result.error, Toast.LENGTH_SHORT).show()
                 }
 
                 is Result.Loading -> {
@@ -105,10 +151,12 @@ class HomeFragment : Fragment() {
                         llEmpty.visibility = View.VISIBLE
                         tvEmpty.text = result.emptyError
                     }
+                    Toast.makeText(requireContext(), result.emptyError, Toast.LENGTH_SHORT).show()
                 }
             }
         }
     }
+
 
     private fun observeNewPartner() {
         homeViewModel.getNewPartner().observe(viewLifecycleOwner) { result ->
@@ -181,7 +229,6 @@ class HomeFragment : Fragment() {
             }
         }
     }
-
 
     private fun setupRecyclerViewBiddingDikerjakan(onWorkingProjectList: List<AcceptedProjectBidResponse.DataItem>) {
         binding.recyclerViewBiddingDikerjakan.apply {

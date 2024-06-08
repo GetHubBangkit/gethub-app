@@ -31,7 +31,19 @@ class HomeKelolaMyGethubTambahLinkActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        val categories = listOf("Shopee", "Tiktok")
+        val categories = listOf(
+            "Shopee",
+            "Tiktok",
+            "Figma",
+            "GitHub",
+            "Gitlab",
+            "Instagram",
+            "Jupyternotebook",
+            "Linkedin",
+            "Tokopedia",
+            "Youtube"
+        )
+
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categories)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spinnerKategori.adapter = adapter

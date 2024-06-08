@@ -400,4 +400,6 @@ interface ApiService {
 //    Graph Data Analitic
     @GET("graph_data")
     suspend fun getGraphData(): GraphDataResponse
+
+
 }

@@ -350,20 +350,29 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
                     // Update the RecyclerView with new data
                     (binding.recyclerViewHomeGethubLink.adapter as? HomeGethubLinkAdapter)?.updateGethubLinks(
                         result.data.data!!.map {
-                            val drawableRes = when (it.category) {
-                                "shopee" -> R.drawable.kelola_shopee
-                                "tiktok" -> R.drawable.kelola_tiktok
-                                else -> R.drawable.kelola_tiktok // Default image if no match
+                            val image = when (it.category?.toLowerCase()) {
+                                "shopee" -> "https://storage.googleapis.com/gethub_bucket/link_category/logo%202/shopee2.png"
+                                "tiktok" -> "https://storage.googleapis.com/gethub_bucket/link_category/logo%202/tiktok2.png"
+                                "figma" -> "https://storage.googleapis.com/gethub_bucket/link_category/logo%202/figma2.png"
+                                "github" -> "https://storage.googleapis.com/gethub_bucket/link_category/logo%202/github2.png"
+                                "gitlab" -> "https://storage.googleapis.com/gethub_bucket/link_category/logo%202/gitlab2.png"
+                                "instagram" -> "https://storage.googleapis.com/gethub_bucket/link_category/logo%202/instagram2.png"
+                                "jupyternotebook" -> "https://storage.googleapis.com/gethub_bucket/link_category/logo%202/jupyternotebook2.png"
+                                "linkedin" -> "https://storage.googleapis.com/gethub_bucket/link_category/logo%202/linkedin2.png"
+                                "tokopedia" -> "https://storage.googleapis.com/gethub_bucket/link_category/logo%202/tokopedia2.png"
+                                "youtube" -> "https://storage.googleapis.com/gethub_bucket/link_category/logo%202/youtube2.png"
+                                else -> "https://storage.googleapis.com/gethub_bucket/link_category/logo%202/tiktok2.png" // Default image if no match
                             }
+
                             GethubLink(
                                 it.id ?: "",
                                 it.link ?: "",
-                                drawableRes
+                                    image
                             )
                         }
                     )
-
                 }
+
                 is Result.Error -> {
 //                    Toast.makeText(
 //                        this,

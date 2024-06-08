@@ -22,6 +22,7 @@ import com.entre.gethub.data.repositories.ProductRepository
 import com.entre.gethub.data.repositories.ProfileRepository
 import com.entre.gethub.data.repositories.ProjectDetectorRepository
 import com.entre.gethub.data.repositories.ProjectRepository
+import com.entre.gethub.data.repositories.ReysEventRepository
 import com.entre.gethub.data.repositories.ScanCardRepository
 import com.entre.gethub.data.repositories.SponsorRepository
 import com.entre.gethub.data.repositories.ThemeHubRepository
@@ -97,9 +98,11 @@ class ViewModelFactory private constructor(
     private val newPartnerRepository: NewPartnerRepository,
     private val cardViewersRepository: CardViewersRepository,
     private val postCardViewersRepository: PostCardViewersRepository,
-    private val premiumRepository: PremiumRepository,
+    private val getReysEventRepository: ReysEventRepository,
     private val graphDataRepository: GraphDataRepository,
+    private val premiumRepository: PremiumRepository,
     private val paymentHistoryRepository: PaymentHistoryRepository,
+
 ) : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when (modelClass) {
@@ -107,16 +110,25 @@ class ViewModelFactory private constructor(
                 userPublicProfileRepository, postCardViewersRepository
             ) as T
 
-            SplashViewModel::class.java -> SplashViewModel(userPreferences) as T
+
+            SplashViewModel::class.java -> SplashViewModel(userPreferences, profileRepository) as T
+
+            SplashViewModel::class.java -> SplashViewModel(userPreferences, profileRepository) as T
+
 
             LoginViewModel::class.java -> LoginViewModel(authRepository, userPreferences) as T
 
             RegisterViewModel::class.java -> RegisterViewModel(authRepository) as T
 
             HomeViewModel::class.java -> HomeViewModel(
+                profileRepository,
                 informationHubRepository,
                 newPartnerRepository,
+
+                getReysEventRepository,
+
                 projectRepository
+
             ) as T
 
             CompleteProfileViewModel::class.java -> CompleteProfileViewModel(profileRepository) as T
@@ -296,9 +308,11 @@ class ViewModelFactory private constructor(
                 Injection.provideNewPartnerRepository(context),
                 Injection.provideCardViewersRepository(context),
                 Injection.providePostCardViewersRepository(context),
-                Injection.providePremiumRepository(context),
+                Injection.provideReysEventRepository(context),
                 Injection.provideGraphDataRepository(context),
-                Injection.providePaymentHistoryRepository(context),
+                Injection.providePremiumRepository(context),
+                Injection.providePaymentHistoryRepository(context)
+
             )
 
     }

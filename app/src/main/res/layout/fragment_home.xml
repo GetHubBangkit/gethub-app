@@ -395,5 +395,19 @@
             app:layout_constraintStart_toStartOf="@id/recyclerViewInformationHub"
             app:layout_constraintTop_toTopOf="@id/recyclerViewInformationHub" />
 
+        <TextView
+            android:id="@+id/tvEmptyInformationHub"
+            style="@style/Poppins.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Gethub Partner kosong"
+            android:textSize="14sp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/recyclerViewInformationHub"
+            app:layout_constraintEnd_toEndOf="@id/recyclerViewInformationHub"
+            app:layout_constraintStart_toStartOf="@id/recyclerViewInformationHub"
+            app:layout_constraintTop_toTopOf="@id/recyclerViewInformationHub"
+            app:layout_constraintVertical_bias="0.52"
+            tools:visibility="visible" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

@@ -21,6 +21,7 @@ import com.entre.gethub.data.repositories.ProductRepository
 import com.entre.gethub.data.repositories.ProfileRepository
 import com.entre.gethub.data.repositories.ProjectDetectorRepository
 import com.entre.gethub.data.repositories.ProjectRepository
+import com.entre.gethub.data.repositories.ReysEventRepository
 import com.entre.gethub.data.repositories.ScanCardRepository
 import com.entre.gethub.data.repositories.SponsorRepository
 import com.entre.gethub.data.repositories.ThemeHubRepository
@@ -70,6 +71,7 @@ object Injection {
         val token = runBlocking { pref.getToken().first() }
         return ProductRepository.getInstance(ApiConfig.getApiService(context, token))
     }
+
     fun provideCertificationRepository(context: Context): CertificationRepository {
         val pref = provideUserPreferences(context)
         val token = runBlocking { pref.getToken().first() }
@@ -164,18 +166,23 @@ object Injection {
     fun providePremiumRepository(context: Context): PremiumRepository {
         val pref = provideUserPreferences(context)
         val token = runBlocking { pref.getToken().first() }
-        return PremiumRepository.getInstance(ApiConfig.getApiService(context, token))   
+        return PremiumRepository.getInstance(ApiConfig.getApiService(context, token))
     }
-    
+
     fun provideGraphDataRepository(context: Context): GraphDataRepository {
         val pref = provideUserPreferences(context)
         val token = runBlocking { pref.getToken().first() }
         return GraphDataRepository.getInstance(ApiConfig.getApiService(context, token))
     }
 
-    fun providePaymentHistoryRepository(context: Context): PaymentHistoryRepository {
+    fun provideReysEventRepository(context: Context): ReysEventRepository {
         val pref = provideUserPreferences(context)
         val token = runBlocking { pref.getToken().first() }
-        return PaymentHistoryRepository.getInstance(ApiConfig.getApiService(context, token))
+        return ReysEventRepository.getInstance(ApiConfig.getApiMLService(context, token))
     }
-}
+        fun providePaymentHistoryRepository(context: Context): PaymentHistoryRepository {
+            val pref = provideUserPreferences(context)
+            val token = runBlocking { pref.getToken().first() }
+            return PaymentHistoryRepository.getInstance(ApiConfig.getApiService(context, token))
+        }
+    }
