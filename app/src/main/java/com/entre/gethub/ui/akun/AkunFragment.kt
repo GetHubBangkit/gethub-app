@@ -73,52 +73,106 @@ class AkunFragment : Fragment() {
     }
 
     private fun setupVisibilitySwitch() {
-        binding.switchVisibilty.setOnCheckedChangeListener { _, isChecked ->
-            akunViewModel.setVisibility(isChecked).observe(viewLifecycleOwner) { result ->
-                when (result) {
-                    is Result.Success -> {
-                        showLoading(false)
-                        showToast("Visibility updated successfully")
-                    }
+        // Get the SharedPreferences instance
+        val sharedPreferences = requireContext().getSharedPreferences("visibility", Context.MODE_PRIVATE)
 
-                    is Result.Error -> {
-                        showLoading(false)
-                        showToast(result.error)
-                    }
+        // Get the last saved visibility state, default is false
+        val lastVisibilityState = sharedPreferences.getBoolean("visibility_state", false)
 
-                    is Result.Loading -> {
-                        showLoading(true)
-                    }
+        // Set the initial state of the switch based on the last saved state
+        binding.switchVisibilty.isChecked = lastVisibilityState
 
-                    else -> {
-                        showLoading(false)
+        // Boolean to track if the switch is changed by the user
+        var userChangedSwitch = false
+
+        // Observe the visibility state first
+        akunViewModel.getVisibility().observe(viewLifecycleOwner) { result ->
+            when {
+                // If the switch is changed by the user, update the switch state
+                userChangedSwitch -> {
+                    when (result) {
+                        is Result.Success -> {
+                            showLoading(false)
+                            binding.switchVisibilty.isChecked = result.data
+                            // Reset the flag after updating the switch state
+                            userChangedSwitch = false
+                        }
+
+                        is Result.Error -> {
+                            showLoading(false)
+                            showToast(result.error)
+                        }
+
+                        is Result.Loading -> {
+                            showLoading(true)
+                        }
+
+                        else -> {
+                            showLoading(false)
+                        }
+                    }
+                }
+                // If the switch is not changed by the user, only update the switch state
+                else -> {
+                    when (result) {
+                        is Result.Success -> {
+                            showLoading(false)
+                            binding.switchVisibilty.isChecked = result.data
+                        }
+
+                        is Result.Error -> {
+                            showLoading(false)
+                            showToast(result.error)
+                        }
+
+                        is Result.Loading -> {
+                            showLoading(true)
+                        }
+
+                        else -> {
+                            showLoading(false)
+                        }
                     }
                 }
             }
         }
 
-        akunViewModel.getVisibility().observe(viewLifecycleOwner) { result ->
-            when (result) {
-                is Result.Success -> {
-                    showLoading(false)
-                    binding.switchVisibilty.isChecked = result.data
-                }
+        // Set the listener for the switch
+        binding.switchVisibilty.setOnCheckedChangeListener { _, isChecked ->
+            // Set the flag to true to indicate user interaction
+            userChangedSwitch = true
+            // Save the state of switchVisibility locally
+            sharedPreferences.edit().putBoolean("visibility_state", isChecked).apply()
+            // Post setVisibility only when the switch is checked/unchecked
+            akunViewModel.setVisibility(isChecked)
+                .observe(viewLifecycleOwner) { result ->
+                    when (result) {
+                        is Result.Success -> {
+                            showLoading(false)
+                            showToast("Visibility updated successfully")
+                        }
 
-                is Result.Error -> {
-                    showLoading(false)
-                    showToast(result.error)
-                }
+                        is Result.Error -> {
+                            showLoading(false)
+                            showToast(result.error)
+                        }
 
-                is Result.Loading -> {
-                    showLoading(true)
-                }
+                        is Result.Loading -> {
+                            showLoading(true)
+                        }
 
-                else -> {
-                    showLoading(false)
+                        else -> {
+                            showLoading(false)
+                        }
+                    }
                 }
-            }
         }
     }
+
+
+
+
+
 
     private fun getUserData() {
         akunViewModel.getUserProfile().observe(viewLifecycleOwner) { result ->
