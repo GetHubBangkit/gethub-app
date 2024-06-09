@@ -400,7 +400,7 @@
             style="@style/Poppins.Bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Gethub Partner kosong"
+            android:text="InformationHub Kosong"
             android:textSize="14sp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@id/recyclerViewInformationHub"
