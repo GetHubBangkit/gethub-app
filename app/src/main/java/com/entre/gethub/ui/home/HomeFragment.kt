@@ -20,6 +20,7 @@ import com.entre.gethub.data.remote.response.NewPartnerResponse
 import com.entre.gethub.data.remote.response.projects.AcceptedProjectBidResponse
 import com.entre.gethub.ui.home.caritalent.HomeCariTalentActivity
 import com.entre.gethub.ui.home.deteksiproject.HomeProjectDetectorActivity
+import com.entre.gethub.ui.home.informationall.HomeInformationAllActivity
 import com.entre.gethub.ui.home.mygethub.HomeKelolaMyGethubActivity
 import com.entre.gethub.ui.home.projectbids.HomeCariProjectBidsActivity
 import com.entre.gethub.utils.ViewModelFactory
@@ -72,6 +73,9 @@ class HomeFragment : Fragment() {
         }
         binding.ivProjectDetector.setOnClickListener {
             startActivity(Intent(requireContext(), HomeProjectDetectorActivity::class.java))
+        }
+        binding.tvSeeAllInformation.setOnClickListener {
+            startActivity(Intent(requireContext(), HomeInformationAllActivity::class.java))
         }
     }
 

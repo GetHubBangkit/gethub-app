@@ -45,6 +45,7 @@ import com.entre.gethub.ui.gethub.GethubViewModel
 import com.entre.gethub.ui.home.HomeViewModel
 import com.entre.gethub.ui.home.caritalent.HomeCariTalentViewModel
 import com.entre.gethub.ui.home.deteksiproject.HomeProjectDetectorViewModel
+import com.entre.gethub.ui.home.informationall.HomeInformationAllViewModel
 import com.entre.gethub.ui.home.mygethub.HomeKelolaMyGethubGantiDesignViewModel
 import com.entre.gethub.ui.home.mygethub.HomeKelolaMyGethubViewModel
 import com.entre.gethub.ui.home.mygethub.certification.HomeKelolaMyGethubEditSertifikasiViewModel
@@ -278,6 +279,10 @@ class ViewModelFactory private constructor(
             OwnerReviewViewModel::class.java -> OwnerReviewViewModel(projectRepository) as T
 
             PaymentHistoryViewModel::class.java -> PaymentHistoryViewModel(paymentHistoryRepository) as T
+
+            HomeInformationAllViewModel::class.java -> HomeInformationAllViewModel(
+                informationHubRepository
+            ) as T
 
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }
