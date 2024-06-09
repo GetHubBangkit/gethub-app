@@ -38,6 +38,7 @@ import com.entre.gethub.ui.auth.LoginViewModel
 import com.entre.gethub.ui.auth.RegisterViewModel
 import com.entre.gethub.ui.completeprofile.CompleteProfileValidationViewModel
 import com.entre.gethub.ui.completeprofile.CompleteProfileViewModel
+import com.entre.gethub.ui.detailpartner.DetailPartnerViewModel
 import com.entre.gethub.ui.gethub.GethubAddPartnerFormViewModel
 import com.entre.gethub.ui.gethub.GethubAddPartnerViewModel
 import com.entre.gethub.ui.gethub.GethubPartnerListViewModel
@@ -282,6 +283,9 @@ class ViewModelFactory private constructor(
 
             HomeInformationAllViewModel::class.java -> HomeInformationAllViewModel(
                 informationHubRepository
+            ) as T
+            DetailPartnerViewModel::class.java -> DetailPartnerViewModel(
+                gethubRepository
             ) as T
 
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")

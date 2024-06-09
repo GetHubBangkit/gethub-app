@@ -344,7 +344,7 @@
                 style="@style/Poppins.Bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Information"
+                android:text="Rekomendasi"
                 android:textColor="@color/teal"
                 android:textSize="16sp" />
 
@@ -353,7 +353,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="3dp"
-                android:text="Hub"
+                android:text="Event"
                 android:textColor="@color/blackgethub"
                 android:textSize="16sp" />
         </LinearLayout>
