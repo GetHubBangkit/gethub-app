@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,6 +15,8 @@ import com.entre.gethub.ui.home.HomeDetailInformationHubActivity
 import com.entre.gethub.data.Result
 import com.entre.gethub.data.repositories.InformationHubRepository
 import com.entre.gethub.di.Injection
+import com.entre.gethub.ui.MainActivity
+import com.entre.gethub.ui.home.projectbids.HomeCariProjectBidsActivity
 import com.entre.gethub.utils.ViewModelFactory
 
 class HomeInformationAllActivity : AppCompatActivity() {
@@ -30,7 +33,12 @@ class HomeInformationAllActivity : AppCompatActivity() {
         viewModelFactory = ViewModelFactory.getInstance(this)
         setupRecyclerViewInformationHub()
         getInformationList()
+
+        binding.iconBack.setOnClickListener {
+            startActivity(Intent(this, MainActivity::class.java))
+        }
     }
+
 
     private fun getInformationList() {
         homeInformationAllViewModel.informationHubs.observe(this, Observer { result ->
