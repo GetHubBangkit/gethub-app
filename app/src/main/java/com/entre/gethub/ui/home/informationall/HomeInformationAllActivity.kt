@@ -35,7 +35,7 @@ class HomeInformationAllActivity : AppCompatActivity() {
         getInformationList()
 
         binding.iconBack.setOnClickListener {
-            startActivity(Intent(this, MainActivity::class.java))
+            finish()
         }
     }
 
