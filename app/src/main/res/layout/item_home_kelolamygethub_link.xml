@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="188dp"
     android:layout_height="52dp"
-    android:layout_marginLeft="15dp"
+    android:layout_marginLeft="20dp"
     app:cardCornerRadius="10dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
