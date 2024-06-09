@@ -39,7 +39,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewInformationHub"
+        android:id="@+id/recyclerViewInformationHubAll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -58,10 +58,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/recyclerViewInformationHub"
-        app:layout_constraintEnd_toEndOf="@+id/recyclerViewInformationHub"
-        app:layout_constraintStart_toStartOf="@+id/recyclerViewInformationHub"
-        app:layout_constraintTop_toTopOf="@+id/recyclerViewInformationHub"
+        app:layout_constraintBottom_toBottomOf="@+id/recyclerViewInformationHubAll"
+        app:layout_constraintEnd_toEndOf="@+id/recyclerViewInformationHubAll"
+        app:layout_constraintStart_toStartOf="@+id/recyclerViewInformationHubAll"
+        app:layout_constraintTop_toTopOf="@+id/recyclerViewInformationHubAll"
 
         tools:visibility="visible" />
 
@@ -70,8 +70,8 @@
         layout="@layout/item_empty_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@id/recyclerViewInformationHub"
-        app:layout_constraintEnd_toEndOf="@id/recyclerViewInformationHub"
-        app:layout_constraintStart_toStartOf="@id/recyclerViewInformationHub"
-        app:layout_constraintTop_toTopOf="@id/recyclerViewInformationHub" />
+        app:layout_constraintBottom_toBottomOf="@id/recyclerViewInformationHubAll"
+        app:layout_constraintEnd_toEndOf="@id/recyclerViewInformationHubAll"
+        app:layout_constraintStart_toStartOf="@id/recyclerViewInformationHubAll"
+        app:layout_constraintTop_toTopOf="@id/recyclerViewInformationHubAll" />
 </androidx.constraintlayout.widget.ConstraintLayout>

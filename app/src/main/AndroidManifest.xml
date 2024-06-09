@@ -198,6 +198,10 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".ui.home.informationall.HomeInformationAllActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ui.MainActivity"
             android:exported="false"
             android:screenOrientation="portrait"
