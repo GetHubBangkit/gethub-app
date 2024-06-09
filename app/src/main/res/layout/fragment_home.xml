@@ -251,11 +251,11 @@
 
         <TextView
             android:id="@+id/tvEmptyNewGethubPartner"
-            style="@style/Poppins.Bold"
+            style="@style/Nunito"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Gethub Partner kosong"
-            android:textSize="14sp"
+            android:text="Data Tidak Ada"
+            android:textSize="12sp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/recyclerViewHomeGethubPartner"
             app:layout_constraintEnd_toEndOf="parent"
@@ -319,11 +319,11 @@
 
         <TextView
             android:id="@+id/tvEmptyOnBiddingDikerjakan"
-            style="@style/Poppins.Bold"
+            style="@style/Nunito"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Belum ada bidding yang dikerjakan"
-            android:textSize="14sp"
+            android:text="Data Tidak Ada"
+            android:textSize="12sp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@id/recyclerViewBiddingDikerjakan"
             app:layout_constraintEnd_toEndOf="parent"
