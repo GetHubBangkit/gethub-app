@@ -1,5 +1,6 @@
 package com.entre.gethub.ui.home
 
+
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -122,9 +123,7 @@ class HomeFragment : Fragment() {
                     Toast.makeText(requireContext(), result.error, Toast.LENGTH_SHORT).show()
                 }
                 is Result.Empty -> {
-                    binding.empty.apply {
-                        llEmpty.visibility = View.VISIBLE
-                        tvEmpty.text = result.emptyError
+                    binding.tvEmptyInformationHub.apply {
                     }
                 }
             }
@@ -137,7 +136,7 @@ class HomeFragment : Fragment() {
                 is Result.Success -> {
                     showLoadingInformationHub(false)
                     val eventData = result.data.data ?: emptyList()
-                    binding.empty.llEmpty.visibility = View.GONE
+                    binding.tvEmptyInformationHub.visibility = View.GONE
                     (binding.recyclerViewInformationHub.adapter as HomeInformationHubAdapter).updateData(eventData)
                 }
 
@@ -152,9 +151,8 @@ class HomeFragment : Fragment() {
 
                 is Result.Empty -> {
                     showLoadingInformationHub(false)
-                    binding.empty.apply {
-                        llEmpty.visibility = View.VISIBLE
-                        tvEmpty.text = result.emptyError
+                    binding.tvEmptyInformationHub.apply {
+
                     }
                     Toast.makeText(requireContext(), result.emptyError, Toast.LENGTH_SHORT).show()
                 }
@@ -280,7 +278,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun showEmptyNewGethubPartner(isEmpty: Boolean) {
-        binding.tvEmptyNewGethubPartner.visibility = if (isEmpty) View.VISIBLE else View.GONE
+        binding.clEmptyGethubPartner.visibility = if (isEmpty) View.VISIBLE else View.GONE
     }
 
     private fun showLoadingOnBiddingDikerjakan(isLoading: Boolean) {
@@ -289,6 +287,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun showEmptyOnBiddingDikerjakan(isEmpty: Boolean) {
-        binding.tvEmptyOnBiddingDikerjakan.visibility = if (isEmpty) View.VISIBLE else View.GONE
+        binding.clEmptyBiddingDikerjakan.visibility = if (isEmpty) View.VISIBLE else View.GONE
     }
+
 }

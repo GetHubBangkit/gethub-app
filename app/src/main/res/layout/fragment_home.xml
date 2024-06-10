@@ -249,20 +249,50 @@
             tools:visibility="visible" />
 
 
-        <TextView
-            android:id="@+id/tvEmptyNewGethubPartner"
-            style="@style/Nunito"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Data Tidak Ada"
-            android:textSize="12sp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clEmptyGethubPartner"
+            android:layout_width="match_parent"
             android:visibility="gone"
+            tools:visibility="visible"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_height="66dp"
             app:layout_constraintBottom_toBottomOf="@+id/recyclerViewHomeGethubPartner"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/recyclerViewHomeGethubPartner"
-            app:layout_constraintVertical_bias="0.52"
-            tools:visibility="visible" />
+            app:layout_constraintTop_toTopOf="@+id/recyclerViewHomeGethubPartner">
+
+            <ImageView
+                android:id="@+id/ivEmptyGethubPartner"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/frame1"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/ivEmptyImageGethubPartner"
+                android:layout_width="49dp"
+                android:layout_height="38dp"
+                android:src="@drawable/emptyimage"
+                app:layout_constraintBottom_toBottomOf="@id/ivEmptyGethubPartner"
+                app:layout_constraintStart_toStartOf="@id/ivEmptyGethubPartner"
+                app:layout_constraintTop_toTopOf="@id/ivEmptyGethubPartner" />
+
+            <TextView
+                android:id="@+id/tvEmptyGethubPartner"
+                style="@style/Nunito"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="Belum ada Gethub Partner Baru"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@id/ivEmptyGethubPartner"
+                app:layout_constraintStart_toEndOf="@+id/ivEmptyImageGethubPartner"
+                app:layout_constraintTop_toTopOf="@id/ivEmptyGethubPartner"
+                app:layout_constraintEnd_toEndOf="@id/ivEmptyGethubPartner"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
             android:id="@+id/homebiddingdikerjakan"
@@ -317,19 +347,50 @@
             app:layout_constraintTop_toTopOf="@id/recyclerViewBiddingDikerjakan"
             tools:visibility="visible" />
 
-        <TextView
-            android:id="@+id/tvEmptyOnBiddingDikerjakan"
-            style="@style/Nunito"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Data Tidak Ada"
-            android:textSize="12sp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clEmptyBiddingDikerjakan"
+            android:layout_width="match_parent"
+            android:layout_height="66dp"
             android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@id/recyclerViewBiddingDikerjakan"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/recyclerViewBiddingDikerjakan"
-            tools:visibility="visible" />
+            tools:visibility="visible"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintBottom_toBottomOf="@+id/recyclerViewBiddingDikerjakan"
+            app:layout_constraintTop_toTopOf="@+id/recyclerViewBiddingDikerjakan">
+
+            <ImageView
+                android:id="@+id/ivEmptyBiddingDikerjakan"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/frame1"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/ivEmptyImageBiddingDikerjakan"
+                android:layout_width="49dp"
+                android:layout_height="38dp"
+                android:src="@drawable/emptyimage"
+                app:layout_constraintBottom_toBottomOf="@id/ivEmptyBiddingDikerjakan"
+                app:layout_constraintStart_toStartOf="@id/ivEmptyBiddingDikerjakan"
+                app:layout_constraintTop_toTopOf="@id/ivEmptyBiddingDikerjakan" />
+
+            <TextView
+                android:id="@+id/tvEmptyBiddingDikerjakan"
+                style="@style/Nunito"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="Belum ada bidding pekerjaan yang kamu kerjakan"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@id/ivEmptyBiddingDikerjakan"
+                app:layout_constraintStart_toEndOf="@+id/ivEmptyImageBiddingDikerjakan"
+                app:layout_constraintTop_toTopOf="@id/ivEmptyBiddingDikerjakan"
+                app:layout_constraintEnd_toEndOf="@id/ivEmptyBiddingDikerjakan"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
             android:id="@+id/homeinformationhub"
@@ -400,15 +461,7 @@
 
             tools:visibility="visible" />
 
-        <include
-            android:id="@+id/empty"
-            layout="@layout/item_empty_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@id/recyclerViewInformationHub"
-            app:layout_constraintEnd_toEndOf="@id/recyclerViewInformationHub"
-            app:layout_constraintStart_toStartOf="@id/recyclerViewInformationHub"
-            app:layout_constraintTop_toTopOf="@id/recyclerViewInformationHub" />
+
 
         <TextView
             android:id="@+id/tvEmptyInformationHub"
