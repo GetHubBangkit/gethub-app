@@ -1,5 +1,6 @@
 package com.entre.gethub.ui.analitic
 
+import android.content.Intent
 import com.entre.gethub.ui.analitic.CustomMarker
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,6 +18,7 @@ import com.entre.gethub.data.remote.response.CardViewersResponse
 import com.entre.gethub.data.remote.response.GraphDataResponse
 import com.entre.gethub.databinding.FragmentAnaliticBinding
 import com.entre.gethub.ui.adapter.AnaliticGethubDilihatAdapter
+import com.entre.gethub.ui.akun.membership.MembershipActivity
 import com.entre.gethub.utils.ViewModelFactory
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.components.XAxis
@@ -44,14 +46,37 @@ class AnaliticFragment : Fragment() {
         _binding = FragmentAnaliticBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        setupRecyclerViewAnaliticGethubDilihat()
-        setupLineChart()
-
-        getAnaliticTotal()
-        getCardViewers()
-        getGraphData()
+        checkUserProfile()
 
         return root
+    }
+
+    private fun checkUserProfile() {
+        analiticViewModel.getUserProfile().observe(viewLifecycleOwner) { result ->
+            when (result) {
+                is Result.Success -> {
+                    val userProfileResponse = result.data
+                    if (userProfileResponse.data.isPremium == true) {
+                        // User is premium, proceed with loading the fragment content
+                        setupRecyclerViewAnaliticGethubDilihat()
+                        setupLineChart()
+
+                        getAnaliticTotal()
+                        getCardViewers()
+                        getGraphData()
+                    } else {
+                        // User is not premium, redirect to MembershipActivity
+                        val intent = Intent(activity, MembershipActivity::class.java)
+                        startActivity(intent)
+                        activity?.finish()
+                    }
+                }
+                is Result.Error -> {
+                    Toast.makeText(requireContext(), result.error, Toast.LENGTH_SHORT).show()
+                }
+                else -> {}
+            }
+        }
     }
 
     override fun onDestroyView() {
@@ -152,7 +177,6 @@ class AnaliticFragment : Fragment() {
         }
     }
 
-
     private fun setupRecyclerViewAnaliticGethubDilihat() {
         adapter = AnaliticGethubDilihatAdapter(viewersList) { viewer, position ->
             Toast.makeText(
@@ -174,6 +198,7 @@ class AnaliticFragment : Fragment() {
     private fun showLoadingOnCardView(isLoading: Boolean) {
         binding.progressBarOnCardViewer.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
+
     private fun showEmptyErrorOnCardView(isError: Boolean, message: String) {
         binding.tvEmptyGethubKamuDilihat.text = message
         binding.tvEmptyGethubKamuDilihat.visibility = if (isError) View.VISIBLE else View.GONE

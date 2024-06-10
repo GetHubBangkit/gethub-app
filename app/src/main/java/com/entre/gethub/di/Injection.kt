@@ -190,6 +190,6 @@ object Injection {
     fun provideScanKTPRepository(context: Context): ScanKTPRepository {
         val pref = provideUserPreferences(context)
         val token = runBlocking { pref.getToken().first() }
-        return ScanKTPRepository.getInstance(ApiConfig.getApiMLService(context, token))
+        return ScanKTPRepository.getInstance(ApiConfig.getApiService(context, token))
     }
     }

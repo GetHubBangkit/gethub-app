@@ -19,6 +19,7 @@ import com.entre.gethub.data.remote.response.VisibilityResponse
 import com.entre.gethub.data.remote.response.auth.LoginResponse
 import com.entre.gethub.data.remote.response.certifications.CertificationListResponse
 import com.entre.gethub.data.remote.response.certifications.CertificationResponse
+import com.entre.gethub.data.remote.response.ml.ScanKTPResponse
 import com.entre.gethub.data.remote.response.partners.AddPartnerResponse
 import com.entre.gethub.data.remote.response.partners.GetHubPartnerListResponse
 import com.entre.gethub.data.remote.response.premium.PaymentHistoryResponse
@@ -401,5 +402,11 @@ interface ApiService {
     @GET("graph_data")
     suspend fun getGraphData(): GraphDataResponse
 
-
+    // Scan KTP
+    @Multipart
+    @Headers("Accept: application/json")
+    @POST("scan-ktp")
+    suspend fun scanKTP(
+        @Part imageFile: MultipartBody.Part
+    ): ScanKTPResponse
 }

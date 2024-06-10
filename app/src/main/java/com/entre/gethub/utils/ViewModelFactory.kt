@@ -24,6 +24,7 @@ import com.entre.gethub.data.repositories.ProjectDetectorRepository
 import com.entre.gethub.data.repositories.ProjectRepository
 import com.entre.gethub.data.repositories.ReysEventRepository
 import com.entre.gethub.data.repositories.ScanCardRepository
+import com.entre.gethub.data.repositories.ScanKTPRepository
 import com.entre.gethub.data.repositories.SponsorRepository
 import com.entre.gethub.data.repositories.ThemeHubRepository
 import com.entre.gethub.data.repositories.TopTalentRepository
@@ -54,6 +55,8 @@ import com.entre.gethub.ui.home.mygethub.certification.HomeKelolaMyGethubTambahS
 import com.entre.gethub.ui.home.mygethub.link.HomeKelolaMyGethubTambahLinkViewModel
 import com.entre.gethub.ui.home.mygethub.product.HomeKelolaMyGethubEditProdukViewModel
 import com.entre.gethub.ui.home.mygethub.product.HomeKelolaMyGethubTambahProdukViewModel
+import com.entre.gethub.ui.home.mygethub.scanktp.HomeKelolaMyGethubScanKTPMenungguVerifikasiViewModel
+import com.entre.gethub.ui.home.mygethub.scanktp.HomeKelolaMyGethubScanKTPViewModel
 import com.entre.gethub.ui.home.mygethub.tentangsaya.HomeKelolaMyGethubEditTentangSayaViewModel
 import com.entre.gethub.ui.home.projectbids.HomeCariProjectBidsViewModel
 import com.entre.gethub.ui.home.projectbids.HomeDetailProjectBidsFormViewModel
@@ -104,6 +107,7 @@ class ViewModelFactory private constructor(
     private val graphDataRepository: GraphDataRepository,
     private val premiumRepository: PremiumRepository,
     private val paymentHistoryRepository: PaymentHistoryRepository,
+    private val scanKTPRepository: ScanKTPRepository
 
 ) : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -156,7 +160,7 @@ class ViewModelFactory private constructor(
             ) as T
 
             HomeCariTalentViewModel::class.java -> HomeCariTalentViewModel(
-                cariTalentRepository
+                cariTalentRepository, profileRepository
             ) as T
 
             HomeKelolaMyGethubViewModel::class.java -> HomeKelolaMyGethubViewModel(
@@ -266,7 +270,7 @@ class ViewModelFactory private constructor(
             FreelancerReviewViewModel::class.java -> FreelancerReviewViewModel(projectRepository) as T
 
             AnaliticViewModel::class.java -> AnaliticViewModel(
-                analiticTotalRepository, cardViewersRepository, graphDataRepository
+                analiticTotalRepository, cardViewersRepository, graphDataRepository, profileRepository
             ) as T
 
             ChatViewModel::class.java -> ChatViewModel(profileRepository) as T
@@ -286,6 +290,12 @@ class ViewModelFactory private constructor(
             ) as T
             DetailPartnerViewModel::class.java -> DetailPartnerViewModel(
                 gethubRepository
+            ) as T
+            HomeKelolaMyGethubScanKTPViewModel::class.java -> HomeKelolaMyGethubScanKTPViewModel(
+                scanKTPRepository, profileRepository
+            ) as T
+            HomeKelolaMyGethubScanKTPMenungguVerifikasiViewModel::class.java -> HomeKelolaMyGethubScanKTPMenungguVerifikasiViewModel(
+                scanKTPRepository, profileRepository
             ) as T
 
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
@@ -320,7 +330,8 @@ class ViewModelFactory private constructor(
                 Injection.provideReysEventRepository(context),
                 Injection.provideGraphDataRepository(context),
                 Injection.providePremiumRepository(context),
-                Injection.providePaymentHistoryRepository(context)
+                Injection.providePaymentHistoryRepository(context),
+                Injection.provideScanKTPRepository(context)
 
             )
 

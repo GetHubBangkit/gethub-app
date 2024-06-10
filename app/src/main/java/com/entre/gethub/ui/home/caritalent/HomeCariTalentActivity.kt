@@ -13,6 +13,7 @@ import com.entre.gethub.data.Result
 import com.entre.gethub.data.remote.response.ml.CariTalentResponse
 import com.entre.gethub.databinding.ActivityHomeCariTalentBinding
 import com.entre.gethub.ui.adapter.CariTalentAdapter
+import com.entre.gethub.ui.akun.membership.MembershipActivity
 import com.entre.gethub.ui.userpublicprofile.UserPublicProfileActivity
 import com.entre.gethub.utils.ViewModelFactory
 
@@ -27,6 +28,37 @@ class HomeCariTalentActivity : AppCompatActivity() {
         binding = ActivityHomeCariTalentBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val factory = ViewModelFactory.getInstance(this)
+        viewModel = ViewModelProvider(this, factory).get(HomeCariTalentViewModel::class.java)
+
+        // Check user profile before loading content
+        checkUserProfile()
+    }
+
+    private fun checkUserProfile() {
+        viewModel.getUserProfile().observe(this) { result ->
+            when (result) {
+                is Result.Success -> {
+                    val userProfileResponse = result.data
+                    if (userProfileResponse.data.isPremium == true) {
+                        // User is premium, proceed with loading the activity content
+                        setupUI()
+                    } else {
+                        // User is not premium, redirect to MembershipActivity
+                        val intent = Intent(this, MembershipActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
+                }
+                is Result.Error -> {
+                    Toast.makeText(this, result.error, Toast.LENGTH_SHORT).show()
+                }
+                else -> {}
+            }
+        }
+    }
+
+    private fun setupUI() {
         setupRecyclerViewCariTalent()
 
         binding.ivBack.setOnClickListener {
@@ -36,9 +68,6 @@ class HomeCariTalentActivity : AppCompatActivity() {
         binding.iconsearch.setOnClickListener {
             searchCariTalent()
         }
-
-        val factory = ViewModelFactory.getInstance(this)
-        viewModel = ViewModelProvider(this, factory).get(HomeCariTalentViewModel::class.java)
 
         // Fetch all talents when activity is created
         fetchAllTalents()

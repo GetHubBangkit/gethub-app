@@ -12,6 +12,8 @@ import androidx.core.view.WindowInsetsCompat
 import com.entre.gethub.R
 import com.entre.gethub.data.Result
 import com.entre.gethub.databinding.ActivityMembershipBinding
+import com.entre.gethub.ui.MainActivity
+import com.entre.gethub.ui.home.deteksiproject.HomeProjectDetectorActivity
 import com.entre.gethub.utils.ViewModelFactory
 
 class MembershipActivity : AppCompatActivity() {
@@ -28,7 +30,7 @@ class MembershipActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.iconBack.setOnClickListener {
-            finish()
+            startActivity(Intent(this, MainActivity::class.java))
         }
 
         binding.btnSubscribe.setOnClickListener {
@@ -36,6 +38,10 @@ class MembershipActivity : AppCompatActivity() {
         }
     }
 
+    override fun onBackPressed() {
+        startActivity(Intent(this, MainActivity::class.java))
+        finish()
+    }
     private fun premium() {
         membershipViewModel.premium().observe(this) { result ->
             if (result != null) {

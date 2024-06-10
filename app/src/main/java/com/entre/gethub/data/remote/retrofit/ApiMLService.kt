@@ -42,11 +42,4 @@ interface ApiMLService {
         @Query("profession") profession: String
     ): ReysEventResponse
 
-    // Scan KTP
-    @Multipart
-    @Headers("Accept: application/json")
-    @POST("scan-ktp")
-    suspend fun scanKTP(
-        @Part imageFile: MultipartBody.Part
-    ): ScanKTPResponse
 }

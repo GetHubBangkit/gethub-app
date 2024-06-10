@@ -101,9 +101,9 @@
         android:layout_height="30dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
-        android:text="Belum Terverifikasi"
-        android:textColor="@color/red"
-        android:textSize="18sp"
+        android:text="Menunggu Diverifikasi"
+        android:textColor="@color/black"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintTop_toBottomOf="@+id/cvSentiment" />
@@ -121,16 +121,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tentangsaya" />
 
-    <ImageView
-        android:id="@+id/ivDeteksi"
-        android:layout_width="237dp"
-        android:layout_height="237dp"
-
-        android:src="@drawable/verifikasiktpbelum"
-        app:layout_constraintBottom_toBottomOf="@+id/ivFrame"
-        app:layout_constraintEnd_toEndOf="@+id/ivFrame"
-        app:layout_constraintStart_toStartOf="@+id/ivFrame"
-        app:layout_constraintTop_toTopOf="@+id/ivFrame" />
 
     <Button
         android:id="@+id/btnSimpan"
@@ -139,7 +129,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="40dp"
-        android:text="Upload Gambar"
+        android:text="Upload Ulang Gambar"
         app:layout_constraintTop_toBottomOf="@+id/ivFrame" />
 
     <ProgressBar

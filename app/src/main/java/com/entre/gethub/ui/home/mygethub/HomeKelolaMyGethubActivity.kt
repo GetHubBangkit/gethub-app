@@ -27,6 +27,9 @@ import com.entre.gethub.ui.home.mygethub.certification.HomeKelolaMyGethubTambahS
 import com.entre.gethub.ui.home.mygethub.link.HomeKelolaMyGethubTambahLinkActivity
 import com.entre.gethub.ui.home.mygethub.product.HomeKelolaMyGethubEditProdukActivity
 import com.entre.gethub.ui.home.mygethub.product.HomeKelolaMyGethubTambahProdukActivity
+import com.entre.gethub.ui.home.mygethub.scanktp.HomeKelolaMyGethubScanKTPActivity
+import com.entre.gethub.ui.home.mygethub.scanktp.HomeKelolaMyGethubScanKTPMenungguVerifikasiActivity
+import com.entre.gethub.ui.home.mygethub.scanktp.HomeKelolaMyGethubScanKTPTerverifikasiActivity
 import com.entre.gethub.ui.home.mygethub.tentangsaya.HomeKelolaMyGethubEditTentangSayaActivity
 import com.entre.gethub.ui.home.mygethub.tentangsaya.HomeKelolaMyGethubEditTentangSayaViewModel
 import com.entre.gethub.ui.models.GethubLink
@@ -58,7 +61,7 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
             startActivity(Intent(this, MainActivity::class.java))
         }
 
-        binding.gantithema.setOnClickListener {
+        binding.framegantitema.setOnClickListener {
             startActivity(Intent(this, HomeKelolaMyGethubGantiDesignActivity::class.java))
         }
 
@@ -71,6 +74,9 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
 
         binding.editprodukjasa.setOnClickListener {
             startActivity(Intent(this, HomeKelolaMyGethubTambahProdukActivity::class.java))
+        }
+        binding.editSertifikasi.setOnClickListener {
+            startActivity(Intent(this, HomeKelolaMyGethubTambahSertifikasiActivity::class.java))
         }
         binding.editSertifikasi.setOnClickListener {
             startActivity(Intent(this, HomeKelolaMyGethubTambahSertifikasiActivity::class.java))
@@ -93,11 +99,60 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
         homeKelolaMyGetHubViewModel.getUserProfile().observe(this) { result ->
             if (result != null) {
                 when (result) {
-                    is Result.Loading ->   showLoadingOnAbout(true)
+                    is Result.Loading -> showLoadingOnAbout(true)
                     is Result.Success -> {
                         val user = result.data.data
                         showLoadingOnAbout(false)
                         binding.tvAbout.text = user?.about as? String ?: ""
+
+                        // Check the value of isVerifKtp
+                        user?.isVerifKtp?.let { isVerifKtp ->
+                            user?.isVerifKtpUrl?.let { isVerifKtpUrl ->
+                                if (isVerifKtp) {
+                                    // Jika isVerifKtp true
+                                    binding.framektp.setOnClickListener {
+                                        startActivity(
+                                            Intent(
+                                                this,
+                                                HomeKelolaMyGethubScanKTPTerverifikasiActivity::class.java
+                                            )
+                                        )
+                                    }
+                                } else if (isVerifKtp == false && isVerifKtpUrl == null) {
+                                    // Jika isVerifKtp false dan isVerifKtpUrl null
+                                    binding.framektp.setOnClickListener {
+                                        startActivity(
+                                            Intent(
+                                                this,
+                                                HomeKelolaMyGethubScanKTPActivity::class.java
+                                            )
+                                        )
+                                    }
+                                } else if (isVerifKtp == false && isVerifKtpUrl != null) {
+                                    // Jika isVerifKtp false dan isVerifKtpUrl tidak null
+                                    binding.framektp.setOnClickListener {
+                                        startActivity(
+                                            Intent(
+                                                this,
+                                                HomeKelolaMyGethubScanKTPMenungguVerifikasiActivity::class.java
+                                            )
+                                        )
+                                    }
+                                }
+                            } ?: run {
+                                if (isVerifKtp == false) {
+                                    // Jika isVerifKtp false dan isVerifKtpUrl null
+                                    binding.framektp.setOnClickListener {
+                                        startActivity(
+                                            Intent(
+                                                this,
+                                                HomeKelolaMyGethubScanKTPActivity::class.java
+                                            )
+                                        )
+                                    }
+                                }
+                            }
+                        }
                     }
 
                     is Result.Empty -> {
@@ -106,7 +161,7 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
                     }
                     is Result.Error -> {
                         showLoadingOnAbout(false)
-//                        showToast(result.error)
+                        // showToast(result.error)
                     }
                     else -> {
                         showLoadingOnAbout(false)
@@ -116,6 +171,7 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
             }
         }
     }
+
 
 
     private fun initViewModel() {
