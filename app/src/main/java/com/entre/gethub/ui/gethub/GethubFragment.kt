@@ -19,6 +19,7 @@ import com.entre.gethub.data.remote.response.partners.GetHubPartner
 import com.entre.gethub.databinding.FragmentGethubBinding
 import com.entre.gethub.ui.adapter.GethubPartnerAdapter
 import com.entre.gethub.ui.adapter.SponsorAdapter
+import com.entre.gethub.ui.detailpartner.DetailPartnerActivity
 import com.entre.gethub.utils.ViewModelFactory
 import com.entre.gethub.utils.generateQR
 import java.io.ByteArrayOutputStream
@@ -135,14 +136,15 @@ class GethubFragment : Fragment() {
         binding.rvGethubPartner.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             adapter = GethubPartnerAdapter(gethubPartnerList) { gethubpartner, position ->
-                Toast.makeText(
-                    requireContext(),
-                    "Clicked on actor: ${gethubpartner.fullName}",
-                    Toast.LENGTH_SHORT
-                ).show()
+                gethubpartner.id?.let { partnerId ->
+                    navigateToDetailPartner(partnerId)
+                } ?: run {
+                    showToast("Partner ID is missing")
+                }
             }
         }
     }
+
 
     private fun showLoadingOnPartnerList(isLoading: Boolean) {
         binding.progressBarOnGethubPartnerList.visibility =
@@ -267,6 +269,18 @@ class GethubFragment : Fragment() {
     private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
+
+    private fun navigateToDetailPartner(partnerId: String?) {
+        partnerId?.let {
+            val intent = Intent(requireContext(), DetailPartnerActivity::class.java).apply {
+                putExtra("PARTNER_ID", it)
+            }
+            startActivity(intent)
+        } ?: run {
+            showToast("Partner ID is missing")
+        }
+    }
+
 
     companion object {
         const val TAG = "GetHubFragment"

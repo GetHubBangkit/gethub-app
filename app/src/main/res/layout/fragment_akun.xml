@@ -84,6 +84,8 @@
             android:layout_height="19dp"
             android:src="@drawable/premium" />
 
+
+
         <TextView
             android:id="@+id/tvExpiredDate"
             style="@style/Nunito"
@@ -97,6 +99,19 @@
 
     </LinearLayout>
 
+    <ImageView
+        android:id="@+id/ivPremiumFreeplan"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="invisible"
+        tools:visibility="visible"
+        android:layout_width="72dp"
+        android:layout_height="19dp"
+        android:layout_marginTop="6dp"
+        android:src="@drawable/premium_freeplan"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvUserProfession" />
 
     <ImageView
         android:id="@+id/frame2"

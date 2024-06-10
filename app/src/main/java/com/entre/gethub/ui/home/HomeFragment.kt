@@ -18,6 +18,7 @@ import com.entre.gethub.ui.adapter.HomeInformationHubAdapter
 import com.entre.gethub.data.Result
 import com.entre.gethub.data.remote.response.NewPartnerResponse
 import com.entre.gethub.data.remote.response.projects.AcceptedProjectBidResponse
+import com.entre.gethub.ui.detailpartner.DetailPartnerActivity
 import com.entre.gethub.ui.home.caritalent.HomeCariTalentActivity
 import com.entre.gethub.ui.home.deteksiproject.HomeProjectDetectorActivity
 import com.entre.gethub.ui.home.informationall.HomeInformationAllActivity
@@ -195,13 +196,29 @@ class HomeFragment : Fragment() {
         binding.recyclerViewHomeGethubPartner.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = HomeGethubPartnerAdapter(partnerList) { gethubpartner, position ->
-                Toast.makeText(
-                    this@HomeFragment.requireContext(),
-                    "Clicked on actor: ${gethubpartner.fullName}",
-                    Toast.LENGTH_SHORT
-                ).show()
+                gethubpartner.id?.let { partnerId ->
+                    navigateToDetailPartner(partnerId)
+                } ?: run {
+                    showToast("Partner ID is missing")
+                }
             }
         }
+    }
+
+    private fun navigateToDetailPartner(partnerId: String?) {
+        partnerId?.let {
+            val intent = Intent(requireContext(), DetailPartnerActivity::class.java).apply {
+                putExtra("PARTNER_ID", it)
+            }
+            startActivity(intent)
+        } ?: run {
+            showToast("Partner ID is missing")
+        }
+    }
+
+
+    private fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
     private fun getOnWorkingProjectBids() {

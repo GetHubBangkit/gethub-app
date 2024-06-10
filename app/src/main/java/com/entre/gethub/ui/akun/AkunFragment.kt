@@ -192,6 +192,9 @@ class AkunFragment : Fragment() {
                             binding.llPremium.visibility = View.VISIBLE
                             tvExpiredDate.text = "Expired ${user.premiumExpiredDate}"
                         }
+                        if (user.isPremium == false) {
+                            binding.ivPremiumFreeplan.visibility = View.VISIBLE
+                        }
                     }
                 }
 
