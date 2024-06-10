@@ -158,9 +158,10 @@ class HomeKelolaMyGethubScanKTPMenungguVerifikasiActivity : AppCompatActivity() 
         viewModel.uploadScanKTP(imageFile).observe(this) { result ->
             when (result) {
                 is Result.Loading -> {
-                    // Show loading indicator
+                    showLoading(true)
                 }
                 is Result.Success -> {
+                    showLoading(false)
                     handleScanKTPResponse(result.data)
                     // Setelah berhasil mengunggah gambar KTP, perbarui profil dan tentukan aktivitas selanjutnya
                     viewModel.getUserProfile().observe(this) { userProfileResult ->
@@ -184,6 +185,7 @@ class HomeKelolaMyGethubScanKTPMenungguVerifikasiActivity : AppCompatActivity() 
                     }
                 }
                 is Result.Error -> {
+                    showLoading(false)
                     Toast.makeText(this, "Error: ${result.error}", Toast.LENGTH_SHORT).show()
                 }
                 else -> {
@@ -207,5 +209,8 @@ class HomeKelolaMyGethubScanKTPMenungguVerifikasiActivity : AppCompatActivity() 
             ".jpg",
             storageDir
         )
+    }
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 }
