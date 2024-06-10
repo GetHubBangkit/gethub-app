@@ -123,8 +123,7 @@ class HomeFragment : Fragment() {
                     Toast.makeText(requireContext(), result.error, Toast.LENGTH_SHORT).show()
                 }
                 is Result.Empty -> {
-                    binding.tvEmptyInformationHub.apply {
-                    }
+                    showEmptyEvent(true)
                 }
             }
         }
@@ -136,7 +135,7 @@ class HomeFragment : Fragment() {
                 is Result.Success -> {
                     showLoadingInformationHub(false)
                     val eventData = result.data.data ?: emptyList()
-                    binding.tvEmptyInformationHub.visibility = View.GONE
+//                    showEmptyEvent(false)
                     (binding.recyclerViewInformationHub.adapter as HomeInformationHubAdapter).updateData(eventData)
                 }
 
@@ -151,9 +150,7 @@ class HomeFragment : Fragment() {
 
                 is Result.Empty -> {
                     showLoadingInformationHub(false)
-                    binding.tvEmptyInformationHub.apply {
-
-                    }
+                    showEmptyEvent(true)
                     Toast.makeText(requireContext(), result.emptyError, Toast.LENGTH_SHORT).show()
                 }
             }
@@ -280,6 +277,10 @@ class HomeFragment : Fragment() {
     private fun showEmptyNewGethubPartner(isEmpty: Boolean) {
         binding.clEmptyGethubPartner.visibility = if (isEmpty) View.VISIBLE else View.GONE
     }
+    private fun showEmptyEvent(isEmpty: Boolean) {
+        binding.clEmptyEvent.visibility = if (isEmpty) View.VISIBLE else View.GONE
+    }
+
 
     private fun showLoadingOnBiddingDikerjakan(isLoading: Boolean) {
         binding.progressBarOnBiddingDikerjakan.visibility =
