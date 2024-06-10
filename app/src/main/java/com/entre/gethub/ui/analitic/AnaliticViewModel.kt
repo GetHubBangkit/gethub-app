@@ -22,11 +22,13 @@ import retrofit2.HttpException
 class AnaliticViewModel(
     private val analiticTotalRepository: AnaliticTotalRepository,
     private val cardViewersRepository: CardViewersRepository,
-    private val graphDataRepository: GraphDataRepository
+    private val graphDataRepository: GraphDataRepository,
+    private val profileRepository: ProfileRepository
 ) : ViewModel() {
     private val getAnaliticTotalResult = MediatorLiveData<Result<AnaliticTotalResponse>>()
     private val getcardViewersTotalResult = MediatorLiveData<Result<CardViewersResponse>>()
     private val getGraphDataResult = MediatorLiveData<Result<GraphDataResponse>>()
+    private val getUserProfileResult = MediatorLiveData<Result<UserProfileResponse>>()
 
     fun getAnaliticTotal(): LiveData<Result<AnaliticTotalResponse>> {
         viewModelScope.launch {
@@ -89,5 +91,25 @@ class AnaliticViewModel(
             }
         }
         return getGraphDataResult
+    }
+
+    fun getUserProfile(): LiveData<Result<UserProfileResponse>> {
+        viewModelScope.launch {
+            getUserProfileResult.value = Result.Loading
+            try {
+                val response = profileRepository.getUserProfile()
+                if (response.success == true) {
+                    getUserProfileResult.value = Result.Success(response)
+                }
+            } catch (e: HttpException) {
+                val jsonString = e.response()?.errorBody()?.string()
+                val errorBody = Gson().fromJson(jsonString, ApiResponse::class.java)
+                val errorMessage = errorBody.message
+                getUserProfileResult.value = Result.Error(errorMessage ?: "An error occurred")
+            } catch (e: Exception) {
+                getUserProfileResult.value = Result.Error(e.message ?: "An error occurred")
+            }
+        }
+        return getUserProfileResult
     }
 }

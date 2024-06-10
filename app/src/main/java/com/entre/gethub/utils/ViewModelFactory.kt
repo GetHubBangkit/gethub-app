@@ -156,7 +156,7 @@ class ViewModelFactory private constructor(
             ) as T
 
             HomeCariTalentViewModel::class.java -> HomeCariTalentViewModel(
-                cariTalentRepository
+                cariTalentRepository, profileRepository
             ) as T
 
             HomeKelolaMyGethubViewModel::class.java -> HomeKelolaMyGethubViewModel(
@@ -266,7 +266,7 @@ class ViewModelFactory private constructor(
             FreelancerReviewViewModel::class.java -> FreelancerReviewViewModel(projectRepository) as T
 
             AnaliticViewModel::class.java -> AnaliticViewModel(
-                analiticTotalRepository, cardViewersRepository, graphDataRepository
+                analiticTotalRepository, cardViewersRepository, graphDataRepository, profileRepository
             ) as T
 
             ChatViewModel::class.java -> ChatViewModel(profileRepository) as T

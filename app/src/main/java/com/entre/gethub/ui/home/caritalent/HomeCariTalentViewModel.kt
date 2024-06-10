@@ -8,14 +8,17 @@ import androidx.lifecycle.viewModelScope
 import com.entre.gethub.data.Result
 import com.entre.gethub.data.remote.response.ApiResponse
 import com.entre.gethub.data.remote.response.ml.CariTalentResponse
+import com.entre.gethub.data.remote.response.profiles.UserProfileResponse
 import com.entre.gethub.data.repositories.CariTalentRepository
+import com.entre.gethub.data.repositories.ProfileRepository
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
 class HomeCariTalentViewModel(
-    private val cariTalentRepository: CariTalentRepository
+    private val cariTalentRepository: CariTalentRepository,
+    private val profileRepository: ProfileRepository
 ) : ViewModel() {
 
     private val _searchCariTalentResult = MediatorLiveData<Result<CariTalentResponse>>()
@@ -23,6 +26,8 @@ class HomeCariTalentViewModel(
 
     private val _allTalentsResult = MediatorLiveData<Result<CariTalentResponse>>()
     val allTalentsResult: LiveData<Result<CariTalentResponse>> get() = _allTalentsResult
+
+    private val getUserProfileResult = MediatorLiveData<Result<UserProfileResponse>>()
 
     fun searchCariTalent(profession: String): LiveData<Result<CariTalentResponse>> {
         _searchCariTalentResult.value = Result.Loading
@@ -74,5 +79,24 @@ class HomeCariTalentViewModel(
             }
         }
         return allTalentsResult
+    }
+    fun getUserProfile(): LiveData<Result<UserProfileResponse>> {
+        viewModelScope.launch {
+            getUserProfileResult.value = Result.Loading
+            try {
+                val response = profileRepository.getUserProfile()
+                if (response.success == true) {
+                    getUserProfileResult.value = Result.Success(response)
+                }
+            } catch (e: HttpException) {
+                val jsonString = e.response()?.errorBody()?.string()
+                val errorBody = Gson().fromJson(jsonString, ApiResponse::class.java)
+                val errorMessage = errorBody.message
+                getUserProfileResult.value = Result.Error(errorMessage ?: "An error occurred")
+            } catch (e: Exception) {
+                getUserProfileResult.value = Result.Error(e.message ?: "An error occurred")
+            }
+        }
+        return getUserProfileResult
     }
 }
