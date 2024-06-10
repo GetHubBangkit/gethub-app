@@ -172,8 +172,7 @@ class ProjectFragment : Fragment() {
     }
 
     private fun showEmptyOnProjectBids(isEmpty: Boolean, message: String) {
-        binding.emptyOnProjectBids.llEmpty.visibility = if (isEmpty) View.VISIBLE else View.GONE
-        binding.emptyOnProjectBids.tvEmpty.text = message
+        binding.clEmptyProject.visibility = if (isEmpty) View.VISIBLE else View.GONE
     }
 
     private fun showToast(message: String) {

@@ -316,16 +316,51 @@
             app:layout_constraintTop_toTopOf="@id/rvRekomendasiProjectBid"
             tools:visibility="visible" />
 
-        <include
-            android:id="@+id/emptyOnProjectBids"
-            layout="@layout/item_empty_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="30dp"
-            app:layout_constraintBottom_toBottomOf="@id/rvRekomendasiProjectBid"
-            app:layout_constraintEnd_toEndOf="@id/rvRekomendasiProjectBid"
-            app:layout_constraintStart_toStartOf="@id/rvRekomendasiProjectBid"
-            app:layout_constraintTop_toTopOf="@id/rvRekomendasiProjectBid" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clEmptyProject"
+            android:layout_width="match_parent"
+            android:layout_height="252dp"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintTop_toTopOf="@+id/rvRekomendasiProjectBid">
+
+            <ImageView
+                android:id="@+id/ivEmptyProject"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/frame1"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toEndOf="@+id/clEmptyProject"
+                app:layout_constraintStart_toStartOf="@+id/clEmptyProject"
+                app:layout_constraintTop_toTopOf="@+id/clEmptyProject"
+                app:layout_constraintBottom_toBottomOf="@+id/clEmptyProject"/>
+
+            <ImageView
+                android:id="@+id/ivEmptyImageProject"
+                android:layout_width="312dp"
+                android:layout_height="217dp"
+                android:src="@drawable/emptyimageevent"
+                app:layout_constraintEnd_toEndOf="@+id/ivEmptyProject"
+                app:layout_constraintStart_toStartOf="@+id/ivEmptyProject" />
+
+            <TextView
+                android:id="@+id/tvEmptyProject"
+                style="@style/Nunito"
+                android:layout_width="0dp"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:text="Tidak ada Project yang sedang kamu miliki"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivEmptyImageProject" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
