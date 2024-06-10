@@ -3,6 +3,7 @@ package com.entre.gethub.data.remote.retrofit
 import com.entre.gethub.data.remote.response.CategoriesResponse
 import com.entre.gethub.data.remote.response.LinkResponse
 import com.entre.gethub.data.remote.response.ReysEventResponse
+import com.entre.gethub.data.remote.response.ktp.ScanKTPResponse
 import com.entre.gethub.data.remote.response.ml.CariTalentResponse
 import com.entre.gethub.data.remote.response.ml.ProjectDetectorResponse
 import com.entre.gethub.data.remote.response.ml.ScanCardResponse
@@ -44,4 +45,12 @@ interface ApiMLService {
     suspend fun getReysEvent(
         @Query("profession") profession: String
     ): ReysEventResponse
+
+    // Scan KTP
+    @Multipart
+    @Headers("Accept: application/json")
+    @POST("scan-ktp")
+    suspend fun scanKTP(
+        @Part imageFile: MultipartBody.Part
+    ): ScanKTPResponse
 }
