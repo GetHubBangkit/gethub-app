@@ -178,10 +178,7 @@ class GethubFragment : Fragment() {
 
                 is Result.Empty -> {
                     showLoadingOnSponsor(false)
-                    binding.empty.apply {
-                        llEmpty.visibility = View.VISIBLE
-                        tvEmpty.text = result.emptyError
-                    }
+                    showEmptyErrorOnGethubSponsor(true, result.emptyError)
                 }
 
                 else -> {
@@ -263,6 +260,9 @@ class GethubFragment : Fragment() {
 
     private fun showEmptyErrorOnGethubPartner(isError: Boolean, message: String) {
         binding.clEmptyGethubPartner.visibility = if (isError) View.VISIBLE else View.GONE
+    }
+    private fun showEmptyErrorOnGethubSponsor(isError: Boolean, message: String) {
+        binding.clEmptyGethubSponsor.visibility = if (isError) View.VISIBLE else View.GONE
     }
 
     private fun showLoadingOnSponsor(isLoading: Boolean) {

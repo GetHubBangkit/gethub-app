@@ -247,7 +247,7 @@ class GethubAddPartnerFormActivity : AppCompatActivity() {
 
             // Lakukan hal-hal lain yang diperlukan dengan data hasil scan
         } else {
-            showToast("Gagal memproses hasil scan")
+
         }
     }
 

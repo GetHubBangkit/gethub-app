@@ -225,6 +225,52 @@
         app:layout_constraintTop_toBottomOf="@+id/GethubSponsor"
         app:layout_constraintVertical_bias="0.0" />
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clEmptyGethubSponsor"
+        android:layout_width="match_parent"
+        android:layout_height="66dp"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/rvGethubSponsor"
+        app:layout_constraintTop_toTopOf="@+id/rvGethubSponsor">
+
+        <ImageView
+            android:id="@+id/ivEmptyGethubSponsor"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/frame1"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/ivEmptyImageGethubSponsor"
+            android:layout_width="49dp"
+            android:layout_height="38dp"
+            android:src="@drawable/emptyimage"
+            app:layout_constraintBottom_toBottomOf="@id/ivEmptyGethubSponsor"
+            app:layout_constraintStart_toStartOf="@id/ivEmptyGethubSponsor"
+            app:layout_constraintTop_toTopOf="@id/ivEmptyGethubSponsor" />
+
+        <TextView
+            android:id="@+id/tvEmptyGethubSponsor"
+            style="@style/Nunito"
+            android:layout_marginStart="5dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Silahkan Tambahkan Produk / Jasa untuk memperbagus digital portofolio kamu"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/ivEmptyGethubSponsor"
+            app:layout_constraintEnd_toEndOf="@id/ivEmptyGethubSponsor"
+            app:layout_constraintStart_toEndOf="@+id/ivEmptyImageGethubSponsor"
+            app:layout_constraintTop_toTopOf="@id/ivEmptyGethubSponsor" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    
     <ProgressBar
         android:id="@+id/progressBarOnGethubSponsor"
         android:layout_width="wrap_content"
@@ -237,16 +283,7 @@
         app:layout_constraintTop_toTopOf="@id/rvGethubSponsor"
         tools:visibility="visible" />
 
-    <include
-        android:id="@+id/empty"
-        layout="@layout/item_empty_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@id/rvGethubSponsor"
-        app:layout_constraintEnd_toEndOf="@id/rvGethubSponsor"
-        app:layout_constraintStart_toStartOf="@id/rvGethubSponsor"
-        app:layout_constraintTop_toTopOf="@id/rvGethubSponsor" />
-
+  
 
     <ImageView
         android:id="@+id/ivAddPartner"
