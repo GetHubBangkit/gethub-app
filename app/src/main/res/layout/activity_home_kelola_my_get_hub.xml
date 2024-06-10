@@ -133,44 +133,93 @@
 
         <ImageView
             android:id="@+id/framegantitema"
-            android:layout_width="216dp"
+            android:layout_width="170dp"
             android:layout_height="44dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="32dp"
             android:src="@drawable/homekelolarectanglestroke"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
+
+            app:layout_constraintHorizontal_bias="0.082"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvAbout" />
 
         <TextView
             android:id="@+id/gantithema"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="5dp"
             android:fontFamily="@font/poppins_semibold"
             android:text="Ganti Thema"
             android:textColor="@android:color/black"
-            android:textSize="20sp"
+            android:textSize="16sp"
             app:fontFamily="@font/poppins_bold"
             app:layout_constraintBottom_toBottomOf="@+id/framegantitema"
             app:layout_constraintEnd_toEndOf="@+id/framegantitema"
-            app:layout_constraintHorizontal_bias="0.821"
-            app:layout_constraintStart_toEndOf="@+id/icon_tentangsaya"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/icongantithema"
             app:layout_constraintTop_toTopOf="@+id/framegantitema"
-            app:layout_constraintVertical_bias="0.25" />
+            />
 
         <ImageView
             android:id="@+id/icongantithema"
             android:layout_width="28dp"
             android:layout_height="28dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
             android:src="@drawable/kelola_tema"
             app:layout_constraintBottom_toBottomOf="@+id/framegantitema"
-            app:layout_constraintEnd_toEndOf="parent"
+
             app:layout_constraintHorizontal_bias="0.062"
             app:layout_constraintStart_toStartOf="@+id/framegantitema"
             app:layout_constraintTop_toTopOf="@+id/framegantitema"
             app:layout_constraintVertical_bias="0.111" />
+
+        <ImageView
+            android:id="@+id/framektp"
+            android:layout_width="170dp"
+            android:layout_height="44dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/homekelolarectanglestroke"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvAbout" />
+
+        <TextView
+            android:id="@+id/tvVerifikasiKTP"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Verifikasi KTP"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            app:fontFamily="@font/poppins_bold"
+            app:layout_constraintBottom_toBottomOf="@+id/framektp"
+            app:layout_constraintEnd_toEndOf="@+id/framektp"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/ivGantiKTP"
+            app:layout_constraintTop_toTopOf="@+id/framektp"
+            />
+
+        <ImageView
+            android:id="@+id/ivGantiKTP"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/kelola_ktp"
+            app:layout_constraintBottom_toBottomOf="@+id/framektp"
+    android:layout_marginStart="10dp"
+            app:layout_constraintHorizontal_bias="0.062"
+            app:layout_constraintStart_toStartOf="@+id/framektp"
+            app:layout_constraintTop_toTopOf="@+id/framektp"
+            app:layout_constraintVertical_bias="0.111" />
+
 
         <ImageView
             android:id="@+id/icon_gethublink"
