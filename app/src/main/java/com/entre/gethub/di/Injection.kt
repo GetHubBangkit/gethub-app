@@ -23,6 +23,7 @@ import com.entre.gethub.data.repositories.ProjectDetectorRepository
 import com.entre.gethub.data.repositories.ProjectRepository
 import com.entre.gethub.data.repositories.ReysEventRepository
 import com.entre.gethub.data.repositories.ScanCardRepository
+import com.entre.gethub.data.repositories.ScanKTPRepository
 import com.entre.gethub.data.repositories.SponsorRepository
 import com.entre.gethub.data.repositories.ThemeHubRepository
 import com.entre.gethub.data.repositories.TopTalentRepository
@@ -185,4 +186,10 @@ object Injection {
             val token = runBlocking { pref.getToken().first() }
             return PaymentHistoryRepository.getInstance(ApiConfig.getApiService(context, token))
         }
+
+    fun provideScanKTPRepository(context: Context): ScanKTPRepository {
+        val pref = provideUserPreferences(context)
+        val token = runBlocking { pref.getToken().first() }
+        return ScanKTPRepository.getInstance(ApiConfig.getApiMLService(context, token))
+    }
     }

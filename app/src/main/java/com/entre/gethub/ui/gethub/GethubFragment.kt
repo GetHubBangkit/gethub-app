@@ -11,9 +11,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.entre.gethub.R
 import com.entre.gethub.data.Result
 import com.entre.gethub.data.remote.response.partners.GetHubPartner
 import com.entre.gethub.databinding.FragmentGethubBinding
@@ -109,7 +111,7 @@ class GethubFragment : Fragment() {
                     is Result.Success -> {
                         val gethubPartnerList = result.data.data
                         showLoadingOnPartnerList(false)
-                        binding.tvEmptyPartner.visibility = View.GONE
+                        binding.clEmptyGethubPartner.visibility = View.GONE
                         setupRecyclerViewGethubPartner(gethubPartnerList)
                     }
 
@@ -118,10 +120,7 @@ class GethubFragment : Fragment() {
                     }
 
                     is Result.Empty -> {
-                        binding.tvEmptyPartner.apply {
-                            visibility = View.VISIBLE
-                            text = result.emptyError
-                        }
+                        showEmptyErrorOnGethubPartner(true, result.emptyError)
                     }
 
                     else -> {
@@ -179,10 +178,7 @@ class GethubFragment : Fragment() {
 
                 is Result.Empty -> {
                     showLoadingOnSponsor(false)
-                    binding.empty.apply {
-                        llEmpty.visibility = View.VISIBLE
-                        tvEmpty.text = result.emptyError
-                    }
+                    showEmptyErrorOnGethubSponsor(true, result.emptyError)
                 }
 
                 else -> {
@@ -262,6 +258,13 @@ class GethubFragment : Fragment() {
         binding.progressBarOnCard.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
+    private fun showEmptyErrorOnGethubPartner(isError: Boolean, message: String) {
+        binding.clEmptyGethubPartner.visibility = if (isError) View.VISIBLE else View.GONE
+    }
+    private fun showEmptyErrorOnGethubSponsor(isError: Boolean, message: String) {
+        binding.clEmptyGethubSponsor.visibility = if (isError) View.VISIBLE else View.GONE
+    }
+
     private fun showLoadingOnSponsor(isLoading: Boolean) {
         binding.progressBarOnGethubSponsor.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
@@ -285,4 +288,20 @@ class GethubFragment : Fragment() {
     companion object {
         const val TAG = "GetHubFragment"
     }
+
+//    private fun setupConstraintLayout() {
+//        val clEmptyGethubPartner = binding.clEmptyGethubPartner
+//        val gethubSponsor = binding.GethubSponsor
+//
+//        // Menentukan constraint berdasarkan visibilitas clEmptyGethubPartner
+//        if (clEmptyGethubPartner.visibility == View.VISIBLE) {
+//            val params = gethubSponsor.layoutParams as ConstraintLayout.LayoutParams
+//            params.topToBottom = R.id.clEmptyGethubPartner
+//            gethubSponsor.layoutParams = params
+//        } else {
+//            val params = gethubSponsor.layoutParams as ConstraintLayout.LayoutParams
+//            params.topToBottom = R.id.rvGethubPartner
+//            gethubSponsor.layoutParams = params
+//        }
+//    }
 }

@@ -194,4 +194,5 @@
     <color name="color_sentiment_negative">#FFCADA</color>
     <color name="color_project_bid_status">#00B994</color>
     <color name="color_warning_on_form">#FFE7EF</color>
+    <color name="ApproxCorn">#DEF9FF</color>
 </resources>

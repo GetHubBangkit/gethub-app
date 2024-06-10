@@ -139,10 +139,7 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
                     }
                     is Result.Empty -> {
                         showLoadingOnProduct(false)
-                        binding.emptyOnProduct.apply {
-                            llEmpty.visibility = View.VISIBLE
-                            tvEmpty.text = result.emptyError
-                        }
+                        showEmptyErrorOnProduct(true, result.emptyError)
                     }
                     else -> {
                         showLoadingOnProduct(false)
@@ -410,13 +407,14 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
         binding.tvEmptyAbout.visibility = if (isError) View.VISIBLE else View.GONE
     }
     private fun showEmptyErrorOnLink(isError: Boolean, message: String) {
-        binding.tvEmptyLink.text = message
-        binding.tvEmptyLink.visibility = if (isError) View.VISIBLE else View.GONE
+        binding.clEmptyGethubLink.visibility = if (isError) View.VISIBLE else View.GONE
+    }
+    private fun showEmptyErrorOnProduct(isError: Boolean, message: String) {
+        binding.clEmptyProdukJasa.visibility = if (isError) View.VISIBLE else View.GONE
     }
 
     private fun showEmptyErrorOnCertification(isError: Boolean, message: String) {
-        binding.tvEmptyCertification.text = message
-        binding.tvEmptyCertification.visibility = if (isError) View.VISIBLE else View.GONE
+        binding.clEmptySertifikasi.visibility = if (isError) View.VISIBLE else View.GONE
     }
 
     private fun showToast(message: String) {
