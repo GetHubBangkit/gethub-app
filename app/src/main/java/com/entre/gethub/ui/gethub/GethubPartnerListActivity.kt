@@ -1,9 +1,11 @@
 package com.entre.gethub.ui.gethub
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.entre.gethub.data.Result
@@ -13,6 +15,7 @@ import com.entre.gethub.data.remote.response.partners.GetHubPartnerListResponse
 import com.entre.gethub.databinding.ActivityGethubPartnerListBinding
 import com.entre.gethub.ui.adapter.GethubPartnerListAdapter
 import com.entre.gethub.ui.adapter.GethubPartnerSearchListAdapter
+import com.entre.gethub.ui.detailpartner.DetailPartnerActivity
 import com.entre.gethub.utils.ViewModelFactory
 
 class GethubPartnerListActivity : AppCompatActivity() {
@@ -55,13 +58,24 @@ class GethubPartnerListActivity : AppCompatActivity() {
     private fun setupRecyclerGethubPartnerList(gethubPartnerList: List<GetHubPartner>) {
         binding.rvGethubPartner.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            adapter = GethubPartnerListAdapter(gethubPartnerList) { gethubpartnerlist, position ->
-                Toast.makeText(
-                    this@GethubPartnerListActivity,
-                    "Clicked on partner: ${gethubpartnerlist.fullName}",
-                    Toast.LENGTH_SHORT
-                ).show()
+            adapter = GethubPartnerListAdapter(gethubPartnerList) { gethubpartner, position ->
+                gethubpartner.id?.let { partnerId ->
+                    navigateToDetailPartner(partnerId)
+                } ?: run {
+                    showToast("Partner ID is missing")
+                }
             }
+        }
+    }
+
+    private fun navigateToDetailPartner(partnerId: String?) {
+        partnerId?.let {
+            val intent = Intent(this, DetailPartnerActivity::class.java).apply {
+                putExtra("PARTNER_ID", it)
+            }
+            startActivity(intent)
+        } ?: run {
+            showToast("Partner ID is missing")
         }
     }
 
