@@ -1,4 +1,4 @@
-package com.entre.gethub.data.remote.response.ktp
+package com.entre.gethub.data.remote.response.ml
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
