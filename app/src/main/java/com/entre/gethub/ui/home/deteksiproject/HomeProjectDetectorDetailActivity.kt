@@ -73,6 +73,9 @@ class HomeProjectDetectorDetailActivity : AppCompatActivity() {
             )
         })
         }
+        binding.apply {
+            tvDetailSentiment.text = conclusion.conclusionText
+        }
     }
 
     private fun showPredictions(results: List<ProjectDetectorResponse.Result>) {
