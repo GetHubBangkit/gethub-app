@@ -18,6 +18,7 @@ class PostedProjectAdapter(
     private val chatButtonListener: (project: PostedProjectResponse.ProjectsItem) -> Unit,
     private val reviewButtonListener: (project: PostedProjectResponse.ProjectsItem) -> Unit,
     private val usernameTextListener: (project: PostedProjectResponse.ProjectsItem) -> Unit,
+    private val seeContractListener: (project: PostedProjectResponse.ProjectsItem) -> Unit,
 ) : RecyclerView.Adapter<PostedProjectAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -27,7 +28,7 @@ class PostedProjectAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindItem(postedProjectList[position], chatButtonListener, reviewButtonListener, usernameTextListener)
+        holder.bindItem(postedProjectList[position], chatButtonListener, reviewButtonListener, usernameTextListener, seeContractListener)
         holder.itemView.setOnClickListener { listener(postedProjectList[position], position) }
     }
 
@@ -41,6 +42,7 @@ class PostedProjectAdapter(
             chatButtonListener: (project: PostedProjectResponse.ProjectsItem) -> Unit,
             reviewButtonListener: (project: PostedProjectResponse.ProjectsItem) -> Unit,
             usernameTextListener: (project: PostedProjectResponse.ProjectsItem) -> Unit,
+            seeContractListener: (project: PostedProjectResponse.ProjectsItem) -> Unit
         ) {
             val minBudget = Formatter.formatRupiah(project.minBudget ?: 0)
             val maxBudget = Formatter.formatRupiah(project.maxBudget ?: 0)
@@ -61,6 +63,11 @@ class PostedProjectAdapter(
                         cvChat.setOnClickListener {
                             chatButtonListener(project)
                         }
+
+                        cvContract.setOnClickListener {
+                            seeContractListener(project)
+                        }
+
                         if (project.statusProject == "FINISHED") {
                             btnReview.visibility = View.VISIBLE
                             tvProjectStatus.text = "Selesai Dikerjakan"

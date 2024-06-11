@@ -26,6 +26,9 @@
         android:theme="@style/Theme.GetHub"
         tools:targetApi="31">
         <activity
+            android:name=".ui.project.DigitalContractActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.akun.paymenthistory.PaymentHistoryDetailActivity"
             android:exported="false" />
         <activity

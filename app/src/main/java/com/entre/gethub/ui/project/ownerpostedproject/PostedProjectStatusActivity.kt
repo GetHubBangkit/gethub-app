@@ -7,11 +7,13 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.entre.gethub.R
 import com.entre.gethub.data.Result
 import com.entre.gethub.data.remote.response.projects.PostedProjectResponse
 import com.entre.gethub.databinding.ActivityPostedProjectStatusBinding
 import com.entre.gethub.ui.MainActivity
 import com.entre.gethub.ui.adapter.PostedProjectAdapter
+import com.entre.gethub.ui.project.DigitalContractActivity
 import com.entre.gethub.ui.project.chat.ChatActivity
 import com.entre.gethub.ui.project.ownerpostedproject.review.FreelancerReviewActivity
 import com.entre.gethub.ui.userpublicprofile.UserPublicProfileActivity
@@ -113,6 +115,14 @@ class PostedProjectStatusActivity : AppCompatActivity() {
                 },
                 usernameTextListener = { project ->
                     navigateToUserProfile(project.selectedUserBid.usersBid?.username.toString())
+                },
+                seeContractListener = { project ->
+                    val url = getString(R.string.digital_contract_url)
+                    val digitalContractUrl = url.replace("{endpoint}", project.chatroomId.toString())
+                    val intent = Intent(this@PostedProjectStatusActivity, DigitalContractActivity::class.java).apply {
+                        putExtra(DigitalContractActivity.EXTRA_REDIRECT_URL, digitalContractUrl)
+                    }
+                    startActivity(intent)
                 }
             )
         }
