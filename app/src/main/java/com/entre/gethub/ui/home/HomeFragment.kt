@@ -92,6 +92,7 @@ class HomeFragment : Fragment() {
                 is Result.Loading -> {
                     // Handle loading state
                 }
+
                 is Result.Success -> {
                     val userProfile = result.data.data
                     val profession = userProfile?.profession ?: ""
@@ -99,9 +100,11 @@ class HomeFragment : Fragment() {
                         getReysEvent(profession)
                     }
                 }
+
                 is Result.Error -> {
                     // Handle error
                 }
+
                 else -> {
                     // Handle other cases
                 }
@@ -115,13 +118,18 @@ class HomeFragment : Fragment() {
                 is Result.Loading -> {
                     showLoadingInformationHub(true)
                 }
+
                 is Result.Success -> {
                     val eventData = result.data.data ?: emptyList()
-                    (binding.recyclerViewInformationHub.adapter as HomeInformationHubAdapter).updateData(eventData)
+                    (binding.recyclerViewInformationHub.adapter as HomeInformationHubAdapter).updateData(
+                        eventData
+                    )
                 }
+
                 is Result.Error -> {
                     Toast.makeText(requireContext(), result.error, Toast.LENGTH_SHORT).show()
                 }
+
                 is Result.Empty -> {
                     showEmptyEvent(true)
                 }
@@ -136,7 +144,9 @@ class HomeFragment : Fragment() {
                     showLoadingInformationHub(false)
                     val eventData = result.data.data ?: emptyList()
 //                    showEmptyEvent(false)
-                    (binding.recyclerViewInformationHub.adapter as HomeInformationHubAdapter).updateData(eventData)
+                    (binding.recyclerViewInformationHub.adapter as HomeInformationHubAdapter).updateData(
+                        eventData
+                    )
                 }
 
                 is Result.Error -> {
@@ -228,7 +238,11 @@ class HomeFragment : Fragment() {
                             result.data.data.filter { dataItem -> dataItem.project.statusProject == "CLOSE" }
                         Log.d("HomeFragment", "OnWorkingProjectBids: $onWorkingProjectList")
 
-                        setupRecyclerViewBiddingDikerjakan(onWorkingProjectList)
+                        if (onWorkingProjectList.isEmpty()) {
+                            showEmptyOnBiddingDikerjakan(true)
+                        } else {
+                            setupRecyclerViewBiddingDikerjakan(onWorkingProjectList)
+                        }
                     }
 
                     is Result.Empty -> {
@@ -277,6 +291,7 @@ class HomeFragment : Fragment() {
     private fun showEmptyNewGethubPartner(isEmpty: Boolean) {
         binding.clEmptyGethubPartner.visibility = if (isEmpty) View.VISIBLE else View.GONE
     }
+
     private fun showEmptyEvent(isEmpty: Boolean) {
         binding.clEmptyEvent.visibility = if (isEmpty) View.VISIBLE else View.GONE
     }

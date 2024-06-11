@@ -1,18 +1,22 @@
 package com.entre.gethub.ui.project.postproject
 
 import android.app.DatePickerDialog
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
 import com.entre.gethub.R
 import com.entre.gethub.data.Result
 import com.entre.gethub.databinding.ActivityPostProjectBinding
+import com.entre.gethub.databinding.DialogLoadingBinding
 import com.entre.gethub.ui.adapter.CategoryAdapter
 import com.entre.gethub.ui.project.postproject.milestone.ProjectMilestoneActivity
 import com.entre.gethub.utils.ViewModelFactory
@@ -30,6 +34,7 @@ class PostProjectActivity : AppCompatActivity() {
     private var selectedCategoryId: String? = null
     private var selectedMinDate: String? = null
     private var selectedMaxDate: String? = null
+    private var loadingDialog: Dialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -218,9 +223,9 @@ class PostProjectActivity : AppCompatActivity() {
         ).observe(this) { result ->
             if (result != null) {
                 when (result) {
-                    is Result.Loading -> showLoading(true)
+                    is Result.Loading -> showLoadingDialog("Sedang dilakukan verifikasi project")
                     is Result.Success -> {
-                        showLoading(false)
+                        dismissLoadingDialog()
                         showToast(result.data.message!!)
                         val intent = Intent(this, ProjectMilestoneActivity::class.java).apply {
                             putExtra(ProjectMilestoneActivity.EXTRA_PROJECT_ID, result.data.data?.id.toString())
@@ -230,12 +235,12 @@ class PostProjectActivity : AppCompatActivity() {
                     }
 
                     is Result.Error -> {
-                        showLoading(false)
+                        dismissLoadingDialog()
                         showToast(result.error)
                     }
 
                     is Result.Empty -> {
-                        showLoading(false)
+                        dismissLoadingDialog()
                         showVerificationDialog(
                             this@PostProjectActivity,
                             getString(R.string.account_is_not_verified),
@@ -265,6 +270,31 @@ class PostProjectActivity : AppCompatActivity() {
 
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    private fun showLoadingDialog(message: String) {
+        if (loadingDialog == null) {
+            val builder = AlertDialog.Builder(this)
+            val dialogBinding = DialogLoadingBinding.inflate(layoutInflater)
+            builder.setView(dialogBinding.root)
+            builder.setCancelable(false)
+
+            dialogBinding.tvLoadingMessage.text = message
+
+            loadingDialog = builder.create()
+            loadingDialog?.show()
+        } else {
+            updateLoadingMessage(message)
+        }
+    }
+
+    private fun updateLoadingMessage(message: String) {
+        loadingDialog?.findViewById<TextView>(R.id.tv_loading_message)?.text = message
+    }
+
+    private fun dismissLoadingDialog() {
+        loadingDialog?.dismiss()
+        loadingDialog = null
     }
 
     private fun showToast(message: String) {
