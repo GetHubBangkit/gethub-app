@@ -1,6 +1,5 @@
 package com.entre.gethub.ui.home
 
-
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -45,7 +44,6 @@ class HomeFragment : Fragment() {
 
         setupClickListeners()
         setupRecyclerViews()
-        getReysEvent("")
         observeNewPartner()
         getNewPartnerList()
         getUserProfile()
@@ -60,7 +58,7 @@ class HomeFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        getReysEvent("")
+        // Tidak perlu memperbarui Reys Event di sini
     }
 
     private fun setupClickListeners() {
@@ -118,8 +116,12 @@ class HomeFragment : Fragment() {
                 is Result.Success -> {
                     showLoadingInformationHub(false)
                     val eventData = result.data.data ?: emptyList()
+                    if (eventData.isEmpty()) {
+                        showEmptyEvent(true) // Panggil showEmptyEvent jika data kosong
+                    } else {
+                        showEmptyEvent(false) // Sembunyikan pesan kosong jika data tidak kosong
+                    }
                     (binding.recyclerViewInformationHub.adapter as HomeInformationHubAdapter).updateData(eventData)
-                    showEmptyEvent(eventData.isEmpty()) // Panggil showEmptyEvent jika data kosong
                 }
                 is Result.Error -> {
                     showLoadingInformationHub(false)
@@ -127,41 +129,12 @@ class HomeFragment : Fragment() {
                 }
                 is Result.Empty -> {
                     showLoadingInformationHub(false)
-                    showEmptyEvent(true) // Panggil showEmptyEvent jika data kosong
+                    showEmptyEvent(true)
+                    getReysEvent("") // Panggil getReysEvent("") kembali untuk memperbarui data saat kosong
                 }
             }
         }
     }
-
-
-//    private fun getInformationList() {
-//        homeViewModel.getReysEventResult.observe(viewLifecycleOwner) { result ->
-//            when (result) {
-//                is Result.Success -> {
-//                    showLoadingInformationHub(false)
-//                    val eventData = result.data.data ?: emptyList()
-////                    showEmptyEvent(false)
-//                    (binding.recyclerViewInformationHub.adapter as HomeInformationHubAdapter).updateData(eventData)
-//                }
-//
-//                is Result.Error -> {
-//                    showLoadingInformationHub(false)
-//                    Toast.makeText(requireContext(), result.error, Toast.LENGTH_SHORT).show()
-//                }
-//
-//                is Result.Loading -> {
-//                    showLoadingInformationHub(true)
-//                }
-//
-//                is Result.Empty -> {
-//                    showLoadingInformationHub(false)
-//                    showEmptyEvent(true)
-//                    Toast.makeText(requireContext(), result.emptyError, Toast.LENGTH_SHORT).show()
-//                }
-//            }
-//        }
-//    }
-
 
     private fun observeNewPartner() {
         homeViewModel.getNewPartner().observe(viewLifecycleOwner) { result ->
@@ -171,15 +144,12 @@ class HomeFragment : Fragment() {
                     val data = result.data?.data ?: emptyList()
                     setupRecyclerViewHomeGethubPartner(data)
                 }
-
                 is Result.Error -> {
                     showLoadingNewGethubPartner(false)
                 }
-
                 is Result.Loading -> {
                     showLoadingNewGethubPartner(true)
                 }
-
                 is Result.Empty -> {
                     showLoadingNewGethubPartner(false)
                     showEmptyNewGethubPartner(true)
@@ -216,7 +186,6 @@ class HomeFragment : Fragment() {
         }
     }
 
-
     private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
@@ -226,26 +195,21 @@ class HomeFragment : Fragment() {
             if (result != null) {
                 when (result) {
                     is Result.Loading -> showLoadingOnBiddingDikerjakan(true)
-
                     is Result.Success -> {
                         showLoadingOnBiddingDikerjakan(false)
                         val onWorkingProjectList =
                             result.data.data.filter { dataItem -> dataItem.project.statusProject == "CLOSE" }
                         Log.d("HomeFragment", "OnWorkingProjectBids: $onWorkingProjectList")
-
                         setupRecyclerViewBiddingDikerjakan(onWorkingProjectList)
                     }
-
                     is Result.Empty -> {
                         showLoadingOnBiddingDikerjakan(false)
                         showEmptyOnBiddingDikerjakan(true)
                     }
-
                     is Result.Error -> {
                         showLoadingOnBiddingDikerjakan(false)
                         showEmptyOnBiddingDikerjakan(true)
                     }
-
                 }
             }
         }
@@ -282,10 +246,10 @@ class HomeFragment : Fragment() {
     private fun showEmptyNewGethubPartner(isEmpty: Boolean) {
         binding.clEmptyGethubPartner.visibility = if (isEmpty) View.VISIBLE else View.GONE
     }
+
     private fun showEmptyEvent(isEmpty: Boolean) {
         binding.clEmptyEvent.visibility = if (isEmpty) View.VISIBLE else View.GONE
     }
-
 
     private fun showLoadingOnBiddingDikerjakan(isLoading: Boolean) {
         binding.progressBarOnBiddingDikerjakan.visibility =
@@ -295,5 +259,4 @@ class HomeFragment : Fragment() {
     private fun showEmptyOnBiddingDikerjakan(isEmpty: Boolean) {
         binding.clEmptyBiddingDikerjakan.visibility = if (isEmpty) View.VISIBLE else View.GONE
     }
-
 }
