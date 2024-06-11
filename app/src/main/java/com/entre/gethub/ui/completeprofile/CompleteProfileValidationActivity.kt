@@ -1,7 +1,9 @@
 package com.entre.gethub.ui.completeprofile
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
@@ -9,6 +11,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.entre.gethub.ui.MainActivity
 import com.entre.gethub.R
 import com.entre.gethub.data.Result
@@ -67,7 +70,7 @@ class CompleteProfileValidationActivity : AppCompatActivity() {
 
         with(binding) {
             ivScan.setOnClickListener {
-                startCamera()
+                requestCameraPermission()
             }
 
             ivManual.setOnClickListener {
@@ -77,6 +80,34 @@ class CompleteProfileValidationActivity : AppCompatActivity() {
                         CompleteProfileActivity::class.java
                     )
                 )
+            }
+        }
+    }
+
+    private val requestCameraPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            if (isGranted) {
+                startCamera()
+            } else {
+                Toast.makeText(
+                    this,
+                    "Fitur kamera tidak diizinkan",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+
+    private fun requestCameraPermission() {
+        when {
+            ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.CAMERA
+            ) == PackageManager.PERMISSION_GRANTED -> {
+                startCamera()
+            }
+
+            else -> {
+                requestCameraPermissionLauncher.launch(Manifest.permission.CAMERA)
             }
         }
     }
@@ -102,8 +133,14 @@ class CompleteProfileValidationActivity : AppCompatActivity() {
                         is Result.Success -> {
                             showLoading(false)
                             showToast(result.data.message.toString())
-                            val intent = Intent(this@CompleteProfileValidationActivity, CompleteProfileActivity::class.java).apply {
-                                putExtra(CompleteProfileActivity.SCAN_CARD_RESULT_EXTRA, result.data)
+                            val intent = Intent(
+                                this@CompleteProfileValidationActivity,
+                                CompleteProfileActivity::class.java
+                            ).apply {
+                                putExtra(
+                                    CompleteProfileActivity.SCAN_CARD_RESULT_EXTRA,
+                                    result.data
+                                )
                             }
                             startActivity(intent)
                         }
