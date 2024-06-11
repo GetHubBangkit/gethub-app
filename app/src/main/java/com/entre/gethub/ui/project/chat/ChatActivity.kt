@@ -18,6 +18,7 @@ import com.entre.gethub.ui.models.ImageMessage
 import com.entre.gethub.ui.models.MessageType
 import com.entre.gethub.ui.models.TextMessage
 import com.entre.gethub.utils.FirestoreUtil
+import com.entre.gethub.utils.Formatter
 import com.entre.gethub.utils.StorageUtil
 import com.entre.gethub.utils.ViewModelFactory
 import com.google.firebase.firestore.ListenerRegistration
@@ -102,8 +103,10 @@ class ChatActivity : AppCompatActivity() {
                                 )
 
                             binding.cvSendChat.setOnClickListener {
+                                val messageText = binding.etMessage.text.toString()
+                                val maskedMessageText = Formatter.maskPhoneNumbers(messageText)
                                 val messageToSend = TextMessage(
-                                    binding.etMessage.text.toString(),
+                                    maskedMessageText,
                                     Calendar.getInstance().time,
                                     freelancerId,
                                     MessageType.TEXT
