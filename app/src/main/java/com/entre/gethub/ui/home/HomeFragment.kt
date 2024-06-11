@@ -45,7 +45,7 @@ class HomeFragment : Fragment() {
 
         setupClickListeners()
         setupRecyclerViews()
-        getInformationList()
+        getReysEvent("")
         observeNewPartner()
         getNewPartnerList()
         getUserProfile()
@@ -60,7 +60,7 @@ class HomeFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        getInformationList()
+        getReysEvent("")
     }
 
     private fun setupClickListeners() {
@@ -116,46 +116,51 @@ class HomeFragment : Fragment() {
                     showLoadingInformationHub(true)
                 }
                 is Result.Success -> {
+                    showLoadingInformationHub(false)
                     val eventData = result.data.data ?: emptyList()
                     (binding.recyclerViewInformationHub.adapter as HomeInformationHubAdapter).updateData(eventData)
+                    showEmptyEvent(eventData.isEmpty()) // Panggil showEmptyEvent jika data kosong
                 }
                 is Result.Error -> {
+                    showLoadingInformationHub(false)
                     Toast.makeText(requireContext(), result.error, Toast.LENGTH_SHORT).show()
                 }
                 is Result.Empty -> {
-                    showEmptyEvent(true)
+                    showLoadingInformationHub(false)
+                    showEmptyEvent(true) // Panggil showEmptyEvent jika data kosong
                 }
             }
         }
     }
 
-    private fun getInformationList() {
-        homeViewModel.getReysEventResult.observe(viewLifecycleOwner) { result ->
-            when (result) {
-                is Result.Success -> {
-                    showLoadingInformationHub(false)
-                    val eventData = result.data.data ?: emptyList()
-//                    showEmptyEvent(false)
-                    (binding.recyclerViewInformationHub.adapter as HomeInformationHubAdapter).updateData(eventData)
-                }
 
-                is Result.Error -> {
-                    showLoadingInformationHub(false)
-                    Toast.makeText(requireContext(), result.error, Toast.LENGTH_SHORT).show()
-                }
-
-                is Result.Loading -> {
-                    showLoadingInformationHub(true)
-                }
-
-                is Result.Empty -> {
-                    showLoadingInformationHub(false)
-                    showEmptyEvent(true)
-                    Toast.makeText(requireContext(), result.emptyError, Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
-    }
+//    private fun getInformationList() {
+//        homeViewModel.getReysEventResult.observe(viewLifecycleOwner) { result ->
+//            when (result) {
+//                is Result.Success -> {
+//                    showLoadingInformationHub(false)
+//                    val eventData = result.data.data ?: emptyList()
+////                    showEmptyEvent(false)
+//                    (binding.recyclerViewInformationHub.adapter as HomeInformationHubAdapter).updateData(eventData)
+//                }
+//
+//                is Result.Error -> {
+//                    showLoadingInformationHub(false)
+//                    Toast.makeText(requireContext(), result.error, Toast.LENGTH_SHORT).show()
+//                }
+//
+//                is Result.Loading -> {
+//                    showLoadingInformationHub(true)
+//                }
+//
+//                is Result.Empty -> {
+//                    showLoadingInformationHub(false)
+//                    showEmptyEvent(true)
+//                    Toast.makeText(requireContext(), result.emptyError, Toast.LENGTH_SHORT).show()
+//                }
+//            }
+//        }
+//    }
 
 
     private fun observeNewPartner() {
