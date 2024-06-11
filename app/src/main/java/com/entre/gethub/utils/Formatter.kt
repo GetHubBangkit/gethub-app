@@ -38,4 +38,15 @@ object Formatter {
         numberFormat.maximumFractionDigits = 0
         return numberFormat.format(value)
     }
+
+    fun maskPhoneNumbers(text: String): String {
+        // Regex untuk mendeteksi nomor telepon
+        val phoneRegex = "\\b(?:\\+?\\d{1,3})?[-.\\s]?\\(?\\d{1,4}?\\)?[-.\\s]?\\d{1,4}[-.\\s]?\\d{1,9}\\b".toRegex()
+
+        // Mengganti setiap nomor telepon yang cocok dengan simbol "*"
+        return phoneRegex.replace(text) { matchResult ->
+            "*".repeat(matchResult.value.length)
+        }
+    }
+
 }

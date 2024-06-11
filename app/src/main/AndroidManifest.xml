@@ -6,6 +6,7 @@
         android:name="android.hardware.camera"
         android:required="false" />
 
+    <uses-permission android:name="android.permission.ACCESS_DOWNLOAD_MANAGER"/>
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission
@@ -25,6 +26,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GetHub"
         tools:targetApi="31">
+        <activity
+            android:name=".ui.project.DigitalContractActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.akun.paymenthistory.PaymentHistoryDetailActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.akun.membership.MembershipPaymentActivity"
             android:exported="false" />

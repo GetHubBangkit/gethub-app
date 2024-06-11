@@ -1,5 +1,6 @@
 package com.entre.gethub.ui.project.freelancerbidproject
 
+import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
 import android.text.Spannable
@@ -19,6 +20,7 @@ import com.entre.gethub.data.Result
 import com.entre.gethub.databinding.ActivityBidProjectStatusDetailBinding
 import com.entre.gethub.ui.adapter.UserProjectBiddingAdapter
 import com.entre.gethub.ui.models.UserProjectBidding
+import com.entre.gethub.ui.userpublicprofile.UserPublicProfileActivity
 import com.entre.gethub.utils.Formatter
 import com.entre.gethub.utils.ViewModelFactory
 
@@ -64,7 +66,8 @@ class BidProjectStatusDetailActivity : AppCompatActivity() {
                                 UserProjectBidding(
                                     usersBidItem?.fullName!!,
                                     usersBidItem?.photo!!,
-                                    usersBidItem?.profession!!
+                                    usersBidItem?.profession!!,
+                                    usersBidItem?.username!!
                                 )
                             }
                             setupRecyclerViewUserBidding(userProjectBiddingList!!)
@@ -124,20 +127,22 @@ class BidProjectStatusDetailActivity : AppCompatActivity() {
             )
             adapter =
                 UserProjectBiddingAdapter(userProjectBiddingList) { user, _ ->
-                    Toast.makeText(
-                        this@BidProjectStatusDetailActivity,
-                        "Clicked on actor: ${user.fullName}",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    navigateToUserProfile(user.username)
                 }
         }
+    }
+
+    private fun navigateToUserProfile(username: String) {
+        val intent = Intent(this, UserPublicProfileActivity::class.java)
+        intent.putExtra("username", username)
+        startActivity(intent)
     }
 
     private fun showOwnerSentiment(projectOwnerName: String, sentiment: String?) {
         val projectOwnerSentiment = binding.tvDetailProjectOwnerSentiment
 
         var teks =
-            "Berdasarkan history review Kusnandar sebagai pemberi project job memiliki penilaian sentimen analisis Netral"
+            ""
 
         if (sentiment == "Netral") {
             binding.cvSentiment.setCardBackgroundColor(getColor(R.color.color_sentiment_neutral))

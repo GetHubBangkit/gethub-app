@@ -90,6 +90,7 @@ class HomeFragment : Fragment() {
                 is Result.Loading -> {
                     // Handle loading state
                 }
+
                 is Result.Success -> {
                     val userProfile = result.data.data
                     val profession = userProfile?.profession ?: ""
@@ -97,9 +98,11 @@ class HomeFragment : Fragment() {
                         getReysEvent(profession)
                     }
                 }
+
                 is Result.Error -> {
                     // Handle error
                 }
+
                 else -> {
                     // Handle other cases
                 }
@@ -113,6 +116,7 @@ class HomeFragment : Fragment() {
                 is Result.Loading -> {
                     showLoadingInformationHub(true)
                 }
+
                 is Result.Success -> {
                     showLoadingInformationHub(false)
                     val eventData = result.data.data ?: emptyList()
@@ -200,7 +204,12 @@ class HomeFragment : Fragment() {
                         val onWorkingProjectList =
                             result.data.data.filter { dataItem -> dataItem.project.statusProject == "CLOSE" }
                         Log.d("HomeFragment", "OnWorkingProjectBids: $onWorkingProjectList")
-                        setupRecyclerViewBiddingDikerjakan(onWorkingProjectList)
+
+                        if (onWorkingProjectList.isEmpty()) {
+                            showEmptyOnBiddingDikerjakan(true)
+                        } else {
+                            setupRecyclerViewBiddingDikerjakan(onWorkingProjectList)
+                        }
                     }
                     is Result.Empty -> {
                         showLoadingOnBiddingDikerjakan(false)

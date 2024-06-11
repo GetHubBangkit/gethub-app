@@ -17,6 +17,8 @@ class PostedProjectAdapter(
     private val listener: (PostedProjectResponse.ProjectsItem, Int) -> Unit,
     private val chatButtonListener: (project: PostedProjectResponse.ProjectsItem) -> Unit,
     private val reviewButtonListener: (project: PostedProjectResponse.ProjectsItem) -> Unit,
+    private val usernameTextListener: (project: PostedProjectResponse.ProjectsItem) -> Unit,
+    private val seeContractListener: (project: PostedProjectResponse.ProjectsItem) -> Unit,
 ) : RecyclerView.Adapter<PostedProjectAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -26,7 +28,7 @@ class PostedProjectAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindItem(postedProjectList[position], chatButtonListener, reviewButtonListener)
+        holder.bindItem(postedProjectList[position], chatButtonListener, reviewButtonListener, usernameTextListener, seeContractListener)
         holder.itemView.setOnClickListener { listener(postedProjectList[position], position) }
     }
 
@@ -39,6 +41,8 @@ class PostedProjectAdapter(
             project: PostedProjectResponse.ProjectsItem,
             chatButtonListener: (project: PostedProjectResponse.ProjectsItem) -> Unit,
             reviewButtonListener: (project: PostedProjectResponse.ProjectsItem) -> Unit,
+            usernameTextListener: (project: PostedProjectResponse.ProjectsItem) -> Unit,
+            seeContractListener: (project: PostedProjectResponse.ProjectsItem) -> Unit
         ) {
             val minBudget = Formatter.formatRupiah(project.minBudget ?: 0)
             val maxBudget = Formatter.formatRupiah(project.maxBudget ?: 0)
@@ -54,11 +58,16 @@ class PostedProjectAdapter(
                     "CLOSE", "FINISHED" -> {
                         clProjectUserSelected.visibility = View.VISIBLE
 
-                        loadUserDetails(project)
+                        loadUserDetails(project, usernameTextListener)
 
                         cvChat.setOnClickListener {
                             chatButtonListener(project)
                         }
+
+                        cvContract.setOnClickListener {
+                            seeContractListener(project)
+                        }
+
                         if (project.statusProject == "FINISHED") {
                             btnReview.visibility = View.VISIBLE
                             tvProjectStatus.text = "Selesai Dikerjakan"
@@ -77,7 +86,10 @@ class PostedProjectAdapter(
             }
         }
 
-        private fun ItemPostedProjectBinding.loadUserDetails(project: PostedProjectResponse.ProjectsItem) {
+        private fun ItemPostedProjectBinding.loadUserDetails(
+            project: PostedProjectResponse.ProjectsItem,
+            usernameTextListener: (project: PostedProjectResponse.ProjectsItem) -> Unit
+        ) {
             val context = root.context
             val userBid = project.selectedUserBid.usersBid
             Glide.with(context)
@@ -87,6 +99,8 @@ class PostedProjectAdapter(
             tvUserName.text = userBid?.fullName
             tvUserJobName.text = userBid?.profession
             tvProjectAmount.text = Formatter.formatRupiah(project.selectedUserBid.budgetBid ?: 0)
+
+            tvUserName.setOnClickListener { usernameTextListener(project) }
         }
     }
 }

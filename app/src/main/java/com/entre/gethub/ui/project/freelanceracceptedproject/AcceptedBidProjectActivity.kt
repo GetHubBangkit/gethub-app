@@ -8,12 +8,14 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.entre.gethub.R
 import com.entre.gethub.data.Result
 import com.entre.gethub.data.remote.response.projects.AcceptedProjectBidResponse
 import com.entre.gethub.databinding.ActivityAcceptedBidProjectBinding
 import com.entre.gethub.ui.MainActivity
 import com.entre.gethub.ui.adapter.AcceptedBidAdapter
 import com.entre.gethub.ui.home.projectbids.HomeMilestoneProjectBidsActivity
+import com.entre.gethub.ui.project.DigitalContractActivity
 import com.entre.gethub.ui.project.chat.ChatActivity
 import com.entre.gethub.ui.project.freelanceracceptedproject.review.OwnerReviewActivity
 import com.entre.gethub.ui.project.freelanceracceptedproject.settlement.FreelancerSettlementActivity
@@ -153,6 +155,14 @@ class AcceptedBidProjectActivity : AppCompatActivity() {
                         putExtra(OwnerReviewActivity.EXTRA_OWNER_NAME, project.project.ownerProject?.fullName)
                         putExtra(OwnerReviewActivity.EXTRA_OWNER_PROFESSION, project.project.ownerProject?.profession)
                         putExtra(OwnerReviewActivity.EXTRA_OWNER_PHOTO, project.project.ownerProject?.photo)
+                    }
+                    startActivity(intent)
+                },
+                seeContractListener = { project ->
+                    val url = getString(R.string.digital_contract_url)
+                    val digitalContractUrl = url.replace("{endpoint}", project.project.chatroomId.toString())
+                    val intent = Intent(this@AcceptedBidProjectActivity, DigitalContractActivity::class.java).apply {
+                        putExtra(DigitalContractActivity.EXTRA_REDIRECT_URL, digitalContractUrl)
                     }
                     startActivity(intent)
                 }

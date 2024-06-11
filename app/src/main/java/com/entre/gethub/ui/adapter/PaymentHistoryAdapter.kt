@@ -7,7 +7,10 @@ import com.entre.gethub.data.remote.response.premium.PaymentHistoryResponse
 import com.entre.gethub.databinding.ItemPaymentHistoryBinding
 import com.entre.gethub.utils.Formatter
 
-class PaymentHistoryAdapter(private val paymentHistoryList: List<PaymentHistoryResponse.DataItem>) :
+class PaymentHistoryAdapter(
+    private val paymentHistoryList: List<PaymentHistoryResponse.DataItem>,
+    private val seeDetailListener: (PaymentHistoryResponse.DataItem) -> Unit
+) :
     RecyclerView.Adapter<PaymentHistoryAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -19,13 +22,16 @@ class PaymentHistoryAdapter(private val paymentHistoryList: List<PaymentHistoryR
     override fun getItemCount(): Int = paymentHistoryList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindItem(paymentHistoryList[position])
+        holder.bindItem(paymentHistoryList[position], seeDetailListener)
     }
 
     class ViewHolder(private val binding: ItemPaymentHistoryBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bindItem(paymentHistory: PaymentHistoryResponse.DataItem) {
+        fun bindItem(
+            paymentHistory: PaymentHistoryResponse.DataItem,
+            seeDetailListener: (PaymentHistoryResponse.DataItem) -> Unit
+        ) {
             with(binding) {
                 tvInvoiceNumber.text = paymentHistory.id
                 tvInvoiceDate.text = "Tanggal Dibuat: ${paymentHistory.transactionDate}"
@@ -33,6 +39,8 @@ class PaymentHistoryAdapter(private val paymentHistoryList: List<PaymentHistoryR
                 tvInvoiceAmount.text = "Total: ${
                     Formatter.formatRupiah(paymentHistory.amount ?: 0)
                 }"
+
+                btnLihat.setOnClickListener { seeDetailListener(paymentHistory) }
             }
         }
     }

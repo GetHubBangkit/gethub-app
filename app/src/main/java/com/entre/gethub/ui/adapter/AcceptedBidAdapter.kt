@@ -17,6 +17,7 @@ class AcceptedBidAdapter(
     private val finishProjectListener: (projectId: String) -> Unit,
     private val createSettlementListener: (project: AcceptedProjectBidResponse.DataItem) -> Unit,
     private val reviewProjectOwnerListener: (project: AcceptedProjectBidResponse.DataItem) -> Unit,
+    private val seeContractListener: (project: AcceptedProjectBidResponse.DataItem) -> Unit,
 ) : RecyclerView.Adapter<AcceptedBidAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -35,7 +36,8 @@ class AcceptedBidAdapter(
             seeDetailListener,
             finishProjectListener,
             createSettlementListener,
-            reviewProjectOwnerListener
+            reviewProjectOwnerListener,
+            seeContractListener
         )
     }
 
@@ -51,6 +53,7 @@ class AcceptedBidAdapter(
             finishProjectListener: (projectId: String) -> Unit,
             createSettlementListener: (project: AcceptedProjectBidResponse.DataItem) -> Unit,
             reviewProjectOwnerListener: (project: AcceptedProjectBidResponse.DataItem) -> Unit,
+            seeContractListener: (project: AcceptedProjectBidResponse.DataItem) -> Unit,
         ) {
             with(binding) {
                 val acceptedBudget = Formatter.formatRupiah(projectBid.budgetBid ?: 0)
@@ -72,6 +75,10 @@ class AcceptedBidAdapter(
 
                 cvChat.setOnClickListener {
                     chatButtonListener(projectBid)
+                }
+
+                cvContract.setOnClickListener {
+                    seeContractListener(projectBid)
                 }
 
                 tvSeeDetail.setOnClickListener {

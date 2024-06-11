@@ -19,6 +19,7 @@ import com.entre.gethub.utils.Formatter
 class SelectUserBiddingAdapter(
     private val userBiddingList: List<PostedProjectDetailResponse.UsersBidItem>,
     private val onSelectUserBid: (PostedProjectDetailResponse.UsersBidItem) -> Unit,
+    private val onClickUserBid: (PostedProjectDetailResponse.UsersBidItem) -> Unit,
 ) : RecyclerView.Adapter<SelectUserBiddingAdapter.ViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -31,6 +32,7 @@ class SelectUserBiddingAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bindItem(userBiddingList[position], onSelectUserBid)
+        holder.itemView.setOnClickListener { onClickUserBid(userBiddingList[position]) }
     }
 
     override fun getItemCount(): Int = userBiddingList.size

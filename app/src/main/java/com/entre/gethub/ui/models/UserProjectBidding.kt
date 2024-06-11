@@ -4,4 +4,5 @@ data class UserProjectBidding(
     val fullName: String,
     val photo: String,
     val profession: String,
+    val username: String,
 )

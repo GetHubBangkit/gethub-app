@@ -19,6 +19,7 @@ import com.entre.gethub.data.Result
 import com.entre.gethub.databinding.ItemDetailProjectbidsBinding
 import com.entre.gethub.ui.adapter.UserProjectBiddingAdapter
 import com.entre.gethub.ui.models.UserProjectBidding
+import com.entre.gethub.ui.userpublicprofile.UserPublicProfileActivity
 import com.entre.gethub.utils.Formatter
 import com.entre.gethub.utils.ViewModelFactory
 
@@ -75,7 +76,8 @@ class HomeDetailProjectBidsActivity : AppCompatActivity() {
                                 UserProjectBidding(
                                     usersBidItem.fullName!!,
                                     usersBidItem.photo!!,
-                                    usersBidItem.profession!!
+                                    usersBidItem.profession!!,
+                                    usersBidItem.username!!,
                                 )
                             }
                             setupRecyclerViewUserBidding(userProjectBiddingList)
@@ -154,13 +156,15 @@ class HomeDetailProjectBidsActivity : AppCompatActivity() {
             )
             adapter =
                 UserProjectBiddingAdapter(userProjectBiddingList) { user, _ ->
-                    Toast.makeText(
-                        this@HomeDetailProjectBidsActivity, // Gunakan requireContext() untuk mendapatkan Context yang benar
-                        "Clicked on actor: ${user.fullName}",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    navigateToUserProfile(user.username)
                 }
         }
+    }
+
+    private fun navigateToUserProfile(username: String) {
+        val intent = Intent(this, UserPublicProfileActivity::class.java)
+        intent.putExtra("username", username)
+        startActivity(intent)
     }
 
     private fun showOwnerSentiment(projectOwnerName: String, sentiment: String?) {

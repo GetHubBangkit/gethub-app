@@ -15,6 +15,7 @@ import com.entre.gethub.data.remote.response.projects.PostedProjectDetailRespons
 import com.entre.gethub.databinding.ActivityPostedProjectStatusDetailBinding
 import com.entre.gethub.ui.adapter.SelectUserBiddingAdapter
 import com.entre.gethub.ui.project.ownerpostedproject.payment.OwnerSettlementActivity
+import com.entre.gethub.ui.userpublicprofile.UserPublicProfileActivity
 import com.entre.gethub.utils.Formatter
 import com.entre.gethub.utils.ViewModelFactory
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -113,15 +114,21 @@ class PostedProjectStatusDetailActivity : AppCompatActivity() {
                 LinearLayoutManager.VERTICAL,
                 false
             )
-            adapter = SelectUserBiddingAdapter(userBiddingList) { usersBidItem ->
-                showDialog(
-                    this@PostedProjectStatusDetailActivity,
-                    "Pilih user bidding",
-                    "Apakah anda yakin memilih ${usersBidItem.fullName} untuk mengerjakan proyek Anda?",
-                    projectId,
-                    usersBidItem.id.toString()
-                )
-            }
+            adapter = SelectUserBiddingAdapter(
+                userBiddingList,
+                onSelectUserBid = { usersBidItem ->
+                    showDialog(
+                        this@PostedProjectStatusDetailActivity,
+                        "Pilih user bidding",
+                        "Apakah anda yakin memilih ${usersBidItem.fullName} untuk mengerjakan proyek Anda?",
+                        projectId,
+                        usersBidItem.id.toString()
+                    )
+                },
+                onClickUserBid = { usersBidItem ->
+                    navigateToUserProfile(usersBidItem.username.toString())
+                },
+            )
         }
     }
 
@@ -151,6 +158,12 @@ class PostedProjectStatusDetailActivity : AppCompatActivity() {
                     }
                 }
             }
+    }
+
+    private fun navigateToUserProfile(username: String) {
+        val intent = Intent(this, UserPublicProfileActivity::class.java)
+        intent.putExtra("username", username)
+        startActivity(intent)
     }
 
     private fun showDialog(
