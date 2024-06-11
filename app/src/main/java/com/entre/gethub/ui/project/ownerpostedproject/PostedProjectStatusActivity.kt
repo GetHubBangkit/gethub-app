@@ -14,6 +14,7 @@ import com.entre.gethub.ui.MainActivity
 import com.entre.gethub.ui.adapter.PostedProjectAdapter
 import com.entre.gethub.ui.project.chat.ChatActivity
 import com.entre.gethub.ui.project.ownerpostedproject.review.FreelancerReviewActivity
+import com.entre.gethub.ui.userpublicprofile.UserPublicProfileActivity
 import com.entre.gethub.utils.ViewModelFactory
 
 class PostedProjectStatusActivity : AppCompatActivity() {
@@ -109,6 +110,9 @@ class PostedProjectStatusActivity : AppCompatActivity() {
                         )
                     }
                     startActivity(intent)
+                },
+                usernameTextListener = { project ->
+                    navigateToUserProfile(project.selectedUserBid.usersBid?.username.toString())
                 }
             )
         }
@@ -138,6 +142,12 @@ class PostedProjectStatusActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun navigateToUserProfile(username: String) {
+        val intent = Intent(this, UserPublicProfileActivity::class.java)
+        intent.putExtra("username", username)
+        startActivity(intent)
     }
 
     private fun showLoading(isLoading: Boolean) {
