@@ -153,7 +153,7 @@
             android:fontFamily="@font/poppins_semibold"
             android:text="Ganti Thema"
             android:textColor="@android:color/black"
-            android:textSize="16sp"
+            android:textSize="15sp"
             app:fontFamily="@font/poppins_bold"
             app:layout_constraintBottom_toBottomOf="@+id/framegantitema"
             app:layout_constraintEnd_toEndOf="@+id/framegantitema"
@@ -198,7 +198,7 @@
             android:fontFamily="@font/poppins_semibold"
             android:text="Verifikasi KTP"
             android:textColor="@android:color/black"
-            android:textSize="16sp"
+            android:textSize="15sp"
             app:fontFamily="@font/poppins_bold"
             app:layout_constraintBottom_toBottomOf="@+id/framektp"
             app:layout_constraintEnd_toEndOf="@+id/framektp"
@@ -368,7 +368,7 @@
             android:id="@+id/editprodukjasa"
             android:layout_width="26dp"
             android:layout_height="26dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="30dp"
             android:src="@drawable/kelola_edit"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.89"
@@ -381,9 +381,9 @@
         <FrameLayout
             android:id="@+id/flProducts"
             android:layout_width="match_parent"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/editprodukjasa">
+            app:layout_constraintTop_toBottomOf="@+id/produkjasa">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvProducts"
@@ -462,7 +462,7 @@
             android:id="@+id/icon_certiciation"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="35dp"
             android:src="@drawable/icon_kelola"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.052"
@@ -472,8 +472,8 @@
         <TextView
             android:id="@+id/Certification"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_marginTop="30dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="35dp"
             android:fontFamily="@font/poppins_bold"
             android:text="Sertifikasi"
             android:textColor="@color/blue"
@@ -571,7 +571,7 @@
             android:id="@+id/editSertifikasi"
             android:layout_width="26dp"
             android:layout_height="26dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="40dp"
             android:src="@drawable/kelola_edit"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.89"

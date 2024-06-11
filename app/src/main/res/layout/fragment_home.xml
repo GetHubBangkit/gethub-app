@@ -466,7 +466,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clEmptyEvent"
             android:layout_width="match_parent"
-            android:layout_height="232dp"
+            android:layout_height="242dp"
             android:visibility="gone"
             tools:visibility="visible"
             android:layout_marginStart="20dp"
