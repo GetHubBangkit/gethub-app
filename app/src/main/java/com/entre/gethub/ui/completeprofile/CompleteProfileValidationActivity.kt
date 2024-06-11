@@ -1,5 +1,6 @@
 package com.entre.gethub.ui.completeprofile
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -10,7 +11,6 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.entre.gethub.ui.MainActivity
 import com.entre.gethub.R
@@ -42,22 +42,13 @@ class CompleteProfileValidationActivity : AppCompatActivity() {
     private var loginResponse: LoginResponse? = null
     private var currentImageUri: Uri? = null
 
-    companion object {
-        const val EXTRA_USER = "extra_user"
-        private const val REQUEST_CAMERA_PERMISSION = 100
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
         loginResponse = intent.getParcelableExtra(EXTRA_USER)
 
-        if (checkCameraPermission()) {
-            setupView()
-        } else {
-            requestCameraPermission()
-        }
+        setupView()
     }
 
     private fun setupView() {
@@ -79,7 +70,7 @@ class CompleteProfileValidationActivity : AppCompatActivity() {
 
         with(binding) {
             ivScan.setOnClickListener {
-                startCamera()
+                requestCameraPermission()
             }
 
             ivManual.setOnClickListener {
@@ -89,6 +80,34 @@ class CompleteProfileValidationActivity : AppCompatActivity() {
                         CompleteProfileActivity::class.java
                     )
                 )
+            }
+        }
+    }
+
+    private val requestCameraPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            if (isGranted) {
+                startCamera()
+            } else {
+                Toast.makeText(
+                    this,
+                    "Fitur kamera tidak diizinkan",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+
+    private fun requestCameraPermission() {
+        when {
+            ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.CAMERA
+            ) == PackageManager.PERMISSION_GRANTED -> {
+                startCamera()
+            }
+
+            else -> {
+                requestCameraPermissionLauncher.launch(Manifest.permission.CAMERA)
             }
         }
     }
@@ -114,8 +133,14 @@ class CompleteProfileValidationActivity : AppCompatActivity() {
                         is Result.Success -> {
                             showLoading(false)
                             showToast(result.data.message.toString())
-                            val intent = Intent(this@CompleteProfileValidationActivity, CompleteProfileActivity::class.java).apply {
-                                putExtra(CompleteProfileActivity.SCAN_CARD_RESULT_EXTRA, result.data)
+                            val intent = Intent(
+                                this@CompleteProfileValidationActivity,
+                                CompleteProfileActivity::class.java
+                            ).apply {
+                                putExtra(
+                                    CompleteProfileActivity.SCAN_CARD_RESULT_EXTRA,
+                                    result.data
+                                )
                             }
                             startActivity(intent)
                         }
@@ -209,41 +234,7 @@ class CompleteProfileValidationActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun checkCameraPermission(): Boolean {
-        val cameraPermission = ContextCompat.checkSelfPermission(
-            this, android.Manifest.permission.CAMERA
-        )
-        val storagePermission = ContextCompat.checkSelfPermission(
-            this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE
-        )
-        return cameraPermission == PackageManager.PERMISSION_GRANTED && storagePermission == PackageManager.PERMISSION_GRANTED
-    }
-
-    private fun requestCameraPermission() {
-        ActivityCompat.requestPermissions(
-            this,
-            arrayOf(
-                android.Manifest.permission.CAMERA,
-                android.Manifest.permission.WRITE_EXTERNAL_STORAGE
-            ),
-            REQUEST_CAMERA_PERMISSION
-        )
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when (requestCode) {
-            REQUEST_CAMERA_PERMISSION -> {
-                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    setupView()
-                } else {
-                    showToast("Camera permission is required to use this feature.")
-                }
-            }
-        }
+    companion object {
+        const val EXTRA_USER = "extra_user"
     }
 }

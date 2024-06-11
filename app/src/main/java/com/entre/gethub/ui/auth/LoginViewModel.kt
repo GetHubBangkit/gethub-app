@@ -20,6 +20,7 @@ class LoginViewModel(
     private val userPreferences: UserPreferences
 ) : ViewModel() {
     private val result = MediatorLiveData<Result<LoginResponse>>()
+    val canNavigate = MediatorLiveData(false)
 
     fun login(email: String, password: String): LiveData<Result<LoginResponse>> {
         viewModelScope.launch {
@@ -37,6 +38,7 @@ class LoginViewModel(
                         saveUserQRCode(user.qrCode.toString())
                         saveUserEmail(user?.email.toString())
                     }
+                    canNavigate.value = true
                 }
             } catch (e: HttpException) {
                 val jsonString = e.response()?.errorBody()?.string()

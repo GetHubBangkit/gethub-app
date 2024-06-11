@@ -139,14 +139,6 @@ class CompleteProfileActivity : AppCompatActivity() {
                 }
             }
 
-//            edAbout.doOnTextChanged { text, _, _, _ ->
-//                if (text.toString().isEmpty()) {
-//                    edAbout.error = getString(R.string.about_field_couldn_be_empty)
-//                } else {
-//                    edAbout.error = null
-//                }
-//            }
-
             if (scanCardResponse != null) {
                 val userProfile = scanCardResponse?.data
                 edFullname.setText(userProfile?.name ?: "")
