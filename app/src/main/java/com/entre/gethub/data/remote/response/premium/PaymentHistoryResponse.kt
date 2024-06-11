@@ -28,6 +28,12 @@ data class PaymentHistoryResponse(
         val amount: Int? = null,
 
         @field:SerializedName("status")
-        val status: String? = null
+        val status: String? = null,
+
+        @field:SerializedName("snap_token")
+        val snapToken: String? = null,
+
+        @field:SerializedName("snap_redirect")
+        val snapRedirect: String? = null,
     )
 }

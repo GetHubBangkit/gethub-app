@@ -76,7 +76,12 @@ class PaymentHistoryActivity : AppCompatActivity() {
                 LinearLayoutManager.VERTICAL,
                 false
             )
-            adapter = PaymentHistoryAdapter(paymentHistoryList)
+            adapter = PaymentHistoryAdapter(paymentHistoryList, seeDetailListener = { paymentHistory ->
+                val intent = Intent(this@PaymentHistoryActivity, PaymentHistoryDetailActivity::class.java).apply {
+                    putExtra(PaymentHistoryDetailActivity.EXTRA_REDIRECT_URL, paymentHistory.snapRedirect)
+                }
+                startActivity(intent)
+            })
         }
     }
 
