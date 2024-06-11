@@ -102,11 +102,25 @@ class LoginActivity : AppCompatActivity() {
                                 CompleteProfileValidationActivity::class.java
                             )
                                 .putExtra(CompleteProfileValidationActivity.EXTRA_USER, result.data)
-                            startActivity(intent)
-                            finish()
+                            loginViewModel.canNavigate.observe(this) { result ->
+                                if (result) {
+                                    startActivity(intent)
+                                    finish()
+                                }
+                            }
                         } else {
-                            startActivity(Intent(this@LoginActivity, MainActivity::class.java))
-                            finish()
+                            loginViewModel.canNavigate.observe(this) { result ->
+                                if (result) {
+                                    startActivity(
+                                        Intent(
+                                            this@LoginActivity,
+                                            MainActivity::class.java
+                                        )
+                                    )
+                                    finish()
+                                }
+                            }
+
                         }
                         showToast(getString(R.string.login_success))
                     }
