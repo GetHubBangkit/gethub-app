@@ -140,19 +140,51 @@
             app:layout_constraintTop_toTopOf="@id/recyclerViewHomeGethubLink"
             tools:visibility="visible" />
 
-        <TextView
-            android:id="@+id/tvEmptyLink"
-            style="@style/Poppins.Bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Link kosong"
-            android:textSize="14sp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clEmptyGethubLink"
+            android:layout_width="match_parent"
+            android:layout_height="66dp"
             android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@id/recyclerViewHomeGethubLink"
-            app:layout_constraintEnd_toEndOf="@id/recyclerViewHomeGethubLink"
-            app:layout_constraintStart_toStartOf="@id/recyclerViewHomeGethubLink"
-            app:layout_constraintTop_toTopOf="@id/recyclerViewHomeGethubLink"
-            tools:visibility="visible" />
+            tools:visibility="visible"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintBottom_toBottomOf="@+id/recyclerViewHomeGethubLink"
+            app:layout_constraintTop_toTopOf="@+id/recyclerViewHomeGethubLink">
+
+            <ImageView
+                android:id="@+id/ivEmptyLink"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/frame1"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/ivEmptyImageLink"
+                android:layout_width="49dp"
+                android:layout_height="38dp"
+                android:src="@drawable/emptyimage"
+                app:layout_constraintBottom_toBottomOf="@id/ivEmptyLink"
+                app:layout_constraintStart_toStartOf="@id/ivEmptyLink"
+                app:layout_constraintTop_toTopOf="@id/ivEmptyLink" />
+
+            <TextView
+                android:id="@+id/tvEmptyLink"
+                style="@style/Nunito"
+                android:layout_marginStart="5dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Pengguna Tidak Memiliki Link"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@id/ivEmptyLink"
+                app:layout_constraintEnd_toEndOf="@id/ivEmptyLink"
+                app:layout_constraintStart_toEndOf="@+id/ivEmptyImageLink"
+                app:layout_constraintTop_toTopOf="@id/ivEmptyLink" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         <ImageView
             android:id="@+id/icon_produkjasa"
@@ -208,15 +240,51 @@
             app:layout_constraintTop_toTopOf="@id/rvProducts"
             tools:visibility="visible" />
 
-        <include
-            android:id="@+id/emptyOnProduct"
-            layout="@layout/item_empty_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@id/rvProducts"
-            app:layout_constraintEnd_toEndOf="@id/rvProducts"
-            app:layout_constraintStart_toStartOf="@id/rvProducts"
-            app:layout_constraintTop_toTopOf="@id/rvProducts" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clEmptyProdukJasa"
+            android:layout_width="match_parent"
+            android:layout_height="66dp"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintBottom_toBottomOf="@+id/rvProducts"
+            app:layout_constraintTop_toTopOf="@+id/rvProducts">
+
+            <ImageView
+                android:id="@+id/ivEmptyProdukJasa"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/frame1"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/ivEmptyImageProdukJasa"
+                android:layout_width="49dp"
+                android:layout_height="38dp"
+                android:src="@drawable/emptyimage"
+                app:layout_constraintBottom_toBottomOf="@id/ivEmptyProdukJasa"
+                app:layout_constraintStart_toStartOf="@id/ivEmptyProdukJasa"
+                app:layout_constraintTop_toTopOf="@id/ivEmptyProdukJasa" />
+
+            <TextView
+                android:id="@+id/tvEmptyProdukJasa"
+                style="@style/Nunito"
+                android:layout_marginStart="5dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Pengguna Tidak Memiliki Produk/Jasa"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@id/ivEmptyProdukJasa"
+                app:layout_constraintEnd_toEndOf="@id/ivEmptyProdukJasa"
+                app:layout_constraintStart_toEndOf="@+id/ivEmptyImageProdukJasa"
+                app:layout_constraintTop_toTopOf="@id/ivEmptyProdukJasa" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         <ImageView
             android:id="@+id/icon_certiciation"
@@ -259,6 +327,50 @@
             app:layout_constraintTop_toBottomOf="@+id/Certification"
             tools:listitem="@layout/item_home_kelolamygethub_sertifikasi_public_user" />
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clEmptySertifikasi"
+            android:layout_width="match_parent"
+            android:layout_height="66dp"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintTop_toTopOf="@+id/rvCertification"
+            app:layout_constraintBottom_toBottomOf="@id/rvCertification">
+
+            <ImageView
+                android:id="@+id/ivEmptySertifikasi"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/frame1"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/ivEmptyImageSertifikasi"
+                android:layout_width="49dp"
+                android:layout_height="38dp"
+                android:src="@drawable/emptyimage"
+                app:layout_constraintBottom_toBottomOf="@id/ivEmptySertifikasi"
+                app:layout_constraintStart_toStartOf="@id/ivEmptySertifikasi"
+                app:layout_constraintTop_toTopOf="@id/ivEmptySertifikasi" />
+
+            <TextView
+                android:id="@+id/tvEmptySertifikasi"
+                style="@style/Nunito"
+                android:layout_width="0dp"
+                android:layout_marginStart="5dp"
+                android:layout_height="wrap_content"
+                android:text="Pengguna Tidak Memiliki Sertifikasi"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@id/ivEmptySertifikasi"
+                app:layout_constraintEnd_toEndOf="@id/ivEmptySertifikasi"
+                app:layout_constraintStart_toEndOf="@+id/ivEmptyImageSertifikasi"
+                app:layout_constraintTop_toTopOf="@id/ivEmptySertifikasi" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
         <ProgressBar
             android:id="@+id/progressBaronCertification"
             android:layout_width="wrap_content"
@@ -273,20 +385,7 @@
 
             tools:visibility="visible" />
 
-        <TextView
-            android:id="@+id/tvEmptyCertification"
-            style="@style/Poppins.Bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sertifikasi masih kosong"
-            android:textSize="14sp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@+id/rvCertification"
-            app:layout_constraintEnd_toEndOf="@+id/rvCertification"
-            app:layout_constraintStart_toStartOf="@+id/rvCertification"
-            app:layout_constraintTop_toTopOf="@+id/rvCertification"
 
-            tools:visibility="visible" />
 
 
         <ImageView
@@ -341,20 +440,50 @@
             app:layout_constraintVertical_bias="0.0"
             tools:visibility="visible" />
 
-        <TextView
-            android:id="@+id/tvEmptyProjectDiselesaikan"
-            style="@style/Poppins.Bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Project Diselesaikan masih kosong"
-            android:textSize="14sp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clEmptyProjectDiselesaikan"
+            android:layout_width="match_parent"
             android:visibility="gone"
+            tools:visibility="visible"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_height="66dp"
             app:layout_constraintBottom_toBottomOf="@+id/rvProjectDiselesaikan"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/rvProjectDiselesaikan"
-            app:layout_constraintTop_toTopOf="@+id/rvProjectDiselesaikan"
-            app:layout_constraintVertical_bias="0.25"
-            tools:visibility="visible" />
+            app:layout_constraintTop_toTopOf="@+id/rvProjectDiselesaikan">
+
+            <ImageView
+                android:id="@+id/ivEmptyProjectDiselesaikan"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/frame1"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/ivEmptyImageProjectDiselesaikan"
+                android:layout_width="49dp"
+                android:layout_height="38dp"
+                android:src="@drawable/emptyimage"
+                app:layout_constraintBottom_toBottomOf="@id/ivEmptyProjectDiselesaikan"
+                app:layout_constraintStart_toStartOf="@id/ivEmptyProjectDiselesaikan"
+                app:layout_constraintTop_toTopOf="@id/ivEmptyProjectDiselesaikan" />
+
+            <TextView
+                android:id="@+id/tvEmptyProjectDiselesaikan"
+                style="@style/Nunito"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="Pengguna Belum Memiliki Project yang telah diselesaikan"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@id/ivEmptyProjectDiselesaikan"
+                app:layout_constraintStart_toEndOf="@+id/ivEmptyImageProjectDiselesaikan"
+                app:layout_constraintTop_toTopOf="@id/ivEmptyProjectDiselesaikan"
+                app:layout_constraintEnd_toEndOf="@id/ivEmptyProjectDiselesaikan"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
