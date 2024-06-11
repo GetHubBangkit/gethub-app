@@ -38,7 +38,7 @@ class TermsConditionActivity : AppCompatActivity() {
                         showLoading(false)
                     }
                 }
-                loadUrl("https://google.com")
+                loadUrl("https://gethub-webporto-kot54pmj3q-et.a.run.app/term-condition")
             }
         }
     }
