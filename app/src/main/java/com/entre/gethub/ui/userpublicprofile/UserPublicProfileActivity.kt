@@ -123,10 +123,7 @@ class UserPublicProfileActivity : AppCompatActivity() {
                 }
                 is Result.Empty -> {
                     showLoadingOnProduct(false)
-                    binding.emptyOnProduct.apply {
-                        llEmpty.visibility = View.VISIBLE
-                        tvEmpty.text = result.emptyError
-                    }
+                    showEmptyErrorOnProduct(true,result.emptyError)
                 }
                 is Result.Error -> {
                     showLoadingOnProduct(false)
@@ -152,7 +149,7 @@ class UserPublicProfileActivity : AppCompatActivity() {
                 }
                 is Result.Empty -> {
                     showLoadingOnCertification(false)
-                    showEmptyOnCertification(true, result.emptyError)
+                    showEmptyErrorOnCertification(true, result.emptyError)
                 }
                 is Result.Error -> {
                     showLoadingOnProduct(false)
@@ -178,6 +175,7 @@ class UserPublicProfileActivity : AppCompatActivity() {
                 }
                 is Result.Empty -> {
                     showLoadingOnProjects(false)
+                    showEmptyErrorOnProjectDiselesaikan(true, result.emptyError)
                 }
                 is Result.Error -> {
                     showLoadingOnProduct(false)
@@ -296,11 +294,17 @@ class UserPublicProfileActivity : AppCompatActivity() {
         binding.progressBarLink.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
-    private fun showEmptyOnCertification(isEmpty: Boolean, message: String) {
-        binding.tvEmptyCertification.visibility = if (isEmpty) View.VISIBLE else View.GONE
+    private fun showEmptyErrorOnLink(isError: Boolean, message: String) {
+        binding.clEmptyGethubLink.visibility = if (isError) View.VISIBLE else View.GONE
     }
-    private fun showEmptyErrorOnLink(isEmpty: Boolean, message: String) {
-        binding.tvEmptyLink.text = message
-        binding.tvEmptyLink.visibility = if (isEmpty) View.VISIBLE else View.GONE
+    private fun showEmptyErrorOnProduct(isError: Boolean, message: String) {
+        binding.clEmptyProdukJasa.visibility = if (isError) View.VISIBLE else View.GONE
+    }
+
+    private fun showEmptyErrorOnCertification(isError: Boolean, message: String) {
+        binding.clEmptySertifikasi.visibility = if (isError) View.VISIBLE else View.GONE
+    }
+    private fun showEmptyErrorOnProjectDiselesaikan(isError: Boolean, message: String) {
+        binding.clEmptyProjectDiselesaikan.visibility = if (isError) View.VISIBLE else View.GONE
     }
 }

@@ -466,7 +466,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clEmptyEvent"
             android:layout_width="match_parent"
-            android:layout_height="232dp"
+            android:layout_height="242dp"
             android:visibility="gone"
             tools:visibility="visible"
             android:layout_marginStart="20dp"
@@ -501,8 +501,8 @@
                 android:layout_height="wrap_content"
                 android:text="Tidak Ada Event Rekomendasi yg cocok untuk kamu"
                 android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/clEmptyEvent"
+                app:layout_constraintStart_toStartOf="@+id/clEmptyEvent"
                 app:layout_constraintTop_toBottomOf="@+id/ivEmptyImageEvent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
