@@ -21,6 +21,7 @@ import com.entre.gethub.ui.project.freelancerbidproject.BidProjectStatusActivity
 import com.entre.gethub.ui.project.freelancerbidproject.BidProjectStatusDetailActivity
 import com.entre.gethub.ui.project.ownerpostedproject.PostedProjectStatusActivity
 import com.entre.gethub.ui.project.postproject.PostProjectActivity
+import com.entre.gethub.ui.userpublicprofile.UserPublicProfileActivity
 import com.entre.gethub.utils.ViewModelFactory
 
 class ProjectFragment : Fragment() {
@@ -143,10 +144,13 @@ class ProjectFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = TopTalentAdapter(topTalentList) { topTalent, position ->
                 // Handle click event
-                Toast.makeText(requireContext(), "Clicked on talent: ${topTalent.fullName}", Toast.LENGTH_SHORT).show()
+                val intent = Intent(requireContext(), UserPublicProfileActivity::class.java)
+                intent.putExtra("username", topTalent.username)
+                startActivity(intent)
             }
         }
     }
+
 
     private fun setupRecyclerViewProjectBid(projectBidList: List<ProjectStatsResponse.BidProjectsItem>) {
         binding.rvRekomendasiProjectBid.apply {

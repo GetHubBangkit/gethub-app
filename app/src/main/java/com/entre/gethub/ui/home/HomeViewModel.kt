@@ -127,12 +127,12 @@ class HomeViewModel(
                 val errorBody = Gson().fromJson(jsonString, ApiResponse::class.java)
                 val errorMessage = errorBody.message
                 if (e.code() == 404) {
-                    getReysEventResult.value = Result.Empty(errorMessage ?: "No data found")
+                    getReysEventResult.value = Result.Empty(errorMessage!!)
                 } else {
-                    getReysEventResult.value = Result.Error(errorMessage ?: "An error occurred")
+                    getReysEventResult.value = Result.Error(errorMessage!!)
                 }
             } catch (e: Exception) {
-                getReysEventResult.value = Result.Error(e.message ?: "An error occurred")
+                getReysEventResult.value = Result.Error(e.toString())
             }
         }
         return getReysEventResult

@@ -113,11 +113,17 @@ class AnaliticFragment : Fragment() {
                     showLoadingOnCardView(false)
                     val cardViewersResponse = result.data
                     cardViewersResponse.data?.let { dataItems ->
-                        viewersList.clear()
-                        viewersList.addAll(dataItems)
-                        adapter.notifyDataSetChanged()
+                        if (dataItems.isEmpty()) {
+                            showEmptyErrorOnCardView(true, "Gethub Kamu belum Ada yang Melihat")
+                        } else {
+                            showEmptyErrorOnCardView(false, "Berhasil Mendapatkan Gethub Yang Melihat")
+                            viewersList.clear()
+                            viewersList.addAll(dataItems)
+                            adapter.notifyDataSetChanged()
+                        }
                     }
                 }
+
                 is Result.Error -> {
                     showLoadingOnCardView(false)
                     Toast.makeText(requireContext(), result.error, Toast.LENGTH_SHORT).show()
@@ -200,7 +206,6 @@ class AnaliticFragment : Fragment() {
     }
 
     private fun showEmptyErrorOnCardView(isError: Boolean, message: String) {
-        binding.tvEmptyGethubKamuDilihat.text = message
-        binding.tvEmptyGethubKamuDilihat.visibility = if (isError) View.VISIBLE else View.GONE
+        binding.clEmptyGethubDilihat.visibility = if (isError) View.VISIBLE else View.GONE
     }
 }

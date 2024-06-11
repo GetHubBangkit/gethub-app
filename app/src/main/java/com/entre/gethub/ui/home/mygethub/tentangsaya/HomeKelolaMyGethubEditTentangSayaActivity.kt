@@ -137,13 +137,6 @@ class HomeKelolaMyGethubEditTentangSayaActivity : AppCompatActivity() {
                 }
             }
 
-            edAbout.doOnTextChanged { text, _, _, _ ->
-                if (text.toString().isEmpty()) {
-                    edAbout.error = getString(R.string.about_field_couldn_be_empty)
-                } else {
-                    edAbout.error = null
-                }
-            }
 
             // Observe the user profile data
             completeProfileViewModel.getUserProfile().observe(this@HomeKelolaMyGethubEditTentangSayaActivity) { result ->
