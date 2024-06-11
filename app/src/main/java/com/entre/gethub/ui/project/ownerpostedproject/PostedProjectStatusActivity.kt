@@ -118,9 +118,14 @@ class PostedProjectStatusActivity : AppCompatActivity() {
                 },
                 seeContractListener = { project ->
                     val url = getString(R.string.digital_contract_url)
-                    val digitalContractUrl = url.replace("{endpoint}", project.chatroomId.toString())
-                    val intent = Intent(this@PostedProjectStatusActivity, DigitalContractActivity::class.java).apply {
+                    val digitalContractUrl =
+                        url.replace("{endpoint}", project.chatroomId.toString())
+                    val intent = Intent(
+                        this@PostedProjectStatusActivity,
+                        DigitalContractActivity::class.java
+                    ).apply {
                         putExtra(DigitalContractActivity.EXTRA_REDIRECT_URL, digitalContractUrl)
+                        putExtra(DigitalContractActivity.EXTRA_CONTRACT_ID, project.chatroomId)
                     }
                     startActivity(intent)
                 }
