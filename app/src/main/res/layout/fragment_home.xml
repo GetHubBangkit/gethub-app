@@ -466,9 +466,10 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clEmptyEvent"
             android:layout_width="match_parent"
-            android:layout_height="242dp"
+            android:layout_height="202dp"
             android:visibility="gone"
             tools:visibility="visible"
+            android:layout_marginTop="20dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             app:layout_constraintBottom_toBottomOf="@+id/recyclerViewInformationHub"
@@ -479,16 +480,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/frame1"
+                app:layout_constraintBottom_toBottomOf="@+id/clEmptyEvent"
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintEnd_toEndOf="@+id/clEmptyEvent"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@+id/clEmptyEvent"
                 app:layout_constraintTop_toTopOf="@+id/clEmptyEvent"
-                app:layout_constraintBottom_toBottomOf="@+id/clEmptyEvent"/>
+                app:layout_constraintVertical_bias="1.0" />
 
             <ImageView
                 android:id="@+id/ivEmptyImageEvent"
-                android:layout_width="312dp"
-                android:layout_height="217dp"
+                android:layout_width="300dp"
+                android:layout_height="200dp"
                 android:src="@drawable/emptyimageevent"
                 app:layout_constraintEnd_toEndOf="@+id/ivEmptyEvent"
                 app:layout_constraintStart_toStartOf="@+id/ivEmptyEvent" />

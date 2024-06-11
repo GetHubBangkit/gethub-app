@@ -2,12 +2,14 @@ package com.entre.gethub.ui.akun
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -18,6 +20,7 @@ import com.entre.gethub.databinding.FragmentAkunBinding
 import com.entre.gethub.ui.akun.membership.MembershipActivity
 import com.entre.gethub.ui.akun.paymenthistory.PaymentHistoryActivity
 import com.entre.gethub.ui.auth.LoginActivity
+import com.entre.gethub.utils.Formatter
 import com.entre.gethub.utils.ViewModelFactory
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
@@ -32,6 +35,7 @@ class AkunFragment : Fragment() {
         initViewModel()
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -174,6 +178,7 @@ class AkunFragment : Fragment() {
 
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun getUserData() {
         akunViewModel.getUserProfile().observe(viewLifecycleOwner) { result ->
             when (result) {
@@ -189,8 +194,9 @@ class AkunFragment : Fragment() {
                         tvUserFullname.text = user?.fullName
                         tvUserProfession.text = user?.profession
                         if (user.isPremium == true) {
+                            val expiredDate = Formatter.formatPostDate(user?.premiumExpiredDate!!)
                             binding.llPremium.visibility = View.VISIBLE
-                            tvExpiredDate.text = "Expired ${user.premiumExpiredDate}"
+                            tvExpiredDate.text = "Expired $expiredDate"
                         }
                         if (user.isPremium == false) {
                             binding.ivPremiumFreeplan.visibility = View.VISIBLE

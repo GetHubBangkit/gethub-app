@@ -11,7 +11,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -32,6 +31,7 @@ class GethubFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var sponsorAdapter: SponsorAdapter
     private lateinit var gethubViewModel: GethubViewModel
+    private var username: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,6 +77,7 @@ class GethubFragment : Fragment() {
                     is Result.Success -> {
                         showLoadingOnCard(false)
                         val user = result.data.data
+                        username = user?.username // Mendapatkan username
                         with(binding) {
                             cardBaseItem.apply {
                                 tvGethubName.text = user?.fullName
@@ -228,7 +229,7 @@ class GethubFragment : Fragment() {
         val shareIntent = Intent().apply {
             action = Intent.ACTION_SEND
             putExtra(Intent.EXTRA_STREAM, uri)
-            putExtra(Intent.EXTRA_TEXT, "Halo ges ini tes ya ")
+            putExtra(Intent.EXTRA_TEXT, "https://gethub-webporto-kot54pmj3q-et.a.run.app/$username") // Menambahkan username ke URL
             type = "image/jpeg"
         }
 
@@ -288,6 +289,7 @@ class GethubFragment : Fragment() {
     companion object {
         const val TAG = "GetHubFragment"
     }
+}
 
 //    private fun setupConstraintLayout() {
 //        val clEmptyGethubPartner = binding.clEmptyGethubPartner
@@ -304,4 +306,4 @@ class GethubFragment : Fragment() {
 //            gethubSponsor.layoutParams = params
 //        }
 //    }
-}
+
