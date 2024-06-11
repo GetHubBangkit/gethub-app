@@ -162,16 +162,60 @@
             app:layout_constraintTop_toBottomOf="@id/cvInputs"
             tools:listitem="@layout/card_base_item" />
 
-        <include
-            android:id="@+id/empty"
-            layout="@layout/item_empty_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@id/rvGethubPartner"
-            app:layout_constraintEnd_toEndOf="@id/rvGethubPartner"
-            app:layout_constraintStart_toStartOf="@id/rvGethubPartner"
-            app:layout_constraintTop_toTopOf="@id/rvGethubPartner" />
+<!--        <include-->
+<!--            android:id="@+id/empty"-->
+<!--            layout="@layout/item_empty_layout"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintBottom_toBottomOf="@id/rvGethubPartner"-->
+<!--            app:layout_constraintEnd_toEndOf="@id/rvGethubPartner"-->
+<!--            app:layout_constraintStart_toStartOf="@id/rvGethubPartner"-->
+<!--            app:layout_constraintTop_toTopOf="@id/rvGethubPartner" />-->
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clEmptyPartnerList"
+            android:layout_width="match_parent"
+            android:layout_height="252dp"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintBottom_toBottomOf="@+id/rvGethubPartner"
+            app:layout_constraintTop_toTopOf="@+id/rvGethubPartner">
+
+            <ImageView
+                android:id="@+id/ivEmptyPartnerList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/frame1"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toEndOf="@+id/clEmptyPartnerList"
+                app:layout_constraintStart_toStartOf="@+id/clEmptyPartnerList"
+                app:layout_constraintTop_toTopOf="@+id/clEmptyPartnerList"
+                app:layout_constraintBottom_toBottomOf="@+id/clEmptyPartnerList"/>
+
+            <ImageView
+                android:id="@+id/ivEmptyImagePartnerList"
+                android:layout_width="312dp"
+                android:layout_height="217dp"
+                android:src="@drawable/emptyimageevent"
+                app:layout_constraintEnd_toEndOf="@+id/ivEmptyPartnerList"
+                app:layout_constraintStart_toStartOf="@+id/ivEmptyPartnerList" />
+
+            <TextView
+                android:id="@+id/tvEmptyPartnerList"
+                style="@style/Nunito"
+                android:layout_width="0dp"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:text="Tidak Ada Partner Yang Kamu Miliki"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivEmptyImagePartnerList" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        
         <ProgressBar
             android:id="@+id/progressBar"
             android:layout_width="wrap_content"
