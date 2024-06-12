@@ -20,6 +20,9 @@ import com.entre.gethub.utils.uriToFile
 import com.entre.gethub.utils.ViewModelFactory
 import java.io.File
 
+import android.app.AlertDialog
+import android.provider.MediaStore
+
 class GethubAddPartnerActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityGethubAddPartnerBinding.inflate(layoutInflater) }
@@ -52,8 +55,63 @@ class GethubAddPartnerActivity : AppCompatActivity() {
         }
 
         binding.ivScan.setOnClickListener {
-            requestCameraPermission()
+            showImageSourceOptions()
         }
+    }
+
+    private fun showImageSourceOptions() {
+        val options = arrayOf("Kamera", "Galeri")
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Pilih Sumber Gambar")
+        builder.setItems(options) { dialog, which ->
+            when (which) {
+                0 -> requestCameraPermission()
+                1 -> pickPhotoFromGallery()
+            }
+            dialog.dismiss()
+        }
+        builder.show()
+    }
+
+    private val pickPhotoFromGalleryLauncher = registerForActivityResult(
+        ActivityResultContracts.GetContent()
+    ) { uri: Uri? ->
+        uri?.let {
+            currentImageUri = it
+            gethubAddPartnerViewModel.scanCard(
+                uriToFile(
+                    currentImageUri!!,
+                    this@GethubAddPartnerActivity
+                ).reduceFileImage()
+            ).observe(this@GethubAddPartnerActivity) { result ->
+                if (result != null) {
+                    when (result) {
+                        is Result.Loading -> showLoading(true)
+                        is Result.Success -> {
+                            showLoading(false)
+                            showToast(result.data.message.toString())
+                            val intent = Intent(this@GethubAddPartnerActivity, GethubAddPartnerFormActivity::class.java).apply {
+                                putExtra(GethubAddPartnerFormActivity.SCAN_CARD_RESULT_EXTRA, result.data)
+                            }
+                            startActivity(intent)
+                        }
+
+                        is Result.Error -> {
+                            showLoading(false)
+                            showToast(result.error)
+                        }
+
+                        else -> {
+                            //
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun pickPhotoFromGallery() {
+        pickPhotoFromGalleryLauncher.launch("image/*")
     }
 
     private val requestCameraPermissionLauncher =
