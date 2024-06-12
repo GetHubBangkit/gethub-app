@@ -27,8 +27,21 @@ class MembershipPaymentActivity : AppCompatActivity() {
         setupWebView(redirectUrl)
 
         binding.iconBack.setOnClickListener {
-            finish()
+            goToPaymentHistory()
         }
+    }
+
+    private fun goToPaymentHistory() {
+        val intent = Intent(this, PaymentHistoryActivity::class.java).apply {
+            putExtra(PaymentHistoryActivity.EXTRA_CODE_FROM_OTHER_ACTIVITY, 76)
+        }
+        startActivity(intent)
+        finish()
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        goToPaymentHistory()
     }
 
     @SuppressLint("SetJavaScriptEnabled")

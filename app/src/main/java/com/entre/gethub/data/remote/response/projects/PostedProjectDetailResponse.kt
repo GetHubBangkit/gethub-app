@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class PostedProjectDetailResponse(
 
     @field:SerializedName("data")
-    val data: Data? = null,
+    val data: Data,
 
     @field:SerializedName("success")
     val success: Boolean? = null,
