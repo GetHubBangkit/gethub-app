@@ -80,6 +80,14 @@ class PostedProjectStatusDetailActivity : AppCompatActivity() {
                             tvPostDate.text = project?.createdDate
                             tvUserBiddingTotalPerson.text = "${project?.totalBidders ?: 0} Orang"
                             tvUserBiddingTotalOnList.text = "${project?.totalBidders ?: 0} Orang"
+
+                            if (project?.ownerProject?.isPremium == true) {
+                                ivPremium.visibility = View.VISIBLE
+                            }
+
+                            if (project?.ownerProject?.isVerifKtp == true) {
+                                ivVerified.visibility = View.VISIBLE
+                            }
                         }
                         setupRecyclerViewUserBidding(
                             project = project,

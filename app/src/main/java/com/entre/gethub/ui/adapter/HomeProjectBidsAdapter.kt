@@ -2,6 +2,7 @@ package com.entre.gethub.ui.adapter
 
 import android.os.Build
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
@@ -55,6 +56,13 @@ class HomeProjectBidsAdapter(
                     .into(ivProjectOwnerPic)
                 tvProjectOwnerName.text = projectBid.ownerProject?.fullName
                 tvProjectOwnerProfession.text = projectBid.ownerProject?.profession
+                if (projectBid.ownerProject?.isPremium == true) {
+                    ivPremium.visibility = View.VISIBLE
+                }
+
+                if (projectBid.ownerProject?.isVerifKtp == true) {
+                    ivVerified.visibility = View.VISIBLE
+                }
 
                 // Project Data
                 tvProjectTitle.text = projectBid.title

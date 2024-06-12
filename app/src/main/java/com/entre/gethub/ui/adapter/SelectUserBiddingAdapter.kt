@@ -58,6 +58,14 @@ class SelectUserBiddingAdapter(
                 tvProjectAmount.text = budgetBid
                 tvMessage.text = userBidding.message
 
+                if (userBidding.isPremium) {
+                    ivPremium.visibility = View.VISIBLE
+                }
+
+                if (userBidding.isVerifKtp) {
+                    ivVerified.visibility = View.VISIBLE
+                }
+
                 if (project.statusProject == "CLOSE" && userBidding.isSelected == false) {
                     cvSelect.visibility = View.GONE
                 }
@@ -81,7 +89,10 @@ class SelectUserBiddingAdapter(
                 }
 
 
-                showUserSentiment(userBidding.fullName.toString(), sentiment = userBidding.sentimentFreelanceAnalisis.toString())
+                showUserSentiment(
+                    userBidding.fullName.toString(),
+                    sentiment = userBidding.sentimentFreelanceAnalisis.toString()
+                )
             }
         }
 

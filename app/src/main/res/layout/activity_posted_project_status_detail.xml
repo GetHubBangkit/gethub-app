@@ -155,14 +155,37 @@
             <TextView
                 android:id="@+id/tvPosterJobName"
                 style="@style/Nunito"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:text="Freelancer"
                 android:textSize="10sp"
-                app:layout_constraintEnd_toStartOf="@id/tvPostDate"
                 app:layout_constraintStart_toEndOf="@id/ivPosterProfile"
                 app:layout_constraintTop_toBottomOf="@id/tvPosterName" />
+
+            <ImageView
+                android:id="@+id/ivPremium"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/ic_medal"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@id/tvPosterJobName"
+                app:layout_constraintStart_toEndOf="@id/tvPosterJobName"
+                app:layout_constraintTop_toTopOf="@id/tvPosterJobName"
+                tools:visibility="visible" />
+
+            <ImageView
+                android:id="@+id/ivVerified"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_marginStart="4dp"
+                android:src="@drawable/ic_verified"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@id/tvPosterJobName"
+                app:layout_constraintStart_toEndOf="@id/ivPremium"
+                app:layout_constraintTop_toTopOf="@id/tvPosterJobName"
+                tools:visibility="visible" />
 
             <TextView
                 android:id="@+id/tvPostDate"
@@ -257,8 +280,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:visibility="gone"
         android:elevation="10dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

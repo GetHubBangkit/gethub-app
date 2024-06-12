@@ -35,7 +35,13 @@ data class SearchProjectResponse(
         val photo: String? = null,
 
         @field:SerializedName("username")
-        val username: String? = null
+        val username: String? = null,
+
+        @field:SerializedName("is_premium")
+        val isPremium: Boolean,
+
+        @field:SerializedName("is_verif_ktp")
+        val isVerifKtp: Boolean,
     )
 
     data class ProjectsItem(
