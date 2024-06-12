@@ -18,6 +18,8 @@ import com.entre.gethub.data.Result
 import com.entre.gethub.data.remote.response.auth.LoginResponse
 import com.entre.gethub.databinding.ActivityCompleteProfileValidationBinding
 import com.entre.gethub.ui.auth.LoginActivity
+import com.entre.gethub.ui.completeprofile.CompleteProfileActivity
+import com.entre.gethub.ui.completeprofile.CompleteProfileValidationViewModel
 import com.entre.gethub.utils.ViewModelFactory
 import com.entre.gethub.utils.getImageUri
 import com.entre.gethub.utils.reduceFileImage
@@ -70,7 +72,7 @@ class CompleteProfileValidationActivity : AppCompatActivity() {
 
         with(binding) {
             ivScan.setOnClickListener {
-                requestCameraPermission()
+                showImageSourceOptions()
             }
 
             ivManual.setOnClickListener {
@@ -82,6 +84,67 @@ class CompleteProfileValidationActivity : AppCompatActivity() {
                 )
             }
         }
+    }
+
+    private fun showImageSourceOptions() {
+        val options = arrayOf("Kamera", "Galeri")
+        val builder = MaterialAlertDialogBuilder(this)
+        builder.setTitle("Pilih Sumber Gambar")
+        builder.setItems(options) { dialog, which ->
+            when (which) {
+                0 -> requestCameraPermission()
+                1 -> pickPhotoFromGallery()
+            }
+            dialog.dismiss()
+        }
+        builder.show()
+    }
+
+    private val pickPhotoFromGalleryLauncher = registerForActivityResult(
+        ActivityResultContracts.GetContent()
+    ) { uri: Uri? ->
+        uri?.let {
+            currentImageUri = it
+            completeProfileValidationViewModel.scanCard(
+                uriToFile(
+                    currentImageUri!!,
+                    this@CompleteProfileValidationActivity
+                ).reduceFileImage()
+            ).observe(this@CompleteProfileValidationActivity) { result ->
+                if (result != null) {
+                    when (result) {
+                        is Result.Loading -> showLoading(true)
+                        is Result.Success -> {
+                            showLoading(false)
+                            showToast(result.data.message.toString())
+                            val intent = Intent(
+                                this@CompleteProfileValidationActivity,
+                                CompleteProfileActivity::class.java
+                            ).apply {
+                                putExtra(
+                                    CompleteProfileActivity.SCAN_CARD_RESULT_EXTRA,
+                                    result.data
+                                )
+                            }
+                            startActivity(intent)
+                        }
+
+                        is Result.Error -> {
+                            showLoading(false)
+                            showToast(result.error)
+                        }
+
+                        else -> {
+                            //
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun pickPhotoFromGallery() {
+        pickPhotoFromGalleryLauncher.launch("image/*")
     }
 
     private val requestCameraPermissionLauncher =
@@ -238,3 +301,4 @@ class CompleteProfileValidationActivity : AppCompatActivity() {
         const val EXTRA_USER = "extra_user"
     }
 }
+
