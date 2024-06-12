@@ -19,6 +19,7 @@ import com.entre.gethub.databinding.ActivityPostProjectBinding
 import com.entre.gethub.databinding.DialogLoadingBinding
 import com.entre.gethub.ui.adapter.CategoryAdapter
 import com.entre.gethub.ui.project.postproject.milestone.ProjectMilestoneActivity
+import com.entre.gethub.utils.Formatter
 import com.entre.gethub.utils.ViewModelFactory
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.util.Calendar
@@ -90,8 +91,8 @@ class PostProjectActivity : AppCompatActivity() {
             }
 
             btnPost.setOnClickListener {
-                val minBudget = minBudgetEditText?.text.toString().toInt()
-                val maxBudget = maxBudgetEditText?.text.toString().toInt()
+                val minBudget = Formatter.getCurrencyValue(minBudgetEditText?.text.toString())
+                val maxBudget = Formatter.getCurrencyValue(maxBudgetEditText?.text.toString())
                 val title = titleEditText?.text.toString()
                 val description = descriptionEditText?.text.toString()
 

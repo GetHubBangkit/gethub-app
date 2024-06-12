@@ -39,6 +39,11 @@ object Formatter {
         return numberFormat.format(value)
     }
 
+    fun getCurrencyValue(text: String): Int {
+        val cleanString = text.replace("[,.]".toRegex(), "")
+        return cleanString.toIntOrNull() ?: 0
+    }
+
     fun maskPhoneNumbers(text: String): String {
         // Regex untuk mendeteksi nomor telepon
         val phoneRegex = "\\b(?:\\+?\\d{1,3})?[-.\\s]?\\(?\\d{1,4}?\\)?[-.\\s]?\\d{1,4}[-.\\s]?\\d{1,9}\\b".toRegex()

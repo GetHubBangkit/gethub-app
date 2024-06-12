@@ -137,11 +137,11 @@ dan kerjakan dengan maksimal"
                 android:minHeight="47dp"
                 app:layout_constraintTop_toBottomOf="@+id/tvHarga">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <com.entre.gethub.ui.widgets.CustomCurrencyEditText
                     android:layout_width="match_parent"
                     android:layout_height="37dp"
                     android:layout_marginTop="10dp"
-                    android:hint="2000000"
+                    android:hint="200000"
                     android:inputType="number"
                     android:paddingVertical="1dp"
                     android:textSize="14sp" />

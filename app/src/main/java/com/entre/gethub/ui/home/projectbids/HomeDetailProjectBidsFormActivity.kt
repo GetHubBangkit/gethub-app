@@ -62,7 +62,7 @@ class HomeDetailProjectBidsFormActivity : AppCompatActivity() {
             if (edBudgetBid?.text.toString().isEmpty() || edMessage?.text.toString().isEmpty()) {
                 showToast(getString(R.string.field_couldnt_be_empty))
             } else {
-                val budgetBidNominal: Int = edBudgetBid?.text.toString().toInt()
+                val budgetBidNominal: Int = Formatter.getCurrencyValue(edBudgetBid?.text.toString())
 
                 bidProject(projectBidId.toString(), budgetBidNominal, edMessage?.text.toString())
             }
