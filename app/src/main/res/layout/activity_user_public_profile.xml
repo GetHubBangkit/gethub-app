@@ -219,7 +219,7 @@
         <FrameLayout
             android:id="@+id/flProducts"
             android:layout_width="match_parent"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/produkjasa">
 
@@ -227,7 +227,6 @@
                 android:id="@+id/rvProducts"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -337,7 +336,7 @@
                 android:id="@+id/rvCertification"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintHorizontal_bias="0.0"
