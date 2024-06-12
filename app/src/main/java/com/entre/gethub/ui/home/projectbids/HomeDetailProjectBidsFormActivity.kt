@@ -86,7 +86,7 @@ class HomeDetailProjectBidsFormActivity : AppCompatActivity() {
                                 ).apply {
                                     putExtra(
                                         BidProjectStatusActivity.EXTRA_ID_FROM_PROJECT_BID_FORM_ACTIVITY,
-                                        99
+                                        108
                                     )
                                 }
                             )

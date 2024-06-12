@@ -177,7 +177,11 @@ class PostedProjectStatusDetailActivity : AppCompatActivity() {
             .setTitle(title)
             .setMessage(message)
             .setPositiveButton("Yakin") { dialog, _ ->
-                chooseBidder(projectId, freelancerId)
+                val intent = Intent(this, OwnerSettlementActivity::class.java).apply {
+                    putExtra(OwnerSettlementActivity.EXTRA_PROJECT_ID, projectId)
+                    putExtra(OwnerSettlementActivity.EXTRA_FREELANCER_ID, freelancerId)
+                }
+                startActivity(intent)
                 dialog.dismiss()
             }
             .setNegativeButton("Batal") { dialog, _ ->

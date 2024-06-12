@@ -2,6 +2,7 @@ package com.entre.gethub.ui.project.freelancerbidproject
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.view.KeyEvent.KEYCODE_BACK
 import android.view.View
@@ -37,13 +38,27 @@ class BidProjectStatusActivity : AppCompatActivity() {
         getMyProjectBids()
 
         binding.iconBack.setOnClickListener {
-            if (homeDetailProjectBidsFormId!!.equals(99)) {
-                startActivity(Intent(this@BidProjectStatusActivity, MainActivity::class.java))
-                finish()
-                return@setOnClickListener
-            }
-            finish()
+            handleBackPressed()
         }
+    }
+
+    private fun handleBackPressed() {
+        if (homeDetailProjectBidsFormId!!.equals(108)) {
+            startActivity(
+                Intent(
+                    this@BidProjectStatusActivity,
+                    MainActivity::class.java
+                )
+            )
+            finish()
+            return
+        }
+        finish()
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        handleBackPressed()
     }
 
     override fun getOnBackInvokedDispatcher(): OnBackInvokedDispatcher {
@@ -51,22 +66,12 @@ class BidProjectStatusActivity : AppCompatActivity() {
             this /* lifecycle owner */,
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    if (homeDetailProjectBidsFormId!!.equals(99)) {
-                        startActivity(
-                            Intent(
-                                this@BidProjectStatusActivity,
-                                MainActivity::class.java
-                            )
-                        )
-                        finish()
-                        return
-                    }
-                    finish()
+                    Log.d("BidProjectStatusActivity", "handleOnBackPressed: clicked")
+                    handleBackPressed()
                 }
             })
         return super.getOnBackInvokedDispatcher()
     }
-
 
     private fun getMyProjectBids() {
         bidProjectStatusViewModel.getMyProjectBids().observe(this) { result ->
