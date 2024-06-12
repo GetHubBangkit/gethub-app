@@ -41,22 +41,25 @@ class HomeInformationAllActivity : AppCompatActivity() {
 
 
     private fun getInformationList() {
-        homeInformationAllViewModel.informationHubs.observe(this, Observer { result ->
+        homeInformationAllViewModel.getInformationHubs().observe(this) { result ->
             when (result) {
                 is Result.Success -> {
                     showLoadingInformationHub(false)
                     val data = result.data
                     binding.empty.llEmpty.visibility = View.GONE
-                    (binding.recyclerViewInformationHubAll.adapter as HomeInformationHubAllAdapter).updateData(data)
+                    (binding.recyclerViewInformationHubAll.adapter as HomeInformationHubAllAdapter).updateData(
+                        data
+                    )
                 }
+
                 is Result.Error -> {
                     showLoadingInformationHub(false)
-                    // Uncomment the line below if you want to show a Toast message
-                    // Toast.makeText(this, result.error, Toast.LENGTH_SHORT).show()
                 }
+
                 is Result.Loading -> {
                     showLoadingInformationHub(true)
                 }
+
                 is Result.Empty -> {
                     showLoadingInformationHub(false)
                     binding.empty.apply {
@@ -65,14 +68,17 @@ class HomeInformationAllActivity : AppCompatActivity() {
                     }
                 }
             }
-        })
+        }
     }
 
     private fun setupRecyclerViewInformationHub() {
         binding.recyclerViewInformationHubAll.apply {
             layoutManager = LinearLayoutManager(this@HomeInformationAllActivity)
             adapter = HomeInformationHubAllAdapter(emptyList()) { informationHub, _ ->
-                val intent = Intent(this@HomeInformationAllActivity, HomeDetailInformationHubActivity::class.java)
+                val intent = Intent(
+                    this@HomeInformationAllActivity,
+                    HomeDetailInformationHubActivity::class.java
+                )
                 val informationHubList = listOf(informationHub)
                 intent.putParcelableArrayListExtra("information_hub", ArrayList(informationHubList))
                 startActivity(intent)

@@ -69,30 +69,6 @@ class HomeViewModel(
         return getUserProfileResult
     }
 
-    fun getInformationHubs() {
-        viewModelScope.launch {
-            _informationHubs.value = Result.Loading
-            try {
-                val response = informationHubRepository.getInformationHub()
-                if (response.success == true) {
-                    _informationHubs.value = Result.Success(response.data ?: emptyList())
-                } else {
-                    _informationHubs.value = Result.Error(response.message ?: "Unknown Error")
-                }
-            } catch (e: HttpException) {
-                val jsonString = e.response()?.errorBody()?.string()
-                val errorBody = Gson().fromJson(jsonString, ApiResponse::class.java)
-                val errorMessage = errorBody.message
-                if (e.code().equals(404)) {
-                    _informationHubs.value = Result.Empty("Belum Ada Informasi")
-                }
-                _informationHubs.value = Result.Error(errorMessage!!)
-            } catch (e: Exception) {
-                _informationHubs.value = Result.Error(e.message ?: "Error Occurred")
-            }
-        }
-    }
-
     fun getNewPartner(): LiveData<Result<NewPartnerResponse>> {
         viewModelScope.launch {
             getNewPartnerResult.value = Result.Loading

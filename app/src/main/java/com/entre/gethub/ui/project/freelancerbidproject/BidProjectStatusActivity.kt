@@ -2,8 +2,12 @@ package com.entre.gethub.ui.project.freelancerbidproject
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.KeyEvent
+import android.view.KeyEvent.KEYCODE_BACK
 import android.view.View
 import android.widget.Toast
+import android.window.OnBackInvokedDispatcher
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -42,6 +46,28 @@ class BidProjectStatusActivity : AppCompatActivity() {
         }
     }
 
+    override fun getOnBackInvokedDispatcher(): OnBackInvokedDispatcher {
+        onBackPressedDispatcher.addCallback(
+            this /* lifecycle owner */,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    if (homeDetailProjectBidsFormId!!.equals(99)) {
+                        startActivity(
+                            Intent(
+                                this@BidProjectStatusActivity,
+                                MainActivity::class.java
+                            )
+                        )
+                        finish()
+                        return
+                    }
+                    finish()
+                }
+            })
+        return super.getOnBackInvokedDispatcher()
+    }
+
+
     private fun getMyProjectBids() {
         bidProjectStatusViewModel.getMyProjectBids().observe(this) { result ->
             if (result != null) {
@@ -49,7 +75,8 @@ class BidProjectStatusActivity : AppCompatActivity() {
                     is Result.Loading -> showLoading(true)
                     is Result.Success -> {
                         showLoading(false)
-                        binding.tvTotalMyProjectBids.text = result.data.data?.totalUsersBids.toString()
+                        binding.tvTotalMyProjectBids.text =
+                            result.data.data?.totalUsersBids.toString()
                         setupRecyclerView(result.data.data?.usersBid!!)
                     }
 
@@ -76,8 +103,14 @@ class BidProjectStatusActivity : AppCompatActivity() {
                 false
             )
             adapter = MyProjectBidsAdapter(myProjectBidList) { projectBid, _ ->
-                val intent = Intent(this@BidProjectStatusActivity, BidProjectStatusDetailActivity::class.java)
-                intent.putExtra(BidProjectStatusDetailActivity.EXTRA_PROJECT_BID_ID, projectBid.projectId)
+                val intent = Intent(
+                    this@BidProjectStatusActivity,
+                    BidProjectStatusDetailActivity::class.java
+                )
+                intent.putExtra(
+                    BidProjectStatusDetailActivity.EXTRA_PROJECT_BID_ID,
+                    projectBid.projectId
+                )
 
                 startActivity(intent)
             }

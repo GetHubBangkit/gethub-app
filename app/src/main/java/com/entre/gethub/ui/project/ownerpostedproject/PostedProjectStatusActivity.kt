@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import android.window.OnBackInvokedDispatcher
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -46,6 +48,22 @@ class PostedProjectStatusActivity : AppCompatActivity() {
 
             finish()
         }
+    }
+
+    override fun getOnBackInvokedDispatcher(): OnBackInvokedDispatcher {
+        onBackPressedDispatcher.addCallback(
+            this /* lifecycle owner */,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    if (postProjectId!!.equals(100)) {
+                        startActivity(Intent(this@PostedProjectStatusActivity, MainActivity::class.java))
+                        finish()
+                        return
+                    }
+                    finish()
+                }
+            })
+        return super.getOnBackInvokedDispatcher()
     }
 
     override fun onResume() {

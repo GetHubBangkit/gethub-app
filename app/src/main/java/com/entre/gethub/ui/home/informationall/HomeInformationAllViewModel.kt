@@ -13,34 +13,31 @@ class HomeInformationAllViewModel(
     private val informationHubRepository: InformationHubRepository
 ) : ViewModel() {
 
-    private val _informationHubs = MutableLiveData<Result<List<InformationHubResponse.Data>>>(Result.Loading)
-    val informationHubs: LiveData<Result<List<InformationHubResponse.Data>>> get() = _informationHubs
+    private val informationHubResult =
+        MutableLiveData<Result<List<InformationHubResponse.Data>>>(Result.Loading)
 
-    init {
-        getInformationHubs()
-    }
-
-    private fun getInformationHubs() {
+    fun getInformationHubs(): LiveData<Result<List<InformationHubResponse.Data>>> {
         viewModelScope.launch {
-            _informationHubs.value = Result.Loading
+            informationHubResult.value = Result.Loading
             try {
                 val response = informationHubRepository.getInformationHub()
                 if (response.success == true) {
-                    _informationHubs.value = Result.Success(response.data ?: emptyList())
+                    informationHubResult.value = Result.Success(response.data ?: emptyList())
                 } else {
-                    _informationHubs.value = Result.Error(response.message ?: "Unknown Error")
+                    informationHubResult.value = Result.Error(response.message ?: "Unknown Error")
                 }
             } catch (e: HttpException) {
                 val jsonString = e.response()?.errorBody()?.string()
                 val errorBody = Gson().fromJson(jsonString, ApiResponse::class.java)
                 val errorMessage = errorBody.message
                 if (e.code().equals(404)) {
-                    _informationHubs.value = Result.Empty("Belum Ada Informasi")
+                    informationHubResult.value = Result.Empty("Belum Ada Informasi")
                 }
-                _informationHubs.value = Result.Error(errorMessage!!)
+                informationHubResult.value = Result.Error(errorMessage!!)
             } catch (e: Exception) {
-                _informationHubs.value = Result.Error(e.message ?: "Error Occurred")
+                informationHubResult.value = Result.Error(e.message ?: "Error Occurred")
             }
         }
+        return informationHubResult
     }
 }
