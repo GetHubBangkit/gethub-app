@@ -78,8 +78,25 @@ class HomeKelolaMyGethubActivity : AppCompatActivity() {
         binding.editSertifikasi.setOnClickListener {
             startActivity(Intent(this, HomeKelolaMyGethubTambahSertifikasiActivity::class.java))
         }
-        binding.editSertifikasi.setOnClickListener {
-            startActivity(Intent(this, HomeKelolaMyGethubTambahSertifikasiActivity::class.java))
+        binding.framektp.setOnClickListener {
+            homeKelolaMyGetHubViewModel.getUserProfile().observe(this) { result ->
+                if (result is Result.Success) {
+                    val user = result.data.data
+                    user?.let {
+                        when {
+                            it.isVerifKtp == true -> {
+                                startActivity(Intent(this, HomeKelolaMyGethubScanKTPTerverifikasiActivity::class.java))
+                            }
+                            it.isVerifKtp == false && it.isVerifKtpUrl == null -> {
+                                startActivity(Intent(this, HomeKelolaMyGethubScanKTPActivity::class.java))
+                            }
+                            it.isVerifKtp == false && it.isVerifKtpUrl != null -> {
+                                startActivity(Intent(this, HomeKelolaMyGethubScanKTPMenungguVerifikasiActivity::class.java))
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
