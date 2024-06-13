@@ -6,6 +6,7 @@ import android.text.SpannableString
 import android.text.TextPaint
 import android.text.style.MetricAffectingSpan
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat.getColor
 import androidx.core.content.res.ResourcesCompat
@@ -17,6 +18,7 @@ import com.entre.gethub.databinding.ItemSelectUserBiddingBinding
 import com.entre.gethub.utils.Formatter
 
 class SelectUserBiddingAdapter(
+    private val project: PostedProjectDetailResponse.Data,
     private val userBiddingList: List<PostedProjectDetailResponse.UsersBidItem>,
     private val onSelectUserBid: (PostedProjectDetailResponse.UsersBidItem) -> Unit,
     private val onClickUserBid: (PostedProjectDetailResponse.UsersBidItem) -> Unit,
@@ -31,7 +33,7 @@ class SelectUserBiddingAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindItem(userBiddingList[position], onSelectUserBid)
+        holder.bindItem(project, userBiddingList[position], onSelectUserBid)
         holder.itemView.setOnClickListener { onClickUserBid(userBiddingList[position]) }
     }
 
@@ -40,6 +42,7 @@ class SelectUserBiddingAdapter(
     class ViewHolder(private val binding: ItemSelectUserBiddingBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bindItem(
+            project: PostedProjectDetailResponse.Data,
             userBidding: PostedProjectDetailResponse.UsersBidItem,
             onSelectUserBid: (PostedProjectDetailResponse.UsersBidItem) -> Unit
         ) {
@@ -54,6 +57,18 @@ class SelectUserBiddingAdapter(
                     .into(ivUserProfile)
                 tvProjectAmount.text = budgetBid
                 tvMessage.text = userBidding.message
+
+                if (userBidding.isPremium) {
+                    ivPremium.visibility = View.VISIBLE
+                }
+
+                if (userBidding.isVerifKtp) {
+                    ivVerified.visibility = View.VISIBLE
+                }
+
+                if (project.statusProject == "CLOSE" && userBidding.isSelected == false) {
+                    cvSelect.visibility = View.GONE
+                }
 
                 if (userBidding.isSelected == true) {
                     tvDetailProjectStatus.text = "Terpilih"
@@ -74,7 +89,10 @@ class SelectUserBiddingAdapter(
                 }
 
 
-                showUserSentiment(userBidding.fullName.toString(), sentiment = userBidding.sentimentFreelanceAnalisis.toString())
+                showUserSentiment(
+                    userBidding.fullName.toString(),
+                    sentiment = userBidding.sentimentFreelanceAnalisis.toString()
+                )
             }
         }
 

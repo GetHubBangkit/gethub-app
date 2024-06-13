@@ -112,6 +112,14 @@ class HomeDetailProjectBidsActivity : AppCompatActivity() {
                                 .load(projectBid.ownerProject.photo)
                                 .placeholder(R.drawable.profilepic2)
                                 .into(ivDetailProjectOwnerPic)
+
+                            if (projectBid.ownerProject.isPremium) {
+                                ivPremium.visibility = View.VISIBLE
+                            }
+
+                            if (projectBid.ownerProject.isVerifKtp) {
+                                ivVerified.visibility = View.VISIBLE
+                            }
                         }
 
                         binding.btnIkutBidding.setOnClickListener {

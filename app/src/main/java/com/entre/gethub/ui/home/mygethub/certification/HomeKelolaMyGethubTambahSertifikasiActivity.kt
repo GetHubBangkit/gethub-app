@@ -28,7 +28,7 @@ class HomeKelolaMyGethubTambahSertifikasiActivity : AppCompatActivity() {
     }
     private lateinit var homeKelolaMyGetHubTambahSertifikasiViewModel: HomeKelolaMyGethubTambahSertifikasiViewModel
     private var currentImageUri: Uri? = null
-    private var image: String? = null
+    private var imageUrl: String? = null
     private var selectedCategoryId: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,9 +69,8 @@ class HomeKelolaMyGethubTambahSertifikasiActivity : AppCompatActivity() {
             btnSimpan.setOnClickListener {
                 val title = titleTextField.editText?.text.toString()
 
-
-                if (title.isNotEmpty()  || image != null || selectedCategoryId != null) {
-                    addCertification(title,  image.toString(), selectedCategoryId.toString())
+                if (title.isNotEmpty() || imageUrl != null || selectedCategoryId != null) {
+                    addCertification(title, imageUrl.toString(), selectedCategoryId.toString())
                 }
             }
 
@@ -104,7 +103,10 @@ class HomeKelolaMyGethubTambahSertifikasiActivity : AppCompatActivity() {
     private fun initViewModel() {
         val factory = ViewModelFactory.getInstance(this)
         homeKelolaMyGetHubTambahSertifikasiViewModel =
-            ViewModelProvider(this, factory)[HomeKelolaMyGethubTambahSertifikasiViewModel::class.java]
+            ViewModelProvider(
+                this,
+                factory
+            )[HomeKelolaMyGethubTambahSertifikasiViewModel::class.java]
     }
 
     private fun getCategories() {
@@ -165,7 +167,7 @@ class HomeKelolaMyGethubTambahSertifikasiActivity : AppCompatActivity() {
                                 is Result.Loading -> showLoading(true)
                                 is Result.Success -> {
                                     showLoading(false)
-                                    image = result.data.data
+                                    imageUrl = result.data.data
                                     showToast("Gambar berhasil diunggah")
                                 }
 

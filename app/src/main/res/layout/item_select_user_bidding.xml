@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="20dp"
@@ -37,14 +38,37 @@
         <TextView
             android:id="@+id/tvUserJobName"
             style="@style/Nunito"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:text="Freelancer"
             android:textSize="10sp"
-            app:layout_constraintEnd_toStartOf="@id/cvSelect"
             app:layout_constraintStart_toEndOf="@id/ivUserProfile"
             app:layout_constraintTop_toBottomOf="@id/tvUserName" />
+
+        <ImageView
+            android:id="@+id/ivPremium"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_marginStart="10dp"
+            android:src="@drawable/ic_medal"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@id/tvUserJobName"
+            app:layout_constraintStart_toEndOf="@id/tvUserJobName"
+            app:layout_constraintTop_toTopOf="@id/tvUserJobName"
+            tools:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/ivVerified"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_marginStart="4dp"
+            android:src="@drawable/ic_verified"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@id/tvUserJobName"
+            app:layout_constraintStart_toEndOf="@id/ivPremium"
+            app:layout_constraintTop_toTopOf="@id/tvUserJobName"
+            tools:visibility="visible" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cvSentiment"

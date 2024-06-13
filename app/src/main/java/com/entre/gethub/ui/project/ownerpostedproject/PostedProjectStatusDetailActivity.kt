@@ -80,8 +80,17 @@ class PostedProjectStatusDetailActivity : AppCompatActivity() {
                             tvPostDate.text = project?.createdDate
                             tvUserBiddingTotalPerson.text = "${project?.totalBidders ?: 0} Orang"
                             tvUserBiddingTotalOnList.text = "${project?.totalBidders ?: 0} Orang"
+
+                            if (project?.ownerProject?.isPremium == true) {
+                                ivPremium.visibility = View.VISIBLE
+                            }
+
+                            if (project?.ownerProject?.isVerifKtp == true) {
+                                ivVerified.visibility = View.VISIBLE
+                            }
                         }
                         setupRecyclerViewUserBidding(
+                            project = project,
                             result.data.data?.usersBid ?: emptyList(),
                             project?.id.toString()
                         )
@@ -105,6 +114,7 @@ class PostedProjectStatusDetailActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerViewUserBidding(
+        project: PostedProjectDetailResponse.Data,
         userBiddingList: List<PostedProjectDetailResponse.UsersBidItem>,
         projectId: String
     ) {
@@ -115,6 +125,7 @@ class PostedProjectStatusDetailActivity : AppCompatActivity() {
                 false
             )
             adapter = SelectUserBiddingAdapter(
+                project = project,
                 userBiddingList,
                 onSelectUserBid = { usersBidItem ->
                     showDialog(
@@ -177,11 +188,7 @@ class PostedProjectStatusDetailActivity : AppCompatActivity() {
             .setTitle(title)
             .setMessage(message)
             .setPositiveButton("Yakin") { dialog, _ ->
-                val intent = Intent(this, OwnerSettlementActivity::class.java).apply {
-                    putExtra(OwnerSettlementActivity.EXTRA_PROJECT_ID, projectId)
-                    putExtra(OwnerSettlementActivity.EXTRA_FREELANCER_ID, freelancerId)
-                }
-                startActivity(intent)
+                chooseBidder(projectId, freelancerId)
                 dialog.dismiss()
             }
             .setNegativeButton("Batal") { dialog, _ ->

@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class PostedProjectDetailResponse(
 
     @field:SerializedName("data")
-    val data: Data? = null,
+    val data: Data,
 
     @field:SerializedName("success")
     val success: Boolean? = null,
@@ -47,7 +47,13 @@ data class PostedProjectDetailResponse(
         val message: String? = null,
 
         @field:SerializedName("username")
-        val username: String? = null
+        val username: String? = null,
+
+        @field:SerializedName("is_premium")
+        val isPremium: Boolean,
+
+        @field:SerializedName("is_verif_ktp")
+        val isVerifKtp: Boolean,
     )
 
     data class Category(
@@ -158,6 +164,12 @@ data class PostedProjectDetailResponse(
         val photo: String? = null,
 
         @field:SerializedName("username")
-        val username: String? = null
+        val username: String? = null,
+
+        @field:SerializedName("is_premium")
+        val isPremium: Boolean,
+
+        @field:SerializedName("is_verif_ktp")
+        val isVerifKtp: Boolean,
     )
 }

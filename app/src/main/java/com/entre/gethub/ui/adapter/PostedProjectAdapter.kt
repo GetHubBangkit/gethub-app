@@ -101,6 +101,14 @@ class PostedProjectAdapter(
             tvProjectAmount.text = Formatter.formatRupiah(project.selectedUserBid.budgetBid ?: 0)
 
             tvUserName.setOnClickListener { usernameTextListener(project) }
+
+            if (userBid?.isPremium == true) {
+                ivPremium.visibility = View.VISIBLE
+            }
+
+            if (userBid?.isVerifKtp == true) {
+                ivVerified.visibility = View.VISIBLE
+            }
         }
     }
 }

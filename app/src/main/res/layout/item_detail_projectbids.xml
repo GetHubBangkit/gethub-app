@@ -244,6 +244,30 @@ buka di butuhkan segera" />
                     app:layout_constraintTop_toBottomOf="@id/tvDetailProjectOwnerName"
                     tools:text="Software Enginer" />
 
+                <ImageView
+                    android:id="@+id/ivPremium"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/ic_medal"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="@id/tvDetailProjectOwnerProfession"
+                    app:layout_constraintStart_toEndOf="@id/tvDetailProjectOwnerProfession"
+                    app:layout_constraintTop_toTopOf="@id/tvDetailProjectOwnerProfession"
+                    tools:visibility="visible" />
+
+                <ImageView
+                    android:id="@+id/ivVerified"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_marginStart="4dp"
+                    android:src="@drawable/ic_verified"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="@id/tvDetailProjectOwnerProfession"
+                    app:layout_constraintStart_toEndOf="@id/ivPremium"
+                    app:layout_constraintTop_toTopOf="@id/tvDetailProjectOwnerProfession"
+                    tools:visibility="visible" />
+
                 <TextView
                     android:id="@+id/tvDetailProjectDatePost"
                     style="@style/Nunito.Black"
