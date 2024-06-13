@@ -19,6 +19,7 @@ import com.entre.gethub.data.remote.response.GraphDataResponse
 import com.entre.gethub.databinding.FragmentAnaliticBinding
 import com.entre.gethub.ui.adapter.AnaliticGethubDilihatAdapter
 import com.entre.gethub.ui.akun.membership.MembershipActivity
+import com.entre.gethub.ui.userpublicprofile.UserPublicProfileActivity
 import com.entre.gethub.utils.ViewModelFactory
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.components.XAxis
@@ -185,11 +186,10 @@ class AnaliticFragment : Fragment() {
 
     private fun setupRecyclerViewAnaliticGethubDilihat() {
         adapter = AnaliticGethubDilihatAdapter(viewersList) { viewer, position ->
-            Toast.makeText(
-                this@AnaliticFragment.requireContext(),
-                "Clicked on viewer: ${viewer.fullName}",
-                Toast.LENGTH_SHORT
-            ).show()
+            // Handle click event
+            val intent = Intent(requireContext(), UserPublicProfileActivity::class.java)
+            intent.putExtra("username", viewer.username)
+            startActivity(intent)
         }
         binding.recyclerViewGethubDilihat.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)

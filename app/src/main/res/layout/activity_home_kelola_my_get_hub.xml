@@ -131,7 +131,7 @@
             app:layout_constraintTop_toTopOf="@id/tvAbout"
             tools:visibility="visible" />
 
-     
+
         <HorizontalScrollView
             android:id="@+id/hsvGanti"
             android:layout_width="0dp"
