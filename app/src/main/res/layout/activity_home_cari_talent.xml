@@ -104,12 +104,11 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
-        <ImageView
+        <Button
             android:id="@+id/frameiconsearch"
             android:layout_width="50dp"
             android:layout_height="37dp"
-
-            android:src="@drawable/rectanglecari"
+            android:background="@drawable/rectanglecari"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -119,9 +118,8 @@
             android:id="@+id/iconsearch"
             android:layout_width="22dp"
             android:layout_height="22dp"
-
             android:layout_marginTop="8dp"
-            android:src="@drawable/icon_search"
+            android:background="@drawable/icon_search"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.953"
             app:layout_constraintStart_toStartOf="parent"

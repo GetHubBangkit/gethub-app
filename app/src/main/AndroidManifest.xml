@@ -239,6 +239,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/MainActivityTheme" />
         <activity
+            android:name=".ui.home.HomeDetailInformationHubHomeActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/MainActivityTheme" />
+        <activity
             android:name=".ui.splash.SplashActivity"
             android:exported="true"
             android:screenOrientation="portrait">
