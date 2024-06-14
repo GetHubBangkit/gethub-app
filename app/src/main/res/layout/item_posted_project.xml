@@ -54,6 +54,30 @@ Coffee Shop"
             app:layout_constraintTop_toBottomOf="@id/tvProjectTitle" />
 
         <TextView
+            android:id="@+id/tvStatusVerifikasiProject"
+            style="@style/Nunito.SemiBold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Status Verifikasi Project"
+            android:textSize="10sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvProjectDescription" />
+
+        <TextView
+            android:id="@+id/tvProjectVerificationStatus"
+            style="@style/Nunito.Black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/active"
+            android:text="Terverifikasi"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvStatusVerifikasiProject"
+            app:layout_constraintBottom_toBottomOf="@id/tvStatusVerifikasiProject"/>
+
+        <TextView
             android:id="@+id/tvProjectDeadline"
             style="@style/Nunito.SemiBold"
             android:layout_width="wrap_content"
@@ -62,7 +86,7 @@ Coffee Shop"
             android:text="Deadline: 10 Days"
             android:textSize="10sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvProjectDescription" />
+            app:layout_constraintTop_toBottomOf="@id/tvStatusVerifikasiProject" />
 
         <TextView
             android:id="@+id/tvProjectPostDate"
@@ -73,7 +97,8 @@ Coffee Shop"
             android:text="Dipost: 20-04-2024"
             android:textSize="10sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvProjectDescription" />
+            app:layout_constraintTop_toTopOf="@id/tvProjectDeadline"
+            app:layout_constraintBottom_toBottomOf="@id/tvProjectDeadline"/>
 
         <TextView
             android:id="@+id/tvProjectTotalUserBids"
@@ -159,7 +184,7 @@ Coffee Shop"
                 android:layout_height="12dp"
                 android:layout_marginStart="10dp"
                 android:src="@drawable/ic_medal"
-                android:visibility="invisible"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@id/tvUserJobName"
                 app:layout_constraintStart_toEndOf="@id/tvUserJobName"
                 app:layout_constraintTop_toTopOf="@id/tvUserJobName"
@@ -171,7 +196,7 @@ Coffee Shop"
                 android:layout_height="12dp"
                 android:layout_marginStart="4dp"
                 android:src="@drawable/ic_verified"
-                android:visibility="invisible"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@id/tvUserJobName"
                 app:layout_constraintStart_toEndOf="@id/ivPremium"
                 app:layout_constraintTop_toTopOf="@id/tvUserJobName"
