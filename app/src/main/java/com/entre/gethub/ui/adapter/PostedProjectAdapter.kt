@@ -54,6 +54,10 @@ class PostedProjectAdapter(
                 tvProjectDeadline.text = "Deadline ${project.deadlineDuration} Hari"
                 tvProjectTotalUserBids.text = "Total User Bids: ${project.totalBidders} User"
 
+                if (project.isActive != true) {
+                    tvProjectVerificationStatus.text = "Tidak terverifikasi"
+                }
+
                 when (project.statusProject) {
                     "CLOSE", "FINISHED" -> {
                         clProjectUserSelected.visibility = View.VISIBLE
