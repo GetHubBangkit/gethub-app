@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@color/background">
+
+    <ImageView
+        android:id="@+id/frame"
+        android:layout_width="match_parent"
+        android:layout_height="221dp"
+        android:src="@drawable/rectangle"
+        app:layout_constraintDimensionRatio="H,4:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvtitle"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_bold"
+        android:layout_marginTop="7dp"
+        android:text="Hackathon 2024 : Bank Indonesia"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:layout_marginStart="10dp"
+        app:fontFamily="@font/nunito_extrabold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.085"
+        app:layout_constraintStart_toEndOf="@+id/icon_back"
+        app:layout_constraintTop_toTopOf="@+id/frame"
+        app:layout_constraintVertical_bias="0.024" />
+
+    <ImageView
+        android:id="@+id/icon_back"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="26dp"
+        android:src="@drawable/icon_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.041"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/framedetail"
+        android:layout_width="373dp"
+        android:layout_height="286dp"
+        android:layout_marginTop="12dp"
+        android:src="@drawable/rectanglewhite2"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvtitle" />
+
+    <ImageView
+        android:id="@+id/ivimage"
+        android:layout_width="348dp"
+        android:layout_height="265dp"
+        android:src="@drawable/informationhub1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/framedetail"
+        app:layout_constraintHorizontal_bias="0.48"
+        app:layout_constraintStart_toStartOf="@+id/framedetail"
+        app:layout_constraintTop_toTopOf="@+id/framedetail"
+        app:layout_constraintVertical_bias="0.052" />
+
+    <LinearLayout
+        android:id="@+id/ListingProjectBid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="18dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/framedetail">
+
+        <TextView
+            android:id="@+id/tvKategori"
+            style="@style/Nunito.ExtraBold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kategori : "
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tvInputKategori"
+            style="@style/Nunito.ExtraBold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="Kompetisi"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvdesc"
+        android:layout_width="342dp"
+        android:layout_height="95dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="18dp"
+
+        android:text="Jelajahi potensi Anda dalam dunia Machine Learning
+dengan mengikuti lomba kami! Tunjukkan kepiawaian
+Anda dalam analisis data dan raih kesempatan
+untuk memenangkan hadiah menarik serta
+mendapatkan pengakuan sebagai ahli AI."
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        style="@style/Nunito"
+
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/framedetail" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
