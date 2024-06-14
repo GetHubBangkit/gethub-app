@@ -56,10 +56,10 @@ class HomeFragment : Fragment() {
         _binding = null
     }
 
-    override fun onResume() {
-        super.onResume()
-        // Tidak perlu memperbarui Reys Event di sini
-    }
+//    override fun onResume() {
+//        super.onResume()
+//
+//    }
 
     private fun setupClickListeners() {
         binding.ivCariTalent.setOnClickListener {
