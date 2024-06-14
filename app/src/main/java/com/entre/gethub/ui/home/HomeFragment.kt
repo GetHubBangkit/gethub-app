@@ -56,10 +56,10 @@ class HomeFragment : Fragment() {
         _binding = null
     }
 
-//    override fun onResume() {
-//        super.onResume()
-//
-//    }
+    override fun onResume() {
+        super.onResume()
+
+    }
 
     private fun setupClickListeners() {
         binding.ivCariTalent.setOnClickListener {
