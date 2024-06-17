@@ -23,7 +23,9 @@ class OnboardingActivity : AppCompatActivity() {
 
     private val descriptions = arrayOf(
         R.string.onboarding_desc_one,
-        R.string.onboarding_desc_two
+        R.string.onboarding_desc_two,
+        R.string.onboarding_desc_three,
+        R.string.onboarding_desc_four
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {

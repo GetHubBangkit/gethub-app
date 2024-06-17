@@ -35,9 +35,14 @@
     <string name="login_success">Login berhasil</string>
     <string name="image_succesfully_uploaded">Gambar berhasil diunggah</string>
     <string name="onboarding_heading_one">Simpan Kartu Bisnis\nDan Share Usaha Anda</string>
-    <string name="onboarding_heading_two">Beri Pekerjaan Dan Bidding\nProject yang Cocok</string>
+    <string name="onboarding_heading_two">Beri Project Dan Bidding\nProject yang Cocok</string>
+    <string name="onboarding_heading_three">Lindungi Diri Anda dari Penipuan\nKerja Sama Aman dan Bebas Penipuan</string>
+    <string name="onboarding_heading_four">Komunikasi Lebih Mudah Dan Aman Dengan fitur Chating DI GetHub</string>
     <string name="onboarding_desc_one">Scan Dan Simpan Kartu Bisnis Rekan Anda Lalu Buat Kartu Bisnis Dan Profil Website Anda Gratis! Sebarkan Kartu dan Profil Bisnis Anda Sekarang!</string>
-    <string name="onboarding_desc_two">Tawarkan Pekerjaan dan Temukan Penawaran yang Pas! Pilih Penawar yang Cocok dengan Kebutuhan Anda! Temukan Kemudahan Dalam Setiap Langkah</string>
+    <string name="onboarding_desc_two">Tawarkan Project dan Temukan Penawaran yang Pas! Pilih Penawar yang Cocok dengan Kebutuhan Anda! Temukan Kemudahan Dalam Setiap Langkah</string>
+    <string name="onboarding_desc_three">Garda terdepan Anda dalam melawan penipuan. Dengan teknologi canggih, secara otomatis memeriksa proyek-proyek untuk mengidentifikasi yang mencurigakan dan memberikan Anda ketenangan pikiran saat mengeksplorasi peluang baru</string>
+    <string name="onboarding_desc_four">Nikmati kemudahan berkomunikasi dengan rekan bisnis mu secara efisien dan aman menggunakan fitur chat di GitHub. Fitur ini tidak hanya memungkinkan Anda untuk berbicara dengan tim secara real-time, tetapi juga menjamin privasi dan keamanan data Anda. Dengan enkripsi canggih dan perlindungan data, Anda dapat berbagi informasi penting tanpa khawatir tentang keamanan.</string>
+
 
     <string name="sponsor_image_description">Sponsor</string>
     <string name="please_login_again">Silahkan login kembali</string>
