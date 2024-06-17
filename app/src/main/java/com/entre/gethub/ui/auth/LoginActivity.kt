@@ -45,15 +45,30 @@ class LoginActivity : AppCompatActivity() {
                 startActivity(Intent(this@LoginActivity, RegisterActivity::class.java))
             }
 
+            // Define a flag to track whether the user has ever input text
+            var hasUserInputText = false
+
             edEmail.doOnTextChanged { text, _, _, _ ->
-                if (text!!.isEmpty()) {
-                    edEmail.error = getString(R.string.field_couldnt_be_empty)
-                } else if (!text.contains("@")) {
-                    edEmail.error = getString(R.string.please_input_a_valid_email)
-                } else {
+                if (!hasUserInputText && text!!.isEmpty()) {
+                    // If user has never input text and the field is empty, do nothing
                     edEmail.error = null
+                } else {
+                    // If user has ever input text, update the flag
+                    if (text!!.isNotEmpty()) {
+                        hasUserInputText = true
+                    }
+
+                    // Set error messages based on the current text
+                    if (text.isEmpty()) {
+                        edEmail.error = getString(R.string.field_couldnt_be_empty)
+                    } else if (!text.contains("@")) {
+                        edEmail.error = getString(R.string.please_input_a_valid_email)
+                    } else {
+                        edEmail.error = null
+                    }
                 }
             }
+
 
             edPassword.doOnTextChanged { text, _, _, _ ->
                 if (text!!.isEmpty()) {
