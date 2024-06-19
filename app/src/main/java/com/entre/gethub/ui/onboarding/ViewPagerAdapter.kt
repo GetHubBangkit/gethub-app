@@ -15,13 +15,17 @@ class ViewPagerAdapter(var context: Context) : PagerAdapter() {
         R.drawable.onboarding1,
         R.drawable.onboarding2,
         R.drawable.onboarding3,
-        R.drawable.onboarding4
+        R.drawable.onboarding4,
+        R.drawable.onboarding5,
+        R.drawable.onboarding6
     )
     var headings = intArrayOf(
         R.string.onboarding_heading_one,
         R.string.onboarding_heading_two,
         R.string.onboarding_heading_three,
-        R.string.onboarding_heading_four
+        R.string.onboarding_heading_four,
+        R.string.onboarding_heading_five,
+        R.string.onboarding_heading_six
     )
 
     override fun getCount(): Int {
@@ -42,15 +46,7 @@ class ViewPagerAdapter(var context: Context) : PagerAdapter() {
         slidetitleimage.setImageResource(images[position])
         slideHeading.setText(headings[position])
 
-        // Set the text size based on the position
-        when (headings[position]) {
-            R.string.onboarding_heading_one, R.string.onboarding_heading_two -> {
-                slideHeading.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 25f)
-            }
-            R.string.onboarding_heading_three, R.string.onboarding_heading_four -> {
-                slideHeading.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 20f)
-            }
-        }
+
 
         container.addView(view)
         return view

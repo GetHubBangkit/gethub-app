@@ -25,7 +25,9 @@ class OnboardingActivity : AppCompatActivity() {
         R.string.onboarding_desc_one,
         R.string.onboarding_desc_two,
         R.string.onboarding_desc_three,
-        R.string.onboarding_desc_four
+        R.string.onboarding_desc_four,
+        R.string.onboarding_desc_five,
+        R.string.onboarding_desc_six
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
