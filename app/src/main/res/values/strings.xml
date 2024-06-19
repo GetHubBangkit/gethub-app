@@ -34,14 +34,25 @@
     <string name="about_field_couldn_be_empty">About tidak boleh kosong</string>
     <string name="login_success">Login berhasil</string>
     <string name="image_succesfully_uploaded">Gambar berhasil diunggah</string>
-    <string name="onboarding_heading_one">Simpan Kartu Bisnis\nDan Share Usaha Anda</string>
+    <string name="onboarding_heading_one">Deteksi Keaslian Project\nDengan Fraud Project Detection</string>
     <string name="onboarding_heading_two">Beri Project Dan Bidding\nProject yang Cocok</string>
-    <string name="onboarding_heading_three">Lindungi Diri Anda dari Penipuan\nKerja Sama Aman dan Bebas Penipuan</string>
-    <string name="onboarding_heading_four">Komunikasi Lebih Mudah Dan Aman Dengan fitur Chating DI GetHub</string>
-    <string name="onboarding_desc_one">Scan Dan Simpan Kartu Bisnis Rekan Anda Lalu Buat Kartu Bisnis Dan Profil Website Anda Gratis! Sebarkan Kartu dan Profil Bisnis Anda Sekarang!</string>
-    <string name="onboarding_desc_two">Tawarkan Project dan Temukan Penawaran yang Pas! Pilih Penawar yang Cocok dengan Kebutuhan Anda! Temukan Kemudahan Dalam Setiap Langkah</string>
-    <string name="onboarding_desc_three">Garda terdepan Anda dalam melawan penipuan. Dengan teknologi canggih, secara otomatis memeriksa proyek-proyek untuk mengidentifikasi yang mencurigakan dan memberikan Anda ketenangan pikiran saat mengeksplorasi peluang baru</string>
-    <string name="onboarding_desc_four">Nikmati kemudahan berkomunikasi dengan rekan bisnis mu secara efisien dan aman menggunakan fitur chat di GitHub. Fitur ini tidak hanya memungkinkan Anda untuk berbicara dengan tim secara real-time, tetapi juga menjamin privasi dan keamanan data Anda. Dengan enkripsi canggih dan perlindungan data, Anda dapat berbagi informasi penting tanpa khawatir tentang keamanan.</string>
+    <string name="onboarding_heading_three">Dapatkan Users Bids\nFreelancer Terbaik Di Gethub</string>
+    <string name="onboarding_heading_four">Scan Kartu Bisnis dan\nBagikan Portofolio Digital Kamu\ndengan Mudah</string>
+    <string name="onboarding_heading_five">Dapatkan Informasi Seminar, Pelatihan, Workshop, dan Acara yang Sesuai dengan Profesi Kamu</string>
+    <string name="onboarding_heading_six">Komunikasi Lebih Mudah Dan Aman\nDengan fitur Chating DI GetHub</string>
+    <string name="onboarding_desc_one">Garda terdepan Anda dalam melawan penipuan. Dengan
+teknologi canggih, secara otomatis memeriksa proyek-proyek
+untuk mengidentifikasi yang mencurigakan dan memberikan
+ Anda ketenangan pikiran saat mengeksplorasi peluang baru</string>
+    <string name="onboarding_desc_two">Tawarkan Pekerjaan dan Temukan Penawaran yang Pas!
+Pilih Penawar yang Cocok dengan Kebutuhan Anda!
+Temukan Kemudahan Dalam Setiap Langkah</string>
+    <string name="onboarding_desc_three">Gethub akan merekomendasikan freelancer yang sesuai dengan portofolio dan sertifikasi kategori proyek kamu. Rekomendasi diurutkan berdasarkan identitas terverifikasi, analisis sentimen review, total proyek yang pernah dikerjakan, dan status akun premium untuk mendapatkan freelancer terbaik.</string>
+    <string name="onboarding_desc_four">Scan Dan Simpan Kartu Bisnis Rekan Anda
+Lalu Buat Kartu Bisnis Dan Profil Website Anda Gratis!
+Sebarkan Kartu dan Profil Bisnis Anda Sekarang!</string>
+    <string name="onboarding_desc_five">Gethub akan mengrekomendasikan Seminar, Pelatihan, Workshop, dan Acara yang Sesuai dengan Profesi Kamu. Upgrade diri mu menjadi high value people bersama Gethub</string>
+    <string name="onboarding_desc_six">Nikmati kemudahan berkomunikasi dengan project owner atau freelancer melalui fitur chatting Gethub. Data dan privasi Anda dijamin aman di sini, memungkinkan kolaborasi tanpa hambatan dalam lingkungan yang terpercaya.</string>
 
 
     <string name="sponsor_image_description">Sponsor</string>
